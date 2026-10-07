@@ -14,3 +14,4 @@ desktop.ini
 # === 编辑器临时文件 ===
 *.tmp
 *~
+*.bak
