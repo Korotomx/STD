@@ -1,0 +1,94 @@
+---
+tags:
+  - 语法知识
+  - C++语法
+  - 线程Thread
+  - 并发Concurrency
+---
+
+# std::thread 线程库与 ROS2 中的应用 · 语法知识 · N038
+
+**时间:** 2026-10-07 17:15
+**标签:** #语法知识 #C++语法 #线程Thread #并发Concurrency
+**关联:** [[N023 main函数变厚 executor演进]] [[N006 stdbind与回调]] [[N035 动作服务端 create_server]]
+
+## 疑惑点
+
+turtle_patrol 服务端里 `handle_accepted` 用 `std::thread{...}.detach()` 起线程跑 execute。std::thread 到底怎么用？join / detach 啥区别？ROS2 里为什么非得这么写？
+
+## 实际情况
+
+### 一、std::thread 基础（C++）
+
+1. **创建即启动**：`std::thread t(func, args...)` —— 构造的同时就开新线程跑 `func`，不会等它。
+
+2. **join vs detach（关键抉择）**：
+
+   | 写法 | 含义 |
+   | ---- | ---- |
+   | `t.join()` | 当前线程**阻塞等待**子线程跑完，再往下走（回收资源） |
+   | `t.detach()` | **分离**：当前线程不等，子线程自己跑完自动回收；分离后不能再 join |
+
+3. **线程函数三种写法**：
+
+   ```cpp
+   void task(int n) { ... }                       // ① 普通函数
+   std::thread t1(task, 5);
+
+   std::thread t2(                                // ② 成员函数（要 this）
+     std::bind(&Cls::method, this, std::placeholders::_1), arg);
+
+   std::thread t3([this]{ this->execute(); });    // ③ lambda
+   ```
+
+4. `std::this_thread::sleep_for(1s)` —— 让**当前线程**睡一段时间。
+
+### 二、ROS2 应用：为什么 execute 丢进独立线程
+
+1. execute 里有 `rate.sleep()` 阻塞循环，一跑就是几秒到几分钟；
+2. 若直接放 executor 线程，会卡死整个节点的其他回调（呼应 [[N023 main函数变厚 executor演进]] 的「回调串行」）；
+3. 所以 `handle_accepted` 里 `std::thread{...}.detach()` 丢出去——**让阻塞长任务独占一个线程**：
+
+   ```cpp
+   void handle_accepted(shared_ptr<GoalHandlePatrol> gh) {
+     std::thread{
+       std::bind(&PatrolServer::execute, this, std::placeholders::_1),
+       gh}.detach();   // ← std::thread 构造 + detach，executor 立刻返回
+   }
+   ```
+
+4. **为什么 detach 而不是 join**：`handle_accepted` 本身跑在 executor 线程里，若 join 会阻塞 executor → 节点其他回调全卡死。detach 让 executor 马上返回、继续服务别的回调。
+
+### 三、配套两件套：Rate + rclcpp::ok()
+
+- `rclcpp::Rate rate(1.0)` + `rate.sleep()` —— 固定频率循环（每秒一次），sleep 会自动补齐到整周期；
+- `rclcpp::ok()` —— 每圈检查 ROS 是否还活着（Ctrl+C 后返回 false，循环退出）：
+
+   ```cpp
+   rclcpp::Rate rate(1.0);
+   while (rclcpp::ok() && elapsed < goal->duration) {   // ← rclcpp::ok() 是全局函数
+     ...
+     rate.sleep();
+   }
+   ```
+
+### 四、三种「并发」怎么选
+
+| 方式 | 适合场景 |
+| ---- | ---- |
+| `create_wall_timer` | 周期触发的**快**回调，executor 统一调度 |
+| `MultiThreadedExecutor` | 多个快回调并发（每个回调仍快进快出） |
+| 手写 `std::thread` | **一个阻塞长任务**独占线程（Action 的 execute） |
+
+> **Note（连接 / 深化）：**
+> - 连接：`std::bind` 打包成员函数见 [[N006 stdbind与回调]]；多线程 / 串行 / 数据竞争见 [[N023 main函数变厚 executor演进]]；Action 服务端用线程见 [[N035 动作服务端 create_server]]。
+> - 深化：detach 的线程里用了 `this`，前提是节点还在 spin、没被销毁；若节点可能提前析构，要小心悬空指针——这里靠 `rclcpp::ok()` 循环保证「ROS 还在就跑、ROS 停了就退」的时机。
+
+## 思考
+
+（留白 —— detach 之后，如果节点先析构了，子线程里访问 `this` 会发生什么？）
+
+## 总结
+
+**本质：** std::thread 用来「把一个阻塞的长任务丢到独立线程」，join=等、detach=不等；ROS2 里 Action 的 execute 正是「阻塞循环 + detach」——executor 负责快回调，独立线程负责长任务，两者分工。
+**标签:** #语法知识 #C++语法 #线程Thread #并发Concurrency

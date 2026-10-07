@@ -1,0 +1,273 @@
+# 学习笔记
+
+> 记录 ROS 2 学习中遇到的问题、疑惑及解答。每条用「编号 + 主题」作标题，带标签便于检索。
+
+**基础分类标签（可自动扩展，遇到新主题会自动添加）：**
+
+| 标签     | 含义                    |
+| ------ | --------------------- |
+| `#节点`  | 节点书写 / 结构             |
+| `#通信`  | 话题 / 服务 / 参数 / action |
+| `#QoS` | 服务质量                  |
+| `#构建`  | CMake / colcon / 依赖   |
+| `#概念`  | 基础概念 / 原理             |
+| `#工具`  | ros2 命令 / 工具          |
+| `#C++`  | C++ 语言特性（bind/lambda 等）|
+
+---
+
+## N001 · #节点 — rclcpp 节点基础书写骨架
+
+**日期:** 2026-10-03
+**标签:** #节点 #概念
+
+### 疑惑点
+一个标准 rclcpp 节点到底由哪些部分组成？为什么是「类 + 继承 Node」的写法？
+
+### 实际情况
+7 部分固定骨架：① 头文件 ② 类继承 `rclcpp::Node` ③ 构造函数 `Node("名字")` ④ 创建 publisher/subscription/timer ⑤ 回调函数 ⑥ 成员变量用 `SharedPtr` ⑦ main 四步。
+
+```cpp
+#include "rclcpp/rclcpp.hpp"
+
+class Talker : public rclcpp::Node {
+public:
+  Talker() : Node("talker") {
+    publisher_ = this->create_publisher<std_msgs::msg::String>("topic", 10);
+    timer_ = this->create_wall_timer(1s, std::bind(&Talker::timer_callback, this));
+  }
+private:
+  void timer_callback() { /* ... */ }
+  rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher_;
+  rclcpp::TimerBase::SharedPtr timer_;
+};
+
+int main(int argc, char ** argv) {
+  rclcpp::init(argc, argv);
+  rclcpp::spin(std::make_shared<Talker>());
+  rclcpp::shutdown();
+  return 0;
+}
+```
+
+要点：节点名（`"talker"`）和类名（`Talker`）是两回事；回调函数从不手动调用；没有 `spin` 节点启动后立刻退出。
+
+**⑤⑥⑦ 详细拆解：**
+
+- **⑤ 回调函数** —— 被动执行：你写好逻辑，框架在合适时机自动调用，你从不手动调（talker 由定时器触发、listener 由收消息触发）。
+- **⑥ 成员变量用 SharedPtr** —— 智能指针自动释放资源；`_` 后缀表示成员变量。**必须是成员变量（不能是局部变量）**：回调里要用它，它的生命周期要和节点一样长；局部变量会在构造函数结束后销毁，回调再去用就会崩。
+- **⑦ main 四步** —— `init`（初始化）→ `make_shared<Talker>()` + `spin`（创建节点并进入事件循环，阻塞直到 Ctrl+C）→ `shutdown`（收尾）。没有 `spin` 节点启动后立刻退出。
+
+### 思考
+（留白 —— 试着不看模板默写一遍骨架，并解释每一部分的作用）
+
+---
+
+## N002 · #QoS — create_publisher 里的 10 是什么
+
+**日期:** 2026-10-03
+**标签:** #QoS #概念
+
+### 疑惑点
+`create_publisher<...>("topic", 10)` 里的 `10` 是什么？Transient Local 会不会占用这个 QoS 的 10？
+
+### 实际情况
+`10` = **Depth（队列深度）**，完整含义是 "Keep Last 10"（队列最多保留最近 10 条）。它只是 QoS 多个维度之一，其余维度用默认值：`Reliable + Volatile + Keep Last + Depth=10`。
+
+| QoS 维度 | 作用 | 默认 | 其他 |
+|---------|------|------|------|
+| Reliability | 消息能不能丢 | Reliable | Best Effort |
+| Durability | 晚到订阅者能否拿历史 | Volatile | Transient Local |
+| History | 队列存几条 | Keep Last | Keep All |
+| Depth | 队列深度 | 10 | 任意 |
+
+`10`（Depth）和 Transient Local（Durability）是**两个独立维度**，互不占用。默认 Volatile = 订阅者只能收到订阅之后的消息。
+
+### 思考
+（留白 —— 可动手试一次 Transient Local，验证晚到的订阅者能否收到历史消息）
+
+---
+
+## N003 · #概念 — source 有什么作用
+
+**日期:** 2026-10-03
+**标签:** #概念 #工具
+
+### 疑惑点
+`source setup.bash` 到底做了什么？为什么每次开新终端都要重新 source？
+
+### 实际情况
+- `source xxx.bash` = 在当前终端进程里执行该文件，把里面的环境变量、别名加载进来。
+- `source /opt/ros/lyrical/setup.bash` → 让终端能找到 `ros2` 命令和 ROS 的库。
+- `source ~/dev_ws/install/setup.bash` → 让你自己 build 的包能被 `ros2 run` 找到。
+- **环境变量是「进程级」的**：每个终端是独立进程，新终端不会继承上一个终端 source 的结果，所以每次都要重新加载（除非写进 `.bashrc` 自动加载）。
+
+### 思考
+（留白 —— 可以 `cat ~/.bashrc` 看看自己已经自动加载了哪些 source）
+
+---
+
+## N004 · #构建 — 工作空间 vs 包（build/install/log 是 workspace 级别）
+
+**日期:** 2026-10-03
+**标签:** #构建 #概念
+
+### 疑惑点
+`build/install/log` 只对一个项目（包）生效吗？要在同一个工作空间做多个包怎么办？
+
+### 实际情况
+- `build/install/log` 是**工作空间（workspace）级别**，不是单个包级别。
+- 一个 ws 的 `src/` 下可以放多个包，它们共享这一套 build/install/log，按包名自动分子目录。
+- `colcon build` → 构建 src/ 下所有包；`colcon build --packages-select xxx` → 只构建指定包。
+- 只有**完全独立**的项目才分开建多个 ws（各自一套 build/install/log）。
+
+### 思考
+（留白 —— 想一想：如果 project2 要使用 project1 定义的消息，它们该放同一个 ws 还是分开？）
+
+---
+
+## N005 · #构建 — CMake 的注释是 # 不是 //
+
+**日期:** 2026-10-03
+**标签:** #构建
+
+### 疑惑点
+在 CMakeLists 里用 `//` 写注释，为什么会报 `Parse error ... "//"`？
+
+### 实际情况
+- CMake 的注释符号是 `#`（`//` 是 C/C++ 的注释，CMake 不认）。
+- 写 `find_package(rclcpp REQUIRED) // 注释` 会报 `Parse error`。
+- 正确写法：`find_package(rclcpp REQUIRED)  # 注释`。
+
+### 思考
+（留白 —— 留意 CMake 文件里 # 和 C++ 文件里 // 的区别）
+
+---
+
+## N006 · #C++ — 回调函数、std::bind 与 lambda
+
+**日期:** 2026-10-03
+**标签:** #C++ #节点
+
+### 疑惑点
+// timer_ = this->create_wall_timer(1s, std::bind(&Talker::timer_callback, this));
+
+回调函数为什么要把成员函数和对象(this)绑在一起(std::bind)？为什么不直接写个外围函数、满足条件就执行成员函数？lambda 表达式怎么拆解？
+
+### 实际情况
+- 成员函数隐含 `this` 指针，调用时必须知道"是哪个对象"。
+- `create_wall_timer(周期, 回调)` 需要一个"能独立调用"的东西(callable)，到点就调用它。
+- `std::bind(&Talker::timer_callback, this)` = 把「成员函数 + this」打包成可调用对象，等价于"到点执行 `this->timer_callback()`"。
+- 这个 bind 出来的对象**就是**那个"外围函数"——到点被调用时执行一次成员函数。
+- 成员函数指针（`&Talker::timer_callback`）**不是函数**，不能直接 `()` 调用，必须 `(obj.*fp)()` 带上对象。
+- `std::bind` 返回的是**函数对象（functor）**——内部存 this + 成员函数指针、重载 `operator()` 的对象，不是函数指针。
+- C++ 把"能被 `()` 调用的东西"统称 **callable**：函数指针、函数对象、lambda。`create_wall_timer` 要的就是 callable。
+- 澄清：`this->func()` 能调用（`this` 就是对象）；而成员函数指针 `&Class::func` 只是"函数的标识"，不含"哪个对象"，所以不能直接 `()` 调用。`create_wall_timer` 不在类内部、没有 `this`，所以必须 bind 把 `this` 一起交过去。
+- 多个对象调同一方法：方法代码内存里只有一份（共享），但数据（`this` 指向的成员变量）每个对象各自一份，互不干扰——这不是线程问题。
+- 纠正：成员函数指针需要指定对象，这跟"父类/继承"**无关**——本质是"成员函数 vs 自由函数"的区别。任何类的成员函数指针都不含对象信息（普通类也一样，如 `class A` 的 `&A::f` 也不能直接 `()` 调）。
+
+### 思考
+（留白 —— 试着说出 std::bind 返回的到底是什么类型）
+
+回调函数是一种被动执行的函数,可以利用特定的结构规定好我的条件是什么?触发的对象是?触发的函数效果是什么?
+此处的bind是把一个类下对象函数和这个对象进行绑定(本质上有了这两个才知道怎么执行).类定义要求这个绑定是有对应关系的,不然同时调用而不拆开会有线程问题
+
+
+---
+
+## N007 · #C++ — lambda 表达式写法
+
+**日期:** 2026-10-03
+**标签:** #C++ #节点
+
+### 疑惑点
+lambda 表达式到底怎么写？各种捕获列表 `[]`、`[this]`、`[=]`、`[&]` 分别是什么意思？
+
+### 实际情况
+lambda 是 C++11 的"匿名函数"，可以替代 `std::bind`，写法更直观：
+
+```cpp
+// bind 写法（老）
+std::bind(&Talker::timer_callback, this)
+
+// lambda 写法（等价）
+[this]() { this->timer_callback(); }
+```
+
+**完整语法：**
+
+```cpp
+[捕获列表](参数列表) -> 返回类型 { 函数体 }
+```
+
+- `-> 返回类型` 可省略，编译器自动推导。
+
+**捕获列表常见形式：**
+
+| 写法 | 含义 |
+|------|------|
+| `[]` | 不捕获任何外部变量 |
+| `[this]` | 捕获 this，可访问成员 |
+| `[=]` | 按值捕获所有用到的变量（拷贝）|
+| `[&]` | 按引用捕获所有用到的变量 |
+| `[x]` | 按值捕获变量 x |
+| `[&x]` | 按引用捕获变量 x |
+
+### 思考
+（留白 —— 把 listener.cpp 里的 std::bind 改成 lambda，试试用 [this]）
+
+---
+
+## N008 · #节点 — spin 的终止方式
+
+**日期:** 2026-10-03
+**标签:** #节点 #概念
+
+### 疑惑点
+除了 Ctrl+C，还有什么方法会导致 spin 终止？
+
+### 实际情况
+**优雅终止（spin 正常返回、走 shutdown 清理）：**
+- SIGINT（Ctrl+C，signal 2）—— 终端按 Ctrl+C
+- SIGTERM（signal 15）—— `kill <pid>`、`timeout` 命令默认发这个
+- `rclcpp::shutdown()` —— 代码里主动调用（回调里、另一线程里），触发全局关闭
+
+**非优雅终止（进程直接死、不清理）：**
+- SIGKILL（`kill -9`）—— 强制杀，无法被捕获
+
+rclcpp 默认注册 SIGINT 和 SIGTERM 两个信号处理器，收到后触发全局关闭，spin 返回。
+
+### 思考
+（留白 —— 试试在回调里调 rclcpp::shutdown()，让节点满足某条件时自己退出）
+
+---
+
+## N009 · #概念 — spin 内部：Executor 事件循环与回调驱动模型
+
+**日期:** 2026-10-03
+**标签:** #概念 #节点
+
+### 疑惑点
+main 里的 `rclcpp::spin()` 到底在干嘛？程序没有 `while(true)`，那些回调函数（`timer_callback` / `pose_callback`）是怎么被自动触发的？为什么它们能「自己跑起来」？
+
+### 实际情况
+`rclcpp::spin(node)` 内部藏着一个**单线程 Executor**，它是整个程序的发动机。它不神秘，就是一个循环，反复干三件事：
+
+```
+while (还没 shutdown) {
+    ① 等 —— 直到「有消息到达」或「有定时器到期」；
+    ② 把这些事件对应的回调收集起来、排队；
+    ③ 按顺序逐个调用回调；  ← pose_callback / timer_callback 在这里被调
+}
+```
+
+这就是**回调驱动模型**：你的程序没有显式循环、没有「先 A 再 B 再 C」的顺序，而是「事件发生 → executor 排队 → 回调被调 → 回调里改状态/发消息 → 回到等待」。
+
+**三个必须记住的事实：**
+
+1. **回调是串行的** —— 单线程 executor 下，同一时刻只执行一个回调。`pose_callback` 跑到一半时 `timer_callback` 绝不会插进来抢。所以共享成员变量（如 `pose_count_`）不用加锁。
+2. **回调要快进快出** —— 回调里若 sleep 1 秒，期间其他回调全在排队干等，导致消息积压、定时器延迟。耗时操作绝不能放进回调。
+3. **状态靠成员变量传递** —— 回调之间不互相调用，而是通过读写成员变量（如 `pose_count_`）共享状态。
+
+### 思考
+（留白 —— 如果往 timer_callback 里加一句 sleep(500ms)，预测会发生什么，再动手验证）
