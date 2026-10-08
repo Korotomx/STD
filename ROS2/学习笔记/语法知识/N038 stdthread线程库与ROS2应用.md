@@ -45,7 +45,7 @@ turtle_patrol 服务端里 `handle_accepted` 用 `std::thread{...}.detach()` 起
 
 ### 二、ROS2 应用：为什么 execute 丢进独立线程
 
-1. execute 里有 `rate.sleep()` 阻塞循环，一跑就是几秒到几分钟；
+1. execute 里有 `rate.sleep()` 阻塞循环，一跑就是几秒到几分钟；(这种阻塞函数(引起执行流停滞的函数)一般都涉及系统层面的调用(具有速度差), .sleep, .recv, .read等)
 2. 若直接放 executor 线程，会卡死整个节点的其他回调（呼应 [[N023 main函数变厚 executor演进]] 的「回调串行」）；
 3. 所以 `handle_accepted` 里 `std::thread{...}.detach()` 丢出去——**让阻塞长任务独占一个线程**：
 
