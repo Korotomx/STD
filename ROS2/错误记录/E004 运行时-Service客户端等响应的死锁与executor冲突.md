@@ -37,4 +37,4 @@ client_->async_send_request(request,
 
 响应到了自动回调，不阻塞、不额外 spin。
 
-> **Note（关联）：** executor 单线程串行见 [[N009 Executor事件循环]]；三种等响应方式的使用场景见 [[N019 客户端实现 create_client]]。
+> **Note（关联）：** executor 单线程串行见 [[N009 Executor事件循环]]；三种等响应方式的使用场景见 [[N019 客户端实现 create_client]]；死锁本质是「同步阻塞」（主流程 `get()` 卡死 executor），见 [[N042 同步异步与阻塞非阻塞]]。
