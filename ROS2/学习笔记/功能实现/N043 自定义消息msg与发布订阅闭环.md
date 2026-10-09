@@ -52,7 +52,51 @@ ROS2 自带消息（Twist / Pose…）是通用的，但我的项目有自己的
    status.x = msg->x;
    ```
 
-4. **命名规则（和 .srv/.action 一致）：** `.msg` 文件名大驼峰 `TurtleStatus.msg` → 类名 `TurtleStatus`；字段名 snake_case `linear_vel` → 成员变量 `msg->linear_vel`。
+4. **命名规则详解（和 .srv/.action 一致）。** 从 `.msg` 到 C++ 类型，四个层面的命名各有规则：
+
+   | 层面 | 规则 | 例子（TurtleStatus.msg） |
+   |---|---|---|
+   | `.msg` 文件名 | PascalCase（大驼峰） | `TurtleStatus.msg` |
+   | 生成的头文件名 | snake_case（小写下划线） | `turtle_status.hpp` |
+   | C++ 类名 | PascalCase（和 .msg 一致） | `TurtleStatus` |
+   | C++ 命名空间 | `包名::类型目录::类名` | `turtle_status::msg::TurtleStatus` |
+
+   字段名是 snake_case：`.msg` 里写 `linear_vel`，成员变量就是 `msg->linear_vel`。
+
+   - **头文件路径为什么有两个包名：**
+
+     ```text
+     install/turtle_status/include/turtle_status/turtle_status/msg/turtle_status.hpp
+                              └──────┬──────┘└──────┬──────┘└─┬─┘└──────┬──────┘
+                                第①层包名     第②层包名   类型   头文件
+     ```
+
+     第①层 `turtle_status/`（紧跟 include 后）= ament 安装布局，`include/<包名>/` 是导出给使用者的 include 根；第②层 `turtle_status/` = 对应命名空间第一层（`namespace turtle_status`），目录跟着命名空间走；`msg/` = 命名空间第二层（srv 就是 `srv/`、action 就是 `action/`）。**第一个是「安装/导出约定」，第二个是「命名空间的目录映射」，两者撞名纯属巧合（都叫包名）。**
+
+   - **include 为什么只写一个包名：**
+
+     ```cpp
+     #include "turtle_status/msg/turtle_status.hpp"   // 只写一个 turtle_status
+     ```
+
+     因为编译器的 include 搜索根是 `install/turtle_status/include/turtle_status/`（多一层包名），在这个根下拼 `turtle_status/msg/...` 才正好命中 `.../turtle_status/turtle_status/msg/...`。这个「多一层」的 include 根由 CMake target 导出（`${包名}_TARGETS` / `rosidl_get_typesupport_target`）。
+
+   - **生成的 `.hpp` 是「汇总头文件」**，自己不定义类，只 include detail 里四个文件（`__struct` 结构 / `__builder` / `__traits` / `__type_support` 序列化）。真正的结构体在 `detail/turtle_status__struct.hpp`：
+
+     ```cpp
+     namespace turtle_status {
+     namespace msg {
+     struct TurtleStatus_ {               // ← 内部名带下划线后缀
+       std::string name;
+       float x, y, theta, linear_vel;
+       bool alive;
+     };
+     using TurtleStatus = TurtleStatus_;  // ← 公开名不带下划线（别名）
+     }  // namespace msg
+     }  // namespace turtle_status
+     ```
+
+     内部 struct 叫 `TurtleStatus_`（下划线后缀），最后 `using TurtleStatus = TurtleStatus_;` 暴露成你用的 `TurtleStatus`——「内部名避嫌、公开名整洁」。
 
 5. **接口在包内（dev_ws 惯例）vs 独立接口包（ros2_ws 惯例）。** 两种组织方式都合法：
 
