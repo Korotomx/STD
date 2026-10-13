@@ -4,12 +4,13 @@ tags:
   - C++语法
   - 线程Thread
   - 并发Concurrency
+  - Rate频率
 ---
 
 # std::thread 线程库与 ROS2 中的应用 · 语法知识 · N038
 
 **时间:** 2026-10-07 17:15
-**标签:** #语法知识 #C++语法 #线程Thread #并发Concurrency
+**标签:** #语法知识 #C++语法 #线程Thread #并发Concurrency #Rate频率
 **关联:** [[N023 main函数变厚 executor演进]] [[N006 stdbind与回调]] [[N035 动作服务端 create_server]]
 
 ## 疑惑点
@@ -68,6 +69,18 @@ turtle_patrol 服务端里 `handle_accepted` 用 `std::thread{...}.detach()` 起
    rclcpp::Rate rate(1.0);
    while (rclcpp::ok() && elapsed < goal->duration) {   // ← rclcpp::ok() 是全局函数
      ...
+     rate.sleep();
+   }
+   ```
+
+- **Rate vs `std::this_thread::sleep_for`**：`rate.sleep()` 是「睡到**下一拍**」——按构造周期（如 10Hz=0.1s）往后补，循环体花了多久就少睡多久，**平均频率稳定**；`sleep_for(0.1s)` 是「睡死 0.1s」，循环体耗时会让实际周期变长（0.1s + 体耗时），频率会漂。
+
+- **实际用法（画圆 / 画方节点）**：`rclcpp::Rate rate(10.0)` 起 10Hz 循环**持续重发** cmd_vel——这台 turtlesim 的海龟约 1s 收不到 cmd_vel 就会自动停下，不能「发一次就干等」，要每拍都发：
+
+   ```cpp
+   rclcpp::Rate rate(10.0);        // 10Hz = 每 0.1s 一拍
+   while (rclcpp::ok()) {
+     vel_pub_->publish(msg);        // 每拍都发一次
      rate.sleep();
    }
    ```
