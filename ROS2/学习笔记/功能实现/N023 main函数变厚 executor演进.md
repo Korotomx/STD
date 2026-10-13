@@ -5,12 +5,13 @@ tags:
   - Spin
   - Node节点
   - 多线程
+  - Publisher发布者
 ---
 
 # main 函数变厚 · executor 演进 · 功能实现 · N023
 
 **时间:** 2026-10-05 16:03（2026-10-06 深化）
-**标签:** #功能实现 #Executor执行器 #Spin #Node节点 #多线程
+**标签:** #功能实现 #Executor执行器 #Spin #Node节点 #多线程 #Publisher发布者
 **关联:** [[N009 Executor事件循环]] [[N015 话题通信的端到端延迟]] [[N001 节点基础书写骨架]] · [[N029 turtle_painter参数中转节点拆解]]
 
 ## 疑惑点
@@ -18,6 +19,34 @@ tags:
 `rclcpp::spin(node)` 那么简洁，为什么真实项目里 main 会写得很「厚」？
 
 ## 实际情况
+
+### 0. 纯发布节点：连 spin 都可以省（2026-10-14 深化）
+
+`spin` / executor 处理的是「**进**」——订阅回调、服务 / 动作服务端、定时器回调。**纯发布节点**只往外 `publish`，不订阅、不提供服务、不用定时器；`publish` 是同步写进 DDS，**不依赖 executor**，所以 main 里可以**直接调方法**跑逻辑，根本不用 spin：
+
+```cpp
+int main(int argc, char ** argv) {
+  rclcpp::init(argc, argv);
+  auto node = std::make_shared<DrawCircle>();
+  node->draw_circle();   // 方法内 while (rclcpp::ok()) + rate.sleep() 持续发
+  rclcpp::shutdown();
+  return 0;
+}
+```
+
+要点：
+
+- **spin 管「进」，publish 管「出」**：出不依赖 spin。只要节点要「收」东西（订阅 pose、起服务端、写定时器回调），就必须 spin，否则回调永远不触发。
+- **Ctrl-C 仍有效**：`rclcpp::init()` 装的 SIGINT handler 不依赖 spin，`rclcpp::ok()` 照样在 Ctrl-C 变 false，while 循环能退出。
+- **三种「周期发」写法**：
+
+| 写法 | 阻塞? | 适合 |
+| ---- | ---- | ---- |
+| main 直接调方法（while + rate.sleep） | 阻塞 main | 纯发布、跑一段就完 / 死循环，最简 |
+| 定时器 `create_wall_timer` | 不阻塞（回调里发） | 更 ROS 风格，节点还要干别的 |
+| `rclcpp::spin(node)` | 阻塞、等回调 | 有订阅 / 服务 / 动作 / 定时器时 |
+
+> **Note（连接 / 深化）：** 画圆 / 画方节点就是「纯发布」，main 里直接 `node->draw_*()` 就够；进阶任务一旦要订阅 `/B/pose` 追目标，就必须改回 spin / executor（见本页「1~3」）。
 
 ### 1. spin 是「单节点单线程」的快捷方式
 
@@ -114,4 +143,4 @@ executor 的线程模型：
 ## 总结
 
 **本质：** `spin(node)` 是单节点单线程的快捷方式；项目复杂后要手动 executor（`add_node` 多节点、`MultiThreadedExecutor` 多线程），main 因此变厚；多线程带来并行能力，也带来数据竞争代价。
-**标签:** #功能实现 #Executor执行器 #多线程
+**标签:** #功能实现 #Executor执行器 #多线程 #Publisher发布者
