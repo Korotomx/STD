@@ -6,12 +6,14 @@ tags:
   - Topic话题
   - Publisher发布者
   - Subscriber订阅者
+  - 命令行CLI
+  - Lyrical差异
 ---
 
 # 自定义消息 .msg 与发布订阅闭环 · 功能实现 · N043
 
 **时间:** 2026-10-09 21:26
-**标签:** #功能实现 #消息类型 #接口Interface #Topic话题 #Publisher发布者 #Subscriber订阅者
+**标签:** #功能实现 #消息类型 #接口Interface #Topic话题 #Publisher发布者 #Subscriber订阅者 #命令行CLI #Lyrical差异
 **关联:** [[N017 Service概念与srv接口]] [[N034 Action概念与action接口]] [[N022 geometry_msgs几何消息包]]
 
 ## 疑惑点
@@ -151,11 +153,33 @@ ROS2 自带消息（Twist / Pose…）是通用的，但我的项目有自己的
    | 服务 .srv | TeleportTurtle.srv | 2 段(---) | 一问一答 | srv::TeleportTurtle |
    | 动作 .action | Patrol.action | 3 段(---×2) | 带反馈长任务 | action::Patrol |
 
+8. **如何自查一个接口类型名（别靠记忆 / 旧教程）。** 命名规则再熟，发行版之间也可能变——直接问系统最靠谱：
+
+   | 方法 | 命令 | 说明 |
+   |---|---|---|
+   | 列出所有接口 | `ros2 interface list` | 看某包到底有哪些 msg / srv / action |
+   | 看定义 | `ros2 interface show <包>/msg/<名>` | 写错包名会报「找不到资源」 |
+   | 看运行中的真实类型 | `ros2 topic echo --once <话题>` | 输出第一行 type 就是权威 |
+   | 找头文件 | `find /opt/ros/lyrical/include -name 'pose.hpp'` | 路径里的 `/msg/` 决定命名空间 |
+
+   - **ROS1 vs ROS2**：ROS2 类型永远带中间层 `::msg::` / `::srv::` / `::action::`；ROS1 没有这一层（`geometry_msgs::Twist`）。命令行 `/` ↔ 代码 `::` ↔ 头文件路径，三者一一对应（见点 4 的表）。
+
+   - **实测抓到 Lyrical 差异**：turtlesim 的接口在 Lyrical 里被拆到独立包 `turtlesim_msgs`（旧发行版如 Humble 里接口本在 `turtlesim` 包内）：
+
+     ```bash
+     ros2 interface list | grep -i turtle
+     # turtlesim_msgs/msg/Pose   turtlesim_msgs/msg/Color
+     # turtlesim_msgs/srv/Spawn  Kill  SetPen  TeleportAbsolute  TeleportRelative
+     # turtlesim_msgs/action/RotateAbsolute
+     ```
+
+     所以 `turtlesim_msgs::msg::Pose` 才对，`turtlesim::msg::Pose` 反而查不到（`ros2 interface show turtlesim/msg/Pose` 报「找不到资源」）。**这正是「靠自查命令、别靠旧教程」的活例子。**
+
 ## 思考
 
 （留白 —— 如果 .msg 里定义一个字段类型是另一个自定义消息，CMake 里要不要额外声明依赖？生成类的头文件路径里为什么会有两个包名 `turtle_status/turtle_status/msg/...`？）
 
 ## 总结
 
-**本质：** 自定义消息 = 自己写一个 `.msg` 文件（一包字段），CMake 里交给 `rosidl_generate_interfaces` 自动生成 C++/Python 类，然后像内置消息一样发布/订阅。dev_ws 惯例是把接口和节点放同一个包（`rosidl_get_typesupport_target` 链接），ros2_ws 惯例是独立接口包（find_package 链接）。三种接口里 .msg 是单向的，.srv 一问一答、.action 带反馈，至此接口体系齐全。
-**标签:** #功能实现 #消息类型 #接口Interface #Topic话题
+**本质：** 自定义消息 = 自己写一个 `.msg` 文件（一包字段），CMake 里交给 `rosidl_generate_interfaces` 自动生成 C++/Python 类，然后像内置消息一样发布/订阅。dev_ws 惯例是把接口和节点放同一个包（`rosidl_get_typesupport_target` 链接），ros2_ws 惯例是独立接口包（find_package 链接）。三种接口里 .msg 是单向的，.srv 一问一答、.action 带反馈，至此接口体系齐全。类型名拿不准就用 `ros2 interface list` / `show` / `topic echo --once` 自查——Lyrical 里 turtlesim 接口被拆到独立包 `turtlesim_msgs`，靠旧教程会记错。
+**标签:** #功能实现 #消息类型 #接口Interface #Topic话题 #命令行CLI #Lyrical差异
