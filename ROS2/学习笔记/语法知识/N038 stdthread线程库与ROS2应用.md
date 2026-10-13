@@ -5,12 +5,14 @@ tags:
   - 线程Thread
   - 并发Concurrency
   - Rate频率
+  - 时间Time
+  - 引用传递Reference
 ---
 
 # std::thread 线程库与 ROS2 中的应用 · 语法知识 · N038
 
 **时间:** 2026-10-07 17:15
-**标签:** #语法知识 #C++语法 #线程Thread #并发Concurrency #Rate频率
+**标签:** #语法知识 #C++语法 #线程Thread #并发Concurrency #Rate频率 #时间Time #引用传递Reference
 **关联:** [[N023 main函数变厚 executor演进]] [[N006 stdbind与回调]] [[N035 动作服务端 create_server]]
 
 ## 疑惑点
@@ -97,6 +99,41 @@ turtle_patrol 服务端里 `handle_accepted` 用 `std::thread{...}.detach()` 起
 > - 连接：`std::bind` 打包成员函数见 [[N006 stdbind与回调]]；多线程 / 串行 / 数据竞争见 [[N023 main函数变厚 executor演进]]；Action 服务端用线程见 [[N035 动作服务端 create_server]]。
 > - 深化：detach 的线程里用了 `this`，前提是节点还在 spin、没被销毁；若节点可能提前析构，要小心悬空指针——这里靠 `rclcpp::ok()` 循环保证「ROS 还在就跑、ROS 停了就退」的时机。
 
+### 五、publish_for：封装「持续发一段时长」（2026-10-14 深化）
+
+「持续重发」可再封装成函数，一段命令发满 `duration` 秒就停。这里引出三个新点：
+
+```cpp
+void publish_for(rclcpp::Rate & rate, double duration) {    // ① rate 按引用传
+  auto start = this->now();                                  // ② 取时间戳
+  while (rclcpp::ok() && (this->now() - start).seconds() < duration) {
+    auto msg = geometry_msgs::msg::Twist();
+    msg.linear.x = v;        // v / w = 写死的 constexpr 常量（见 N048）
+    msg.angular.z = w;
+    m_pub_cmd_vel->publish(msg);
+    rate.sleep();
+  }
+}
+```
+
+1. **`rclcpp::Rate & rate` 为什么加 `&`**：`Rate` 内部持有时钟节拍状态，**不可拷贝（拷贝构造被 delete）**——写成 `rclcpp::Rate rate` 传值会直接编译报错。要复用同一个 Rate、保持它的节拍，只能传引用 `&`（或指针）。
+
+2. **`this->now()` 取时间戳**：`now()` **继承自 `rclcpp::Node`**（基类方法，非本文件声明），返回 `rclcpp::Time`——当前 ROS 时钟的时刻。
+
+3. **`Time - Time = Duration`，`.seconds()` 转秒**：
+
+   | 表达式 | 类型 | 含义 |
+   | ---- | ---- | ---- |
+   | `start` / `this->now()` | `rclcpp::Time` | 时刻点 |
+   | `this->now() - start` | `rclcpp::Duration` | 时刻相减 → 时长 |
+   | `.seconds()` | `double` | 时长转成秒数 |
+
+   `start` 记下进循环那一刻，每圈 `(now - start).seconds()` 算「已过多久」，小于 `duration` 就继续 → 实现「发满 duration 秒」。
+
+> **Note（连接 / 深化）：**
+> - 连接：`rclcpp::ok()` + `rate.sleep()` 见本页「三」；固定速度写死 `constexpr` 见 [[N048 constexpr编译期常量]]。
+> - 深化：`now()` 默认系统时钟，可配合 `rclcpp::Clock` 用仿真时钟（sim time）；`Duration` 还有 `.nanoseconds()` 等。
+
 ## 思考
 
 （留白 —— detach 之后，如果节点先析构了，子线程里访问 `this` 会发生什么？）
@@ -104,4 +141,4 @@ turtle_patrol 服务端里 `handle_accepted` 用 `std::thread{...}.detach()` 起
 ## 总结
 
 **本质：** std::thread 用来「把一个阻塞的长任务丢到独立线程」，join=等、detach=不等；ROS2 里 Action 的 execute 正是「阻塞循环 + detach」——executor 负责快回调，独立线程负责长任务，两者分工。
-**标签:** #语法知识 #C++语法 #线程Thread #并发Concurrency
+**标签:** #语法知识 #C++语法 #线程Thread #并发Concurrency #时间Time #引用传递Reference
