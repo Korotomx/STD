@@ -40,3 +40,22 @@ std::chrono::milliseconds m_period = 500ms;   // ✅
 ```
 
 > **Note（关联）：** 固定值成员的正解是「显式类型 / `constexpr`」，不是 `auto`；见 [[N048 constexpr编译期常量]]。
+
+## 补充：auto 的正解用法（局部变量）
+
+反过来想，`auto` 到底该用在哪？——**局部变量**（它最常见的用法，不是「只能用在 static」）：
+
+```cpp
+// chaser_turtle.cpp 的回调里
+auto response = future.get();   // ✅ 局部变量，auto 合法
+```
+
+- `response` 是**局部变量**（声明在 lambda 的 `{}` 函数体里，每次回调在栈上创建），**不是成员、更不是静态对象**。
+- 它带初始化器 `future.get()`，类型能从初始化器推断，所以 `auto` 完全合法。
+- 完整类型是 `turtle_chase::srv::GetTargetPose::Response::SharedPtr`（= `std::shared_ptr<turtle_chase::srv::GetTargetPose::Response>`），三段限定名 + 智能指针，太长，用 `auto` 更省事。
+
+**一句话记规则**：`auto` 能不能用，只看「声明处有没有初始化器可推断」——
+- ✅ 局部变量（带 `=` 初始化）、`static` 成员、函数返回类型
+- ❌ 非静态成员（类里只有声明、没有初始值，没法推断）
+
+「非静态成员不能用 auto」只是这条规则的**一个特例**，别理解成「auto 只能用在 static」。
