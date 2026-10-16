@@ -39,7 +39,9 @@ future = 异步操作的「结果占位符 / 取餐号」。发起异步操作�
 ### 三、future vs shared_future
 
 - `std::future`：结果**只能 get 一次**（get 后失效）；
+- std::future::get() 是「把结果取走」——它用 move 语义把值搬出来,取完盒子就空了。所以普通 std::future 只能 .get() 一次,第二次没有东西可取(行为未定义)。
 - `std::shared_future`：**可多次 get、可拷贝共享**。
+- std::shared_future::get() 是「看一眼结果」——它返回 const 引用,不搬走,所以可以反复 .get()。
 
 ROS2 回调里见到的 `SharedFuture` 就是后者——回调可能被多处访问，要能反复取。
 
