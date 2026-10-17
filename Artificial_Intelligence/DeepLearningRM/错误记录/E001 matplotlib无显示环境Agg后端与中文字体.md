@@ -25,10 +25,10 @@
 import matplotlib
 matplotlib.use("Agg")        # 无显示环境：只存图、不弹窗
 import matplotlib.pyplot as plt
-plt.rcParams["font.sans-serif"] = ["DejaVu Sans", "Droid Sans Fallback"]  # 英文用 DejaVu、中文 fallback 到 Droid
-plt.rcParams["axes.unicode_minus"] = False                                  # 负号正常显示
+plt.rcParams["font.family"] = ["DejaVu Sans", "Droid Sans Fallback"]  # 用 font.family 列表才会按字形 fallback
+plt.rcParams["axes.unicode_minus"] = False                            # 负号正常显示
 ```
 
 要点：
 - **Agg 后端**：无 GUI 环境（服务器 / WSL 无显示）画图一律用 `Agg`，`savefig` 存 PNG，不弹窗
-- **字体列表顺序不能反**：`["DejaVu Sans", "Droid Sans Fallback"]` —— 英文数字用 DejaVu，中文自动 fallback 到 Droid
+- **必须用 `font.family` 列表，不是 `font.sans-serif`**（matplotlib 3.11 实测）：`font.sans-serif` 列表不触发按字形 fallback，中文照样缺；只有 `font.family = ["DejaVu Sans", "Droid Sans Fallback"]` 才会英文数字用 DejaVu、中文自动落到 Droid
