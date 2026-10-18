@@ -10,68 +10,65 @@
 
 > 2026-09-28 ~ 2026-10-19 · 一格一天，颜色越深 = 当天条目越多；格内数字 = 条目数，悬停格子看类别与主题。
 
-<svg width="300" height="392" viewBox="0 0 150 196" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="学习热力图">
-<text x="28" y="33.0" font-size="10" fill="#57606a" text-anchor="end">周一</text>
-<text x="28" y="52.0" font-size="10" fill="#57606a" text-anchor="end">周二</text>
-<text x="28" y="71.0" font-size="10" fill="#57606a" text-anchor="end">周三</text>
-<text x="28" y="90.0" font-size="10" fill="#57606a" text-anchor="end">周四</text>
-<text x="28" y="109.0" font-size="10" fill="#57606a" text-anchor="end">周五</text>
-<text x="28" y="128.0" font-size="10" fill="#57606a" text-anchor="end">周六</text>
-<text x="28" y="147.0" font-size="10" fill="#57606a" text-anchor="end">周日</text>
-<text x="42.0" y="16" font-size="10" fill="#57606a" text-anchor="middle">9/28</text>
-<text x="61.0" y="16" font-size="10" fill="#57606a" text-anchor="middle">10/5</text>
-<text x="80.0" y="16" font-size="10" fill="#57606a" text-anchor="middle">10/12</text>
-<text x="99.0" y="16" font-size="10" fill="#57606a" text-anchor="middle">10/19</text>
-<rect x="34" y="22" width="16" height="16" rx="3" fill="#ebedf0"></rect>
-<rect x="34" y="41" width="16" height="16" rx="3" fill="#ebedf0"></rect>
-<rect x="34" y="60" width="16" height="16" rx="3" fill="#ebedf0"></rect>
-<rect x="34" y="79" width="16" height="16" rx="3" fill="#ebedf0"></rect>
-<rect x="34" y="98" width="16" height="16" rx="3" fill="#ebedf0"></rect>
-<rect x="34" y="117" width="16" height="16" rx="3" fill="#30a14e"><title>2026-10-03 · ROS2 9 条：节点骨架 / QoS / source / Executor</title></rect>
-<text x="42.0" y="128.0" font-size="9" font-weight="600" fill="#ffffff" text-anchor="middle">9</text>
-<rect x="34" y="136" width="16" height="16" rx="3" fill="#30a14e"><title>2026-10-04 · ROS2 5 条：分层架构 / 订阅回调 / 构建产物</title></rect>
-<text x="42.0" y="147.0" font-size="9" font-weight="600" fill="#ffffff" text-anchor="middle">5</text>
-<rect x="53" y="22" width="16" height="16" rx="3" fill="#216e39"><title>2026-10-05 · ROS2 12 条：Service 三件套 + 海龟追击实战</title></rect>
-<text x="61.0" y="33.0" font-size="9" font-weight="600" fill="#ffffff" text-anchor="middle">12</text>
-<rect x="53" y="41" width="16" height="16" rx="3" fill="#216e39"><title>2026-10-06 · ROS2 12 条：参数主线 + 语法线</title></rect>
-<text x="61.0" y="52.0" font-size="9" font-weight="600" fill="#ffffff" text-anchor="middle">12</text>
-<rect x="53" y="60" width="16" height="16" rx="3" fill="#30a14e"><title>2026-10-07 · ROS2 9 条：Action 闭环 + 线程 / 句柄</title></rect>
-<text x="61.0" y="71.0" font-size="9" font-weight="600" fill="#ffffff" text-anchor="middle">9</text>
-<rect x="53" y="79" width="16" height="16" rx="3" fill="#30a14e"><title>2026-10-08 · ROS2 5 条：实例 / 栈与堆 / 同步异步</title></rect>
-<text x="61.0" y="90.0" font-size="9" font-weight="600" fill="#ffffff" text-anchor="middle">5</text>
-<rect x="53" y="98" width="16" height="16" rx="3" fill="#40c463"><title>2026-10-09 · ROS2 4 条：自定义消息 + launch 工具链</title></rect>
-<text x="61.0" y="109.0" font-size="9" font-weight="600" fill="#1f2328" text-anchor="middle">4</text>
-<rect x="53" y="117" width="16" height="16" rx="3" fill="#ebedf0"></rect>
-<rect x="53" y="136" width="16" height="16" rx="3" fill="#30a14e"><title>2026-10-11 · 数学 3 / AI 3 条：线代 1~3 讲 + Python 对象/dict/set</title></rect>
-<text x="61.0" y="147.0" font-size="9" font-weight="600" fill="#ffffff" text-anchor="middle">6</text>
-<rect x="72" y="22" width="16" height="16" rx="3" fill="#ebedf0"></rect>
-<rect x="72" y="41" width="16" height="16" rx="3" fill="#40c463"><title>2026-10-13 · ROS2 4 条：底层网络机制 + constexpr</title></rect>
-<text x="80.0" y="52.0" font-size="9" font-weight="600" fill="#1f2328" text-anchor="middle">4</text>
-<rect x="72" y="60" width="16" height="16" rx="3" fill="#40c463"><title>2026-10-14 · ROS2 3 条：海龟命名 / 死亡重生</title></rect>
-<text x="80.0" y="71.0" font-size="9" font-weight="600" fill="#1f2328" text-anchor="middle">3</text>
-<rect x="72" y="79" width="16" height="16" rx="3" fill="#40c463"><title>2026-10-15 · ROS2 4 条：双龟追逐收尾</title></rect>
-<text x="80.0" y="90.0" font-size="9" font-weight="600" fill="#1f2328" text-anchor="middle">4</text>
-<rect x="72" y="98" width="16" height="16" rx="3" fill="#9be9a8"><title>2026-10-16 · AI 1 条：DL 环境 + 张量基础</title></rect>
-<text x="80.0" y="109.0" font-size="9" font-weight="600" fill="#1f2328" text-anchor="middle">1</text>
-<rect x="72" y="117" width="16" height="16" rx="3" fill="#216e39"><title>2026-10-17 · AI 15 条：DL 理论 + 数据加载</title></rect>
-<text x="80.0" y="128.0" font-size="9" font-weight="600" fill="#ffffff" text-anchor="middle">15</text>
-<rect x="72" y="136" width="16" height="16" rx="3" fill="#40c463"><title>2026-10-18 · AI 4 条：训练循环 + ResNet + Python</title></rect>
-<text x="80.0" y="147.0" font-size="9" font-weight="600" fill="#1f2328" text-anchor="middle">4</text>
-<rect x="91" y="22" width="16" height="16" rx="3" fill="#ebedf0"></rect>
-<rect x="91" y="41" width="16" height="16" rx="3" fill="#ebedf0"></rect>
-<rect x="91" y="60" width="16" height="16" rx="3" fill="#ebedf0"></rect>
-<rect x="91" y="79" width="16" height="16" rx="3" fill="#ebedf0"></rect>
-<rect x="91" y="98" width="16" height="16" rx="3" fill="#ebedf0"></rect>
-<rect x="91" y="117" width="16" height="16" rx="3" fill="#ebedf0"></rect>
-<rect x="91" y="136" width="16" height="16" rx="3" fill="#ebedf0"></rect>
-<text x="34" y="171" font-size="10" fill="#57606a">少</text>
-<rect x="50" y="162" width="11" height="11" rx="2" fill="#ebedf0"></rect>
-<rect x="66" y="162" width="11" height="11" rx="2" fill="#9be9a8"></rect>
-<rect x="82" y="162" width="11" height="11" rx="2" fill="#40c463"></rect>
-<rect x="98" y="162" width="11" height="11" rx="2" fill="#30a14e"></rect>
-<rect x="114" y="162" width="11" height="11" rx="2" fill="#216e39"></rect>
-<text x="135" y="171" font-size="10" fill="#57606a">多</text>
+<div align="center">
+
+<svg width="294" height="435" viewBox="0 0 184 272" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="学习热力图">
+<text x="46" y="62.0" font-size="13" fill="#57606a" text-anchor="end">周一</text>
+<text x="46" y="94.0" font-size="13" fill="#57606a" text-anchor="end">周二</text>
+<text x="46" y="126.0" font-size="13" fill="#57606a" text-anchor="end">周三</text>
+<text x="46" y="158.0" font-size="13" fill="#57606a" text-anchor="end">周四</text>
+<text x="46" y="190.0" font-size="13" fill="#57606a" text-anchor="end">周五</text>
+<text x="46" y="222.0" font-size="13" fill="#57606a" text-anchor="end">周六</text>
+<text x="46" y="254.0" font-size="13" fill="#57606a" text-anchor="end">周日</text>
+<text x="68.0" y="32" font-size="12" fill="#57606a" text-anchor="middle">9/28</text>
+<text x="100.0" y="32" font-size="12" fill="#57606a" text-anchor="middle">10/5</text>
+<text x="132.0" y="32" font-size="12" fill="#57606a" text-anchor="middle">10/12</text>
+<text x="164.0" y="32" font-size="12" fill="#57606a" text-anchor="middle">10/19</text>
+<rect x="56" y="46" width="24" height="24" rx="4" fill="#ebedf0"></rect>
+<rect x="56" y="78" width="24" height="24" rx="4" fill="#ebedf0"></rect>
+<rect x="56" y="110" width="24" height="24" rx="4" fill="#ebedf0"></rect>
+<rect x="56" y="142" width="24" height="24" rx="4" fill="#ebedf0"></rect>
+<rect x="56" y="174" width="24" height="24" rx="4" fill="#ebedf0"></rect>
+<rect x="56" y="206" width="24" height="24" rx="4" fill="#30a14e"><title>2026-10-03 · ROS2 9 条：节点骨架 / QoS / source / Executor</title></rect>
+<text x="68.0" y="222.0" font-size="12" font-weight="600" fill="#ffffff" text-anchor="middle">9</text>
+<rect x="56" y="238" width="24" height="24" rx="4" fill="#30a14e"><title>2026-10-04 · ROS2 5 条：分层架构 / 订阅回调 / 构建产物</title></rect>
+<text x="68.0" y="254.0" font-size="12" font-weight="600" fill="#ffffff" text-anchor="middle">5</text>
+<rect x="88" y="46" width="24" height="24" rx="4" fill="#216e39"><title>2026-10-05 · ROS2 12 条：Service 三件套 + 海龟追击实战</title></rect>
+<text x="100.0" y="62.0" font-size="12" font-weight="600" fill="#ffffff" text-anchor="middle">12</text>
+<rect x="88" y="78" width="24" height="24" rx="4" fill="#216e39"><title>2026-10-06 · ROS2 12 条：参数主线 + 语法线</title></rect>
+<text x="100.0" y="94.0" font-size="12" font-weight="600" fill="#ffffff" text-anchor="middle">12</text>
+<rect x="88" y="110" width="24" height="24" rx="4" fill="#30a14e"><title>2026-10-07 · ROS2 9 条：Action 闭环 + 线程 / 句柄</title></rect>
+<text x="100.0" y="126.0" font-size="12" font-weight="600" fill="#ffffff" text-anchor="middle">9</text>
+<rect x="88" y="142" width="24" height="24" rx="4" fill="#30a14e"><title>2026-10-08 · ROS2 5 条：实例 / 栈与堆 / 同步异步</title></rect>
+<text x="100.0" y="158.0" font-size="12" font-weight="600" fill="#ffffff" text-anchor="middle">5</text>
+<rect x="88" y="174" width="24" height="24" rx="4" fill="#40c463"><title>2026-10-09 · ROS2 4 条：自定义消息 + launch 工具链</title></rect>
+<text x="100.0" y="190.0" font-size="12" font-weight="600" fill="#1f2328" text-anchor="middle">4</text>
+<rect x="88" y="206" width="24" height="24" rx="4" fill="#ebedf0"></rect>
+<rect x="88" y="238" width="24" height="24" rx="4" fill="#30a14e"><title>2026-10-11 · 数学 3 / AI 3 条：线代 1~3 讲 + Python 对象/dict/set</title></rect>
+<text x="100.0" y="254.0" font-size="12" font-weight="600" fill="#ffffff" text-anchor="middle">6</text>
+<rect x="120" y="46" width="24" height="24" rx="4" fill="#ebedf0"></rect>
+<rect x="120" y="78" width="24" height="24" rx="4" fill="#40c463"><title>2026-10-13 · ROS2 4 条：底层网络机制 + constexpr</title></rect>
+<text x="132.0" y="94.0" font-size="12" font-weight="600" fill="#1f2328" text-anchor="middle">4</text>
+<rect x="120" y="110" width="24" height="24" rx="4" fill="#40c463"><title>2026-10-14 · ROS2 3 条：海龟命名 / 死亡重生</title></rect>
+<text x="132.0" y="126.0" font-size="12" font-weight="600" fill="#1f2328" text-anchor="middle">3</text>
+<rect x="120" y="142" width="24" height="24" rx="4" fill="#40c463"><title>2026-10-15 · ROS2 4 条：双龟追逐收尾</title></rect>
+<text x="132.0" y="158.0" font-size="12" font-weight="600" fill="#1f2328" text-anchor="middle">4</text>
+<rect x="120" y="174" width="24" height="24" rx="4" fill="#9be9a8"><title>2026-10-16 · AI 1 条：DL 环境 + 张量基础</title></rect>
+<text x="132.0" y="190.0" font-size="12" font-weight="600" fill="#1f2328" text-anchor="middle">1</text>
+<rect x="120" y="206" width="24" height="24" rx="4" fill="#216e39"><title>2026-10-17 · AI 15 条：DL 理论 + 数据加载</title></rect>
+<text x="132.0" y="222.0" font-size="12" font-weight="600" fill="#ffffff" text-anchor="middle">15</text>
+<rect x="120" y="238" width="24" height="24" rx="4" fill="#40c463"><title>2026-10-18 · AI 4 条：训练循环 + ResNet + Python</title></rect>
+<text x="132.0" y="254.0" font-size="12" font-weight="600" fill="#1f2328" text-anchor="middle">4</text>
+<rect x="152" y="46" width="24" height="24" rx="4" fill="#ebedf0"></rect>
+<rect x="152" y="78" width="24" height="24" rx="4" fill="#ebedf0"></rect>
+<rect x="152" y="110" width="24" height="24" rx="4" fill="#ebedf0"></rect>
+<rect x="152" y="142" width="24" height="24" rx="4" fill="#ebedf0"></rect>
+<rect x="152" y="174" width="24" height="24" rx="4" fill="#ebedf0"></rect>
+<rect x="152" y="206" width="24" height="24" rx="4" fill="#ebedf0"></rect>
+<rect x="152" y="238" width="24" height="24" rx="4" fill="#ebedf0"></rect>
 </svg>
+
+</div>
 
 > 阈值：0 / 1 / 2–4 / 5–9 / ≥10 条（口径 = 新增笔记 + 错误记录 + 深化）。类别分 ROS 2 / 数学 / AI（AI = DeepLearningRM + Python + 6.S191）。
 
