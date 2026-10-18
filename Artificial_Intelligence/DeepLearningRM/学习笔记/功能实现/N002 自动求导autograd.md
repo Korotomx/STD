@@ -98,6 +98,7 @@ for step in range(5):
 
 （留白 —— 为什么 `backward()` 要求 `z` 是**标量**？如果 loss 是一个向量/矩阵，反传时该传什么给 `backward`？）
 
+这种内容也是可以求导的吗?
 ## 总结
 
 **本质：** autograd 记录前向的「计算图」，`backward()` 沿图反向用链式法则自动求导，梯度写进 `.grad`。`requires_grad=True` 标记要更新的参数；`.grad` 是累加的，每轮必须 `zero_grad()`（训练里 `optimizer.zero_grad()`）；同一张图只能 backward 一次（除非 `retain_graph=True`）；推理/更新用 `torch.no_grad()` 关梯度。训练闭环 = 前向 → loss → backward → 更新 → 清零。
