@@ -2,7 +2,7 @@
 
 > 多学科学习库总览：**[ROS 2](ROS2/主页.md) · [数学](Math/主页.md) · [AI / 深度学习](Artificial_Intelligence/主页.md)**。
 > 以「天」为单位更新，每次你说「就到这里」时刷新此页。
-> 最近更新：**2026-10-18**
+> 最近更新：**2026-10-19**
 
 ---
 
@@ -59,7 +59,8 @@
 <text x="132.0" y="222.0" font-size="12" font-weight="600" fill="#ffffff" text-anchor="middle">15</text>
 <rect x="120" y="238" width="24" height="24" rx="4" fill="#40c463"><title>2026-10-18 · AI 4 条：训练循环 + ResNet + Python</title></rect>
 <text x="132.0" y="254.0" font-size="12" font-weight="600" fill="#1f2328" text-anchor="middle">4</text>
-<rect x="152" y="46" width="24" height="24" rx="4" fill="#ebedf0"></rect>
+<rect x="152" y="46" width="24" height="24" rx="4" fill="#40c463"><title>2026-10-19 · AI 2 条：6.S191 L1/L2 基础 + RNN/Transformer</title></rect>
+<text x="164.0" y="62.0" font-size="12" font-weight="600" fill="#1f2328" text-anchor="middle">2</text>
 <rect x="152" y="78" width="24" height="24" rx="4" fill="#ebedf0"></rect>
 <rect x="152" y="110" width="24" height="24" rx="4" fill="#ebedf0"></rect>
 <rect x="152" y="142" width="24" height="24" rx="4" fill="#ebedf0"></rect>
@@ -90,6 +91,7 @@
 | 10-16 | · | · | 1 | 1 | DL 环境 + 张量基础 |
 | 10-17 | · | · | 15 | 15 | DL 理论 + 数据加载 |
 | 10-18 | · | · | 4 | 4 | 训练循环 + ResNet + Python |
+| 10-19 | · | · | 2 | 2 | 6.S191 L1/L2 基础 + RNN/Transformer |
 
 ---
 
@@ -142,44 +144,46 @@
 - [x] N004~N005：特殊性质与思考方式、装饰器 / 上下文管理器 —— 2026-10-18
 - [ ] 异常、NumPy 等剩余板块
 
-### ⑤ AI · MIT 6.S191 深度学习（主线）— 待开始
+### ⑤ AI · MIT 6.S191 深度学习（主线）— [主页](Artificial_Intelligence/MIT%206.S191/主页.md)
 
-- [ ] 课程主线（原让位考核，现 RM 降优先级后转为主线）
+- [x] L1 Foundations 深度学习基础 —— 2026-10-19
+- [x] L2 RNN / Transformers / Attention —— 2026-10-19
+- [ ] L3 CNN 卷积神经网络
+- [ ] L4 Generative 生成模型
+- [ ] L5 Reinforcement Learning 强化学习
+- [ ] L6 LLM / 前沿
 
 ---
 
-## 今日学习（最新：2026-10-18）
+## 今日学习（最新：2026-10-19）
 
-### AI · DeepLearningRM
+### AI · MIT 6.S191
 
-1. **N016 训练循环（功能实现）** — 五步闭环「清梯度 → 前向 → 算 loss → 反向 → 更新」；CrossEntropyLoss 吃原始分数（内部 softmax）；Adam 按 `权重-lr×梯度` 更新；训练用 `train()+backward`、验证用 `eval()+no_grad`；记 loss/acc 曲线 + 存最佳权重 + 固定种子（对应「可视化」「可复现」评分点）。LeNet 教学版实测 98.40%
-2. **N017 ResNet-18 架构与残差连接（概念原理）** — 解决深层退化 + 梯度消失；残差 `H(x)=F(x)+x`；BasicBlock 两条 3×3 卷积 + shortcut（形状对不上用 1×1 卷积对齐）；四 stage 通道翻倍尺寸减半；MNIST 适配（1 通道 / stem 3×3 / 去 maxpool）。从零搭 11,172,810 参数，实测 99.14%
-3. **extra · 训练循环语法速查表** — 不熟悉语法按 Python / PyTorch / matplotlib 三块归类
+1. **L1 深度学习基础（Foundations）** — 感知机 = 点积 + 偏置 + 非线性；堆层成深度网络；损失（分类交叉熵 / 回归 MSE）；梯度下降 + 反向传播（链式法则）；mini-batch / Adam / dropout / early stopping
+2. **L2 循环神经网络、Transformer 与注意力** — RNN 用内部状态 h 带历史、BPTT 训练、梯度消失；三个瓶颈 → Attention（Q/K/V + softmax）→ Transformer / 多头
 
-### AI · Python
+**统计：2026-10-19 完成 2 条新增笔记（MIT 6.S191 L1、L2）。**
 
-4. **N004 Python 特殊性质与思考方式** — 动态类型 / 鸭子类型 / 迭代协议 / 魔法方法 / Pythonic
-5. **N005 装饰器 @ 与上下文管理器 with** — 装饰器 / 上下文管理器 / `try-except-finally`
-
-**统计：2026-10-18 完成 4 条新增笔记（DL：N016 训练循环、N017 ResNet；Python：N004 特殊性质、N005 装饰器）+ 1 篇速查表。**
-
-### 2026-10-18 大纲 / 结构树
+### 2026-10-19 大纲 / 结构树
 
 ```
-学习（2026-10-18）
+学习（2026-10-19）
 └── AI
-    ├── DeepLearningRM
-    │   ├── 功能实现  N016 训练循环五步闭环
-    │   ├── 概念原理  N017 ResNet-18 架构与残差连接
-    │   └── extra     训练循环语法速查表
-    └── Python
-        ├── N004 Python 特殊性质与思考方式
-        └── N005 装饰器 @ 与上下文管理器 with
+    └── MIT 6.S191
+        ├── L1 深度学习基础（Foundations）
+        └── L2 循环神经网络、Transformer 与注意力
 ```
 
 ---
 
 ## 历史归档
+
+### 2026-10-18 · AI（4 条）
+
+1. **DeepLearningRM N016 训练循环** — 五步闭环「清梯度→前向→loss→反向→更新」；Adam；train/eval 切换；记曲线存最佳权重（LeNet 98.40%）
+2. **DeepLearningRM N017 ResNet-18** — 残差 `H(x)=F(x)+x`；四 stage；MNIST 适配；实测 99.14%
+3. **Python N004/N005** — 特殊性质（动态类型/鸭子类型/迭代协议）、装饰器 @ 与上下文管理器 with
+4. **extra · 训练循环语法速查表** — Python/PyTorch/matplotlib 三块
 
 ### 2026-10-17 · AI（15 条）
 

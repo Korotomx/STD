@@ -71,7 +71,7 @@ tags:
    ros2 run turtle_demo turtle_painter --ros-args --params-file /path/to/params.yaml
    ```
 
-5. **导出：`ros2 param dump` 生成的正是这种格式。** N025 里 `dump` 导出的 YAML 正好是「节点名 + `ros__parameters`」结构，所以 dump 出来的文件能直接再 load 回去——这就是 dump 和 YAML 文件的关系：
+5. **导出：`ros2 param dump` 生成的正是这种格式。** N024 里 `dump` 导出的 YAML 正好是「节点名 + `ros__parameters`」结构，所以 dump 出来的文件能直接再 load 回去——这就是 dump 和 YAML 文件的关系：
 
    ```bash
    ros2 param dump /turtle_painter > turtle_painter.yaml   # 导出当前参数
@@ -99,7 +99,7 @@ tags:
 9. **实战对照 `turtle_demo`：** 现在 `config/params.yaml` 文件其实已写好，但 `turtle_demo.launch.py` 里用的还是内联字典、并没有引用这个文件。把第 3 步的写法接进 launch，参数就从「写死在 launch」变成「从 YAML 加载」，两者值相同、行为一致。
 
 > **Note（连接 / 深化）：**
-> - 连接：YAML 文件 = 参数的「持久化配置」，配合 N025 的 `dump`/`load` 命令行、N028 的参数服务，构成参数的完整操作面：**declare 定骨架 → YAML/内联/命令行定初值 → ros2 param set 运行时改 → 回调响应**。
+> - 连接：YAML 文件 = 参数的「持久化配置」，配合 N024 的 `dump`/`load` 命令行、参数服务，构成参数的完整操作面：**declare 定骨架 → YAML/内联/命令行定初值 → ros2 param set 运行时改 → 回调响应**。
 > - 深化：launch 里 `parameters` 既能传字符串（文件）也能传字典（内联），本质是 launch 把参数「打包」成一批值，在节点启动时一次性灌进节点的参数容器（[[N026 参数存在哪-节点内的键值对容器]] 里的那个 map）——YAML 只是把这批值提前写进了文件。
 
 ## 思考
