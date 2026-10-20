@@ -2,13 +2,13 @@
 
 > 多学科学习库总览：**[ROS 2](ROS2/主页.md) · [数学](Math/主页.md) · [AI / 深度学习](Artificial_Intelligence/主页.md)**。
 > 以「天」为单位更新，每次你说「就到这里」时刷新此页。
-> 最近更新：**2026-10-19**
+> 最近更新：**2026-10-20**
 
 ---
 
 ## 学习热力图
 
-> 2026-09-28 ~ 2026-10-19 · 一格一天，颜色越深 = 当天条目越多；格内数字 = 条目数，悬停格子看类别与主题。
+> 2026-09-28 ~ 2026-10-20 · 一格一天，颜色越深 = 当天条目越多；格内数字 = 条目数，悬停格子看类别与主题。
 
 <div align="center">
 
@@ -61,7 +61,8 @@
 <text x="132.0" y="254.0" font-size="12" font-weight="600" fill="#1f2328" text-anchor="middle">4</text>
 <rect x="152" y="46" width="24" height="24" rx="4" fill="#40c463"><title>2026-10-19 · AI 2 条：6.S191 L1/L2 基础 + RNN/Transformer</title></rect>
 <text x="164.0" y="62.0" font-size="12" font-weight="600" fill="#1f2328" text-anchor="middle">2</text>
-<rect x="152" y="78" width="24" height="24" rx="4" fill="#ebedf0"></rect>
+<rect x="152" y="78" width="24" height="24" rx="4" fill="#30a14e"><title>2026-10-20 · 数学 5 / AI 3 条：线代 18.06 L1~L5 + 信息论/RNN/PyTorch</title></rect>
+<text x="164.0" y="94.0" font-size="12" font-weight="600" fill="#ffffff" text-anchor="middle">8</text>
 <rect x="152" y="110" width="24" height="24" rx="4" fill="#ebedf0"></rect>
 <rect x="152" y="142" width="24" height="24" rx="4" fill="#ebedf0"></rect>
 <rect x="152" y="174" width="24" height="24" rx="4" fill="#ebedf0"></rect>
@@ -92,6 +93,7 @@
 | 10-17 | · | · | 15 | 15 | DL 理论 + 数据加载 |
 | 10-18 | · | · | 4 | 4 | 训练循环 + ResNet + Python |
 | 10-19 | · | · | 2 | 2 | 6.S191 L1/L2 基础 + RNN/Transformer |
+| 10-20 | · | 5 | 3 | 8 | 线代 18.06 L1~L5 + 信息论/RNN/PyTorch |
 
 ---
 
@@ -112,8 +114,8 @@
 
 > 主线：为 CS229 打地基（线代 → 概率 6.041 → 微积分 18.02）。
 
-- [x] 第 1~3 讲：线性方程组 / 矩阵运算 / 矩阵的逆（含 3 个 manim 动画）—— 2026-10-11
-- [ ] 第 4 讲起（课程 PDF 待处理）
+- [x] 改用 MIT 18.06（Strang），L1~L5 四段式笔记：几何 / 消元 / 乘与逆 / A=LU / 转置·置换·向量空间 —— 2026-10-20（原课程第 1~3 讲已并入归档）
+- [ ] L6 列空间与零空间（后续）
 
 ### ③ AI · RoboMaster 深度学习考核（DeepLearningRM，100 分）— [主页](Artificial_Intelligence/DeepLearningRM/主页.md)
 
@@ -124,11 +126,13 @@
 - [x] 训练循环（CrossEntropyLoss / 优化器 / epoch）—— 2026-10-18
 - [x] ResNet-18 结构 + 残差连接 —— 2026-10-18
 - [x] 准确率 >98%（ResNet-18 官方测试集 **99.22%**，LeNet 98.60%）—— 2026-10-18
-- [ ] 交付：训练脚本 + 权重 + 曲线图 + 视频 + 报告
+- [x] 交付报告（训练脚本 + 权重 + 曲线图 + 报告）—— 2026-10-20（剩录视频）
 
 **任务二 · C++ + ONNX 推理与 ROS2 封装（35 分，主线）**
 
-- [ ] YOLOv8 训练装甲板检测模型（ZLLC：B1/B2/R1/R2）→ 导出 ONNX → C++ 部署 + ROS2 节点封装 + FPS 统计
+- [x] YOLOv8 训练 ZLLC 装甲板模型（mAP50 **0.789**）→ 导出 ONNX —— 2026-10-20
+- [x] C++ OpenCV DNN 加载 ONNX + letterbox / 解码 / NMS + ROS2 节点封装 + FPS 统计（CPU ~17 FPS）—— 2026-10-20
+- [ ] 读视频 / 订阅 Image 话题、自定义检测消息、CUDA 加速、任务二报告 + 视频
 
 **任务三 · 相机标定 + 几何特征 + PnP（35 分）**
 
@@ -155,28 +159,51 @@
 
 ---
 
-## 今日学习（最新：2026-10-19）
+## 今日学习（最新：2026-10-20）
 
-### AI · MIT 6.S191
+### 数学 · Linear Algebra（切换 MIT 18.06）
 
-1. **L1 深度学习基础（Foundations）** — 感知机 = 点积 + 偏置 + 非线性；堆层成深度网络；损失（分类交叉熵 / 回归 MSE）；梯度下降 + 反向传播（链式法则）；mini-batch / Adam / dropout / early stopping
-2. **L2 循环神经网络、Transformer 与注意力** — RNN 用内部状态 h 带历史、BPTT 训练、梯度消失；三个瓶颈 → Attention（Q/K/V + softmax）→ Transformer / 多头
+1. **18.06 L1~L5 四段式笔记** — L1 线性方程的几何（行图像 / 列图像 / 线性组合）/ L2 消元（消元矩阵 E）/ L3 矩阵乘法与逆（4 视角 + 高斯-约当）/ L4 A=LU 分解 / L5 转置·置换·向量空间（列空间 C(A)）；原「Elementary Linear Algebra」第 1~3 讲并入并归档
 
-**统计：2026-10-19 完成 2 条新增笔记（MIT 6.S191 L1、L2）。**
+### AI · 补充笔记 + DeepLearningRM 任务推进
 
-### 2026-10-19 大纲 / 结构树
+2. **Unlimited · 信息论 熵与压缩（3b1b）** — 信息 = -log₂p、熵 = -Σp·log₂p = 无损压缩下限；交叉熵损失的数学地基
+3. **Unlimited · RNN 记忆与门控（Kirsanov）** — 前馈 → 递归 → 泄漏积分 → 门控（LSTM/GRU）
+4. **DeepLearningRM extra · PyTorch 五步训练循环与核心语法** — 五步循环 + 张量/运算 + autograd + optim/nn.Module/DataLoader + 优化器/激活/损失菜单
+5. **DeepLearningRM 任务一收尾** — 写交付报告（ResNet-18 官方测试集 99.22%）
+6. **DeepLearningRM 任务二（主线）** — YOLOv8 训练 ZLLC（mAP50 0.789）→ 导出 ONNX → C++ OpenCV DNN + ROS2 节点（zllc_detector，CPU ~17 FPS）
+
+**统计：2026-10-20 完成 线代 5 条 + AI 3 条新增笔记（信息论 / RNN / PyTorch）；DeepLearningRM 任务一报告收尾、任务二整链跑通。**
+
+### 2026-10-20 大纲 / 结构树
 
 ```
-学习（2026-10-19）
+学习（2026-10-20）
+├── 数学
+│   └── Linear Algebra（18.06）
+│       ├── L1 线性方程的几何
+│       ├── L2 消元
+│       ├── L3 矩阵乘法与逆
+│       ├── L4 A=LU 分解
+│       └── L5 转置·置换·向量空间
 └── AI
-    └── MIT 6.S191
-        ├── L1 深度学习基础（Foundations）
-        └── L2 循环神经网络、Transformer 与注意力
+    ├── Unlimited
+    │   ├── 信息论 熵与压缩
+    │   └── RNN 记忆与门控
+    └── DeepLearningRM
+        ├── extra · PyTorch 五步训练循环与核心语法
+        ├── 任务一 · 交付报告
+        └── 任务二 · YOLOv8 → ONNX → C++ ROS2 节点
 ```
 
 ---
 
 ## 历史归档
+
+### 2026-10-19 · AI（2 条）
+
+1. **MIT 6.S191 L1 深度学习基础** — 感知机 / 损失 / 梯度下降 / 反向传播 / 正则化
+2. **MIT 6.S191 L2 循环神经网络与 Transformer** — RNN / BPTT / 注意力 Q/K/V / Transformer
 
 ### 2026-10-18 · AI（4 条）
 
