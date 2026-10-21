@@ -1,3 +1,5 @@
+> 对应主课笔记：[[L1 线性方程的几何]]
+
 ![](https://www.youtube.com/watch?v=kYB8IZa5AuE)
 
 Quite possibly the most important idea for understanding linear algebra.  

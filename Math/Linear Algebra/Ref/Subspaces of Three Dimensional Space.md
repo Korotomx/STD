@@ -1,3 +1,5 @@
+> 对应主课笔记：[[L5 转置·置换·向量空间]]
+
 ![](https://www.youtube.com/watch?v=QQpvGlF_1Qo)
 
 MIT 18.06SC Linear Algebra, Fall 2011  

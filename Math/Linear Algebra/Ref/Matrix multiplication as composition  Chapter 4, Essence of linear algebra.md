@@ -1,3 +1,5 @@
+> 对应主课笔记：[[L3 矩阵乘法与逆]]
+
 ![](https://www.youtube.com/watch?v=XkY2DOUCWMU)
 
 Multiplying two matrices represents applying one transformation after another.  

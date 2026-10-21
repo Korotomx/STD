@@ -1,3 +1,5 @@
+> 对应主课笔记：[[L1 线性方程的几何]]
+
 ![](https://www.youtube.com/watch?v=fNk_zzaMoSs)
 
 Beginning the linear algebra series with the basics.  

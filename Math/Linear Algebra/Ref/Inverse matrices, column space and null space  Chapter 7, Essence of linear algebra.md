@@ -1,3 +1,5 @@
+> 对应主课笔记：[[L6 列空间与零空间]]
+
 ![](https://www.youtube.com/watch?v=uQhTuRlWMxw)
 
 How to think about linear systems of equations geometrically.  

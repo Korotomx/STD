@@ -1,3 +1,5 @@
+> 对应主课笔记：[[L5 转置·置换·向量空间]]
+
 ![](https://www.youtube.com/watch?v=rHLEWRxRGiM)
 
 What do 3d linear transformations look like?  
