@@ -1,3 +1,5 @@
+> 抓取自 Ultralytics 官方文档（web clip）。对应学习笔记：[[N020 NDJSON数据集与YOLO姿态估计pose训练]]
+
 ## 安装 Ultralytics
 
 使用 pip、conda 或 Docker 安装 `ultralytics` 包，也可以从源代码安装；随后使用预训练的 [YOLO26](https://docs.ultralytics.com/zh/models/yolo26) 模型运行首次预测。每种安装方式都会安装 [pyproject.toml](https://github.com/ultralytics/ultralytics/blob/main/pyproject.toml) 中列出的所有必需依赖项。

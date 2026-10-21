@@ -12,7 +12,7 @@ tags:
 
 **时间:** 2026-10-22
 **标签:** #功能实现 #NDJSON #YOLO #pose姿态估计 #数据集 #关键点keypoint
-**关联:** [[N015 数据加载Dataset与DataLoader]]（数据加载）· [[N016 训练循环五步闭环]]（训练流程）
+**关联:** [[N015 数据加载Dataset与DataLoader]]（数据加载）· [[N016 训练循环五步闭环]]（训练流程）· [[YOLO Python 用法  Ultralytics 文档]]（官方文档原文）
 
 ## 实际情况
 

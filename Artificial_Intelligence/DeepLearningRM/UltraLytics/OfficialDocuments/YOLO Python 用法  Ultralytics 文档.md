@@ -1,3 +1,5 @@
+> 抓取自 Ultralytics 官方文档（web clip）。对应学习笔记：[[N020 NDJSON数据集与YOLO姿态估计pose训练]] · [[E003 detect模型训练pose数据任务不匹配]]
+
 ## Python 用法
 
 欢迎阅读 Ultralytics YOLO Python 用法文档！本指南旨在帮助你将 Ultralytics YOLO 无缝集成到 Python 项目中，以执行 [目标检测](https://www.ultralytics.com/glossary/object-detection) 、 [实例分割](https://docs.ultralytics.com/zh/tasks/segment) 、 [语义分割](https://docs.ultralytics.com/zh/tasks/semantic) 、 [深度估计](https://docs.ultralytics.com/zh/tasks/depth) 和 [分类](https://docs.ultralytics.com/zh/tasks/classify) 。在这里，你将学习如何加载和使用预训练模型、训练新模型，以及对图像进行预测。易于使用的 Python 接口对所有希望在 Python 项目中集成 YOLO 的人来说都很有帮助，让你能够快速实现高级目标检测功能。让我们开始吧！
