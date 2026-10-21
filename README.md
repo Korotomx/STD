@@ -8,7 +8,7 @@
 
 ## 学习热力图
 
-> 2026-09-28 ~ 2026-10-20 · 一格一天，颜色越深 = 当天条目越多；格内数字 = 条目数，悬停格子看类别与主题。
+> 2026-09-28 ~ 2026-10-22 · 一格一天，颜色越深 = 当天条目越多；格内数字 = 条目数，悬停格子看类别与主题。
 
 <div align="center">
 
@@ -64,7 +64,8 @@
 <rect x="152" y="78" width="24" height="24" rx="4" fill="#30a14e"><title>2026-10-20 · 数学 5 / AI 3 条：线代 18.06 L1~L5 + 信息论/RNN/PyTorch</title></rect>
 <text x="164.0" y="94.0" font-size="12" font-weight="600" fill="#ffffff" text-anchor="middle">8</text>
 <rect x="152" y="110" width="24" height="24" rx="4" fill="#ebedf0"></rect>
-<rect x="152" y="142" width="24" height="24" rx="4" fill="#ebedf0"></rect>
+<rect x="152" y="142" width="24" height="24" rx="4" fill="#40c463"><title>2026-10-22 · 数学 1 / AI 3 条：线代 L6 列空间/零空间 + NDJSON pose 训练</title></rect>
+<text x="164.0" y="158.0" font-size="12" font-weight="600" fill="#1f2328" text-anchor="middle">4</text>
 <rect x="152" y="174" width="24" height="24" rx="4" fill="#ebedf0"></rect>
 <rect x="152" y="206" width="24" height="24" rx="4" fill="#ebedf0"></rect>
 <rect x="152" y="238" width="24" height="24" rx="4" fill="#ebedf0"></rect>
