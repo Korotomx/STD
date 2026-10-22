@@ -254,11 +254,14 @@ engine 前向 → 原始输出张量
 | `groundzero/traffic-signs.ndjson` | 交通标志 pose 数据集（6 类、8 关键点） | ✅ 已有 |
 | `groundzero/new.py` | 训练脚本（`yolo26n-pose.pt` 微调 100 epochs） | ✅ 已跑通 |
 | `groundzero/runs/pose/train-4/weights/best.pt` | 最佳权重 | ✅ 6.4 MB |
-| `groundzero/runs/pose/train-4/weights/best.onnx` | 通用模型图，输入 `[1,3,640,640]` | ✅ 10.7 MB |
+| `groundzero/runs/pose/train-4/weights/best.onnx` | 通用模型图，输入 `[1,3,640,640]` | ✅ 10.3 MB |
 | `groundzero/export_onnx.py` | 导出 FP32 ONNX | ✅ 已跑通 |
-| `groundzero/runs/pose/train-4/weights/best.engine` | Python builder 构建的 engine | ✅ 12 MB |
-| `groundzero/runs/pose/train-4/weights/best_trtexec.engine` | trtexec 构建的 engine | ✅ 11.56 MB |
-| `groundzero/infer_engine.py` | 预处理 → 推理 → 解码 → 画图 + 计时 | ✅ 已跑通 |
+| `groundzero/runs/pose/train-4/weights/best_fp32.engine` | FP32 engine（基线，已备份） | ✅ 12.2 MB |
+| `groundzero/runs/pose/train-4/weights/best_trtexec.engine` | trtexec 构建的 FP32 engine | ✅ 11.56 MB |
+| `groundzero/runs/pose/train-4/weights/best.fp16.onnx` | ModelOpt AutoCast 转出的 FP16 ONNX | ✅ 5.3 MB |
+| `groundzero/runs/pose/train-4/weights/best.engine` | **FP16 engine**（Ultralytics `quantize=16` 导出） | ✅ 7.7 MB |
+| `groundzero/export_engine.py` | 导出 FP16 engine（TRT 11 → ModelOpt） | ✅ 已跑通 |
+| `groundzero/infer_engine.py` | 预处理 → 推理 → 解码 → 画图 + 计时；兼容 Ultralytics engine 的 JSON 头 | ✅ 已跑通 |
 | `groundzero/results/` | letterbox 预览、推理结果图 | ✅ 已生成 |
 | ROS2 节点 | 订阅图像、发布检测/关键点 | ⬜ 后续 |
 
@@ -298,11 +301,14 @@ python infer_engine.py
 | 阶段 | 输入 | 产物 | 关键数字 |
 | ---- | ---- | ---- | ---- |
 | 训练 | `traffic-signs.ndjson`（597 张：480 train / 117 val） | `best.pt` | 100 epochs，box/pose mAP50 均 99.3% |
-| 导出 | `best.pt` | `best.onnx` | 10.7 MB，opset 17，静态 `[1,3,640,640]` |
-| 构建 | `best.onnx` | `best_trtexec.engine` | 11.56 MiB，39.9 s，629 qps（纯 GPU 1.59 ms） |
-| 推理 | 一张 4096×3072 val 图 | 框 + 8 关键点 + 结果图 | 端到端 5.10 ms（196 FPS），框中心偏差约 18 px |
+| 导出 | `best.pt` | `best.onnx` | 10.3 MB，opset 17，静态 `[1,3,640,640]` |
+| 构建 FP32 | `best.onnx` | `best_trtexec.engine` | 11.56 MiB，39.9 s，629 qps（纯 GPU 1.385 ms） |
+| 构建 FP16 | `best.onnx` → `best.fp16.onnx` | `best.engine` | ModelOpt 转 404/437 节点（92.45%），7.7 MB，纯 GPU **0.690 ms** |
+| 推理 FP32 | 一张 4096×3072 val 图 | 框 + 8 关键点 + 结果图 | 端到端 5.10 ms（196 FPS），框中心偏差约 18 px |
+| 推理 FP16 | 同一张图 | 同上 | 端到端 **4.35 ms（230 FPS）**，框差 < 1 px，关键点最大差 1.39 px |
+| 精度对比 | 117 张 val | mAP | FP32 → FP16：pose mAP50-95 **0.96911 → 0.96871**，基本无损 |
 
-**链路是闭环的**：推理输出的类别和框能与 val 标注对上，说明「训练 → 导出 → 编译 → 前后处理」没有某一环偷偷错位。下一次重训后，只要重新执行第 2、3 步，`infer_engine.py` 不用改。
+**链路是闭环的**：推理输出的类别和框能与 val 标注对上，说明「训练 → 导出 → 编译 → 前后处理」没有某一环偷偷错位。FP16 的 mAP 与 FP32 差距在千分位，也验证了 ModelOpt 转换没有破坏模型。下一次重训后，只要重新执行第 2、3 步，`infer_engine.py` 不用改。
 
 ## 7. 最容易混淆的几组
 

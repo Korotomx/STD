@@ -32,14 +32,16 @@ groundzero 交通标志 pose 模型：
   → 置信度过滤 → 逆映射 → 原图坐标的框 + 8 关键点
 ```
 
-实测单张图耗时（RTX 5060，FP32 engine）：
+实测单张图耗时（RTX 5060）：
 
-| 阶段 | 耗时 |
-| ---- | ---- |
-| 预处理（letterbox + RGB + CHW） | 1.16 ms |
-| engine 推理（含 H2D/D2H + synchronize） | 3.79 ms |
-| 后处理（解码 + 逆映射） | 0.14 ms |
-| **端到端** | **5.10 ms（约 196 FPS）** |
+| 阶段 | FP32 | FP16 |
+| ---- | ---- | ---- |
+| 预处理（letterbox + RGB + CHW） | 1.16 ms | 1.05 ms |
+| engine 推理（含 H2D/D2H + synchronize） | 3.79 ms | 3.44 ms |
+| 后处理（解码 + 逆映射） | 0.14 ms | 0.15 ms |
+| **端到端** | **5.10 ms（196 FPS）** | **4.35 ms（230 FPS）** |
+
+> 纯 GPU kernel 是 FP32 1.385 ms vs FP16 0.690 ms（约 2×）；脚本内的固定拷贝/分配开销把端到端差距压缩到约 15%。
 
 ## 0. 全景数据流
 
@@ -108,6 +110,7 @@ x = np.ascontiguousarray(x)                    # TensorRT 要求内存连续
 ```python
 logger  = trt.Logger(trt.Logger.WARNING)
 runtime = trt.Runtime(logger)
+engine_bytes = read_engine_bytes(engine_path)   # 跳过 Ultralytics 的 JSON 元数据头
 engine  = runtime.deserialize_cuda_engine(engine_bytes)
 context = engine.create_execution_context()
 
@@ -132,6 +135,7 @@ out = y.cpu().numpy()
 - 显存地址传 `data_ptr()`，TensorRT 不会帮你分配
 - 异步执行后必须 `synchronize()`，否则读到的是未完成结果
 - 第一次推理会初始化 CUDA kernel，计时前要先 warmup
+- **Ultralytics 导出的 engine 不是纯 engine 字节**：文件开头是 4 字节小端 JSON 长度 + JSON 元数据（groundzero 是 1014 字节），后面才是 `ftrt`。直接 `read_bytes()` 去 deserialize 会报 `header.magicTag == kEXPECTED_MAGIC_TAG failed`，要先按长度跳过
 
 ## 3. 输出解码：[1,300,30]
 
@@ -215,6 +219,7 @@ groundzero 第一张验证图：
 | 第一次特别慢 | CUDA kernel 初始化，计时前要 warmup |
 | 画出第 8 个点但位置是 (0,0) | 关键点 `conf=0` 表示未标注，应跳过 |
 | 自己写 NMS 后结果变少 | end2end 输出已 NMS，重复做会过度抑制 |
+| `Serialization assertion header.magicTag == kEXPECTED_MAGIC_TAG failed` | Ultralytics 导出的 engine 前面多了 JSON 元数据头，按 4 字节长度跳过后再反序列化 |
 
 ## 8. 在全流程里的位置
 
@@ -229,10 +234,13 @@ python new.py
 # ② 导出 ONNX（产物 best.onnx）
 python export_onnx.py
 
-# ③ build engine（产物 best.engine）
+# ③ build FP32 engine（产物 best.engine）
 trtexec --onnx=runs/pose/train-4/weights/best.onnx \
         --saveEngine=runs/pose/train-4/weights/best.engine \
         --memPoolSize=workspace:2048M
+
+# ③' 或者一步导出 FP16 engine（TRT 11 走 ModelOpt AutoCast）
+python export_engine.py
 
 # ④ 推理验证（本篇）
 python infer_engine.py
