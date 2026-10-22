@@ -9,6 +9,9 @@ description: "We often treat neural networks as incomprehensible black boxes. Wi
 tags:
   - "clippings"
 ---
+
+> 整理笔记：[[神经网络对称性 损失曲面的隐藏结构]]
+
 ![](https://www.youtube.com/watch?v=2qXF8JHcU5E)
 
 We often treat neural networks as incomprehensible black boxes. With billions of weights and extreme non-convexity, they should (theoretically) get stuck in "local minima" and fail to learn. Yet, they solve the world's most complex problems with remarkable efficiency.  

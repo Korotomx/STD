@@ -8,6 +8,9 @@ description:
 tags:
   - "clippings"
 ---
+
+> 整理笔记：[[神经网络对称性 损失曲面的隐藏结构]]
+
 ### Intro
 
 I read some cool papers this past few days that convey how to incorporate neural networks symmetries into optimizations or functions that operate on their weights.
