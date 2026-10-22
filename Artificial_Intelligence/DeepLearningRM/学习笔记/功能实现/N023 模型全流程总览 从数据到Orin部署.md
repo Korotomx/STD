@@ -32,9 +32,9 @@ NDJSON 数据集 ──► 训练 ──► best.pt ──► 验证/评估
                               ▼
                           best.onnx（FP32，通用）
                               │
-                              │ 在 Orin 上 trtexec --fp16
+                              │ 在目标 GPU 上 trtexec
                               ▼
-                     best_fp16.engine（Orin 专用）
+                     best.engine（目标 GPU 专用）
                               │
                               │ 推理
                               ▼
@@ -51,7 +51,7 @@ flowchart LR
     C --> D[验证/评估<br/>mAP]
     D -->|不达标| B
     C --> E[导出<br/>best.onnx FP32]
-    E --> F[Orin 上构建<br/>best_fp16.engine]
+    E --> F[目标 GPU 上构建<br/>best.engine]
     F --> G[推理<br/>预处理 → 前向 → 后处理]
     G --> H[ROS2 节点 / 应用]
     H -->|错误分析| B
@@ -133,10 +133,10 @@ flowchart LR
 | `nms` | 是否把 NMS 嵌进模型 | `False`（后处理自己做） |
 | `quantize` | 是否量化 | `None`（FP32，保持精度） |
 
-### 2.5 引擎构建：把通用图编译成 Orin 专用机器码
+### 2.5 引擎构建：把通用图编译成目标 GPU 的机器码
 
-- `.onnx` 还是「通用图纸」，TensorRT 要在 **Orin 上**把它编译成 `.engine`。
-- 编译时会做层融合、kernel 选择、FP16 精度、内存规划。
+- `.onnx` 还是「通用图纸」，TensorRT 要在**目标设备**上把它编译成 `.engine`。
+- 编译时会做层融合、kernel 选择、精度选择、内存规划。
 - 关键选择：
 
 | 选择 | 含义 | 代价 |
@@ -145,7 +145,13 @@ flowchart LR
 | **FP16** | 半精度，通常精度损失很小 | 速度快、显存减半；需实测 |
 | **INT8** | 8 位整数，需要校准数据 | 最快、最省，但精度风险最大 |
 
-groundzero 用 **FP16**：`trtexec --onnx=best.onnx --saveEngine=best_fp16.engine --fp16`。
+groundzero 在 **RTX 5060 + TensorRT 11.4** 上构建，实际是 **FP32**：
+
+```bash
+trtexec --onnx=best.onnx --saveEngine=best.engine --memPoolSize=workspace:2048M
+```
+
+> TensorRT 11 是 **strongly-typed**，没有 `--fp16` 开关；要 FP16 必须把精度写进 ONNX（如 ModelOpt AutoCast），或用 Q/DQ 做 INT8。见 [[N024 ONNX编译成engine的原理]]、[[N025 拿到ONNX转engine的标准操作]]。换到 Orin 时，若该版本 TensorRT 仍支持 `--fp16`，再按目标机版本决定。
 
 ### 2.6 推理：engine 只算「前向」，前后处理都要自己写
 
@@ -241,38 +247,61 @@ engine 前向 → 原始输出张量
 | JetPack | Jetson SDK | 含 CUDA / TensorRT / cuDNN | Orin |
 | ROS2 node | ROS2 节点 | 订阅/发布话题的进程 | 应用 |
 
-## 5. groundzero 文件地图
+## 5. groundzero 文件地图（截至 2026-10-22，全链路已打通）
 
 | 路径 | 作用 | 当前状态 |
 | ---- | ---- | ---- |
 | `groundzero/traffic-signs.ndjson` | 交通标志 pose 数据集（6 类、8 关键点） | ✅ 已有 |
-| `groundzero/new.py` | 训练脚本（`yolo26n-pose.pt` 微调） | ✅ 已有 |
-| `groundzero/runs/pose/train-4/weights/best.pt` | 最佳权重 | ✅ 已有（6.4 MB） |
-| `groundzero/export_onnx.py` | 导出 FP32 ONNX | ⬜ 待建 |
-| `groundzero/runs/pose/train-4/weights/best.onnx` | 通用模型图 | ⬜ 待生成 |
-| `groundzero/build_engine_orin.sh` | 在 Orin 上 build FP16 engine | ⬜ 待建 |
-| `groundzero/best_fp16.engine` | Orin 专用推理引擎 | ⬜ 待生成 |
-| `groundzero/infer_engine.py` | engine 推理冒烟测试 | ⬜ 待建 |
+| `groundzero/new.py` | 训练脚本（`yolo26n-pose.pt` 微调 100 epochs） | ✅ 已跑通 |
+| `groundzero/runs/pose/train-4/weights/best.pt` | 最佳权重 | ✅ 6.4 MB |
+| `groundzero/runs/pose/train-4/weights/best.onnx` | 通用模型图，输入 `[1,3,640,640]` | ✅ 10.7 MB |
+| `groundzero/export_onnx.py` | 导出 FP32 ONNX | ✅ 已跑通 |
+| `groundzero/runs/pose/train-4/weights/best.engine` | Python builder 构建的 engine | ✅ 12 MB |
+| `groundzero/runs/pose/train-4/weights/best_trtexec.engine` | trtexec 构建的 engine | ✅ 11.56 MB |
+| `groundzero/infer_engine.py` | 预处理 → 推理 → 解码 → 画图 + 计时 | ✅ 已跑通 |
+| `groundzero/results/` | letterbox 预览、推理结果图 | ✅ 已生成 |
 | ROS2 节点 | 订阅图像、发布检测/关键点 | ⬜ 后续 |
 
-## 6. 一次完整链路的命令（脚本待建）
+## 6. 一次完整链路的命令（已实际跑通）
 
 ```bash
-# 1. 训练（当前已跑完）
+cd ~/deep_learning/groundzero
+
+# 1. 训练（100 epochs，已跑完）
 python new.py
 
-# 2. 开发机导出 FP32 ONNX
+# 2. 导出 FP32 ONNX：best.pt -> best.onnx
 python export_onnx.py
 
-# 3. 拷到 Orin
-scp best.onnx orin:~/groundzero/
+# 3. 构建 engine：best.onnx -> best.engine
+trtexec --onnx=runs/pose/train-4/weights/best.onnx \
+        --saveEngine=runs/pose/train-4/weights/best.engine \
+        --memPoolSize=workspace:2048M
 
-# 4. 在 Orin 上构建 FP16 engine
-ssh orin 'cd ~/groundzero && ./build_engine_orin.sh best.onnx best_fp16.engine'
-
-# 5. 推理验证
+# 4. 推理验证：预处理 -> engine -> 解码 -> 原图坐标
 python infer_engine.py
 ```
+
+每一步的原理和踩过的坑：
+
+| 步骤 | 对应笔记 |
+| ---- | ---- |
+| 数据 + 训练 | [[N020 NDJSON数据集与YOLO姿态估计pose训练]]、[[N021 Ultralytics训练参数全解]] |
+| 导出 ONNX / engine 概念 | [[N022 ONNX与TensorRT Engine的区别]]、[[N019 TensorRT部署onnx转engine并推理]] |
+| engine 编译原理 | [[N024 ONNX编译成engine的原理]] |
+| 任意 ONNX 转 engine 操作 | [[N025 拿到ONNX转engine的标准操作]] |
+| engine 推理全流程 | [[N026 TensorRT-engine推理全流程]] |
+
+## 6.1 链路实测：每一步的产物和数字
+
+| 阶段 | 输入 | 产物 | 关键数字 |
+| ---- | ---- | ---- | ---- |
+| 训练 | `traffic-signs.ndjson`（597 张：480 train / 117 val） | `best.pt` | 100 epochs，box/pose mAP50 均 99.3% |
+| 导出 | `best.pt` | `best.onnx` | 10.7 MB，opset 17，静态 `[1,3,640,640]` |
+| 构建 | `best.onnx` | `best_trtexec.engine` | 11.56 MiB，39.9 s，629 qps（纯 GPU 1.59 ms） |
+| 推理 | 一张 4096×3072 val 图 | 框 + 8 关键点 + 结果图 | 端到端 5.10 ms（196 FPS），框中心偏差约 18 px |
+
+**链路是闭环的**：推理输出的类别和框能与 val 标注对上，说明「训练 → 导出 → 编译 → 前后处理」没有某一环偷偷错位。下一次重训后，只要重新执行第 2、3 步，`infer_engine.py` 不用改。
 
 ## 7. 最容易混淆的几组
 
@@ -294,15 +323,16 @@ python infer_engine.py
   → 训练（.pt）
   → 评估（mAP）
   → 导出（.onnx，FP32）
-  → 编译（.engine，Orin + FP16）
+  → 编译（.engine，目标 GPU + 选定精度）
   → 推理（预处理 → 前向 → 后处理）
   → 应用（ROS2）
 ```
 
-**记住三件事：**
+**记住四件事：**
 
 1. **产物格式决定下一步**：`.pt` 给 PyTorch，`.onnx` 给通用运行时，`.engine` 只给目标 NVIDIA 设备。
-2. **精度和速度是权衡**：FP32 → FP16 → INT8，越来越快，但都要验证精度。
+2. **精度和速度是权衡**：FP32 → FP16 → INT8，越来越快，但都要验证精度；TensorRT 11 strongly-typed 时精度要写进 ONNX。
 3. **engine 只算前向**：letterbox、NMS、坐标映射、关键点解码、ROS2 封装，全在自己的代码里。
+4. **groundzero 全链路已在本机 RTX 5060 跑通**：训练 → ONNX → engine → 推理，产物和数字见 6.1 节。
 
 **标签:** #功能实现 #模型流程Pipeline #训练Training #评估Eval #导出ONNX #TensorRT #推理Inference #术语表Glossary #JetsonOrin
