@@ -13,7 +13,7 @@ tags:
 
 **时间:** 2026-10-21
 **标签:** #功能实现 #TensorRT #onnx #engine #推理部署 #GPU加速 #YOLOv8
-**关联:** [[N018 CUDA-cuDNN-TensorRT三层结构]]（概念）· [[N015 数据加载Dataset与DataLoader]]（前处理）· [[N017 ResNet-18架构与残差连接]]（训练出的模型）
+**关联:** [[N018 CUDA-cuDNN-TensorRT三层结构]]（概念）· [[N015 数据加载Dataset与DataLoader]]（前处理）· [[N017 ResNet-18架构与残差连接]]（训练出的模型）· [[N022 ONNX与TensorRT Engine的区别]]（概念辨析）
 
 ## 实际情况
 
