@@ -291,6 +291,7 @@ python infer_engine.py
 | engine 编译原理 | [[N024 ONNX编译成engine的原理]] |
 | 任意 ONNX 转 engine 操作 | [[N025 拿到ONNX转engine的标准操作]] |
 | engine 推理全流程 | [[N026 TensorRT-engine推理全流程]] |
+| 精度 / 量化选择 | [[N027 数值精度与量化 FP32-FP16-BF16-TF32-INT8]] |
 
 ## 6.1 链路实测：每一步的产物和数字
 

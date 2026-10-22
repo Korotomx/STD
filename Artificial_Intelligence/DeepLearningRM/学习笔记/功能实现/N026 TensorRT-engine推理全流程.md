@@ -14,7 +14,7 @@ tags:
 
 **时间:** 2026-10-22
 **标签:** #功能实现 #TensorRT #Engine #推理Inference #预处理Preprocess #Letterbox #后处理Postprocess #关键点Keypoint #性能Profiling
-**关联:** [[N025 拿到ONNX转engine的标准操作]]（engine 怎么来）· [[N024 ONNX编译成engine的原理]]（编译原理）· [[N023 模型全流程总览 从数据到Orin部署]]（全流程位置）· [[N020 NDJSON数据集与YOLO姿态估计pose训练]]（模型来源）
+**关联:** [[N025 拿到ONNX转engine的标准操作]]（engine 怎么来）· [[N024 ONNX编译成engine的原理]]（编译原理）· [[N027 数值精度与量化 FP32-FP16-BF16-TF32-INT8]]（FP32/FP16/INT8）· [[N023 模型全流程总览 从数据到Orin部署]]（全流程位置）· [[N020 NDJSON数据集与YOLO姿态估计pose训练]]（模型来源）
 
 ## 一句话
 
