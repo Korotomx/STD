@@ -14,7 +14,7 @@ tags:
 
 **时间:** 2026-10-22
 **标签:** #功能实现 #模型流程Pipeline #训练Training #评估Eval #导出ONNX #TensorRT #推理Inference #术语表Glossary #JetsonOrin
-**关联:** [[N020 NDJSON数据集与YOLO姿态估计pose训练]]（数据 + 训练）· [[N021 Ultralytics训练参数全解]]（参数）· [[N022 ONNX与TensorRT Engine的区别]]（导出/部署）· [[N019 TensorRT部署onnx转engine并推理]]（Python 实战）
+**关联:** [[N020 NDJSON数据集与YOLO姿态估计pose训练]]（数据 + 训练）· [[N021 Ultralytics训练参数全解]]（参数）· [[N022 ONNX与TensorRT Engine的区别]]（导出/部署）· [[N024 ONNX编译成engine的原理]]（编译内部三步）· [[N025 拿到ONNX转engine的标准操作]]（操作手册）· [[N019 TensorRT部署onnx转engine并推理]]（Python 实战）
 
 ## 一句话
 

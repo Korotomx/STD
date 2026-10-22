@@ -13,7 +13,7 @@ tags:
 
 **时间:** 2026-10-22
 **标签:** #功能实现 #ONNX #TensorRT #Engine #推理部署 #FP16 #JetsonOrin
-**关联:** [[N023 模型全流程总览 从数据到Orin部署]]（全流程位置）· [[N019 TensorRT部署onnx转engine并推理]]（builder / runtime 的 Python 实战）· [[N021 Ultralytics训练参数全解]]（导出参数）· [[N020 NDJSON数据集与YOLO姿态估计pose训练]]（groundzero 模型）
+**关联:** [[N023 模型全流程总览 从数据到Orin部署]]（全流程位置）· [[N024 ONNX编译成engine的原理]]（编译内部三步）· [[N025 拿到ONNX转engine的标准操作]]（操作手册）· [[N019 TensorRT部署onnx转engine并推理]]（builder / runtime 的 Python 实战）· [[N021 Ultralytics训练参数全解]]（导出参数）· [[N020 NDJSON数据集与YOLO姿态估计pose训练]]（groundzero 模型）
 
 ## 一句话
 
