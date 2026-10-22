@@ -64,8 +64,8 @@
 <rect x="152" y="78" width="24" height="24" rx="4" fill="#30a14e"><title>2026-10-20 · 数学 5 / AI 3 条：线代 18.06 L1~L5 + 信息论/RNN/PyTorch</title></rect>
 <text x="164.0" y="94.0" font-size="12" font-weight="600" fill="#ffffff" text-anchor="middle">8</text>
 <rect x="152" y="110" width="24" height="24" rx="4" fill="#ebedf0"></rect>
-<rect x="152" y="142" width="24" height="24" rx="4" fill="#30a14e"><title>2026-10-22 · 数学 1 / AI 8 条：线代 L6 + Ultralytics 参数 / ONNX·Engine / 全流程 + 对称性 / 代码评审</title></rect>
-<text x="164.0" y="158.0" font-size="12" font-weight="600" fill="#ffffff" text-anchor="middle">9</text>
+<rect x="152" y="142" width="24" height="24" rx="4" fill="#216e39"><title>2026-10-22 · 数学 1 / AI 15 条：线代 L6 + N020~N028 / E003~E006 + 对称性 / 代码评审 + 英语 32 词</title></rect>
+<text x="164.0" y="158.0" font-size="12" font-weight="600" fill="#ffffff" text-anchor="middle">16</text>
 <rect x="152" y="174" width="24" height="24" rx="4" fill="#ebedf0"></rect>
 <rect x="152" y="206" width="24" height="24" rx="4" fill="#ebedf0"></rect>
 <rect x="152" y="238" width="24" height="24" rx="4" fill="#ebedf0"></rect>
@@ -95,7 +95,7 @@
 | 10-18 | · | · | 4 | 4 | 训练循环 + ResNet + Python |
 | 10-19 | · | · | 2 | 2 | 6.S191 L1/L2 基础 + RNN/Transformer |
 | 10-20 | · | 5 | 3 | 8 | 线代 18.06 L1~L5 + 信息论/RNN/PyTorch |
-| 10-22 | · | 1 | 8 | 9 | 线代 L6 + Ultralytics 参数 / ONNX·Engine / 全流程 + 对称性 / 代码评审 |
+| 10-22 | · | 1 | 15 | 16 | 线代 L6 + N020~N028 / E003~E006 + 对称性 / 代码评审 + 英语 32 词 |
 
 ---
 
@@ -161,9 +161,10 @@
 
 ### ⑥ 英语 · 单词 — [主页](English/主页.md)
 
-> 有道词典「CS」单词本 → 按天归档，631 词（2026-07-31 ~ 2026-10-20），每天增量追加。
+> 有道词典「CS」单词本 → 按天归档，663 词（2026-07-31 ~ 2026-10-22），每天增量追加。
 
 - [x] 631 词全部补录，按 39 天分文件 —— 2026-10-21
+- [x] 2026-10-21 ~ 10-22 增量 32 词（3 + 29），累计 663 词 / 41 天 —— 2026-10-22
 - [ ] 每日增量（新词 → 当天文件）
 
 ---
@@ -180,14 +181,25 @@
 3. **N021 Ultralytics 训练参数全解** — 显式 / 隐式参数表、参数耦合（`optimizer=auto` 忽略 `lr0`、`fliplr=0.5` 对 pose 自动关闭）、16 条踩坑
 4. **N022 ONNX 与 TensorRT Engine 的区别** — ONNX = 通用计算图；Engine = 按 Orin / TensorRT 版本 / shape / 精度现场编译的执行计划，不可移植
 5. **N023 模型全流程总览** — 数据 → 训练 → 评估 → 导出 → engine → 推理 → ROS2，逐阶段产物 / 选择 / 术语表
-6. **E003 / E004** — detect 模型训 pose 数据任务不匹配；训练 OOM（WSL2 内存不足、workers 8→2 + batch 16→8）
+6. **N024 ONNX 编译成 engine 的原理** — Parse（421 ONNX 节点 → 632 TRT 层）→ Optimize + Tactic（算子融合 / 逐层试跑 / 显存规划）→ Serialize；engine 不含 ONNX 图，所以不可移植
+7. **N025 拿到 ONNX 转 engine 的标准操作** — 查输入输出 → 判断静态/动态 shape → `trtexec --onnx --saveEngine --memPoolSize=workspace:2048M` → `--loadEngine` 验证；实测 11.56 MiB、1.59 ms / 629 qps
+8. **N026 TensorRT engine 推理全流程** — letterbox → RGB/255/CHW → Runtime/Context/`set_tensor_address`/`execute_async_v3` → 解 `[1,300,30]` → 框和关键点逆映射；端到端 5.10 ms（FP32）/ 4.35 ms（FP16）
+9. **N027 数值精度与量化** — FP32 / FP16 / BF16 / TF32 / INT8 的位结构、范围、精度；INT8 的 scale / zero_point / 校准 / Q-DQ；groundzero FP16 实测几乎无损
+10. **N028 图像坐标与 Letterbox 仿射变换** — 左上原点 / 连续像素 / 为什么用 float；正变换 `min` 缩放 + `pad`，逆变换 `(dst-pad)/s`；逆偏置 `-pad/s` 为什么为负
+11. **E003 ~ E006** — detect 模型训 pose 数据任务不匹配；训练 OOM（workers 8→2 + batch 16→8）；`trtexec` workspace 单位写 `MiB` 被当成字节；Ultralytics engine 的 JSON 元数据头
+12. **环境 · TensorRT 11.4 完整 SDK** — 官方 TAR 包解压到 `~/opt/TensorRT-11.4.0.106`，补齐 C++ 头文件、`libnvonnxparser`、`trtexec`；`TENSORRT_ROOT` / `PATH` / `LD_LIBRARY_PATH` 已写入 `~/.bashrc`
 
 ### AI · Unlimited（补充 / 零散）
 
-7. **神经网络对称性：损失曲面的隐藏结构** — 置换对称 / 尺度对称 → 海量等价最优解，解释非凸损失曲面为什么好训
-8. **AI 代码评审：Claude Code 团队实践** — 90% 代码由 Claude 写时的七层评审流程 / 风险分级 / 评审收敛
+13. **神经网络对称性：损失曲面的隐藏结构** — 置换对称 / 尺度对称 → 海量等价最优解，解释非凸损失曲面为什么好训
+14. **AI 代码评审：Claude Code 团队实践** — 90% 代码由 Claude 写时的七层评审流程 / 风险分级 / 评审收敛
 
-**统计：2026-10-22 完成 数学 L6（+ manim + 3b1b 关联）+ AI 8 条（N020 / N021 / N022 / N023 + Unlimited 2 篇 + E003 / E004）。**
+### 英语 · 单词
+
+15. **2026-10-21（3 词）** — refactor / CUDA / DNN
+16. **2026-10-22（29 词）** — end-to-end、adversarial、latent、autoencoder、GAN、loss landscape、affine transformation 等；CS 单词本累计 663 词 / 41 天
+
+**统计：2026-10-22 完成 数学 L6（+ manim + 3b1b 关联）+ AI 15 条（N020~N028 + E003~E006 + Unlimited 2）+ 英语 32 词。**
 
 ### 2026-10-22 大纲 / 结构树
 
@@ -196,17 +208,23 @@
 ├── 数学
 │   └── Linear Algebra（18.06）
 │       └── L6 列空间与零空间（+ manim + 3b1b 关联）
-└── AI
-    ├── DeepLearningRM（独立 ultralytics）
-    │   ├── N020 NDJSON 数据集与 YOLO pose 训练
-    │   ├── N021 Ultralytics 训练参数全解
-    │   ├── N022 ONNX 与 TensorRT Engine 的区别
-    │   ├── N023 模型全流程总览（数据 → Orin）
-    │   ├── E003 任务不匹配
-    │   └── E004 训练 OOM
-    └── Unlimited
-        ├── 神经网络对称性：损失曲面的隐藏结构
-        └── AI 代码评审：Claude Code 团队实践
+├── AI
+│   ├── DeepLearningRM（独立 ultralytics）
+│   │   ├── N020 NDJSON 数据集与 YOLO pose 训练
+│   │   ├── N021 Ultralytics 训练参数全解
+│   │   ├── N022 ONNX 与 TensorRT Engine 的区别
+│   │   ├── N023 模型全流程总览（数据 → Orin）
+│   │   ├── N024 ONNX → engine 编译原理
+│   │   ├── N025 ONNX 转 engine 标准操作
+│   │   ├── N026 TensorRT engine 推理全流程
+│   │   ├── N027 数值精度与量化
+│   │   ├── N028 图像坐标与 Letterbox 仿射变换
+│   │   └── E003~E006 任务不匹配 / OOM / workspace 单位 / engine 头
+│   └── Unlimited
+│       ├── 神经网络对称性：损失曲面的隐藏结构
+│       └── AI 代码评审：Claude Code 团队实践
+└── 英语
+    └── 单词 2026-10-21（3）+ 2026-10-22（29）
 ```
 
 ---
