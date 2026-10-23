@@ -2,7 +2,7 @@
 
 > 多学科学习库总览：**[ROS 2](ROS2/主页.md) · [数学](Math/主页.md) · [AI / 深度学习](Artificial_Intelligence/主页.md) · [英语单词](English/主页.md)**。
 > 以「天」为单位更新，每次你说「就到这里」时刷新此页。
-> 最近更新：**2026-10-23**
+> 最近更新：**2026-10-24**（新增 CUDA 线）
 
 ---
 
@@ -162,7 +162,17 @@
 - [ ] L5 Reinforcement Learning 强化学习
 - [ ] L6 LLM / 前沿
 
-### ⑥ 英语 · 单词 — [主页](English/主页.md)
+### ⑥ CUDA 编程（2026-10-24 新增）— [主页](Artificial_Intelligence/CUDA/主页.md)
+
+> 材料：NVIDIA《CUDA Programming Guide》13.4.2（734 页，`Artificial_Intelligence/CUDA/Ref/`）。目标：能写能调 kernel，并落到推理链路。
+
+- [ ] 环境：nvcc / CUDA Toolkit（WSL2 只装 toolkit，不装 Linux 驱动）
+- [ ] C01 Introduction —— 计划 2026-10-25
+- [ ] 第 1 周 C02~C04 / C06（编程模型 + 第一个 kernel + SIMT）+ 项目①~③
+- [ ] 第 2 周 C08~C10（异步 / 统一内存 / NVCC）+ 项目④⑤
+- [ ] 第 3 周起 项目⑥ groundzero 预处理 kernel（可选⑦ NMS / TensorRT plugin）
+
+### ⑦ 英语 · 单词 — [主页](English/主页.md)
 
 > 有道词典「CS」单词本 → 按天归档，673 词（2026-07-31 ~ 2026-10-23），每天增量追加。
 
