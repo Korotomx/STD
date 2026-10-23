@@ -1,3 +1,5 @@
+> 对应主课笔记：[[L6 列空间与零空间]] · [[L7 求解Ax=0主变量与特解]]（非方阵 = 维数不对等的变换，秩与零空间维数的直观来源）
+
 ![](https://www.youtube.com/watch?v=v8VSDg_WQlA)
 
 A brief footnote on the geometric interpretation of non-square matrices.  

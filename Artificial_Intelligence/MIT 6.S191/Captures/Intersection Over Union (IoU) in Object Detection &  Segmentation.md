@@ -9,6 +9,9 @@ description: "📚 Blog post Link: https://learnopencv.com/fine-tuning-trocr-tra
 tags:
   - "clippings"
 ---
+
+> 对应笔记：[[IoU 交并比 检测与分割的评价指标]]
+
 ![](https://www.youtube.com/watch?v=RgQbweTwrkU)
 
 📚 Blog post Link: https://learnopencv.com/fine-tuning-trocr-training-trocr-to-recognize-curved-text/  

@@ -9,6 +9,9 @@ description: "在 YouTube 上畅享你喜爱的视频和音乐，上传原创内
 tags:
   - "clippings"
 ---
+
+> 对应笔记：[[双线性插值 从一维线性到二维图像]]
+
 ![](https://www.youtube.com/watch?v=va8vFViss90)
 
 ## Transcript

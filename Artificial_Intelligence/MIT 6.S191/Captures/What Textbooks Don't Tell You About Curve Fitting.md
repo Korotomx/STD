@@ -9,6 +9,9 @@ description: "Head to https://squarespace.com/artem to save 10% off your first p
 tags:
   - "clippings"
 ---
+
+> 对应笔记：[[曲线拟合的概率视角 最小二乘与正则化]]
+
 ![](https://www.youtube.com/watch?v=q7seckj1hwM)
 
 Head to https://squarespace.com/artem to save 10% off your first purchase of a website or domain using code ARTEMKIRSANOV  

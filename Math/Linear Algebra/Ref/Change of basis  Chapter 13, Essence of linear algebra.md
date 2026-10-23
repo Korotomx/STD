@@ -1,3 +1,5 @@
+> 对应主课笔记：[[L7 求解Ax=0主变量与特解]]（换基先作直观预习；主课到 L9~L10「基与维数」再正式关联）
+
 ![](https://www.youtube.com/watch?v=P2LTAUO1TdA)
 
 How do you translate back and forth between coordinate systems that use different basis vectors?  
