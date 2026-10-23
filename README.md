@@ -201,6 +201,8 @@
 
 **统计：2026-10-23 完成 数学 L7（+ 18.06SC + 3b1b 第 8/13 章）+ AI 3 条 Unlimited（曲线拟合 / IoU / 双线性插值）+ 英语 10 词。**
 
+> 另：2026-10-24 建立 **AI · CUDA 编程** 线（NVIDIA《CUDA Programming Guide》13.4.2，734 页），路线 / 章节地图 / 项目清单见 [CUDA 主页](Artificial_Intelligence/CUDA/主页.md)；下一站 **C01 Introduction**（10-25）。
+
 ### 2026-10-23 大纲 / 结构树
 
 ```
