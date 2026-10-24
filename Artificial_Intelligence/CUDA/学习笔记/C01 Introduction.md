@@ -23,6 +23,26 @@ CUDA 不是「把 for 循环搬到 GPU」这么简单，而是一套**异构系�
 
 > 验收句（主页要求）：**CUDA 程序 = host 管数据搬运、device 管并行计算。**
 
+```mermaid
+mindmap
+  root((C01 Introduction))
+    硬件 Hardware
+      GPU vs CPU: 吞吐 vs 延迟
+      SM / GPC
+      内存层次
+    编程模型 Model
+      host / device: 异构系统
+      grid → block → thread
+      warp / SIMT
+      tile programming
+    平台 Platform
+      compute capability: sm_XY
+      PTX → cubin → fatbin
+      driver vs toolkit
+```
+
+*本讲导图：三块内容——硬件长什么样、程序怎么映射上去、平台怎么把代码送到 GPU。*
+
 ## 实际情况
 
 ### 1. GPU 为什么快：吞吐 vs 延迟
@@ -51,6 +71,24 @@ CUDA 程序默认跑在**异构系统**上（CPU + GPU）：
 - 跑在 GPU 上的函数叫 **kernel**，启动 kernel 叫 **launch**。一次 launch 可以理解为「同时启动成千上万个线程执行同一段 kernel 代码」。
 - CPU 和 GPU **可以同时执行**；性能最好时两边都不闲着。
 
+```mermaid
+flowchart LR
+    subgraph HOST["Host（CPU）"]
+        HC["host code<br/>准备数据 / 启动 kernel"]
+        HM["host memory"]
+    end
+    subgraph DEV["Device（GPU）"]
+        DC["kernel / device code<br/>成千上万线程"]
+        DM["device memory<br/>（global memory）"]
+    end
+    HM -- "cudaMemcpy H→D" --> DM
+    HC -- "kernel launch（grid, block）" --> DC
+    DM -- "cudaMemcpy D→H" --> HM
+    DC -. "cudaDeviceSynchronize" .-> HC
+```
+
+*图 1 · 异构系统：host 负责搬运与启动，device 负责并行计算。*
+
 ### 3. GPU 硬件模型：SM 与 GPC
 
 从 CUDA 编程模型看，GPU 是：
@@ -71,6 +109,21 @@ GPU
 - **GPC** 是 SM 的分组；更上层才是整个 GPU 和显存。
 - 不同架构的 SM 数量、寄存器/缓存大小、运算单元数量都不同——**写程序不要依赖具体数值**。
 
+```mermaid
+flowchart TB
+    GPU["GPU"]
+    GPU --> GPC["GPC（SM 的分组）"]
+    GPU --> L2["L2 cache（全 GPU 共享）"]
+    GPC --> SM0["SM 0"]
+    GPC --> SM1["SM 1 …"]
+    SM0 --> RF["register file<br/>每线程私有"]
+    SM0 --> UC["unified data cache<br/>shared memory + L1 共用"]
+    SM0 --> CC["constant cache"]
+    SM0 --> FU["functional units"]
+```
+
+*图 2 · 硬件层次：GPU → GPC → SM；L2 由所有 SM 共享。*
+
 ### 4. 线程层次：grid → block → thread
 
 启动 kernel 时用**执行配置** `<<<grid, block>>>` 指定：
@@ -89,6 +142,10 @@ kernel 内用内建变量定位自己：
 | `blockIdx.{x,y,z}` | block 在 grid 内的坐标 |
 | `blockDim.{x,y,z}` | 每个 block 的线程数 |
 | `gridDim.{x,y,z}` | grid 中的 block 数 |
+
+![[c01_grid_block_thread.png]]
+
+*图 3 · 2×2 个 block、每 block 4×4 个线程；橙色是 `blockIdx=(1,0)` 里被选中的 `threadIdx=(2,1)`。*
 
 全局唯一编号（1D 例子）：
 
@@ -110,6 +167,10 @@ int tid = blockIdx.x * blockDim.x + threadIdx.x;
 - 当 warp 内线程走不同分支时，不满足条件的 lane 会被**掩码屏蔽（masked off）**，等另一条分支执行完再回来——这叫 **warp divergence**。分支越分散，利用率越低。
 - 因此：**block 的线程数尽量取 32 的倍数**。不是 32 的倍数也能跑，但最后一个 warp 会有空闲 lane，浪费运算单元和访存带宽。
 - **SIMT ≠ SIMD**：SIMD 是一条指令锁死一个数据宽度、单一控制流；SIMT 允许每个线程独立分支，没有固定数据宽度。
+
+![[c01_warp_divergence.png]]
+
+*图 4 · warp divergence：一个 warp 里两条分支只能串行执行，每一段都有一半 lane 被掩码。*
 
 > 写代码时不必时时想着 warp，但理解它才能理解后面的 **global memory coalescing** 和 **shared memory bank conflict**。
 
@@ -137,6 +198,10 @@ int tid = blockIdx.x * blockDim.x + threadIdx.x;
 | **L1 cache** | SM 内 | 单 SM | 与 shared memory 共用物理资源 |
 | **L2 cache** | GPU 内 | 全 GPU | 所有 SM 共享 |
 | **constant cache** | SM 内 | 全 GPU（只读） | 缓存 `__constant__` 数据和 kernel 参数 |
+
+![[c01_memory_hierarchy.png]]
+
+*图 5 · 内存层次：越靠上越快、越小；越靠下越慢、越大（未按比例）。*
 
 几个关键点：
 
@@ -173,6 +238,18 @@ int tid = blockIdx.x * blockDim.x + threadIdx.x;
 CUDA C++  --nvcc-->  PTX（虚拟 ISA）  --ptxas/JIT-->  cubin（真实 GPU 二进制）
                               └──────── fatbin 容器 ────────┘
 ```
+
+```mermaid
+flowchart LR
+    SRC["CUDA C++<br/>hello.cu"] -->|nvcc| PTX["PTX<br/>虚拟 ISA（compute_XY）"]
+    PTX -->|ptxas| CUBIN["cubin<br/>真实二进制（sm_XY）"]
+    PTX --> FAT["fatbin<br/>多份 cubin + 多份 PTX"]
+    CUBIN --> FAT
+    FAT --> RUN["运行时挑选<br/>最合适的 cubin"]
+    PTX -. "前向兼容：JIT 到更新的 GPU" .-> RUN
+```
+
+*图 6 · 编译链路：源码 → PTX → cubin；fatbin 把多份目标代码打包在一起。*
 
 - **PTX**：NVIDIA GPU 的**虚拟指令集架构**（类汇编），提供对物理 ISA 的抽象；版本如 `compute_80`。
 - **cubin**：针对某个 SM 版本的真实二进制（如 `sm_120`）。
