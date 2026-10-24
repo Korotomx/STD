@@ -2,13 +2,13 @@
 
 > 多学科学习库总览：**[ROS 2](ROS2/主页.md) · [数学](Math/主页.md) · [AI / 深度学习](Artificial_Intelligence/主页.md) · [英语单词](English/主页.md)**。
 > 以「天」为单位更新，每次你说「就到这里」时刷新此页。
-> 最近更新：**2026-10-24**（新增 CUDA 线）
+> 最近更新：**2026-10-24**（新增 CUDA 线 + 线代 L10 习题课）
 
 ---
 
 ## 学习热力图
 
-> 2026-09-28 ~ 2026-10-23 · 一格一天，颜色越深 = 当天条目越多；格内数字 = 条目数，悬停格子看类别与主题。
+> 2026-09-28 ~ 2026-10-24 · 一格一天，颜色越深 = 当天条目越多；格内数字 = 条目数，悬停格子看类别与主题。
 
 <div align="center">
 
@@ -68,7 +68,8 @@
 <text x="164.0" y="158.0" font-size="12" font-weight="600" fill="#ffffff" text-anchor="middle">16</text>
 <rect x="152" y="174" width="24" height="24" rx="4" fill="#40c463"><title>2026-10-23 · 数学 1 / AI 3 条：线代 L7 + 曲线拟合 / IoU / 双线性插值 + 英语 10 词</title></rect>
 <text x="164.0" y="190.0" font-size="12" font-weight="600" fill="#1f2328" text-anchor="middle">4</text>
-<rect x="152" y="206" width="24" height="24" rx="4" fill="#ebedf0"></rect>
+<rect x="152" y="206" width="24" height="24" rx="4" fill="#40c463"><title>2026-10-24 · 数学 1 / AI 3 条：线代 L10 习题课 + CUDA C01/C02 + 网站设想</title></rect>
+<text x="164.0" y="222.0" font-size="12" font-weight="600" fill="#1f2328" text-anchor="middle">4</text>
 <rect x="152" y="238" width="24" height="24" rx="4" fill="#ebedf0"></rect>
 </svg>
 
@@ -98,6 +99,7 @@
 | 10-20 | · | 5 | 3 | 8 | 线代 18.06 L1~L5 + 信息论/RNN/PyTorch |
 | 10-22 | · | 1 | 15 | 16 | 线代 L6 + N020~N028 / E003~E006 + 对称性 / 代码评审 + 英语 32 词 |
 | 10-23 | · | 1 | 3 | 4 | 线代 L7（+ 18.06SC + 3b1b 8/13 章）+ 曲线拟合 / IoU / 双线性插值 + 英语 10 词 |
+| 10-24 | · | 1 | 3 | 4 | 线代 L10 习题课（B=LU）+ CUDA C01/C02 + 网站设想 |
 
 ---
 
@@ -121,6 +123,7 @@
 - [x] 改用 MIT 18.06（Strang），L1~L5 四段式笔记：几何 / 消元 / 乘与逆 / A=LU / 转置·置换·向量空间 —— 2026-10-20（原课程第 1~3 讲已并入归档）
 - [x] L6 列空间与零空间 —— 2026-10-22（含 manim 动画 + 3b1b 关联）
 - [x] L7 求解 Ax=0（主元变量 / 自由变量 / 特解 / 秩 r 与 dim N = n-r）—— 2026-10-23（+ 18.06SC 习题课 + 3b1b 第 8/13 章）
+- [x] L8~L10 字幕过一遍 + L10 习题课（B=LU 的四个基本子空间；三角矩阵的维度作用：det / 特征值 / 幂零 / 不变子空间链）—— 2026-10-24
 
 ### ③ AI · RoboMaster 深度学习考核（DeepLearningRM，100 分）— [主页](Artificial_Intelligence/DeepLearningRM/主页.md)
 
@@ -166,9 +169,10 @@
 
 > 材料：NVIDIA《CUDA Programming Guide》13.4.2（734 页，`Artificial_Intelligence/CUDA/Ref/`）。目标：能写能调 kernel，并落到推理链路。
 
-- [ ] 环境：nvcc / CUDA Toolkit（WSL2 只装 toolkit，不装 Linux 驱动）
-- [ ] C01 Introduction —— 计划 2026-10-25
-- [ ] 第 1 周 C02~C04 / C06（编程模型 + 第一个 kernel + SIMT）+ 项目①~③
+- [x] 环境：nvcc / CUDA Toolkit（WSL2 只装 toolkit，不装 Linux 驱动）—— 2026-10-24
+- [x] C01 Introduction —— 2026-10-24
+- [x] C02 Programming Model —— 2026-10-24（向量加法 0.60 ms / 335 GB/s）
+- [ ] 第 1 周 C03/C04 / C06 + 项目①~③
 - [ ] 第 2 周 C08~C10（异步 / 统一内存 / NVCC）+ 项目④⑤
 - [ ] 第 3 周起 项目⑥ groundzero 预处理 kernel（可选⑦ NMS / TensorRT plugin）
 
@@ -183,7 +187,45 @@
 
 ---
 
-## 今日学习（最新：2026-10-23）
+## 今日学习（最新：2026-10-24）
+
+### 数学 · Linear Algebra（18.06）
+
+1. **L8~L10 先过一遍（正式笔记待补）** — L8 求解 Ax=b（行最简形 / 可解性 / 通解 = 特解 + 零空间）/ L9 独立·基·维数 / L10 四个基本子空间
+2. **18.06SC 习题课 · 四个基本子空间的计算（B=LU）** — 不乘开 B：列空间看 L 的主元列、零空间和行空间看 U、左零空间看 L⁻¹ 的零行；四个维数 2 / 1 / 2 / 1。附「三角矩阵为什么重要、对维度有什么影响」：det = 对角元乘积、特征值 = 对角元、严格三角幂零、不变子空间链 V₀⊂…⊂Vₙ；见 [L10 四个基本子空间的计算 · 习题课](Math/Linear%20Algebra/学习笔记/L10%20四个基本子空间的计算%20·%20习题课.md)
+
+### AI · CUDA（2026-10-24 新建线）
+
+3. **C01 Introduction** — 异构模型 / grid-block-thread / warp SIMT / 内存层次 / compute capability、PTX、cubin、fatbin；环境三件套 nvidia-smi + nvcc + hello kernel
+4. **C02 Programming Model** — 固定套路「分配 → 搬数据 → 配 grid/block → launch → 同步 → 回收」；索引、异步、错误检查三件事；向量加法 0.60 ms、335 GB/s
+
+### AI · Unlimited（补充 / 零散）
+
+5. **Obsidian 笔记发布为静态网站·设想** — Quartz + GitHub Pages 试做后撤下；留方案、步骤、7 个坑与安全清单，以后想做直接照抄
+
+**统计：2026-10-24 数学 1 条（L10 习题课四段式笔记 + L8~L10 字幕）+ AI 3 条（CUDA C01 / C02 + 网站设想）。**
+
+### 2026-10-24 大纲 / 结构树
+
+```
+学习（2026-10-24）
+├── 数学
+│   └── Linear Algebra（18.06）
+│       ├── L8~L10 字幕过一遍
+│       └── L10 习题课：四个基本子空间的计算（B=LU）
+└── AI
+    ├── CUDA
+    │   ├── C01 Introduction
+    │   └── C02 Programming Model
+    └── Unlimited
+        └── Obsidian 笔记发布为静态网站·设想
+```
+
+---
+
+## 历史归档
+
+### 2026-10-23 · 数学 + AI + 英语（5 条，原「今日学习」）
 
 ### 数学 · Linear Algebra（18.06）
 
@@ -201,8 +243,6 @@
 
 **统计：2026-10-23 完成 数学 L7（+ 18.06SC + 3b1b 第 8/13 章）+ AI 3 条 Unlimited（曲线拟合 / IoU / 双线性插值）+ 英语 10 词。**
 
-> 另：2026-10-24 建立 **AI · CUDA 编程** 线（NVIDIA《CUDA Programming Guide》13.4.2，734 页），路线 / 章节地图 / 项目清单见 [CUDA 主页](Artificial_Intelligence/CUDA/主页.md)；下一站 **C01 Introduction**（10-25）。
-
 ### 2026-10-23 大纲 / 结构树
 
 ```
@@ -218,10 +258,6 @@
 └── 英语
     └── 单词 2026-10-23（10）
 ```
-
----
-
-## 历史归档
 
 ### 2026-10-22 · 数学 + AI（16 条，原「今日学习」）
 

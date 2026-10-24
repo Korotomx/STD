@@ -1,3 +1,5 @@
+> 对应主课笔记：[[L10 四个基本子空间的计算 · 习题课]]
+
 ![](https://www.youtube.com/watch?v=D8u1LV9CnCk)
 
 MIT 18.06SC Linear Algebra, Fall 2011  
