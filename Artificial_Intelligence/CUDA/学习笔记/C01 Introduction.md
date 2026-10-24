@@ -15,7 +15,7 @@ tags:
 **来源:** *CUDA Programming Guide* 13.4.2, Chapter 1（pp. 3–19）· [中文图解 1.1 Introduction](https://okazaki-yumemi.github.io/CUDA_PROGRAMMING_GUIDE_simplified-Chinese/01-introduction/introduction.html)
 **原文:** [[cuda-programming-guide.pdf|CUDA Programming Guide 13.4.2]] · [PDF 图版（原书图 + 编程含义）](https://okazaki-yumemi.github.io/CUDA_PROGRAMMING_GUIDE_simplified-Chinese/figures.html)
 **标签:** #GPU架构 #CUDA平台 #异构计算 #SIMT #线程层次 #内存层次 #ComputeCapability
-**关联:** [[CUDA/主页|CUDA 主页]] · [[CUDA/学习笔记/学习笔记|CUDA 学习笔记]] · 下一章 [[C02 Programming Model]]（待写）· 落地场景：groundzero 预处理 kernel
+**关联:** [[CUDA/主页|CUDA 主页]] · [[CUDA/学习笔记/学习笔记|CUDA 学习笔记]] · 下一章 [[C02 Programming Model]] · 落地场景：groundzero 预处理 kernel
 
 ## 一句话
 
