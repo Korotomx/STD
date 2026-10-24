@@ -12,8 +12,8 @@ tags:
 # C01 Introduction · GPU、CUDA 编程模型与平台
 
 **时间:** 2026-10-24
-**来源:** *CUDA Programming Guide* 13.4.2, Chapter 1（pp. 3–19）
-**原文:** [[cuda-programming-guide.pdf|CUDA Programming Guide 13.4.2]]
+**来源:** *CUDA Programming Guide* 13.4.2, Chapter 1（pp. 3–19）· [中文图解 1.1 Introduction](https://okazaki-yumemi.github.io/CUDA_PROGRAMMING_GUIDE_simplified-Chinese/01-introduction/introduction.html)
+**原文:** [[cuda-programming-guide.pdf|CUDA Programming Guide 13.4.2]] · [PDF 图版（原书图 + 编程含义）](https://okazaki-yumemi.github.io/CUDA_PROGRAMMING_GUIDE_simplified-Chinese/figures.html)
 **标签:** #GPU架构 #CUDA平台 #异构计算 #SIMT #线程层次 #内存层次 #ComputeCapability
 **关联:** [[CUDA/主页|CUDA 主页]] · [[CUDA/学习笔记/学习笔记|CUDA 学习笔记]] · 下一章 [[C02 Programming Model]]（待写）· 落地场景：groundzero 预处理 kernel
 
@@ -45,6 +45,15 @@ mindmap
 
 ## 实际情况
 
+### 0. 背景：从图形到通用计算
+
+- GPU 最初是**三维图形的专用处理器**，用固定功能硬件加速实时渲染中的并行操作；
+- 到 **2003 年**，图形流水线的部分阶段变成完全可编程，可以为每个顶点/像素并行运行自定义代码；
+- **2006 年**，NVIDIA 推出 **CUDA**（Compute Unified Device Architecture），让任意计算负载都能使用 GPU 的吞吐能力，**不再依赖图形 API**；
+- 此后 GPU 计算扩展到流体/能源等科学模拟、数据库与分析，以及图像分类、扩散模型、LLM 等 AI 负载。
+
+> 一句话：GPU 的「通用并行计算」能力，是图形硬件逐渐可编程 + CUDA 把编程接口统一之后的结果。
+
 ### 1. GPU 为什么快：吞吐 vs 延迟
 
 CPU 和 GPU 的设计目标不同，不是「GPU 是更快的 CPU」：
@@ -57,6 +66,8 @@ CPU 和 GPU 的设计目标不同，不是「GPU 是更快的 CPU」：
 | 擅长 | 分支多、串行依赖强的代码 | 同一套运算作用在海量数据上 |
 
 GPU 用**较低的单线程性能**换**高得多的总吞吐**。所以在 CUDA 里，「一个线程算一个元素」通常比「一个线程算一大块」更自然。
+
+但 GPU **不是对所有任务都更快**：只有工作能拆成大量并行任务，并且数据搬运、同步、kernel 启动这些开销可控时，吞吐优势才容易体现。串行依赖强、分支杂乱、数据量又小的任务，GPU 可能还不如 CPU。
 
 ### 2. 异构系统：host、device 与 kernel
 
@@ -122,7 +133,8 @@ flowchart TB
     SM0 --> FU["functional units"]
 ```
 
-*图 2 · 硬件层次：GPU → GPC → SM；L2 由所有 SM 共享。*
+*图 2 · 硬件层次：GPU → GPC → SM；L2 由所有 SM 共享。对应原书图 2。*
+**编程含义：** 线程块会被调度到某一个 SM 上；寄存器/共享内存用量决定一个 SM 能同时驻留多少 block（occupancy）。
 
 ### 4. 线程层次：grid → block → thread
 
@@ -145,7 +157,8 @@ kernel 内用内建变量定位自己：
 
 ![[c01_grid_block_thread.png]]
 
-*图 3 · 2×2 个 block、每 block 4×4 个线程；橙色是 `blockIdx=(1,0)` 里被选中的 `threadIdx=(2,1)`。*
+*图 3 · 2×2 个 block、每 block 4×4 个线程；橙色是 `blockIdx=(1,0)` 里被选中的 `threadIdx=(2,1)`。对应原书图 3 / 图 4。*
+**编程含义：** 用 `blockIdx / threadIdx / blockDim / gridDim` 算出每个线程负责的数据坐标；block 之间的调度顺序没有保证。
 
 全局唯一编号（1D 例子）：
 
@@ -157,6 +170,8 @@ int tid = blockIdx.x * blockDim.x + threadIdx.x;
 
 1. **block 之间没有执行顺序保证**：可能并行、可能串行、可能任意顺序。因此不同 block 的线程**不能互相等待或依赖对方结果**（除非用跨 block 的显式机制）。
 2. 正因为如此，CUDA 才能把「任意大的 grid」跑在「任意小的 GPU」上：block 排队上 SM 即可。
+
+需要**跨 block 的全局同步**时，通常拆成多次 kernel launch，或使用 Cooperative Groups / cluster 等专门机制；不要自己用全局变量 + 自旋等待去「凑」同步。
 
 > **Cluster（CC 9.0+）**：可选的第三层分组，把相邻 block 组成 cluster，保证它们跑在同一个 GPC 内并同时调度；cluster 内可以互相访问 shared memory（distributed shared memory），并用 Cooperative Groups 同步。入门阶段先了解概念即可。
 
@@ -170,7 +185,8 @@ int tid = blockIdx.x * blockDim.x + threadIdx.x;
 
 ![[c01_warp_divergence.png]]
 
-*图 4 · warp divergence：一个 warp 里两条分支只能串行执行，每一段都有一半 lane 被掩码。*
+*图 4 · warp divergence：一个 warp 里两条分支只能串行执行，每一段都有一半 lane 被掩码。对应原书图 7。*
+**编程含义：** 条件分支不是绝对不能用，但要关注活跃 lane 数和两条路径的成本；能按 warp 对齐的分支最划算。
 
 > 写代码时不必时时想着 warp，但理解它才能理解后面的 **global memory coalescing** 和 **shared memory bank conflict**。
 
@@ -232,6 +248,9 @@ int tid = blockIdx.x * blockDim.x + threadIdx.x;
 - **CUDA Runtime API** 建立在更底层的 **CUDA Driver API** 之上；本手册主要讲 runtime API，但两者可以混用。
 - 很多场景不必自己写 kernel：cuBLAS/cuDNN/CUTLASS 等库已经针对各架构优化；Triton、Warp 等 DSL 也能直接编译到 CUDA 平台。
 
+> **先问一句：真的需要自己写 kernel 吗？**
+> 已有库（cuBLAS / cuFFT / cuDNN / CUTLASS）通常比手写更快、更可移植；PyTorch、TensorRT 等框架和 Triton 等 DSL 也能覆盖大部分推理场景。自己写 kernel 的真正价值在于：**库里没有的操作、算子融合（fusion）、特殊数据布局、以及把预处理/后处理搬上 GPU**——比如 groundzero 的 letterbox + 归一化 + HWC→CHW。
+
 #### 8.3 PTX → cubin → fatbin
 
 ```
@@ -249,7 +268,8 @@ flowchart LR
     PTX -. "前向兼容：JIT 到更新的 GPU" .-> RUN
 ```
 
-*图 6 · 编译链路：源码 → PTX → cubin；fatbin 把多份目标代码打包在一起。*
+*图 6 · 编译链路：源码 → PTX → cubin；fatbin 把多份目标代码打包在一起。对应原书图 10。*
+**编程含义：** 发布时通常同时打包目标 cubin + 一份 PTX：当前 GPU 直接跑 cubin，未来 GPU 用 PTX JIT 兜底。
 
 - **PTX**：NVIDIA GPU 的**虚拟指令集架构**（类汇编），提供对物理 ISA 的抽象；版本如 `compute_80`。
 - **cubin**：针对某个 SM 版本的真实二进制（如 `sm_120`）。
@@ -390,3 +410,4 @@ cudaGetLastError: no error
 - 项目：① 向量加法（C02/C04）→ ② 朴素矩阵乘（C04/C06）→ ③ 图像灰度化（C06）
 - 落地：groundzero 预处理 kernel（letterbox + 归一化 + HWC→CHW，阶段 3）
 - 延伸讲座：北大未名超算队 × LCPU **AI Infra Seminars**（B 站合集），其中 1.1 CUDA Programming Model、2.1 Memory Abstraction、2.2 FP32 GEMM 与本线高度重合，可作为补充讲解（见主页评估）
+- 中文对照：[1.1 Introduction 译文](https://okazaki-yumemi.github.io/CUDA_PROGRAMMING_GUIDE_simplified-Chinese/01-introduction/introduction.html) · [PDF 图版](https://okazaki-yumemi.github.io/CUDA_PROGRAMMING_GUIDE_simplified-Chinese/figures.html)（基于 Release 13.3；本笔记按 13.4.2，版本差异以官方 PDF 为准）
