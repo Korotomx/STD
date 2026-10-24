@@ -11,7 +11,7 @@ tags:
 
 # 求解 Ax=0:主变量与特解 Pivot Variables and Special Solutions · 18.06 L7
 
-**时间:** 2026-10-23
+**时间:** 2026-10-23（2026-10-24 补 §6：`[-F; I]` 为什么就是零空间的基）
 **标签:** #线性代数LinearAlgebra #零空间NullSpace #主元Pivot #自由变量FreeVariable #秩Rank #特解SpecialSolution #行最简形RREF
 **关联:** [[L6 列空间与零空间]]（上一讲：零空间的定义）· [[L8 求解Ax=b]]（下一讲：非齐次方程组，通解 = 特解 + 零空间）· [[Nonsquare matrices as transformations between dimensions  Chapter 8, Essence of linear algebra]]（3b1b：维数不对等的变换）· [[Change of basis  Chapter 13, Essence of linear algebra]]（3b1b：换基，待 L9~L10 主课到再正式关联）
 
@@ -113,13 +113,128 @@ I=\begin{bmatrix}1&0\\0&1\end{bmatrix},\quad
 F=\begin{bmatrix}2&-2\\0&2\end{bmatrix}
 $$
 
-此时特解可以直接读出来：**自由变量位置放单位阵，主元变量位置放 $-F$**：
+此时特解可以直接读出来：**自由变量位置放单位阵，主元变量位置放 $-F$**（下面这个结果已经按原变量顺序写回，中间那次行交换见 §6.4）：
 
 $$
 \begin{bmatrix}-F\\I\end{bmatrix}=\begin{bmatrix}-2&2\\1&0\\0&-2\\0&1\end{bmatrix}
 $$
 
 两列正好是 $s_1,s_2$。这就是「零空间的系统求法」——不用每次回代，$R$ 一写出来答案就在里面。
+
+**但这里藏了三个没讲透的点：为什么主元列能凑成 $I$？为什么答案恰好是 $[-F;I]$？为什么这两列能当基？** 下面拆开看。
+
+#### 6.1 分块从哪来：把主元列挪到前面
+
+rref 的定义就是「每个主元是 1，且该列其它位置全是 0」——**主元列天然就是单位列**。本例主元在第 1、3 列，把它们挪到前面，变量也随之重排为 $(x_p\mid x_f)=(x_1,x_3\mid x_2,x_4)$：
+
+$$
+R'=\begin{bmatrix}
+1&0&2&-2\\
+0&1&0&2\\
+0&0&0&0
+\end{bmatrix}
+=\begin{bmatrix}I&F\\0&0\end{bmatrix},
+\qquad
+I=\begin{bmatrix}1&0\\0&1\end{bmatrix},\quad
+F=\begin{bmatrix}2&-2\\0&2\end{bmatrix}
+$$
+
+挪列只是**排版**：等价于右乘一个置换矩阵 $P$，$R'=RP$，解满足 $x=Py$。方程本身没变，变的是「坐标的书写顺序」。
+
+#### 6.2 解方程：两块各管一件事
+
+$$
+\begin{bmatrix}I&F\\0&0\end{bmatrix}
+\begin{bmatrix}x_p\\x_f\end{bmatrix}=0
+\;\Longleftrightarrow\;
+\begin{cases}
+I\,x_p+F\,x_f=0 & \text{有内容的 } r \text{ 行}\\
+0=0 & \text{全零行，没有约束}
+\end{cases}
+$$
+
+全零行的意思不是「没用」，而是**自由变量真的自由**：$x_f$ 可以取 $\mathbb R^{n-r}$ 里任何值。而对上半块，$I$ 可以直接求逆，移项立刻得
+
+$$
+x_p=-F\,x_f .
+$$
+
+这句话的角色分工很关键：
+
+- $x_f$ 是**自变量**（你随便给）；
+- $x_p$ 是**因变量**（被 $x_f$ 唯一确定）。
+
+于是零空间里每个元素都长成
+
+$$
+x=\begin{bmatrix}x_p\\x_f\end{bmatrix}
+=\begin{bmatrix}-F\,x_f\\x_f\end{bmatrix}
+=\underbrace{\begin{bmatrix}-F\\I\end{bmatrix}}_{N}\,x_f .
+$$
+
+**$N=[-F;I]$ 不是凭空凑出来的，它就是「自由变量 → 解」这个线性映射的矩阵**；零空间 = $N$ 的像（列空间）。
+
+```mermaid
+flowchart LR
+    XF["x_f ∈ R^(n−r)<br/>自由变量，想取什么取什么"]
+    XF -->|"乘以 −F"| XP["x_p = −F·x_f<br/>主元变量被唯一确定"]
+    XF -->|"乘以 I（原样保留）"| XF2["x_f 本身"]
+    XP --> X["x ∈ N(A)<br/>x = [−F; I]·x_f"]
+    XF2 --> X
+```
+
+*图：上面 I 和 F 各管一块坐标——F 负责把自由变量的取值「翻译」成主元变量必须取的值，I 负责把这组自由变量原样带下去。*
+
+#### 6.3 为什么这两列一定是基
+
+取参数空间的标准基 $e_1,e_2$，它们的像就是 $N$ 的各列：
+
+$$
+x_f=e_1\Rightarrow x=\begin{bmatrix}-F e_1\\e_1\end{bmatrix}
+=\text{第 1 列}\quad(\text{自由变量 } x_2=1,\ x_4=0)
+$$
+
+要成为基，两条都成立：
+
+1. **线性无关**：若 $Nc=0$，只看下半块得 $Ic=0\Rightarrow c=0$。下半块那个 $I$ 专门负责独立性——每个解在一个自由坐标上是 1、其余是 0，互相不可能抵消。
+2. **张成且个数正好**：任何解都是 $N x_f$（6.2 已证），而解空间的维数是 $n-r$（秩-零化度 $\dim N(A)=n-r$）。$n-r$ 个线性无关向量 + 维数就是 $n-r$ ⇒ 基。
+
+所以「给自由变量取单位值」不是一种随意的规定，而是**在参数空间里取标准基，再把标准基推过映射**。$I$ 出现在自由变量那一侧，正是「参数空间用标准基」的直接痕迹。
+
+#### 6.4 回到本例：别忘了把行顺序换回去
+
+按重排后的顺序 $(x_1,x_3,x_2,x_4)$，$N$ 是
+
+$$
+N=\begin{bmatrix}-2&2\\0&-2\\1&0\\0&1\end{bmatrix}
+\quad\text{对应 }(x_1,x_3,x_2,x_4)
+$$
+
+但答案要按**原顺序** $(x_1,x_2,x_3,x_4)$ 写，所以把第 2、3 行换回来：
+
+$$
+\begin{bmatrix}-2&2\\1&0\\0&-2\\0&1\end{bmatrix}
+=\big[\,s_1\ \ s_2\,\big]\quad ✅
+$$
+
+第 1 列读法：$x_2=1,x_4=0\Rightarrow x_1=-2,x_3=0$，代回 $x_1+2x_2-2x_4=-2+2=0$、$x_3+2x_4=0$。
+
+> 如果主元恰好就在前 $r$ 列（教材里常见的情形），就不用换行，$[I\ F;0\ 0]$ 和 $[-F;I]$ 可以直接对齐看。**本例主元在第 1、3 列，所以中间隔了一次行交换——这是原文没写、最容易看漏的一步。**
+
+#### 6.5 补充：$F$ 和原矩阵 $A$ 是什么关系
+
+$F$ 描述的是**列之间的线性关系**：在 $R$ 里，自由列 $=$ 主元列 $\times F$ 的对应列。由于 $R=EA$（$E$ 可逆），**行变换保持列之间的这种线性关系不变**，所以同样的系数对 $A$ 也成立：
+
+$$
+\underbrace{\begin{bmatrix}2\\4\\6\end{bmatrix}}_{A\text{ 第 2 列}}
+=2\cdot\underbrace{\begin{bmatrix}1\\2\\3\end{bmatrix}}_{A\text{ 第 1 列}},
+\qquad
+\underbrace{\begin{bmatrix}2\\8\\10\end{bmatrix}}_{A\text{ 第 4 列}}
+=-2\cdot\begin{bmatrix}1\\2\\3\end{bmatrix}
++2\cdot\underbrace{\begin{bmatrix}2\\6\\8\end{bmatrix}}_{A\text{ 第 3 列}}
+$$
+
+数值完全对得上。所以「消元改了列、还能从 $R$ 读特解」并不矛盾：消元**改变列向量本身**（以及列空间），但**保留列与列之间的线性关系**——而零空间正是这些关系系数的集合。$R=EA$ 中 $E$ 可逆，$\sum c_j a_j=0\Leftrightarrow\sum c_j Ea_j=0$。
 
 ## 直观理解（3Blue1Brown 视角）
 
@@ -144,6 +259,8 @@ $$
 ## 思考
 
 （留白 —— 为什么「给自由变量取单位值」得到的特解一定构成基？如果换一种给自由变量赋值的方式（比如取 $(2,1)$），得到的还是零空间里的向量，但为什么不能直接当特解用？另外：$R$ 里的 $F$ 和原矩阵 $A$ 的哪部分对应？消元过程中列被换了，为什么特解还能用 $R$ 读出来？）
+
+> 2026-10-24 补充：前两问见 §6.3，第三问见 §6.5。新的思考：取 $x_f=(2,1)$ 得到的向量是 $2s_1+s_2$——它确实是零空间里的合法向量，只是不能和 $s_1$ 一起当基。为什么「基」要求每个自由变量**恰好在一个解里为 1、其余解里为 0**？这和「参数空间取标准基」是什么关系？
 
 ## 总结
 
