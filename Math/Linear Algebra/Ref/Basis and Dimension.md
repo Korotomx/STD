@@ -1,3 +1,4 @@
+> 对应主课笔记：[[L9 线性无关·基·维数]]（18.06SC 习题课）
 ![](https://www.youtube.com/watch?v=MMWqGD4Urso)
 
 MIT 18.06SC Linear Algebra, Fall 2011  

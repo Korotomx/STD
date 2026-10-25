@@ -1,3 +1,4 @@
+> 对应主课笔记：[[L8 求解Ax=b]]（18.06SC 习题课）
 ![](https://www.youtube.com/watch?v=fjsPjh0B2tU)
 
 MIT 18.06SC Linear Algebra, Fall 2011  
