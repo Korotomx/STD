@@ -1,3 +1,5 @@
+> 对应主课笔记：[[L12 图与网络 · 习题课]]
+
 ![](https://www.youtube.com/watch?v=h0m2tsmSPTI)
 
 MIT 18.06SC Linear Algebra, Fall 2011  
