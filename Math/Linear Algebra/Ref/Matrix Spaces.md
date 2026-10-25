@@ -1,3 +1,5 @@
+> 对应主课笔记：[[L11 矩阵空间的判定与基 · 习题课]]
+
 ![](https://www.youtube.com/watch?v=BaBoztM9Q1w)
 
 MIT 18.06SC Linear Algebra, Fall 2011  
