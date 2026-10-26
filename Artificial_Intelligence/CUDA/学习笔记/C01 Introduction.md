@@ -49,7 +49,7 @@ mindmap
 
 - GPU 最初是**三维图形的专用处理器**，用固定功能硬件加速实时渲染中的并行操作；
 - 到 **2003 年**，图形流水线的部分阶段变成完全可编程，可以为每个顶点/像素并行运行自定义代码；
-- **2006 年**，NVIDIA 推出 **CUDA**（Compute Unified Device Architecture），让任意计算负载都能使用 GPU 的吞吐能力，**不再依赖图形 API**；
+- **2006 年**，NVIDIA 推出 **CUDA**（Compute Unified Device Architecture），让任意计算负载都能使用 GPU 的吞吐能力，**不再依赖图形 API(Application Program Interface)**；
 - 此后 GPU 计算扩展到流体/能源等科学模拟、数据库与分析，以及图像分类、扩散模型、LLM 等 AI 负载。
 
 > 一句话：GPU 的「通用并行计算」能力，是图形硬件逐渐可编程 + CUDA 把编程接口统一之后的结果。
