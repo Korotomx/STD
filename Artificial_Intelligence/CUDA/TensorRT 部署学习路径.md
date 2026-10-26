@@ -204,3 +204,4 @@ flowchart LR
 - `trtexec --verbose`、`polygraphy`（可选）
 - Nsight Systems / Nsight Compute
 - CUDA 指南 C03/C04/C06/C08（按需）
+- 本地剪藏（`Ref/`）：[[Session 1.0  并行计算与并行编程 1|Session 1.1 CUDA Programming Model]]（线程/Block/Grid/Warp）· [[Session 1.0  并行计算与并行编程 2|Session 1.2 Triton / TileLang]]（Tile-Level 视角，选读）
