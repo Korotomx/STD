@@ -1,10 +1,10 @@
 ---
-title: "Session 1.0  并行计算与并行编程"
+title: "Session 1.2 Triton / TileLang"
 source: "https://infra.seminars.lcpu.dev/wiki/UkSVwR07NiquWwkcTsPcq6XDnFh"
 author:
 published:
 created: 2026-10-26
-description: "Session 1.2  Triton / TileLang —— CTA Level Programming · AI Infra Wiki"
+description: "Session 1.2 Triton / TileLang —— CTA Level Programming · AI Infra Wiki"
 tags:
   - "clippings"
 ---

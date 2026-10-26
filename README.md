@@ -2,17 +2,17 @@
 
 > 多学科学习库总览：**[ROS 2](ROS2/主页.md) · [数学](Math/主页.md) · [AI / 深度学习](Artificial_Intelligence/主页.md) · [英语单词](English/主页.md)**。
 > 以「天」为单位更新，每次你说「就到这里」时刷新此页。
-> 最近更新：**2026-10-25**（线代 L8~L12 四段式笔记 + L11/L12 习题课 + L4/L10 深化）
+> 最近更新：**2026-10-26**（TensorRT 部署学习路径 + 01_deserialize；CUDA 原始剪藏归到 Ref/）
 
 ---
 
 ## 学习热力图
 
-> 2026-09-28 ~ 2026-10-25 · 一格一天，颜色越深 = 当天条目越多；格内数字 = 条目数，悬停格子看类别与主题。
+> 2026-09-28 ~ 2026-10-26 · 一格一天，颜色越深 = 当天条目越多；格内数字 = 条目数，悬停格子看类别与主题。
 
 <div align="center">
 
-<svg width="294" height="435" viewBox="0 0 184 272" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="学习热力图">
+<svg width="345" height="435" viewBox="0 0 216 272" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="学习热力图">
 <text x="46" y="62.0" font-size="13" fill="#57606a" text-anchor="end">周一</text>
 <text x="46" y="94.0" font-size="13" fill="#57606a" text-anchor="end">周二</text>
 <text x="46" y="126.0" font-size="13" fill="#57606a" text-anchor="end">周三</text>
@@ -24,6 +24,7 @@
 <text x="100.0" y="32" font-size="12" fill="#57606a" text-anchor="middle">10/5</text>
 <text x="132.0" y="32" font-size="12" fill="#57606a" text-anchor="middle">10/12</text>
 <text x="164.0" y="32" font-size="12" fill="#57606a" text-anchor="middle">10/19</text>
+<text x="196.0" y="32" font-size="12" fill="#57606a" text-anchor="middle">10/26</text>
 <rect x="56" y="46" width="24" height="24" rx="4" fill="#ebedf0"></rect>
 <rect x="56" y="78" width="24" height="24" rx="4" fill="#ebedf0"></rect>
 <rect x="56" y="110" width="24" height="24" rx="4" fill="#ebedf0"></rect>
@@ -72,6 +73,14 @@
 <text x="164.0" y="222.0" font-size="12" font-weight="600" fill="#1f2328" text-anchor="middle">4</text>
 <rect x="152" y="238" width="24" height="24" rx="4" fill="#216e39"><title>2026-10-25 · 数学 10 条：线代 L8~L12 笔记 + L11/L12 习题课 + L4/L10 深化</title></rect>
 <text x="164.0" y="254.0" font-size="12" font-weight="600" fill="#ffffff" text-anchor="middle">10</text>
+<rect x="184" y="46" width="24" height="24" rx="4" fill="#9be9a8"><title>2026-10-26 · AI 1 条：TensorRT 部署学习路径 + 01_deserialize</title></rect>
+<text x="196.0" y="62.0" font-size="12" font-weight="600" fill="#1f2328" text-anchor="middle">1</text>
+<rect x="184" y="78" width="24" height="24" rx="4" fill="#ebedf0"></rect>
+<rect x="184" y="110" width="24" height="24" rx="4" fill="#ebedf0"></rect>
+<rect x="184" y="142" width="24" height="24" rx="4" fill="#ebedf0"></rect>
+<rect x="184" y="174" width="24" height="24" rx="4" fill="#ebedf0"></rect>
+<rect x="184" y="206" width="24" height="24" rx="4" fill="#ebedf0"></rect>
+<rect x="184" y="238" width="24" height="24" rx="4" fill="#ebedf0"></rect>
 </svg>
 
 </div>
@@ -102,6 +111,7 @@
 | 10-23 | · | 1 | 3 | 4 | 线代 L7（+ 18.06SC + 3b1b 8/13 章）+ 曲线拟合 / IoU / 双线性插值 + 英语 10 词 |
 | 10-24 | · | 1 | 3 | 4 | 线代 L10 习题课（B=LU）+ CUDA C01/C02 + 网站设想 |
 | 10-25 | · | 10 | · | 10 | 线代 L8~L12 成文 + L11/L12 习题课 + L4/L10 深化 + 12 张 Mermaid 图 |
+| 10-26 | · | · | 1 | 1 | TensorRT 部署学习路径 + 01_deserialize |
 
 ---
 
@@ -179,7 +189,17 @@
 - [ ] 第 2 周 C08~C10（异步 / 统一内存 / NVCC）+ 项目④⑤
 - [ ] 第 3 周起 项目⑥ groundzero 预处理 kernel（可选⑦ NMS / TensorRT plugin）
 
-### ⑦ 英语 · 单词 — [主页](English/主页.md)
+### ⑦ TensorRT 部署（2026-10-26 新增）— [路线](Artificial_Intelligence/CUDA/TensorRT%20部署学习路径.md)
+
+> 目标：从 runtime API 到 CUDA 前后处理，最终落到 groundzero。四周路线，先 runtime 后 builder。
+
+- [x] 路线笔记 + `01_deserialize`（engine 反序列化 / JSON 头 / 元信息）—— 2026-10-26
+- [ ] 第 1 周 `02_runner`（cudaMalloc / setTensorAddress / enqueueV3）
+- [ ] 第 2 周 CPU 前后处理 + groundzero pose 端到端
+- [ ] 第 3 周 preprocess / postprocess CUDA kernel + nsys/ncu
+- [ ] 第 4 周 ROS2 节点 + C++ builder + 移植
+
+### ⑧ 英语 · 单词 — [主页](English/主页.md)
 
 > 有道词典「CS」单词本 → 按天归档，686 词（2026-07-31 ~ 2026-10-24），每天增量追加。
 
@@ -191,7 +211,36 @@
 
 ---
 
-## 今日学习（最新：2026-10-25）
+## 今日学习（最新：2026-10-26）
+
+### AI · CUDA / TensorRT 部署
+
+1. **TensorRT 部署学习路径** — 按「一张图从输入到输出」的链路排四周：runtime API → YOLO 端到端 → CUDA 前后处理 → ROS2 / groundzero；含 12 个原理问题、6 个故障注入实验、导师代码 7 个拆解点；见 [TensorRT 部署学习路径](Artificial_Intelligence/CUDA/TensorRT%20部署学习路径.md)
+2. **`01_deserialize` 跑通** — `Logger → Runtime → Engine → Context` 对象链；Ultralytics engine 的 1018 字节 JSON 头自动剥离；打印 `images [1,3,640,640] FP32 → output0 [1,300,30] FP32`；确认 groundzero 是 end2end 输出，后处理不再写 NMS；代码在 `~/deep_learning/groundzero/trt_lab/01_deserialize`
+3. **vault 布局整理** — 原始剪藏统一放 `Ref/`（Session 1.0 / 1.1 / 1.2），精炼笔记留 `学习笔记/`；6.S191 的弱关联 Capture 移到 `Unlimited/Capture/`；链接统一为 `Session 1.1 CUDA Programming Model` / `Session 1.2 Triton-TileLang`
+
+**统计：2026-10-26 AI 1 条（TensorRT 路线笔记）+ 代码实验 1 个（01_deserialize）。**
+
+### 2026-10-26 大纲 / 结构树
+
+```
+学习（2026-10-26）
+└── AI
+    └── CUDA / TensorRT
+        ├── TensorRT 部署学习路径
+        │   ├── runtime：Logger / Runtime / Engine / Context
+        │   ├── 端到端：letterbox → engine → decode
+        │   └── 加速：CUDA pre/post + nsys/ncu
+        └── 01_deserialize
+            ├── JSON 头剥离（1018 B）
+            └── I/O 元信息（[1,3,640,640] → [1,300,30]）
+```
+
+---
+
+## 历史归档
+
+### 2026-10-25 · 数学（10 条，原「今日学习」）
 
 ### 数学 · Linear Algebra（18.06）
 
@@ -221,10 +270,6 @@
             ├── L4 A=LU 数字例
             └── L10 习题课 §4 定义 vs 读 E
 ```
-
----
-
-## 历史归档
 
 ### 2026-10-24 · 数学 + AI（4 条，原「今日学习」）
 

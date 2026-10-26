@@ -1,10 +1,10 @@
 ---
-title: "Session 1.0  并行计算与并行编程"
+title: "Session 1.1 CUDA Programming Model"
 source: "https://infra.seminars.lcpu.dev/wiki/WHFXw13vEiD8Hikfp3ScU33JnXe"
 author:
 published:
 created: 2026-10-26
-description: "Session 1.1  CUDA  Programming Model · AI Infra Wiki"
+description: "Session 1.1 CUDA Programming Model · AI Infra Wiki"
 tags:
   - "clippings"
 ---

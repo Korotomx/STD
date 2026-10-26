@@ -1,10 +1,10 @@
 ---
-title: "Session 1.0  并行计算与并行编程"
+title: "Session 1.0 并行计算与并行编程"
 source: "https://infra.seminars.lcpu.dev/wiki/F9oKw4GUgi30lQkgWScckzjfnfd"
 author:
 published:
 created: 2026-10-26
-description: "Session 1.0  并行计算与并行编程 · AI Infra Wiki"
+description: "Session 1.0 并行计算与并行编程 · AI Infra Wiki"
 tags:
   - "clippings"
 ---
