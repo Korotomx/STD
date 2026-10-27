@@ -153,3 +153,5 @@ More courses at https://ocw.mit.edu
 **10:10** · And in general this can be done for any vector space.
 
 **10:14** · Well I'd like to conclude this problem now and I hope you had a good time.
+
+关联：[[Linear Algebra/主页|线性代数]]

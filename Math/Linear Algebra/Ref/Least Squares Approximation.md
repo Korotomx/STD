@@ -159,3 +159,5 @@ More courses at https://ocw.mit.edu
 **7:58** · This is as close as we can do.
 
 **8:01** · Thanks.
+
+关联：[[Linear Algebra/主页|线性代数]]

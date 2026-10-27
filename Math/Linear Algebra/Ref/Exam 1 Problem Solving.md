@@ -269,3 +269,5 @@ More courses at https://ocw.mit.edu
 **14:45** · If you're at an exam, you should immediately start the next problem.
 
 **14:50** · Good luck, and Ill see you later.
+
+关联：[[Linear Algebra/主页|线性代数]]

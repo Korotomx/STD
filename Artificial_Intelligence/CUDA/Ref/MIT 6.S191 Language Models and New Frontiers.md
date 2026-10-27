@@ -441,3 +441,5 @@ Subscribe to stay up to date with new deep learning lectures at MIT, or follow u
 **55:33** · You're here in this class. Not everyone has this opportunity or comes to to sit here in front of us. And so, I highly highly encourage you to dive in, get your hands dirty, play with these models, and and actually see what it takes because it will give you new understanding that the lectures um complement but don't directly give. And so, please have your hand at lab three on fine-tuning language models.
 
 **56:03** · And thank you so much for that your attention, and please stay tuned for tomorrow's guest lectures, t-shirt delivery, and much more still to come. Thank you so much.
+
+关联：[[Artificial_Intelligence/MIT 6.S191/主页|6.S191]]

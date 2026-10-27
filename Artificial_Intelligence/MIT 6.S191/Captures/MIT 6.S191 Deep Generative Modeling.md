@@ -443,3 +443,5 @@ Subscribe to stay up to date with new deep learning lectures at MIT, or follow u
 **49:08** · And finally, um, we do have a, uh, we will prelude that we hope to see you tomorrow with the possibility of receiving course t-shirts at the end of class. Um, and so stay tuned. We like to keep you on the edge of the seat uh, your seats over the next 3 days. Um, and thank you so much for your attention.
 
 **49:33** · \[applause\]
+
+关联：[[Artificial_Intelligence/MIT 6.S191/主页|6.S191]]

@@ -143,3 +143,5 @@ More courses at https://ocw.mit.edu
 **9:41** · And you can confirm that it's-- we get the same answer as here.
 
 **9:48** · I think we're done here.
+
+关联：[[Linear Algebra/主页|线性代数]]

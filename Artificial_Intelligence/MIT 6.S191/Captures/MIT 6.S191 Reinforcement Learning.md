@@ -529,3 +529,5 @@ Subscribe to stay up to date with new deep learning lectures at MIT, or follow u
 **58:38** · Um we'll switch over now to the the new generation, next generation, and limitations type lecture. It's a very fun lecture that we do every year to look back on a lot of the different works that have been coming up in the field over the past few years and highlight the next-gen models as well as remaining limitations that the field uh presents. And we will also be showing t-shirts coming tomorrow as well as well as some exciting guest lectures.
 
 **59:07** · So, um I'll do a quick transition to the next lecture and we'll be back in a few minutes. Thank you.
+
+关联：[[Artificial_Intelligence/MIT 6.S191/主页|6.S191]]
