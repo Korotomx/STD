@@ -1,7 +1,3 @@
-# extra
+其他 / 归档 / 临时内容。
 
-> 其他 / 归档 / 临时内容栏目。
-
-## 笔记列表
-
-- [[训练循环语法速查表]] — #语法速查 #Python #PyTorch #训练循环 #matplotlib
+- [[Give me 31 minutes, I will make PyTorch click forever]] — 外文剪藏，保留原文

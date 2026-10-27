@@ -1,106 +1,147 @@
----
-tags:
-  - 功能实现
-  - launch启动
-  - 工具
-  - 命令行CLI
----
+launch 用一条命令拉起多个节点、统一退出。它是一个 Python 脚本：`generate_launch_description()` 返回动作列表，不跑业务逻辑，只负责调度。本篇从文件写法讲到 launch 库的两层结构。
 
-# launch 文件与工具链 · 功能实现 · N044
+## 文件骨架
 
-**时间:** 2026-10-09 21:26
-**标签:** #功能实现 #launch启动 #工具 #命令行CLI
-**关联:** [[N033 YAML参数文件与配置分离]] [[N013 占位符与消息流入回调]] [[N025 参数的声明读写与命令行工具]]
+```bash
+ros2 launch turtle_status turtle_status.launch.py
+```
 
-## 疑惑点
+```python
+from launch import LaunchDescription
+from launch_ros.actions import Node
 
-要跑一个 demo 得开好几个终端、逐个 `ros2 run`、退出还要一个个 Ctrl+C，太麻烦。有没有办法一个文件、一条命令把多个节点一次拉起来？launch 文件到底怎么写、能控制哪些东西？
+def generate_launch_description():          # 固定入口
+    return LaunchDescription([              # 动作列表
+        Node(package='turtlesim', executable='turtlesim_node', name='turtlesim'),
+        Node(package='turtle_status', executable='status_reporter', name='status_reporter'),
+    ])
+```
 
-## 实际情况
+`Node(package=, executable=, name=, output=)`：`package` + `executable` 定位可执行文件，`name` 是运行时节点名（可和 executable 不同）。
 
-1. **launch 是什么。** 把「开一堆终端逐个 ros2 run」变成「一个 Python 脚本 + 一条命令」，统一启动、统一退出。它不跑业务逻辑，只负责**调度**：描述要起哪些节点、给什么参数。
+## 五个核心机制
 
-   ```bash
-   ros2 launch turtle_status turtle_status.launch.py
-   ```
+### 声明与引用参数
 
-2. **文件骨架：一个入口函数 + 一个动作列表。**
+```python
+turtle_name = LaunchConfiguration('turtle_name')                # 引用：占位符
+DeclareLaunchArgument('turtle_name', default_value='turtle1')   # 声明：挖坑 + 默认值
+```
 
-   ```python
-   from launch import LaunchDescription
-   from launch_ros.actions import Node
+`LaunchConfiguration` 返回的是占位符，真正的值启动时才确定（命令行传了就用，否则用默认）。引用一个没声明的参数会报错。
 
-   def generate_launch_description():       # ← 固定入口
-       return LaunchDescription([           # ← 动作列表
-           Node(package='turtlesim', executable='turtlesim_node', name='turtlesim'),
-           Node(package='turtle_status', executable='status_reporter', name='status_reporter'),
-       ])
-   ```
+### 命令行覆盖
 
-   `Node(package=, executable=, name=, output=)` 描述一个节点：`package`+`executable` 定位可执行文件，`name` 是运行时节点名（可和 executable 不同）。
+```bash
+ros2 launch turtle_status turtle_status.launch.py turtle_name:=turtle2 use_gui:=false
+```
 
-3. **① 声明参数 vs 引用参数（最易绕）。** 两个动作各管一件事：
+`--show-args` 列出所有可调参数。同一份文件，启动时改配置，不改代码。
 
-   ```python
-   turtle_name = LaunchConfiguration('turtle_name')   # 引用：拿到「占位符」不是值
-   DeclareLaunchArgument('turtle_name', default_value='turtle1')  # 声明：挖坑+默认值
-   ```
+### remap：不改源码改话题名
 
-   `LaunchConfiguration('turtle_name')` 返回的是**占位符**——真正的值要等启动时才确定（命令行传了什么、还是用默认值）。这和 [[N013 占位符与消息流入回调]] 里 `_1` 的占位思路同源：**先声明（挖坑）、再引用（占坑）**。引用一个没声明的参数会报错。
+```python
+remappings=[
+    ('/turtle1/pose',   ['/', turtle_name, '/pose']),
+    ('/turtle1/status', ['/', turtle_name, '/status']),
+],
+```
 
-4. **② 命令行覆盖 `:=`。** 启动时把值塞进那个坑，覆盖 default_value：
+左边是源码写死的名字，右边是运行时实际用的名字。`['/', turtle_name, '/pose']` 是 substitution 列表，启动时拼成一个字符串（`turtle2` → `/turtle2/pose`）。节点以为自己还在用 `/turtle1/...`，实际数据走 `/turtle2/...`——改通信拓扑，不改 C++。
 
-   ```bash
-   ros2 launch turtle_status turtle_status.launch.py turtle_name:=turtle2 use_gui:=false
-   ```
+### 条件启动
 
-   `--show-args` 列出所有可调参数。这是 launch 最实用的能力：**同一份文件，启动时改配置，不改代码**。
+```python
+condition=IfCondition(use_gui),   # 'false' 时整个节点跳过
+```
 
-5. **③ 重映射 remap：不碰源码改话题名。** 源码里话题写死，launch 里 remap 直接替换：
+`use_gui` 是字符串 `'true'` / `'false'`，launch 在启动时解释。
 
-   ```python
-   remappings=[
-       ('/turtle1/pose',   ['/', turtle_name, '/pose']),   # 旧名 → 新名
-       ('/turtle1/status', ['/', turtle_name, '/status']),
-   ],
-   ```
+### 参数文件 + 内联覆盖
 
-   左边是**源码写死的名字**，右边是**运行时实际用的名字**。右边 `['/', turtle_name, '/pose']` 是 substitution 列表，启动时拼接成一个字符串（turtle2 时拼成 `/turtle2/pose`）。效果：节点以为自己还在用 `/turtle1/...`，实际数据已走 `/turtle2/...`——**改通信拓扑，不改 C++**。
+```python
+parameters=[
+    os.path.join(get_package_share_directory('turtle_status'), 'config', 'params.yaml'),
+    {'turtle_name': turtle_name},
+],
+```
 
-6. **④ 条件启动 IfCondition。** 用一个开关决定节点要不要起：
+`parameters` 是列表，后面的覆盖前面的。完整优先级：`命令行 :=` > `内联参数` > `YAML 文件` > `代码 declare_parameter 默认值`。
 
-   ```python
-   condition=IfCondition(use_gui),   # use_gui 是 'true'/'false' 字符串，'false' 时整个节点跳过
-   ```
+## launch 库的两层结构
 
-7. **⑤ 参数文件 + 内联覆盖（优先级链）。** `parameters` 是列表，**后面的覆盖前面的**（接 [[N033 YAML参数文件与配置分离]]）：
+和 ROS 2 本体一样分层：核心 `launch` 是纯 Python、不依赖 ROS 的进程调度框架；`launch_ros` 在它之上加 ROS 语义（节点、参数、命名空间）。
 
-   ```python
-   parameters=[
-       os.path.join(get_package_share_directory('turtle_status'), 'config', 'params.yaml'),  # 先加载文件
-       {'turtle_name': turtle_name},   # 再内联覆盖
-   ],
-   ```
+**核心 `launch`**
 
-   完整优先级：`命令行 :=` > `内联参数` > `YAML 文件` > `代码 declare_parameter 默认值`。
+| 子模块 | 装什么 | 常见成员 |
+|---|---|---|
+| `launch` | 框架入口 + 运行时 | `LaunchDescription`、`LaunchService`、`LaunchContext` |
+| `launch.actions` | 要做什么 | `ExecuteProcess`、`DeclareLaunchArgument`、`IncludeLaunchDescription`、`GroupAction`、`TimerAction`、`LogInfo`、`OpaqueFunction`、`EmitEvent`、`RegisterEventHandler`、`SetLaunchConfiguration` |
+| `launch.conditions` | 要不要执行 | `IfCondition`、`UnlessCondition`、`LaunchConfigurationEquals` |
+| `launch.substitutions` | 启动时才求值的占位符 | `LaunchConfiguration`、`TextSubstitution`、`EnvironmentVariable`、`PythonExpression`、`PathJoinSubstitution`、`Command`、`ThisLaunchFileDir`、`FindExecutable`、`AnonName` |
+| `launch.events` | 发生了什么 | `ProcessStarted`、`ProcessExited`、`ProcessIO`、`Shutdown` |
+| `launch.event_handlers` | 发生了 → 做什么 | `OnProcessStart`、`OnProcessExit`、`OnProcessIO`、`OnShutdown` |
+| `launch.frontend` | XML/YAML 格式解析 | 内部用 |
 
-8. **工具链（配套命令）。**
+**事件 vs 事件处理器**是两个不同子模块：
 
-   ```bash
-   ros2 launch <pkg> <file> --show-args    # 查可调参数
-   ros2 run <pkg> <executable>             # 单节点（launch 的底层）
-   ros2 node list / info                   # 看节点、某节点 pub/sub 全景
-   ros2 param list / get / set             # 参数三件套
-   ros2 topic list / echo / info           # 话题三件套
-   ```
+- `launch.events` 描述「发生了什么」（名词）：进程退出了、要关机了。
+- `launch.event_handlers` 描述「当某事件发生做什么」（动作/回调），命名都以 `On` 开头。
 
-   launch 支持三种格式：**Python（主流、最强）** / XML / YAML。记 Python 版即可。
+```python
+from launch.actions import RegisterEventHandler, LogInfo
+from launch.event_handlers import OnProcessExit
 
-## 思考
+RegisterEventHandler(
+    OnProcessExit(
+        target_action=turtlesim_node,
+        on_exit=[LogInfo(msg='turtlesim 已退出')],
+    ),
+)
+```
 
-（留白 —— remap 和参数都能「改话题名」，什么场景该用 remap、什么场景该用参数？IfCondition 的 `'true'` 是字符串，launch 是怎么把它当布尔用的？）
+**`launch_ros` 特化层**
 
-## 总结
+| 子模块 | 常见成员 |
+|---|---|
+| `launch_ros.actions` | `Node`、`LifecycleNode`、`LoadComposableNodes`、`SetParameter`、`SetParametersFromFile`、`PushRosNamespace` |
+| `launch_ros.substitutions` | `FindPackageShare`、`ExecutableInPackage` |
+| `launch_ros.descriptions` | `ParameterFile`、`ComposableNode` |
+| `launch_ros.event_handlers` | `OnStateTransition` |
 
-**本质：** launch 是一个 Python 脚本，用 `generate_launch_description()` 返回一个动作列表 `LaunchDescription([...])`，声明式描述「起哪些节点、给什么参数」。五个核心机制：声明参数（挖坑）/ 引用参数（占位符）/ 命令行 `:=` 覆盖 / remap 重映射（改通信拓扑不改代码）/ 条件启动（IfCondition），再叠加参数文件的优先级链。它是「工具链」的一环，配套 ros2 node/param/topic 命令使用。
-**标签:** #功能实现 #launch启动 #工具 #命令行CLI
+心智模型：
+
+```
+动作 Action ──触发──▶ 事件 Event ──被监听──▶ 事件处理器 EventHandler ──再发出──▶ 新动作
+（要做什么）        （发生了什么）        （发生了→做什么）              （循环）
+动作里的参数、话题名，凡是启动时才确定的，都是 Substitution。
+```
+
+- Action：要做什么
+- Condition：Action 要不要执行
+- Substitution：启动时才求值的占位符
+- Event / EventHandler：事件 + 响应
+
+## 工具链
+
+```bash
+ros2 launch <pkg> <file> --show-args    # 查可调参数
+ros2 run <pkg> <executable>             # 单节点（launch 的底层）
+ros2 node list / info                   # 节点、某节点 pub/sub 全景
+ros2 param list / get / set             # 参数
+ros2 topic list / echo / info           # 话题
+```
+
+launch 支持 Python（主流）/ XML / YAML 三种格式。
+
+## 坑
+
+- `LaunchConfiguration` 是占位符不是值，直接拿来做字符串拼接会出错，用 `PathJoinSubstitution` 等。
+- 参数文件顶层节点名和 launch 里的 `name=` 不一致，参数静默不生效。
+- remap 的左边必须和源码里的名字逐字一致。
+- 事件处理器 `On*` 只监听一次还是每次，取决于处理器类型；循环触发要看清语义。
+
+> PS：`TimerAction` 和 `OnProcessExit` 都能「先起 A 再起 B」：前者按时间，后者按事件。
+
+launch 是「动作列表 + 占位符 + 条件 + 事件」的声明式调度；核心 `launch` 管进程，`launch_ros` 加节点语义；最实用的四件事是声明参数、命令行覆盖、remap、参数文件优先级。

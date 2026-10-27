@@ -1,4 +1,4 @@
-> 抓取自 Ultralytics 官方文档（web clip）。对应学习笔记：[[N020 NDJSON数据集与YOLO姿态估计pose训练]] · [[E003 detect模型训练pose数据任务不匹配]]
+> 抓取自 Ultralytics 官方文档（web clip）。对应学习笔记：[[N020 NDJSON数据集与YOLO姿态估计pose训练]] · [[错误记录#E003 detect模型训练pose数据任务不匹配|E003]]
 
 ## Python 用法
 

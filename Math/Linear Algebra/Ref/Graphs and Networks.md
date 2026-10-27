@@ -1,4 +1,4 @@
-> 对应主课笔记：[[L12 图与网络 · 习题课]]
+> 对应主课笔记：[[L12 图·网络·关联矩阵]]（含习题课）
 
 ![](https://www.youtube.com/watch?v=h0m2tsmSPTI)
 
