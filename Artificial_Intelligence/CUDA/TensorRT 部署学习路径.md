@@ -170,6 +170,7 @@ flowchart LR
 ```
 ~/deep_learning/groundzero/trt_lab/
 ├── 01_deserialize/   ✅ 2026-10-26
+├── 02_start/         🟡 反序列化 + context + I/O
 ├── 02_runner/        ⬜
 ├── 03_yolo/          ⬜
 ├── 04_cuda/          ⬜
@@ -193,10 +194,13 @@ flowchart LR
 
 ## 当前进度
 
-- [x] 2026-10-26 `01_deserialize`：编译并跑通 `best.engine` 与 `best_trtexec.engine`
-  - `best.engine` 检测到 JSON 头，剥掉 1018 字节
-  - 两者 I/O 都是 `images [1,3,640,640] FP32` → `output0 [1,300,30] FP32`
+- [x] 2026-10-26 `01_deserialize`
+  - 裸 plan：`best_fp16.engine`（`best.fp16.onnx` → `trtexec`），开头 `ftrt`，无 JSON 头
+  - I/O 都是 `images [1,3,640,640] FP32` → `output0 [1,300,30] FP32`
   - 静态 profile：min = opt = max
+  - 旧 `best.engine` 的 1018 B JSON 头是 Ultralytics 包装，不作为工程链路
+- [x] 2026-10-26 `02_start`：反序列化 + `createExecutionContext` + I/O 打印
+- [x] 2026-10-26 FP16 engine：`best.fp16.onnx` → `trtexec` → `best_fp16.engine`，FP32 711 qps → FP16 1428 qps
 - [ ] `02_runner`：cudaMalloc + setTensorAddress + enqueueV3
 
 ## 资源（只读用到的节）
