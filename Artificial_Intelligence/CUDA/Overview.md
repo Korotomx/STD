@@ -1,0 +1,15 @@
+一条命题一行，`→` 是推理方向，末尾是落点；复习只看这张纸，卡住再点进去。
+
+- GPU 快在吞吐不在延迟：大量简单核心并行，换单线程速度。[[C01 Introduction]]
+- 异构模型：host 管分配与搬运，device 跑 kernel，两者内存不互通。[[C01 Introduction]]
+- 线程层次 grid → block → thread；全局下标 `blockIdx*blockDim+threadIdx`。[[C02 Programming Model]]
+- warp 固定 32 线程同步执行 → 线程数取 32 的倍数，分支发散会浪费 lane。[[C02 Programming Model]]
+- kernel launch 是异步的 → 不同步就读，拿到的是旧数据。[[C02 Programming Model]]
+- 统一内存不等于免费：页没驻留显存时每次跨 PCIe，慢一个量级。[[C02 Programming Model]]
+- 三处必查：launch 返回值、`cudaGetLastError()`、同步后的错误。[[C02 Programming Model]]
+- 编译三时刻：编译时 `-I`、链接时 `-L/-l`、运行时 rpath 或 `LD_LIBRARY_PATH`。[[T00 编译与链接 TensorRT 程序]]
+- `--as-needed` 会丢掉没用到的库 → 依赖以 `readelf -d` / `ldd` 为准。[[T00 编译与链接 TensorRT 程序]]
+- 纯 host 用 `g++`，出现 `__global__` 或 `.cu` 才用 `nvcc`。[[T00 编译与链接 TensorRT 程序]]
+- tile 级编程：只写 load/compute/store，线程映射交给编译器。[[X01 Triton 与 TileLang]]
+- Triton 编译器决定 shared memory 与流水线；TileLang 把这层控制权还回来。[[X01 Triton 与 TileLang]]
+- 抽象越高越好写，越低越能压榨性能：原型 Triton、性能工程 TileLang、极端调优 CUDA。[[X01 Triton 与 TileLang]]
