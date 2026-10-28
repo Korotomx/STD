@@ -28,13 +28,13 @@
 
 ## AI · MIT 6.S191
 
-**进度**：L1 Foundations、L2 RNN / Transformer / Attention；L3~L6 视频字幕已归档。
+**进度**：L1~L6 笔记全部完成。
 
 **今日完成**：
 
-- 归档 6.S191 L3 CNN、L4 生成模型、L5 强化学习、L6 语言模型的视频字幕与截图。
+- 整理 6.S191 L3 CNN、L4 生成模型、L5 强化学习、L6 语言模型四篇学习笔记，同步主页与索引。
 
-**下一步**：L3 CNN（整理成学习笔记）。
+**下一步**：按需复习；guest lectures / labs 视情况再整理。
 
 **笔记**：[[Artificial_Intelligence/MIT 6.S191/主页|6.S191 主页]]
 
@@ -44,11 +44,11 @@
 
 **今日完成**：
 
--
+- 整理 [[X01 Triton 与 TileLang]]；把 UltraLytics 三份官方文档整理成 [[YOLO 导出 格式与量化]]、[[OpenCV 高效遍历像素]]、[[TensorRT-RTX 快速入门]]。
 
 **下一步**：`02_runner`（cudaMalloc + `setTensorAddress` + `enqueueV3`）。
 
-**笔记**：[[Artificial_Intelligence/CUDA/主页|CUDA 主页]] · [[Artificial_Intelligence/CUDA/TensorRT 部署学习路径|TensorRT 路径]]
+**笔记**：[[Artificial_Intelligence/CUDA/主页|CUDA 主页]] · [[Artificial_Intelligence/CUDA/TensorRT 部署学习路径|TensorRT 路径]] · [[Artificial_Intelligence/UltraLytics/主页|UltraLytics 主页]]
 
 ## AI · DeepLearningRM（RoboMaster 考核）
 
