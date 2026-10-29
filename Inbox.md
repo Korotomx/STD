@@ -8,8 +8,8 @@
 | Math/Linear Algebra/Ref/Properties of Determinants（习题课） | 数学 | [[L16 行列式的性质]] | 已处理 | 2026-10-28 |
 | Math/Linear Algebra/Ref/17. Orthogonal Matrices and Gram-Schmidt | 数学 | [[L15 正交矩阵与 Gram-Schmidt]] | 已处理 | 2026-10-28 |
 | Math/Linear Algebra/Ref/Gram-Schmidt Orthogonalization（习题课） | 数学 | [[L15 正交矩阵与 Gram-Schmidt]] | 已处理 | 2026-10-28 |
-| Math/Linear Algebra/Ref/19. Determinant Formulas and Cofactors | 数学 | L17 | 待处理 | 2026-10-30 |
-| Math/Linear Algebra/Ref/Determinants（习题课） | 数学 | L17 | 待处理 | 2026-10-30 |
+| Math/Linear Algebra/Ref/19. Determinant Formulas and Cofactors | 数学 | [[L17 行列式公式与代数余子式]] | 已处理 | 2026-10-30 |
+| Math/Linear Algebra/Ref/Determinants（习题课） | 数学 | [[L17 行列式公式与代数余子式]] | 已处理 | 2026-10-30 |
 | Artificial_Intelligence/MIT 6.S191/Captures（L3~L6） | AI | [[MIT 6.S191/主页\|6.S191 主页]] | 已处理 | 2026-10-28 |
 | Artificial_Intelligence/CUDA/Ref/Session 1.2 Triton-TileLang | CUDA | [[X01 Triton 与 TileLang]] | 已处理 | 2026-10-28 |
 | Artificial_Intelligence/UltraLytics/OfficialDocuments（三篇） | AI | [[UltraLytics/主页\|UltraLytics]] | 已处理 | 2026-10-28 |
