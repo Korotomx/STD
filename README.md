@@ -42,13 +42,14 @@
 
 ## AI · CUDA / TensorRT
 
-**进度**：CUDA C01/C02 完成（向量加法 0.60 ms / 335 GB/s）；TensorRT `01_deserialize`、`02_start` 完成，裸 FP16 engine 已建（711 → 1428 qps）。
+**进度**：CUDA C01/C02 完成（向量加法 0.60 ms / 335 GB/s）；TensorRT `01_deserialize`、`02_start`、`02_runner` 完成，裸 FP16 engine 已建（711 → 1428 qps）。
 
 **今日完成**：
 
 - 整理 [[X01 Triton 与 TileLang]]；把 UltraLytics 三份官方文档整理成 [[YOLO 导出 格式与量化]]、[[OpenCV 高效遍历像素]]、[[TensorRT-RTX 快速入门]]。
+- 2026-10-29：完成 TensorRT `02_runner`（反序列化 → 按维度 `cudaMalloc` → `setTensorAddress` → `enqueueV3` + 同步 → D2H），精简到 73 行；对照官方端到端例子理清 runtime 链路，输入填充留给预处理。
 
-**下一步**：`02_runner`（cudaMalloc + `setTensorAddress` + `enqueueV3`）。
+**下一步**：`03_yolo`（真实图片 → letterbox → 推理 → 解码，按需）。
 
 **笔记**：[[Artificial_Intelligence/CUDA/主页|CUDA 主页]] · [[Artificial_Intelligence/CUDA/TensorRT 部署学习路径|TensorRT 路径]] · [[Artificial_Intelligence/UltraLytics/主页|UltraLytics 主页]]
 

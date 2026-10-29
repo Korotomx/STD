@@ -138,7 +138,8 @@ flowchart LR
   - 旧 `best.engine` 的 1018 B JSON 头是 Ultralytics 包装，不作为工程链路。
 - [x] 2026-10-26 `02_start`：反序列化 + `createExecutionContext` + I/O 打印。
 - [x] 2026-10-26 FP16 engine：`best.fp16.onnx` → `trtexec` → `best_fp16.engine`，FP32 711 qps → FP16 1428 qps。
-- [ ] **下一步 `02_runner`**：`cudaMalloc` + `setTensorAddress` + `enqueueV3`。
+- [x] 2026-10-29 `02_runner`：反序列化 → 按 I/O 维度 `cudaMalloc` → `setTensorAddress` → `enqueueV3` + `cudaStreamSynchronize` → D2H；精简到 73 行，与导师 `tensor_malloc(idx)` 对齐；输入填充留给预处理。
+- [ ] **下一步 `03_yolo`**：真实图片 letterbox → HWC→CHW → 推理 → pose 解码（按需）。
 
 ## 资源
 
