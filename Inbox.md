@@ -15,7 +15,7 @@
 | Artificial_Intelligence/UltraLytics/OfficialDocuments（三篇） | AI | [[UltraLytics/主页\|UltraLytics]] | 已处理 | 2026-10-28 |
 | Raw/Agent Harness for Learning Things.md | AI | [[AI 学习系统 教学与练习闭环]] | 已处理 | 2026-10-28 |
 | Raw/llm-wiki.md | AI | [[LLM Wiki 增量知识库]] | 已处理 | 2026-10-28 |
-| 有道「CS」单词本 | English | English/YYYY-MM-DD | 已处理至 10-29（31 词） | 2026-10-29 |
+| 有道「CS」单词本 | English | English/YYYY-MM-DD | 已处理至 10-30（27 词） | 2026-10-30 |
 | Raw/Creative Thinking.md（Shannon 1952 讲座） | AI | [[Shannon 创造性思维 1952]] | 已处理 | 2026-10-29 |
 | Math/Linear Algebra/Ref/Eigenvectors Are Hiding Something Nobody Talks About! | 数学 | Ref 索引，L21 特征值时再成笔记 | 已处理 | 2026-10-29 |
 | Math/Linear Algebra/Ref/Matrix trace isn't just summing the diagonal | 数学 | Ref 索引，特征值/迹时再成笔记 | 已处理 | 2026-10-29 |
