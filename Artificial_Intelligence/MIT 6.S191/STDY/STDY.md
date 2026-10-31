@@ -4,3 +4,4 @@
 - [[L4 深度生成模型]] — 自编码器、VAE（重参数化）、GAN、CycleGAN。
 - [[L5 强化学习]] — 状态/动作/奖励、Q 函数、DQN、策略梯度、探索与利用。
 - [[L6 语言模型与新前沿]] — 泛化与失败模式、对抗攻击、扩散模型、LLM 与涌现。
+- [[L8 AI for Science]] — no free lunch 与 bitter lesson、emulator 两阶段、DFT 与 Skala、MatGen、蛋白动力学。

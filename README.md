@@ -31,14 +31,14 @@
 
 ## AI · MIT 6.S191
 
-**进度**：L1~L6 笔记全部完成。
+**进度**：L1~L6 笔记全部完成；客座 L8「AI for Science」已完成（L7 暂未见材料）。
 
 **今日完成**：
 
 - 整理 6.S191 L3 CNN、L4 生成模型、L5 强化学习、L6 语言模型四篇学习笔记，同步主页与索引。
-- 2026-10-30：收集 Lecture 8「AI for Science」（Chris Bishop）视频转写，登记 [[Inbox]] 待处理。
+- 2026-10-30：整理 [[L8 AI for Science]]（emulator 两阶段、no free lunch 与 bitter lesson、DFT/Skala、MatGen、蛋白动力学），同步主页与索引。
 
-**下一步**：整理 L8 AI for Science；L1~L6 按需复习。
+**下一步**：L1~L6、L8 按需复习；L7 有材料再补。
 
 **笔记**：[[Artificial_Intelligence/MIT 6.S191/主页|6.S191 主页]]
 
