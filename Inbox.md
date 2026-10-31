@@ -10,6 +10,12 @@
 | Math/Linear Algebra/Ref/Gram-Schmidt Orthogonalization（习题课） | 数学 | [[L15 正交矩阵与 Gram-Schmidt]] | 已处理 | 2026-10-28 |
 | Math/Linear Algebra/Ref/19. Determinant Formulas and Cofactors | 数学 | [[L17 行列式公式与代数余子式]] | 已处理 | 2026-10-30 |
 | Math/Linear Algebra/Ref/Determinants（习题课） | 数学 | [[L17 行列式公式与代数余子式]] | 已处理 | 2026-10-30 |
+| Math/Linear Algebra/Ref/20. Cramer's Rule, Inverse Matrix, and Volume | 数学 | [[L18 行列式的应用 Cramer法则与体积]] | 已处理 | 2026-10-31 |
+| Math/Linear Algebra/Ref/Determinants and Volume（习题课） | 数学 | [[L18 行列式的应用 Cramer法则与体积]] | 已处理 | 2026-10-31 |
+| Math/Linear Algebra/Ref/21. Eigenvalues and Eigenvectors | 数学 | [[L19 特征值与特征向量]] | 已处理 | 2026-10-31 |
+| Math/Linear Algebra/Ref/Eigenvalues and Eigenvectors（习题课） | 数学 | [[L19 特征值与特征向量]] | 已处理 | 2026-10-31 |
+| Math/Linear Algebra/Ref/22. Diagonalization and Powers of A | 数学 | [[L20 对角化与矩阵的幂]] | 已处理 | 2026-10-31 |
+| Math/Linear Algebra/Ref/Powers of a Matrix（习题课） | 数学 | [[L20 对角化与矩阵的幂]] | 已处理 | 2026-10-31 |
 | Artificial_Intelligence/MIT 6.S191/Captures（L3~L6） | AI | [[MIT 6.S191/主页\|6.S191 主页]] | 已处理 | 2026-10-28 |
 | Artificial_Intelligence/CUDA/Ref/Session 1.2 Triton-TileLang | CUDA | [[X01 Triton 与 TileLang]] | 已处理 | 2026-10-28 |
 | Artificial_Intelligence/UltraLytics/OfficialDocuments（三篇） | AI | [[UltraLytics/主页\|UltraLytics]] | 已处理 | 2026-10-28 |
