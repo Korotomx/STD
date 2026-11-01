@@ -162,6 +162,9 @@ $$
 \text{Area}=\frac12|\det\begin{bmatrix}a&b\\c&d\end{bmatrix}|.
 $$
 
+![[L18_determinant_area.png]]
+*左：$A=\begin{bmatrix}2&1\\0&2\end{bmatrix}$ 把单位正方形变成面积为 $4=|\det A|$ 的平行四边形；右：$B=\begin{bmatrix}1&1\\2&2\end{bmatrix}$ 行列式为零，正方形被压成一条线段（面积 $0$）。*
+
 **三维数例**（习题课）：四面体顶点为原点、$A_1=(2,2,-1)$、$A_2=(1,3,0)$、$A_3=(-1,1,4)$。它由三个向量张成的平行六面体的 $1/6$：
 
 $$

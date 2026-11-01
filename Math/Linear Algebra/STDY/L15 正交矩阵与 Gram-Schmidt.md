@@ -132,6 +132,9 @@ $$
 A^{\mathsf T}B=A^{\mathsf T}b-\frac{A^{\mathsf T}b}{A^{\mathsf T}A}\,A^{\mathsf T}A=A^{\mathsf T}b-A^{\mathsf T}b=0.
 $$
 
+![[L15_gram_schmidt.png]]
+*二维示意（$a_1=(3,1)$，$a_2=(1,2)$）：$a_2$ 减去在 $a_1$ 上的投影得到 $e$，$e\perp a_1$；归一化后 $q_1,q_2$ 成为标准正交基（直角标记与单位圆）。*
+
 ### 第三步
 
 $c$ 在 $A$、$B$ 两个方向都有分量，逐个减掉：
