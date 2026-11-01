@@ -32,7 +32,7 @@
 - 2026-11-01：再补三张几何图——[[L14 投影与最小二乘]] 的散点+残差+能量等值线、[[L16 行列式的性质]] 的剪切/换行/倍乘三联图、[[L20 对角化与矩阵的幂]] 的 PCA 数据云与主方向；全部绘图代码归档为 `STDY/assets/make_la_figs.py`（英文标注、固定配色、dpi 200）。
 
 - 2026-11-01：整理 [[L12 图·网络·关联矩阵]]、[[L13 正交向量与子空间]] 两篇笔记并配图；把 DeepLearning 下「曲线拟合的概率视角」并入 [[L14 投影与最小二乘]]，补概率/正则化对照图。
-- 2026-11-01：建立 [[Linear Algebra/Ref/Ref|Ref 原始材料索引]]（18.06 字幕、18.06SC、3b1b、数学不难、专题视频全部登记）；把 Overview 的 32 条命题并入[[Linear Algebra/主页#命题速查|主页命题速查]]，Overview 改为跳转。
+- 2026-11-01：建立 [[Linear Algebra/Ref/Ref|Ref 原始材料索引]]（18.06 字幕、18.06SC、3b1b、数学不难、专题视频全部登记）；线性代数总入口统一为 [[Linear Algebra/Overview|Overview]]（含命题速查），原「主页」改为跳转。
 - 2026-11-01：按 `Downloads/LinearAlgebra` 15 份讲义整理 [[Linear Algebra/Exam|Exam]]（逐讲知识点 + ✅/◐/○ 覆盖标记 + 未学清单 + 参照 Threshold test I 的备考建议）；按主题汇编已学定理与性质为 [[Linear Algebra/Concentrated|Concentrated]]。
 
 **下一步**：补 Exam 里标记 ○ 的四块算法缺口（初等变换/标准形、坐标与过渡矩阵、正交对角化、二次型标准形）；L21~L24 有材料再回补；主线从 lecture 28 起，等 Ref 材料。

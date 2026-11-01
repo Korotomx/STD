@@ -144,4 +144,4 @@ More courses at https://ocw.mit.edu
 
 **9:48** · I think we're done here.
 
-关联：[[Linear Algebra/主页|线性代数]]
+关联：[[Linear Algebra/Overview|线性代数]]

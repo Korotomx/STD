@@ -160,4 +160,4 @@ More courses at https://ocw.mit.edu
 
 **8:01** · Thanks.
 
-关联：[[Linear Algebra/主页|线性代数]]
+关联：[[Linear Algebra/Overview|线性代数]]

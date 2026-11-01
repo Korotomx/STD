@@ -270,4 +270,4 @@ More courses at https://ocw.mit.edu
 
 **14:50** · Good luck, and Ill see you later.
 
-关联：[[Linear Algebra/主页|线性代数]]
+关联：[[Linear Algebra/Overview|线性代数]]

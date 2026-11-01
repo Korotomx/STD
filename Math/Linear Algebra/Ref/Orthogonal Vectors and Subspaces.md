@@ -154,4 +154,4 @@ More courses at https://ocw.mit.edu
 
 **10:14** · Well I'd like to conclude this problem now and I hope you had a good time.
 
-关联：[[Linear Algebra/主页|线性代数]]
+关联：[[Linear Algebra/Overview|线性代数]]
