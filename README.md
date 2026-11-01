@@ -68,13 +68,13 @@
 
 ## AI · DeepLearningRM（RoboMaster 考核）
 
-**进度**：任务一 ResNet-18 / MNIST 完成（99.14%）；任务二 C++ ONNX + ROS2 整链完成（ZLLC mAP50 0.789，CPU ~17 FPS，报告 2026-10-21）；任务三标定 + PnP 未开始。
+**进度**：任务一 ResNet-18 / MNIST（99.14%）与任务二 C++ ONNX + ROS2 + TensorRT（ZLLC mAP50 0.789，130~240 FPS）完成；任务三不做，RM 线 2026-11-01 收官。
 
 **今日完成**：
 
 -
 
-**下一步**：任务三（或补任务一/二演示视频）。
+**下一步**：已收官，不再安排；隔较长时间后需要时再按需复习。
 
 **笔记**：[[Artificial_Intelligence/DeepLearningRM/Overview|DeepLearningRM 主页]]
 
