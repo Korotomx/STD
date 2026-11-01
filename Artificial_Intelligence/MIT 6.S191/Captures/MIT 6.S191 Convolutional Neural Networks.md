@@ -516,4 +516,4 @@ Subscribe to stay up to date with new deep learning lectures at MIT, or follow u
 
 **56:42** · \[applause\]
 
-关联：[[Artificial_Intelligence/MIT 6.S191/主页|6.S191]]
+关联：[[Artificial_Intelligence/MIT 6.S191/Overview|6.S191]]

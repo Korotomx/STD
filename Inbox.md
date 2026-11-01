@@ -18,9 +18,9 @@
 | Math/Linear Algebra/Ref/Powers of a Matrix（习题课） | 数学 | [[L20 对角化与矩阵的幂]] | 已处理 | 2026-10-31 |
 | Math/Linear Algebra/Ref/27. Positive Definite Matrices and Minima | 数学 | [[L25 正定矩阵与极小值]] | 已处理 | 2026-11-01 |
 | Math/Linear Algebra/Ref/Positive Definite Matrices and Minima（习题课） | 数学 | [[L25 正定矩阵与极小值]] | 已处理 | 2026-11-01 |
-| Artificial_Intelligence/MIT 6.S191/Captures（L3~L6） | AI | [[MIT 6.S191/主页\|6.S191 主页]] | 已处理 | 2026-10-28 |
+| Artificial_Intelligence/MIT 6.S191/Captures（L3~L6） | AI | [[MIT 6.S191/Overview\|6.S191 主页]] | 已处理 | 2026-10-28 |
 | Artificial_Intelligence/CUDA/Ref/Session 1.2 Triton-TileLang | CUDA | [[X01 Triton 与 TileLang]] | 已处理 | 2026-10-28 |
-| Artificial_Intelligence/UltraLytics/OfficialDocuments（三篇） | AI | [[UltraLytics/主页\|UltraLytics]] | 已处理 | 2026-10-28 |
+| Artificial_Intelligence/UltraLytics/OfficialDocuments（三篇） | AI | [[UltraLytics/Overview\|UltraLytics]] | 已处理 | 2026-10-28 |
 | Raw/Agent Harness for Learning Things.md | AI | [[AI 学习系统 教学与练习闭环]] | 已处理 | 2026-10-28 |
 | Raw/llm-wiki.md | AI | [[LLM Wiki 增量知识库]] | 已处理 | 2026-10-28 |
 | 有道「CS」单词本 | English | English/YYYY-MM-DD | 已处理至 10-30（27 词） | 2026-10-30 |

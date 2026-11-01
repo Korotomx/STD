@@ -1,0 +1,53 @@
+RoboMaster 深度学习组分流考核的笔记入口。三个任务主线，加 STDY、Errors、extra 三个栏目。
+
+## 任务一 · ResNet 手写数字分类（30 分）
+
+**状态**：已完成。ResNet-18 从零搭建，MNIST 验证准确率 99.14%（官方测试集 99.22%），报告已交，剩演示视频。
+
+- 基础：[[N001 张量基础dtype-shape-device与GPU]] · [[N015 数据加载Dataset与DataLoader]]
+- 模型：[[N007 卷积层运算步幅填充多卷积核]] · [[N009 LeNet-5架构与各层参数]] · [[N017 ResNet-18架构与残差连接]]
+- 训练问题：[[N004 激活函数sigmoid-tanh-relu-leakyrelu]] · [[N012 过拟合与Dropout]]
+- 代码：`task1_resnet_mnist/`（`resnet.py` / `train_resnet.py`）
+
+## 任务二 · C++ ONNX + ROS2（35 分，主线）
+
+**状态**：已完成。ZLLC 装甲板 4 类（B1/B2/R1/R2），YOLOv8n 微调 mAP50 0.789；ONNX `[1,3,640,640] → [1,8,8400]`；C++ OpenCV DNN + ROS2 节点（CPU ~17 FPS）；接 TensorRT 后 130~240 FPS，报告已交，剩演示视频。
+
+- 训练与数据：[[N020 NDJSON数据集与YOLO姿态估计pose训练]]
+- 部署链路：[[N023 模型全流程总览 从数据到Orin部署]] · [[N018 CUDA-cuDNN-TensorRT三层结构]] · [[N019 TensorRT部署onnx转engine并推理]] · [[N026 TensorRT-engine推理全流程]]
+- 精度与坐标：[[N027 数值精度与量化 FP32-FP16-BF16-TF32-INT8]] · [[N028 图像坐标与Letterbox仿射变换]]
+- 代码：`task2_onnx_ros2/`（`zllc_detector`）
+
+## 任务三 · 几何特征 + 标定 + PnP（35 分）
+
+**状态**：未开始。
+
+- [ ] 针孔模型 fx/fy/cx/cy + 镜头畸变
+- [ ] 棋盘格标定 → camera matrix + distortion
+- [ ] ROI 几何特征（灯条 / 轮廓 / 角点）
+- [ ] solvePnP 2D-3D 对应 → X/Y/Z / 距离 / yaw/pitch
+- [ ] ROS2 发布 + 可视化
+- [ ] 交付：标定脚本 + 参数文件 + PnP 代码 + 视频 + 报告
+
+## STDY
+
+按「Features / Concepts / Projects」三类组织，共 14 篇。
+
+- [[DeepLearningRM/STDY/STDY|STDY 索引]]
+- [[DeepLearningRM/STDY/Features/Features|Features]] — PyTorch 基础、数据加载与训练、TensorRT 部署、YOLO 训练、全流程
+- [[DeepLearningRM/STDY/Concepts/Concepts|Concepts]] — 激活/前向/反向、卷积池化、LeNet/AlexNet/ResNet、过拟合、精度、坐标变换
+- [[DeepLearningRM/STDY/Projects/Projects|Projects]] — 待开始
+
+## Errors
+
+按「现象 / 原因 / 解决 / 预防」记录，附索引。
+
+- [[DeepLearningRM/Errors/Errors|Errors]] — E001 matplotlib 无显示环境 · E002 TensorRT 11 API · E003 任务不匹配 · E004 训练 OOM · E005 workspace 单位 · E006 engine JSON 头
+
+## extra
+
+- [[extra/extra|extra]] — 外文剪藏《Give me 31 minutes, I will make PyTorch click forever》
+
+---
+
+环境：Python 3.11（`dl_env`）+ PyTorch 2.11 cu128；CUDA 12.8 + cuDNN 9.27 + TensorRT 11.4；RTX 5060 8GB；ROS 2 Lyrical。

@@ -1,3 +1,48 @@
+MIT 6.S191 Introduction to Deep Learning（2026 Edition）课程入口。
+
+## STDY
+
+- [[L1 深度学习基础]] — 感知机 / 损失 / 梯度下降 / 反向传播 / 正则化
+- [[L2 循环神经网络与Transformer]] — RNN / 注意力 / Transformer
+- [[L3 卷积神经网络]] — 卷积 / feature map / 池化 / 检测分割
+- [[L4 深度生成模型]] — 自编码器 / VAE / GAN / CycleGAN
+- [[L5 强化学习]] — Q 函数 / DQN / 策略梯度
+- [[L6 语言模型与新前沿]] — 泛化失败模式 / 扩散模型 / LLM
+- [[L8 AI for Science]] — emulator / no free lunch / DFT / 蛋白动力学
+
+
+## 进度
+
+L1~L6 笔记全部完成；客座 L8「AI for Science」已完成（L7 暂未见材料）。
+
+## 掌握度
+
+状态词：待自测 / 能复述 / 能做对 / 易错。自测 = 不看笔记口述 3 个核心概念，或跑对应 lab。
+
+| 讲 | 笔记 | 掌握 |
+| --- | --- | --- |
+| L1 深度学习基础 | 完成 | 待自测 |
+| L2 RNN 与 Transformer | 完成 | 待自测 |
+| L3 CNN | 完成 | 待自测 |
+| L4 深度生成模型 | 完成 | 待自测 |
+| L5 强化学习 | 完成 | 待自测 |
+| L6 语言模型与新前沿 | 完成 | 待自测 |
+| L8 AI for Science | 完成 | 待自测 |
+
+## Captures
+
+`Captures/` 存视频截图与字幕转写，是原始材料，保持原样。
+
+- [[MIT Introduction to Deep Learning  6.S191|L1 Foundations]]
+- [[MIT 6.S191 Recurrent Neural Networks, Transformers, and Attention|L2 RNN / Transformer]]
+- [[MIT 6.S191 Convolutional Neural Networks|L3 CNN]]
+- [[MIT 6.S191 Deep Generative Modeling|L4 生成模型]]
+- [[MIT 6.S191 Reinforcement Learning|L5 强化学习]]
+- [[MIT 6.S191 Language Models and New Frontiers|L6 语言模型]] — 原文在 `CUDA/Ref/`
+- [[MIT 6.S191 AI for Science|L8 AI for Science]] — 待整理
+
+## 命题速查
+
 一条命题一行，`→` 是推理方向，末尾是落点；复习只看这张纸，卡住再点进去。
 
 - 深度学习 = 感知机加非线性堆叠；没有非线性，多层塌成一层。[[L1 深度学习基础]]

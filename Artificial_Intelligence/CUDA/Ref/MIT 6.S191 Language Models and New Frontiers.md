@@ -442,4 +442,4 @@ Subscribe to stay up to date with new deep learning lectures at MIT, or follow u
 
 **56:03** · And thank you so much for that your attention, and please stay tuned for tomorrow's guest lectures, t-shirt delivery, and much more still to come. Thank you so much.
 
-关联：[[Artificial_Intelligence/MIT 6.S191/主页|6.S191]]
+关联：[[Artificial_Intelligence/MIT 6.S191/Overview|6.S191]]

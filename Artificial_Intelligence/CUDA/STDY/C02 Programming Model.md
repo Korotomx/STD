@@ -220,6 +220,6 @@ peek=9 peek=9 get=9 再 get=0                             ← get 后状态被�
 | 查到 `cudaSuccess` 但结果错 | launch 成功 ≠ 执行正确 | CPU 对照 |
 | 统一内存比显式拷贝慢 20 倍 | WSL2 页不迁移、prefetch 不支持 | 性能敏感路径用显式管理 |
 
-索引、同步、错误检查三件事做对，kernel 才能可信；性能优化（coalescing、shared memory、occupancy）按 [[CUDA/主页|主页]] 的路线继续。
+索引、同步、错误检查三件事做对，kernel 才能可信；性能优化（coalescing、shared memory、occupancy）按 [[CUDA/Overview|主页]] 的路线继续。
 
 > PS：工程里通常用一个宏包住所有调用——`#define CUDA_CHECK(expr) do { cudaError_t e=(expr); if(e!=cudaSuccess) fprintf(stderr, "%s:%d %s\n", __FILE__, __LINE__, cudaGetErrorString(e)); } while(0)`；launch 后单独 `CUDA_CHECK(cudaGetLastError())`，同步后再 `CUDA_CHECK(cudaDeviceSynchronize())`。需要立即中止时把 `fprintf` 换成 `exit(1)` 或抛异常。

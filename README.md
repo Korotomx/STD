@@ -14,7 +14,7 @@
 
 **下一步**：按需复习；有新课再开新线。
 
-**笔记**：[[ROS2/主页]]
+**笔记**：[[ROS2/Overview]]
 
 ## 数学 · 线性代数
 
@@ -37,7 +37,7 @@
 
 **下一步**：补 Exam 里标记 ○ 的四块算法缺口（初等变换/标准形、坐标与过渡矩阵、正交对角化、二次型标准形）；L21~L24 有材料再回补；主线从 lecture 28 起，等 Ref 材料。
 
-**笔记**：[[Math/主页]]
+**笔记**：[[Math/Overview]]
 
 ## AI · MIT 6.S191
 
@@ -50,7 +50,7 @@
 
 **下一步**：L1~L6、L8 按需复习；L7 有材料再补。
 
-**笔记**：[[Artificial_Intelligence/MIT 6.S191/主页|6.S191 主页]]
+**笔记**：[[Artificial_Intelligence/MIT 6.S191/Overview|6.S191 主页]]
 
 ## AI · CUDA / TensorRT
 
@@ -63,7 +63,7 @@
 
 **下一步**：`03_yolo`（真实图片 → letterbox → 推理 → 解码，按需）。
 
-**笔记**：[[Artificial_Intelligence/CUDA/主页|CUDA 主页]] · [[Artificial_Intelligence/CUDA/TensorRT 部署学习路径|TensorRT 路径]] · [[Artificial_Intelligence/UltraLytics/主页|UltraLytics 主页]]
+**笔记**：[[Artificial_Intelligence/CUDA/Overview|CUDA 主页]] · [[Artificial_Intelligence/CUDA/TensorRT 部署学习路径|TensorRT 路径]] · [[Artificial_Intelligence/UltraLytics/Overview|UltraLytics 主页]]
 
 ## AI · DeepLearningRM（RoboMaster 考核）
 
@@ -75,7 +75,7 @@
 
 **下一步**：任务三（或补任务一/二演示视频）。
 
-**笔记**：[[Artificial_Intelligence/DeepLearningRM/主页|DeepLearningRM 主页]]
+**笔记**：[[Artificial_Intelligence/DeepLearningRM/Overview|DeepLearningRM 主页]]
 
 ## Python
 
@@ -97,4 +97,4 @@
 
 - 2026-10-30：补录 27 词（有道「CS」单词本），同步主页与索引。
 
-**笔记**：[[English/主页]]
+**笔记**：[[English/Overview]]
