@@ -34,6 +34,7 @@
 - 2026-11-01：整理 [[L12 图·网络·关联矩阵]]、[[L13 正交向量与子空间]] 两篇笔记并配图；把 DeepLearning 下「曲线拟合的概率视角」并入 [[L14 投影与最小二乘]]，补概率/正则化对照图。
 - 2026-11-01：建立 [[Linear Algebra/Ref/Ref|Ref 原始材料索引]]（18.06 字幕、18.06SC、3b1b、数学不难、专题视频全部登记）；线性代数总入口统一为 [[Linear Algebra/Overview|Overview]]（含命题速查），原「主页」改为跳转。
 - 2026-11-01：按 `Downloads/LinearAlgebra` 15 份讲义整理 [[Linear Algebra/Exam|Exam]]（逐讲知识点 + ✅/◐/○ 覆盖标记 + 未学清单 + 参照 Threshold test I 的备考建议）；按主题汇编已学定理与性质为 [[Linear Algebra/Concentrated|Concentrated]]。
+- 2026-11-01：给 [[L19 特征值与特征向量]] 补「速算技巧」——信号表（行和/秩 1/三角/置换/零化多项式）、行和与秩 1 数例、$p(A)=O\Rightarrow p(\lambda)=0$、$2\times2$/$3\times3$ 展开式、特征向量快取，以及「行变换不保特征值」的坑；同步 Concentrated。
 
 **下一步**：补 Exam 里标记 ○ 的四块算法缺口（初等变换/标准形、坐标与过渡矩阵、正交对角化、二次型标准形）；L21~L24 有材料再回补；主线从 lecture 28 起，等 Ref 材料。
 
