@@ -23,8 +23,8 @@
 | Raw/llm-wiki.md | AI | [[LLM Wiki 增量知识库]] | 已处理 | 2026-10-28 |
 | 有道「CS」单词本 | English | English/YYYY-MM-DD | 已处理至 10-30（27 词） | 2026-10-30 |
 | Raw/Creative Thinking.md（Shannon 1952 讲座） | AI | [[Shannon 创造性思维 1952]] | 已处理 | 2026-10-29 |
-| Math/Linear Algebra/Ref/Eigenvectors Are Hiding Something Nobody Talks About! | 数学 | Ref 索引，L21 特征值时再成笔记 | 已处理 | 2026-10-29 |
-| Math/Linear Algebra/Ref/Matrix trace isn't just summing the diagonal | 数学 | Ref 索引，特征值/迹时再成笔记 | 已处理 | 2026-10-29 |
+| Math/Linear Algebra/Ref/Eigenvectors Are Hiding Something Nobody Talks About! | 数学 | [[L20 对角化与矩阵的幂]]（三个图景） | 已处理 | 2026-11-01 |
+| Math/Linear Algebra/Ref/Matrix trace isn't just summing the diagonal | 数学 | [[L19 特征值与特征向量]]（迹=散度） | 已处理 | 2026-11-01 |
 | Artificial_Intelligence/MIT 6.S191/Captures/MIT 6.S191 AI for Science | AI | [[L8 AI for Science]] | 已处理 | 2026-10-30 |
 | Raw/CNN Explainer.md | AI | [[L3 卷积神经网络]] | 已处理 | 2026-10-19 |
 | Raw/How the Claude Code team does code review.md | AI | [[AI 代码评审 Claude Code 团队实践]] | 已处理 | 2026-10-22 |

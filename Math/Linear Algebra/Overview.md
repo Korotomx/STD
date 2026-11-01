@@ -21,5 +21,7 @@
 - $|\det A|$ = 平行体体积；线性变换把体积放大 $|\det A|$ 倍（Jacobian 的来源）。[[L18 行列式的应用 Cramer法则与体积]]
 - $Ax=\lambda x$：先解 $\det(A-\lambda I)=0$ 得 $\lambda$，再解零空间得 $x$。[[L19 特征值与特征向量]]
 - $\sum\lambda_i=\operatorname{tr}A$，$\prod\lambda_i=\det A$；三角矩阵特征值在对角线上。[[L19 特征值与特征向量]]
+- $\operatorname{tr}A$ = 向量场 $x\mapsto Ax$ 的散度 = 单位体积的瞬时相对膨胀率；$\det(e^{At})=e^{t\operatorname{tr}A}$。[[L19 特征值与特征向量]]
 - $A=S\Lambda S^{-1}$ 当且仅当有 $n$ 个线性无关特征向量；重根看几何重数。[[L20 对角化与矩阵的幂]]
 - $A^k=S\Lambda^kS^{-1}$；差分方程 $u_{k+1}=Au_k$ 的解 $u_k=\sum_i c_i\lambda_i^kx_i$，长期由主导特征值决定。[[L20 对角化与矩阵的幂]]
+- 耦合振子、PCA、PageRank 在特征基下分别变成独立振型、主方向、平稳分布：同一个对角化结构换了三套衣服。[[L20 对角化与矩阵的幂]]
