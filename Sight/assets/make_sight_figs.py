@@ -2124,6 +2124,145 @@ def fig_city_scaling():
     plt.close(fig)
 
 
+def fig_ai_brain_rot():
+    """Conceptual: default AI use raises the floor and compresses the top."""
+    x = np.linspace(-3.4, 3.4, 500)
+    before = np.exp(-x ** 2 / 2)
+    after = 1.35 * np.exp(-(x - 0.55) ** 2 / (2 * 0.55 ** 2))
+
+    fig, ax = plt.subplots(figsize=(8.8, 4.5))
+    ax.fill_between(x, before, color=GRAY, alpha=0.12)
+    ax.fill_between(x, after, color=PURPLE, alpha=0.14)
+    ax.plot(x, before, color=GRAY, lw=2.0, label="Before AI")
+    ax.plot(x, after, color=PURPLE, lw=2.2, label="After default AI use")
+    ax.axvline(0, color=GRAY, ls=":", lw=1.0)
+    ax.annotate("floor rises", xy=(-2.2, 0.24), xytext=(-3.1, 0.72),
+                fontsize=9.2, color=GRAY,
+                arrowprops=dict(arrowstyle="->", color=GRAY, lw=1.0))
+    ax.annotate("distribution narrows:\neveryone pulled to the mean",
+                xy=(0.55, 1.30), xytext=(1.20, 1.10),
+                fontsize=9.2, color=PURPLE,
+                arrowprops=dict(arrowstyle="->", color=PURPLE, lw=1.1))
+    ax.annotate("aim for the upper tail", xy=(2.05, 0.22),
+                xytext=(1.35, 0.55), fontsize=9.6, color=BLUE,
+                fontstyle="italic",
+                arrowprops=dict(arrowstyle="->", color=BLUE, lw=1.0))
+    ax.set_xlim(-3.4, 3.4)
+    ax.set_ylim(0, 1.5)
+    ax.set_yticks([])
+    ax.set_xlabel("relative skill / quality of work", fontsize=9.8)
+    ax.set_ylabel("density (schematic)", fontsize=9.8)
+    ax.legend(fontsize=8.8, loc="upper left", frameon=False)
+    clean(ax, equal=False)
+    ax.set_title("Default AI use compresses the distribution, not just the mean",
+                 fontsize=11)
+    fig.tight_layout()
+    fig.savefig(f"{OUT}/S14_ai_brain_rot.png", dpi=200,
+                bbox_inches="tight")
+    plt.close(fig)
+
+
+def fig_km_twoflux():
+    """Kubelka-Munk two-flux transmittance and its angular dependence."""
+    K, S = 8.0, 0.5
+    A = 1.0 + K / S
+    B = np.sqrt(A ** 2 - 1.0)
+
+    def transmittance(U):
+        return B / (A * np.sinh(U) + B * np.cosh(U))
+
+    U = np.linspace(0.001, 6.0, 400)
+    T = transmittance(U)
+    asymptote = 2.0 * B / (A + B) * np.exp(-U)
+
+    fig, axes = plt.subplots(1, 2, figsize=(12.8, 4.4))
+    ax = axes[0]
+    ax.plot(U, T, color=BLUE, lw=2.0, label="exact two-flux")
+    ax.plot(U, asymptote, color=ORANGE, ls="--", lw=1.4,
+            label=r"large-$U$ asymptote")
+    ax.set_xlabel(r"optical thickness  $U = B S X$", fontsize=9.6)
+    ax.set_ylabel("transmittance  T", fontsize=9.6)
+    ax.set_ylim(0, 1.0)
+    ax.legend(fontsize=8.6, frameon=False)
+    clean(ax, equal=False)
+    ax.set_title(r"(a) $T = B/(A\sinh U + B\cosh U)$", fontsize=10.4)
+
+    ax = axes[1]
+    theta = np.linspace(0, 85, 400)
+    cos_t = np.clip(np.cos(np.deg2rad(theta)), 0.12, 1.0)
+    for U0, color, label in (
+        (0.9, GREEN, r"thin  $U_0 = 0.9$"),
+        (2.2, ORANGE, r"medium  $U_0 = 2.2$"),
+        (3.6, PURPLE, r"dense  $U_0 = 3.6$"),
+    ):
+        ax.plot(theta, transmittance(U0 / cos_t), color=color, lw=2.0,
+                label=label)
+    ax.set_xlabel(r"view angle  $\theta$  (deg)", fontsize=9.6)
+    ax.set_ylabel("transmittance  T", fontsize=9.6)
+    ax.set_ylim(0, 1.0)
+    ax.legend(fontsize=8.4, frameon=False, loc="center right")
+    clean(ax, equal=False)
+    ax.set_title(r"(b) $X = D/\cos\theta$: silhouette turns opaque",
+                 fontsize=10.4)
+    ax.text(58, 0.80, "grazing angle", color=RED, fontsize=8.6,
+            fontstyle="italic")
+
+    fig.tight_layout()
+    fig.savefig(f"{OUT}/S15_km_twoflux.png", dpi=200,
+                bbox_inches="tight")
+    plt.close(fig)
+
+
+def fig_markov_chain():
+    """Pushkin letter pairs and convergence of the vowel fraction."""
+    p_vv = 0.06 / 0.43
+    p_cv = (0.43 - 0.06) / 0.57
+    P = np.array([[p_vv, 1 - p_vv], [p_cv, 1 - p_cv]])
+
+    rng = np.random.default_rng(7)
+    n = 5000
+    state = 0
+    states = np.empty(n, dtype=int)
+    for i in range(n):
+        states[i] = state
+        state = 0 if rng.random() < P[state, 0] else 1
+    ratio = np.cumsum(states == 0) / np.arange(1, n + 1)
+
+    fig, axes = plt.subplots(1, 2, figsize=(12.8, 4.4))
+    ax = axes[0]
+    labels = ["VV", "VC", "CV", "CC"]
+    actual = [0.06, 0.37, 0.37, 0.20]
+    independent = [0.43 ** 2, 0.43 * 0.57, 0.57 * 0.43, 0.57 ** 2]
+    xpos = np.arange(4)
+    ax.bar(xpos - 0.19, actual, width=0.36, color=BLUE, label="Pushkin pairs")
+    ax.bar(xpos + 0.19, independent, width=0.36, color=GRAY,
+           label="if independent")
+    ax.set_xticks(xpos, labels)
+    ax.set_ylabel("pair frequency", fontsize=9.6)
+    ax.set_ylim(0, 0.42)
+    ax.legend(fontsize=8.6, frameon=False)
+    clean(ax, equal=False)
+    ax.set_title("(a) Letters are not independent", fontsize=10.4)
+
+    ax = axes[1]
+    ax.plot(np.arange(1, n + 1), ratio, color=PURPLE, lw=1.6,
+            label="running vowel fraction")
+    ax.axhline(0.43, color=ORANGE, ls="--", lw=1.2, label="43% target")
+    ax.set_xscale("log")
+    ax.set_xlabel("generated letters", fontsize=9.6)
+    ax.set_ylabel("vowel fraction", fontsize=9.6)
+    ax.set_ylim(0.0, 1.0)
+    ax.legend(fontsize=8.6, frameon=False)
+    clean(ax, equal=False)
+    ax.set_title("(b) A dependent chain still obeys the LLN",
+                 fontsize=10.4)
+
+    fig.tight_layout()
+    fig.savefig(f"{OUT}/S16_markov_chain.png", dpi=200,
+                bbox_inches="tight")
+    plt.close(fig)
+
+
 if __name__ == "__main__":
     fig_reflection()
     fig_phase()
@@ -2166,4 +2305,7 @@ if __name__ == "__main__":
     fig_network()
     fig_heartbeats()
     fig_city_scaling()
+    fig_ai_brain_rot()
+    fig_km_twoflux()
+    fig_markov_chain()
     print("done")
