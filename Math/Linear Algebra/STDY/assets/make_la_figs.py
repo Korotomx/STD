@@ -16,7 +16,7 @@ import numpy as np
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from matplotlib.patches import Polygon, FancyArrowPatch
+from matplotlib.patches import Polygon, FancyArrowPatch, Rectangle, Circle, Patch
 from matplotlib.lines import Line2D
 
 OUT = "/mnt/c/X/STD/STD/Math/Linear Algebra/STDY/assets"
@@ -670,7 +670,142 @@ def fig_l16_det():
     plt.close(fig)
 
 
+def fig_l21():
+    fig, axes = plt.subplots(1, 2, figsize=(12.8, 6.2))
+    A = np.array([[-1.0, 2.0], [1.0, -2.0]])
+    S = np.array([[2.0, 1.0], [1.0, -1.0]])
+    Sinv = np.linalg.inv(S)
+    lam = np.array([0.0, -3.0])
+
+    def flow(u0, ts):
+        e = np.stack([np.exp(lam[0] * ts), np.exp(lam[1] * ts)], axis=0)
+        return (S @ (e * (Sinv @ u0).reshape(2, 1))).T
+
+    ax = axes[0]
+    xs = np.linspace(-2.4, 2.4, 11)
+    X, Y = np.meshgrid(xs, xs)
+    U = A[0, 0] * X + A[0, 1] * Y
+    V = A[1, 0] * X + A[1, 1] * Y
+    ax.quiver(X, Y, U, V, color=GRAY, alpha=0.50, angles="xy",
+              scale_units="xy", scale=5.0, width=0.004)
+    ts = np.linspace(0.0, 7.0, 400)
+    starts = [(1.0, 0.0), (-1.0, 0.0), (0.0, 1.0), (0.0, -1.0),
+              (1.8, 1.4), (-1.8, -1.4), (2.0, -1.0), (-1.4, 1.8)]
+    for u0 in starts:
+        tr = flow(np.array(u0), ts)
+        ax.plot(tr[:, 0], tr[:, 1], color=BLUE, lw=1.3, alpha=0.8)
+        ax.scatter(*u0, color=BLUE, s=14, zorder=5)
+    ax.plot([-2.4, 2.4], [-1.2, 1.2], color=RED, lw=2.0)
+    ax.plot([-2.0, 2.0], [2.0, -2.0], color=GREEN, lw=1.8, ls="--")
+    ax.scatter([1.0], [0.0], color="#222222", s=34, zorder=6)
+    ax.text(1.08, -0.18, "$u(0)=(1,0)$", fontsize=9.5, color="#222222")
+    ax.text(1.95, 1.15, "steady direction\n$(2,1)^T$", color=RED, fontsize=10,
+            ha="right", va="bottom")
+    ax.text(-1.85, 1.82, "fast decay\n$(1,-1)^T$", color=GREEN, fontsize=10,
+            ha="left", va="bottom")
+    ax.scatter([2 / 3], [1 / 3], color=RED, s=28, zorder=6)
+    ax.text(0.38, 0.18, "$(2/3,1/3)$", color=RED, fontsize=9.5, ha="right")
+    ax.set_xlim(-2.4, 2.4); ax.set_ylim(-2.4, 2.4)
+    ax.set_xlabel("$u_1$"); ax.set_ylabel("$u_2$")
+    ax.set_title("Phase portrait: flow collapses onto the $\\lambda=0$ line", fontsize=12)
+    clean(ax)
+
+    ax = axes[1]
+    ax.axvspan(-4.2, 0.0, color=BLUE, alpha=0.10)
+    ax.axvspan(0.0, 2.4, color=RED, alpha=0.05)
+    ax.add_patch(Circle((0, 0), 1.0, fill=False, edgecolor=GREEN,
+                        lw=1.8, ls="--"))
+    pts = [(-3.0 + 6.0j, RED), (0.0 + 0.0j, RED), (-3.0 + 0.0j, RED),
+           (0.8 + 0.0j, GREEN), (-0.5 + 0.8j, GREEN)]
+    for z, c in pts:
+        ax.scatter([z.real], [z.imag], color=c, s=42, zorder=6)
+    ax.text(-2.85, 6.28, "$\\lambda=-3+6i$: $|e^{\\lambda t}|=e^{-3t}$",
+            fontsize=9.5, color=RED, va="top")
+    ax.text(-0.12, -0.55, "$\\lambda=0$\nsteady state", fontsize=9.0,
+            color=RED, ha="right", va="top")
+    ax.text(-3.0, -0.55, "$\\lambda=-3$", fontsize=9.0, color=RED,
+            ha="center", va="top")
+    ax.text(0.92, 0.18, "discrete stable\neigenvalues", fontsize=9.0,
+            color=GREEN, ha="left", va="bottom")
+    ax.text(0.35, 0.90, "|$\\lambda$|=1", fontsize=9.0, color=GREEN,
+            ha="left", va="bottom")
+    ax.axhline(0, color="#444444", lw=1.0)
+    ax.axvline(0, color="#444444", lw=1.0)
+    ax.text(-4.0, 3.2, "Re $\\lambda<0$", color=BLUE, fontsize=11)
+    ax.text(0.12, 3.2, "Re $\\lambda>0$", color=RED, fontsize=11)
+    handles = [Patch(facecolor=BLUE, alpha=0.18, label="continuous: Re $\\lambda<0$"),
+               Line2D([], [], color=GREEN, ls="--", lw=1.6, label="discrete: |$\\lambda$|<1")]
+    ax.legend(handles=handles, loc="lower left", frameon=False, fontsize=9)
+    ax.set_xlim(-4.2, 2.4); ax.set_ylim(-3.4, 6.6)
+    ax.set_xlabel("Re $\\lambda$"); ax.set_ylabel("Im $\\lambda$")
+    ax.set_title("$e^{At}$ stable on the left; $A^k$ stable inside the circle", fontsize=12)
+    clean(ax)
+
+    fig.tight_layout()
+    fig.savefig(f"{OUT}/L21_stability_phase.png", dpi=200, bbox_inches="tight")
+    plt.close(fig)
+
+
+def fig_l12_adj():
+    fig = plt.figure(figsize=(14.6, 4.7))
+    gs = fig.add_gridspec(1, 3, width_ratios=[1.15, 1.0, 1.0], wspace=0.28)
+
+    ax = fig.add_subplot(gs[0, 0])
+    pos = {1: (0.0, 1.35), 3: (1.35, 1.35), 2: (0.0, 0.0), 4: (1.35, 0.0)}
+    comp = {1: BLUE, 3: BLUE, 2: ORANGE, 4: ORANGE}
+    for (a, b) in [(1, 3), (3, 1), (2, 4), (4, 2)]:
+        rad = 0.22 if a < b else -0.22
+        ax.add_patch(FancyArrowPatch(pos[a], pos[b], arrowstyle="-|>",
+                                     mutation_scale=14, color=GRAY, lw=1.3,
+                                     connectionstyle=f"arc3,rad={rad}"))
+    for (a, b) in [(1, 2), (3, 4)]:
+        ax.add_patch(FancyArrowPatch(pos[a], pos[b], arrowstyle="-|>",
+                                     mutation_scale=14, color=PURPLE, lw=1.6))
+    for n, p in pos.items():
+        ax.add_patch(Circle(p, 0.20, facecolor=comp[n], edgecolor="white",
+                            lw=1.4, alpha=0.85, zorder=4))
+        ax.text(p[0], p[1], str(n), color="white", ha="center", va="center",
+                fontsize=11, fontweight="bold", zorder=5)
+    ax.text(-0.42, 1.72, "SCC A: {1,3}", color=BLUE, fontsize=10)
+    ax.text(1.12, -0.40, "SCC B: {2,4}", color=ORANGE, fontsize=10)
+    ax.set_xlim(-0.65, 1.95); ax.set_ylim(-0.65, 1.95)
+    ax.set_aspect("equal"); ax.axis("off")
+    ax.set_title("Directed graph: two SCCs, one-way bridge", fontsize=12)
+
+    A = np.array([[0, 1, 1, 0], [0, 0, 0, 1],
+                  [1, 0, 0, 1], [0, 1, 0, 0]], dtype=float)
+    P = np.eye(4)[:, [0, 2, 1, 3]]
+    B = P.T @ A @ P
+
+    for k, (M, title) in enumerate([(A, "Adjacency matrix $A$\n(original labels)"),
+                                    (B, "$P^T AP$\n(SCC order)")]):
+        ax = fig.add_subplot(gs[0, k + 1])
+        ax.imshow(M, cmap="Blues", vmin=0, vmax=1.0)
+        for i in range(4):
+            for j in range(4):
+                ax.text(j, i, int(M[i, j]), ha="center", va="center",
+                        fontsize=11, color="white" if M[i, j] > 0.5 else "#333333")
+        ax.set_xticks(range(4)); ax.set_yticks(range(4))
+        ax.set_xticklabels(["1", "3", "2", "4"] if k == 1 else ["1", "2", "3", "4"])
+        ax.set_yticklabels(["1", "3", "2", "4"] if k == 1 else ["1", "2", "3", "4"])
+        ax.set_xlabel("to node"); ax.set_ylabel("from node")
+        ax.set_title(title, fontsize=12)
+        if k == 1:
+            ax.add_patch(Rectangle((-0.5, -0.5), 2, 2, fill=False, ec=RED, lw=2.2))
+            ax.add_patch(Rectangle((1.5, 1.5), 2, 2, fill=False, ec=RED, lw=2.2))
+            ax.add_patch(Rectangle((-0.5, 1.5), 2, 2, fill=False, ec=GRAY,
+                                   lw=1.6, ls="--"))
+            ax.text(0.5, 2.5, "zero block", ha="center", va="center",
+                    fontsize=9.5, color=GRAY)
+
+    fig.suptitle("Matrices are graphs: relabeling nodes = permutation similarity", fontsize=14)
+    fig.tight_layout(rect=[0, 0, 1, 0.92])
+    fig.savefig(f"{OUT}/L12_adjacency_scc.png", dpi=200, bbox_inches="tight")
+    plt.close(fig)
+
+
 for fn in (fig_l1, fig_l10, fig_l14, fig_l15, fig_l18, fig_l19, fig_l20,
-           fig_l12, fig_l13, fig_l14_ls, fig_l20_pca, fig_l16_det):
+           fig_l12, fig_l13, fig_l14_ls, fig_l20_pca, fig_l16_det,
+           fig_l21, fig_l12_adj):
     fn()
     print("ok", fn.__name__)

@@ -24,10 +24,11 @@
 - [[20. Cramer's Rule, Inverse Matrix, and Volume]] — [[L18 行列式的应用 Cramer法则与体积]]
 - [[21. Eigenvalues and Eigenvectors]] — [[L19 特征值与特征向量]]
 - [[22. Diagonalization and Powers of A]] — [[L20 对角化与矩阵的幂]]
+- [[23. Differential Equations and exp(At)]] — [[L21 微分方程与矩阵指数]]
 - [[25. Symmetric Matrices and Positive Definiteness]] — [[L23 对称矩阵与正定矩阵]]（待补）
 - [[27. Positive Definite Matrices and Minima]] — [[L25 正定矩阵与极小值]]
 
-lecture 23、24、26 的材料尚未到；对应 L21、L22、L24 留空位。
+lecture 24、26 的材料尚未到；对应 L22、L24 留空位。
 
 ## 18.06SC 习题课与短视频
 
@@ -52,6 +53,7 @@ lecture 23、24、26 的材料尚未到；对应 L21、L22、L24 留空位。
 - [[Determinants and Volume]] — L18
 - [[Eigenvalues and Eigenvectors]] — L19
 - [[Powers of a Matrix]] — L20
+- [[Differential Equations and exp (At)]] — L21 习题课：三阶方程与矩阵指数第一列
 - [[Symmetric Matrices and Positive Definiteness]] — L23（待补）
 - [[Positive Definite Matrices and Minima]] — L25
 - [[Exam 1 Problem Solving]] — 第一次考试讲评
@@ -85,3 +87,4 @@ lecture 23、24、26 的材料尚未到；对应 L21、L22、L24 留空位。
 
 - [[Eigenvectors Are Hiding Something Nobody Talks About!]] — 特征值/对角化/PCA/PageRank；用于 [[L20 对角化与矩阵的幂]]
 - [[Matrix trace isn't just summing the diagonal  Lie groups, algebras, brackets 5]] — 迹的几何意义；用于 [[L19 特征值与特征向量]]
+- [[The Single Most Undervalued Fact of Linear Algebra]] — 矩阵即图、强连通分量、可约矩阵与 Frobenius 标准形；用于 [[L12 图·网络·关联矩阵]] 的补充一节
