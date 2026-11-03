@@ -818,10 +818,10 @@ def fig_markov_chain():
 
     # self loops (arc over each node)
     for c, lab in [(A, "0.6"), (B, "0.8")]:
-        ax.annotate("", xy=(c[0] + 0.16, c[1] + 0.12), xytext=(c[0] - 0.16, c[1] + 0.12),
-                    arrowprops=dict(arrowstyle="-|>", connectionstyle="arc3,rad=-0.7",
-                                    color=BLUE, lw=2.2, mutation_scale=15), zorder=3)
-        ax.text(c[0], c[1] + 0.66, lab, ha="center", va="center", fontsize=12,
+        ax.annotate("", xy=(c[0] + 0.20, c[1] + 0.36), xytext=(c[0] - 0.20, c[1] + 0.36),
+                    arrowprops=dict(arrowstyle="-|>", connectionstyle="arc3,rad=0.8",
+                                    color=BLUE, lw=2.2, mutation_scale=15), zorder=6)
+        ax.text(c[0], c[1] + 0.88, lab, ha="center", va="center", fontsize=12,
                 color=BLUE)
 
     # cross edges: A -> B (top), B -> A (bottom)
@@ -853,8 +853,8 @@ def fig_markov_chain():
              fontsize=11, ha="right")
     ax2.set_xlabel("step $k$"); ax2.set_ylabel(r"$P(X_k=A)$")
     ax2.set_ylim(-0.06, 1.10)
-    ax2.set_title(r"$u_k=P^k u_0\to\pi$ forgets the start\n(rate set by $|\lambda_2|=0.4$)",
-                  fontsize=12)
+    ax2.set_title("$u_k=P^k u_0\\to\\pi$ forgets the start\n"
+                  "(rate set by $|\\lambda_2|=0.4$)", fontsize=12)
     ax2.legend(frameon=False, loc="center right")
     clean(ax2, equal=False)
 
@@ -932,8 +932,437 @@ def fig_linear_programming():
     plt.close(fig)
 
 
-for fn in (fig_l1, fig_l10, fig_l14, fig_l15, fig_l18, fig_l19, fig_l20,
-           fig_l12, fig_l13, fig_l14_ls, fig_l20_pca, fig_l16_det,
-           fig_l21, fig_l12_adj, fig_markov_chain, fig_linear_programming):
-    fn()
-    print("ok", fn.__name__)
+# ---------------------------------------------------------------- shared helpers
+BLUE_L, GREEN_L, ORANGE_L, RED_L, GRAY_L = (
+    "#d6e6f5", "#d9f0d3", "#fde3cd", "#f6d5d3", "#ececec")
+
+
+def draw_grid(ax, M, x0, y0, cell=0.5, title="", face=None, highlight=None,
+              fontsize=11, show_zero=True):
+    """Draw a small matrix as a labelled grid on a normal 2D axes."""
+    M = np.asarray(M)
+    n, m = M.shape
+    for i in range(n):
+        for j in range(m):
+            y = y0 + (n - 1 - i) * cell
+            fc = "white" if face is None else face[i][j]
+            ax.add_patch(Rectangle((x0 + j * cell, y), cell, cell,
+                                   facecolor=fc, edgecolor="#888888", lw=1.0))
+            v = M[i, j]
+            if show_zero or v != 0:
+                ax.text(x0 + (j + 0.5) * cell, y + cell / 2, f"{v:g}",
+                        ha="center", va="center", fontsize=fontsize,
+                        color="#222222")
+    if highlight:
+        for (i, j, col) in highlight:
+            ax.add_patch(Rectangle((x0 + j * cell, y0 + (n - 1 - i) * cell),
+                                   cell, cell, fill=False, edgecolor=col,
+                                   lw=2.2, zorder=5))
+    if title:
+        ax.text(x0 + m * cell / 2, y0 + n * cell + 0.12, title,
+                ha="center", va="bottom", fontsize=11.5)
+
+
+# ---------------------------------------------------------------- L2 elimination
+def fig_l2():
+    fig, (ax, ax2) = plt.subplots(1, 2, figsize=(12.8, 5.0),
+                                  gridspec_kw={"width_ratios": [1.0, 1.2]})
+
+    x = np.linspace(-0.6, 3.6, 200)
+    ax.plot(x, (5 - x) / 2, color=BLUE, lw=2.2, label="row 1: $x+2y=5$")
+    ax.plot(x, (11 - 3 * x) / 4, color=RED, lw=2.2, ls="--",
+            label="row 2: $3x+4y=11$")
+    ax.plot(x, 2 * np.ones_like(x), color=GREEN, lw=2.4, label="after: $y=2$")
+    ax.scatter([1], [2], color="black", s=65, zorder=6)
+    ax.annotate("solution $(1,2)$\nunchanged", (1, 2), xytext=(1.55, 2.55),
+                fontsize=11, arrowprops=dict(arrowstyle="-", color=GRAY, lw=1.0))
+    ax.text(2.05, 1.80, "$E_{21}$: row2 $-\\ 3\\cdot$ row1",
+            color=GREEN, fontsize=10.5)
+    ax.set_xlim(-0.4, 3.7); ax.set_ylim(-0.6, 3.9)
+    ax.set_xlabel("x"); ax.set_ylabel("y")
+    ax.set_title("Row picture: rewrite row 2,\nkeep the intersection",
+                 fontsize=12.5)
+    ax.legend(frameon=False, loc="upper right", fontsize=9.5)
+    clean(ax)
+
+    E = np.array([[1, 0], [-3, 1]])
+    A = np.array([[1, 2], [3, 4]])
+    U = np.array([[1, 2], [0, -2]])
+    cell = 0.56
+    fa = [[BLUE_L, BLUE_L], [BLUE_L, BLUE_L]]
+    fe = [[GRAY_L, GRAY_L], [ORANGE_L, GRAY_L]]
+    fu = [[BLUE_L, BLUE_L], [GRAY_L, BLUE_L]]
+    draw_grid(ax2, E, 0.00, 0.55, cell, "$E_{21}$", fe,
+              highlight=[(1, 0, ORANGE)])
+    draw_grid(ax2, A, 1.50, 0.55, cell, "$A$", fa,
+              highlight=[(0, 0, BLUE)])
+    draw_grid(ax2, U, 3.00, 0.55, cell, "$U$", fu,
+              highlight=[(0, 0, BLUE)])
+    ax2.text(1.31, 0.55 + cell, "$\\times$", fontsize=18, ha="center",
+             va="center")
+    ax2.text(2.81, 0.55 + cell, "$=$", fontsize=18, ha="center", va="center")
+    ax2.text(0.0, 0.02,
+             "the multiplier $3$ is recorded for $L$ "
+             "(sign flips: L = [[1, 0], [3, 1]])",
+             fontsize=10.5)
+    ax2.set_xlim(-0.15, 4.35); ax2.set_ylim(-0.1, 2.15)
+    ax2.set_aspect("equal"); ax2.axis("off")
+    ax2.set_title("Matrix view: left multiply = row operation",
+                  fontsize=12.5, pad=14)
+
+    fig.tight_layout()
+    fig.savefig(f"{OUT}/L2_elimination.png", dpi=200, bbox_inches="tight")
+    plt.close(fig)
+
+
+# ---------------------------------------------------------------- L3 multiplication
+def fig_l3():
+    fig, (ax, ax2) = plt.subplots(1, 2, figsize=(12.8, 5.0))
+
+    col = np.array([[2], [3], [4]])
+    row = np.array([[1, 6]])
+    out = col @ row
+    cell = 0.46
+    draw_grid(ax, col, 0.00, 0.65, cell, "column",
+              [[RED_L], [RED_L], [RED_L]], fontsize=12)
+    draw_grid(ax, row, 0.80, 1.10, cell, "row",
+              [[BLUE_L, BLUE_L]], fontsize=12)
+    draw_grid(ax, out, 2.06, 0.65, cell, "rank-1 result",
+              [[GREEN_L, GREEN_L], [GREEN_L, GREEN_L], [GREEN_L, GREEN_L]],
+              fontsize=12)
+    ax.text(0.63, 1.40, "$\\times$", fontsize=18, ha="center", va="center")
+    ax.text(1.89, 1.40, "$=$", fontsize=18, ha="center", va="center")
+    ax.text(0.0, 0.20,
+            "$c_{ij}=u_i v_j$: every row is a multiple of the row vector",
+            fontsize=10.5)
+    ax.set_xlim(-0.10, 3.10); ax.set_ylim(0.0, 2.60)
+    ax.set_aspect("equal"); ax.axis("off")
+    ax.set_title("Column times row = rank-1 matrix", fontsize=12.5)
+
+    ax2.plot([-1.2, 4.2], [-2.4, 8.4], color=GRAY, lw=1.1, ls=":")
+    c1 = np.array([1.0, 2.0]); c2 = np.array([3.0, 6.0])
+    ax2.add_patch(FancyArrowPatch((0, 0), c1, arrowstyle="-|>",
+                                 mutation_scale=16, color=BLUE, lw=2.4))
+    ax2.add_patch(FancyArrowPatch((0, 0), c2, arrowstyle="-|>",
+                                 mutation_scale=16, color=GREEN, lw=2.4))
+    ax2.add_patch(FancyArrowPatch((0, 0), (3, -1), arrowstyle="-|>",
+                                 mutation_scale=16, color=PURPLE, lw=2.2))
+    ax2.text(0.75, 2.15, "$c_1=(1,2)$", color=BLUE, fontsize=11)
+    ax2.text(3.05, 6.05, "$c_2=3\\,c_1$", color=GREEN, fontsize=11)
+    ax2.text(3.05, -0.75, "$x=(3,-1)$", color=PURPLE, fontsize=11)
+    ax2.text(-1.15, 4.7, "$C(A)$ is one line,\nnot $\\mathbb{R}^2$",
+             fontsize=11)
+    ax2.text(1.05, -1.85, "$A x=0$: a nonzero vector\nis crushed to the origin",
+             color=PURPLE, fontsize=10.5)
+    ax2.scatter([0], [0], color="black", s=28, zorder=6)
+    ax2.set_xlim(-1.4, 4.5); ax2.set_ylim(-2.4, 8.4)
+    ax2.set_xlabel("x"); ax2.set_ylabel("y")
+    ax2.set_title("Collinear columns: the plane collapses to a line",
+                  fontsize=12.5)
+    clean(ax2)
+
+    fig.tight_layout()
+    fig.savefig(f"{OUT}/L3_multiplication_and_singular.png", dpi=200,
+                bbox_inches="tight")
+    plt.close(fig)
+
+
+# ---------------------------------------------------------------- L4 LU
+def fig_l4():
+    fig, (ax, ax2) = plt.subplots(1, 2, figsize=(13.4, 4.9),
+                                  gridspec_kw={"width_ratios": [1.55, 1.0]})
+
+    A = np.array([[1, 2, 1], [3, 8, 1], [0, 4, 1]])
+    L = np.array([[1, 0, 0], [3, 1, 0], [0, 2, 1]])
+    U = np.array([[1, 2, 1], [0, 2, -2], [0, 0, 5]])
+    cell = 0.5
+    fa = [[BLUE_L] * 3 for _ in range(3)]
+    fl = [[GRAY_L, GRAY_L, GRAY_L],
+          [ORANGE_L, BLUE_L, GRAY_L],
+          [GRAY_L, ORANGE_L, BLUE_L]]
+    fu = [[BLUE_L, BLUE_L, BLUE_L],
+          [GRAY_L, BLUE_L, BLUE_L],
+          [GRAY_L, GRAY_L, BLUE_L]]
+    draw_grid(ax, A, 0.00, 0.55, cell, "$A$", fa)
+    draw_grid(ax, L, 1.85, 0.55, cell, "$L$: multipliers", fl,
+              highlight=[(1, 0, ORANGE), (2, 1, ORANGE)])
+    draw_grid(ax, U, 3.70, 0.55, cell, "$U$: pivots", fu,
+              highlight=[(0, 0, BLUE), (1, 1, BLUE), (2, 2, BLUE)])
+    ax.text(1.66, 0.55 + 0.75, "$=$", fontsize=18, ha="center", va="center")
+    ax.text(3.51, 0.55 + 0.75, "$\\times$", fontsize=18, ha="center",
+            va="center")
+    ax.text(0.0, 0.02,
+            "$LU=A$: multipliers $3,2$ go into $L$; pivots $1,2,5$ stay on $U$'s diagonal",
+            fontsize=10.5)
+    ax.set_xlim(-0.15, 5.25); ax.set_ylim(0.0, 2.20)
+    ax.set_aspect("equal"); ax.axis("off")
+    ax.set_title("The elimination ledger: $A=LU$", fontsize=12.5, pad=26)
+
+    n = 200
+    m = np.arange(1, 41)
+    direct = m * n ** 3 / 3
+    lu = n ** 3 / 3 + m * n ** 2
+    ax2.plot(m, direct / 1e6, color=RED, lw=2.2,
+             label="solve each $b$ from scratch")
+    ax2.plot(m, lu / 1e6, color=BLUE, lw=2.2, label="factor $LU$ once")
+    ax2.annotate("$m=40$: 25x fewer flops", xy=(40, lu[-1] / 1e6),
+                 xytext=(22, 28), fontsize=10.5,
+                 arrowprops=dict(arrowstyle="-|>", color=GRAY, lw=1.2))
+    ax2.set_xlabel("number of right-hand sides $m$")
+    ax2.set_ylabel("floating-point operations (millions)")
+    ax2.set_ylim(0, 118)
+    ax2.set_title("$n=200$: factor once, solve many", fontsize=12.5)
+    ax2.legend(frameon=False, loc="upper left", fontsize=9.5)
+    clean(ax2, equal=False)
+
+    fig.tight_layout()
+    fig.savefig(f"{OUT}/L4_lu_structure.png", dpi=200, bbox_inches="tight")
+    plt.close(fig)
+
+
+# ---------------------------------------------------------------- L5 subspaces
+def fig_l5():
+    fig = plt.figure(figsize=(15.2, 4.9))
+    gs = fig.add_gridspec(1, 3, width_ratios=[1.0, 1.0, 1.1], wspace=0.25)
+
+    # (a) transpose
+    ax = fig.add_subplot(gs[0, 0])
+    A = np.array([[1, 2], [3, 4], [5, 6]])
+    cell = 0.44
+    draw_grid(ax, A, 0.00, 0.35, cell, "$A$",
+              [[BLUE_L, BLUE_L], [BLUE_L, BLUE_L], [BLUE_L, BLUE_L]])
+    draw_grid(ax, A.T, 1.28, 0.35, cell, "$A^{T}$",
+              [[GREEN_L, GREEN_L, GREEN_L], [GREEN_L, GREEN_L, GREEN_L]])
+    ax.add_patch(Rectangle((0.0 + cell, 0.35 + 2 * cell), cell, cell,
+                           fill=False, ec=RED, lw=2.2, zorder=5))
+    ax.add_patch(Rectangle((1.28, 0.35), cell, cell,
+                           fill=False, ec=RED, lw=2.2, zorder=5))
+    ax.annotate("", xy=(1.18, 1.05), xytext=(1.02, 1.05),
+                arrowprops=dict(arrowstyle="-|>", color=GRAY, lw=1.4))
+    ax.text(0.0, 0.10, "$a_{ij}\\to a_{ji}$: rows become columns",
+            fontsize=10.5)
+    ax.set_xlim(-0.10, 2.75); ax.set_ylim(0.0, 2.05)
+    ax.set_aspect("equal"); ax.axis("off")
+    ax.set_title("Transpose: flip across the diagonal", fontsize=12.5)
+
+    # (b) subspaces of R^2
+    ax = fig.add_subplot(gs[0, 1])
+    ax.add_patch(Rectangle((-3, -3), 6, 6, facecolor=BLUE_L, alpha=0.55,
+                           edgecolor="none", zorder=0))
+    xx = np.linspace(-3, 3, 2)
+    ax.plot(xx, 0 * xx, color=GRAY, lw=2.0)
+    ax.plot(xx, xx, color=GREEN, lw=2.0)
+    ax.plot(xx, -0.6 * xx, color=ORANGE, lw=2.0)
+    ax.plot(xx, xx + 1.8, color=RED, lw=2.0, ls="--")
+    ax.scatter([0], [0], color="black", s=32, zorder=6)
+    ax.text(-2.75, 2.35, "all of $\\mathbb{R}^2$", fontsize=10.5,
+            color="#08519c")
+    ax.text(1.65, -2.25, "lines\nthrough 0", fontsize=10.5, color=GREEN)
+    ax.text(0.12, -2.65, "$\\{0\\}$", fontsize=10.5)
+    ax.text(-2.85, -2.55, "offset line:\nnot a subspace", fontsize=10.5,
+            color=RED)
+    ax.set_xlim(-3, 3); ax.set_ylim(-3, 3)
+    ax.set_xlabel("x"); ax.set_ylabel("y")
+    ax.set_title("$\\mathbb{R}^2$: three kinds of subspaces", fontsize=12.5)
+    clean(ax)
+
+    # (c) column space in R^3
+    ax = fig.add_subplot(gs[0, 2], projection="3d")
+    c1 = np.array([1.0, 2.0, 4.0]); c2 = np.array([3.0, 3.0, 1.0])
+    s, t = np.meshgrid(np.linspace(-0.70, 0.80, 2),
+                       np.linspace(-0.70, 0.80, 2))
+    X = s * c1[0] + t * c2[0]
+    Y = s * c1[1] + t * c2[1]
+    Z = s * c1[2] + t * c2[2]
+    ax.plot_surface(X, Y, Z, color="#9ecae1", alpha=0.38, linewidth=0)
+    for vec, col, lab in [(c1, BLUE, "$c_1$"), (c2, GREEN, "$c_2$")]:
+        ax.quiver(0, 0, 0, *vec, color=col, lw=2.4, arrow_length_ratio=0.10)
+    b = 0.35 * c1 + 0.45 * c2
+    n = np.cross(c1, c2); n = n / np.linalg.norm(n)
+    bout = b + 1.25 * n
+    ax.quiver(0, 0, 0, *b, color=RED, lw=2.4, arrow_length_ratio=0.10)
+    ax.quiver(0, 0, 0, *bout, color=PURPLE, lw=2.2, arrow_length_ratio=0.10)
+    ax.plot([b[0], bout[0]], [b[1], bout[1]], [b[2], bout[2]],
+            color=PURPLE, ls="--", lw=1.2, alpha=0.8)
+    ax.text2D(0.03, 0.12, "$C(A)$: plane through 0", color="#08519c",
+              fontsize=10, transform=ax.transAxes)
+    ax.text2D(0.54, 0.70, "$b\\in C(A)$\n$Ax=b$ solvable", color=RED,
+              fontsize=10, transform=ax.transAxes)
+    ax.text2D(0.58, 0.40, "$b_{out}\\notin C(A)$\nno solution", color=PURPLE,
+              fontsize=10, transform=ax.transAxes)
+    ax.set_xlim(-1, 5); ax.set_ylim(-1, 5); ax.set_zlim(-1, 5)
+    ax.view_init(elev=20, azim=-58)
+    ax.set_xticks([]); ax.set_yticks([]); ax.set_zticks([])
+    ax.set_xlabel(""); ax.set_ylabel(""); ax.set_zlabel("")
+    ax.grid(False)
+    ax.set_title("Column space $C(A)\\subset\\mathbb{R}^3$", fontsize=12.5)
+
+    fig.savefig(f"{OUT}/L5_subspaces.png", dpi=200, bbox_inches="tight")
+    plt.close(fig)
+
+
+# ---------------------------------------------------------------- L22 Markov
+def fig_l22_markov():
+    fig, (ax, ax2) = plt.subplots(1, 2, figsize=(12.8, 5.2),
+                                  gridspec_kw={"width_ratios": [1.0, 1.12]})
+    A = np.array([0.0, 0.0]); B = np.array([2.5, 0.0]); r = 0.38
+    for c, name in [(A, "CA"), (B, "MA")]:
+        ax.add_patch(Circle(c, r, facecolor="white", edgecolor="#333333",
+                            lw=2.0, zorder=4))
+        ax.text(c[0], c[1], name, ha="center", va="center", fontsize=14,
+                zorder=5)
+    for c, lab in [(A, "0.9"), (B, "0.8")]:
+        ax.annotate("", xy=(c[0] + 0.22, c[1] + 0.44),
+                    xytext=(c[0] - 0.22, c[1] + 0.44),
+                    arrowprops=dict(arrowstyle="-|>",
+                                    connectionstyle="arc3,rad=0.8",
+                                    color=BLUE, lw=2.2, mutation_scale=15),
+                    zorder=6)
+        ax.text(c[0], c[1] + 0.98, lab, ha="center", fontsize=12, color=BLUE)
+    ax.add_patch(FancyArrowPatch(A + (r, 0.05), B - (r, 0.05),
+                                 arrowstyle="-|>", mutation_scale=16,
+                                 connectionstyle="arc3,rad=0.30",
+                                 color=ORANGE, lw=2.4, zorder=3))
+    ax.add_patch(FancyArrowPatch(B - (r, -0.05), A + (r, -0.05),
+                                 arrowstyle="-|>", mutation_scale=16,
+                                 connectionstyle="arc3,rad=-0.30",
+                                 color=GREEN, lw=2.4, zorder=3))
+    ax.text(1.25, 0.42, "0.1", ha="center", fontsize=12, color=ORANGE)
+    ax.text(1.25, -0.50, "0.2", ha="center", fontsize=12, color=GREEN)
+    ax.text(1.25, -1.18, "A = [[0.9, 0.2], [0.1, 0.8]]",
+            ha="center", fontsize=11)
+    ax.set_xlim(-1.0, 3.7); ax.set_ylim(-1.65, 1.55)
+    ax.set_aspect("equal"); ax.axis("off")
+    ax.set_title("California $\\leftrightarrow$ Massachusetts:\ncolumns sum to 1",
+                 fontsize=12.5)
+
+    k = np.arange(0, 31)
+    ca = 2000 / 3 - 2000 / 3 * 0.7 ** k
+    ma = 1000 / 3 + 2000 / 3 * 0.7 ** k
+    ax2.plot(k, ca, color=BLUE, lw=2.2, label="California")
+    ax2.plot(k, ma, color=ORANGE, lw=2.2, label="Massachusetts")
+    ax2.axhline(2000 / 3, color=BLUE, ls="--", lw=1.2, alpha=0.7)
+    ax2.axhline(1000 / 3, color=ORANGE, ls="--", lw=1.2, alpha=0.7)
+    ax2.text(23.5, 2000 / 3 + 28, "$2000/3$", color=BLUE, fontsize=10.5)
+    ax2.text(23.5, 1000 / 3 - 62, "$1000/3$", color=ORANGE, fontsize=10.5)
+    ax2.set_xlabel("year $k$"); ax2.set_ylabel("people (start: 1000 in MA)")
+    ax2.set_ylim(-30, 1080)
+    ax2.set_title("$u_k\\to\\pi$ at rate $|\\lambda_2|=0.7$", fontsize=12.5)
+    ax2.legend(frameon=False, loc="center right")
+    clean(ax2, equal=False)
+
+    fig.tight_layout()
+    fig.savefig(f"{OUT}/L22_markov_stationary.png", dpi=200,
+                bbox_inches="tight")
+    plt.close(fig)
+
+
+# ---------------------------------------------------------------- L22 Fourier
+def fig_l22_fourier():
+    fig, (ax, ax2) = plt.subplots(1, 2, figsize=(12.8, 5.0),
+                                  gridspec_kw={"width_ratios": [1.25, 1.0]})
+
+    x = np.linspace(-np.pi, np.pi, 1200)
+    sq = np.sign(np.sin(x))
+    ax.plot(x, sq, color=GRAY, lw=2.0, ls="--", label="square wave")
+    for N, col, lab in [(1, RED, "$N=1$ term"),
+                        (3, BLUE, "$N=3$ terms"),
+                        (9, GREEN, "$N=9$ terms")]:
+        s = np.zeros_like(x)
+        for k in range(1, N + 1, 2):
+            s += (4 / (np.pi * k)) * np.sin(k * x)
+        ax.plot(x, s, color=col, lw=1.9, label=lab)
+    ax.set_xlim(-np.pi, np.pi); ax.set_ylim(-1.65, 1.65)
+    ax.set_xticks([-np.pi, 0, np.pi])
+    ax.set_xticklabels(["$-\\pi$", "0", "$\\pi$"])
+    ax.set_xlabel("x"); ax.set_ylabel("$f(x)$")
+    ax.set_title("Odd sine harmonics build a square wave", fontsize=12.5)
+    ax.legend(frameon=False, loc="lower right", fontsize=9, ncol=2)
+    clean(ax, equal=False)
+
+    n = np.arange(1, 20, 2)
+    b = 4 / (np.pi * n)
+    ax2.vlines(n, 0, b, color=BLUE, lw=1.8)
+    ax2.scatter(n, b, color=BLUE, s=28, zorder=4)
+    ax2.plot(n, b, color=GRAY, ls=":", lw=1.2)
+    ax2.set_xlabel("harmonic $n$ (odd)")
+    ax2.set_ylabel("coefficient $b_n$")
+    ax2.set_xticks(n)
+    ax2.set_title("Coefficients decay like $1/n$", fontsize=12.5)
+    ax2.text(8.5, 0.78, "slow decay at a jump\n$\\Rightarrow$ Gibbs ripple",
+             fontsize=10.5)
+    ax2.set_ylim(0, 1.45)
+    clean(ax2, equal=False)
+
+    fig.tight_layout()
+    fig.savefig(f"{OUT}/L22_fourier.png", dpi=200, bbox_inches="tight")
+    plt.close(fig)
+
+
+# ---------------------------------------------------------------- L23 spectral
+def fig_l23():
+    fig, (ax, ax2) = plt.subplots(1, 2, figsize=(12.8, 5.2))
+
+    t = np.linspace(0, 2 * np.pi, 400)
+    circle = np.vstack([np.cos(t), np.sin(t)])
+    A = np.array([[3.0, 1.0], [1.0, 3.0]])
+    ellipse = A @ circle
+    ax.plot(circle[0], circle[1], color=GRAY, ls="--", lw=1.5,
+            label="unit circle")
+    ax.plot(ellipse[0], ellipse[1], color=BLUE, lw=2.4, label="image under $A$")
+    q1 = np.array([1.0, 1.0]) / np.sqrt(2)
+    q2 = np.array([-1.0, 1.0]) / np.sqrt(2)
+    for vec, lam, col in [(q1, 4.0, RED), (q2, 2.0, GREEN)]:
+        ax.add_patch(FancyArrowPatch((0, 0), lam * vec, arrowstyle="-|>",
+                                     mutation_scale=17, color=col, lw=2.4))
+        p = lam * vec * 1.06
+        ax.text(p[0], p[1], f"$\\lambda={lam:g}$", color=col, fontsize=11,
+                ha="left" if p[0] > 0 else "right",
+                va="bottom" if p[1] > 0 else "top")
+    ax.scatter([0], [0], color="black", s=25, zorder=6)
+    ax.set_xlim(-4.7, 4.7); ax.set_ylim(-4.7, 4.7)
+    ax.set_xlabel("x"); ax.set_ylabel("y")
+    ax.set_title("Symmetric $A$: orthogonal axes,\nreal stretches",
+                 fontsize=12.5)
+    ax.legend(frameon=False, loc="lower right", fontsize=9.5)
+    clean(ax)
+
+    x = np.array([1.6, 0.3])
+    p1 = (x @ q1) * q1
+    p2 = (x @ q2) * q2
+    Ax = 4 * p1 + 2 * p2
+    for vec, col, lw, lab, off in [
+            (x, "black", 2.4, "$x$", (0.10, 0.10)),
+            (p1, RED, 1.6, "$p_1$", (-0.34, 0.08)),
+            (p2, GREEN, 1.6, "$p_2$", (0.08, -0.30)),
+            (4 * p1, RED, 2.6, "$4p_1$", (0.12, 0.10)),
+            (2 * p2, GREEN, 2.6, "$2p_2$", (0.10, -0.30)),
+            (Ax, PURPLE, 2.8, "$Ax$", (0.10, 0.12))]:
+        ax2.add_patch(FancyArrowPatch((0, 0), vec, arrowstyle="-|>",
+                                      mutation_scale=16, color=col, lw=lw))
+        ax2.text(vec[0] + off[0], vec[1] + off[1], lab, color=col,
+                 fontsize=11)
+    ax2.plot([4 * p1[0], Ax[0]], [4 * p1[1], Ax[1]], color=GRAY, ls="--",
+             lw=1.1)
+    ax2.plot([2 * p2[0], Ax[0]], [2 * p2[1], Ax[1]], color=GRAY, ls="--",
+             lw=1.1)
+    ax2.scatter([0], [0], color="black", s=25, zorder=6)
+    ax2.set_xlim(-1.0, 6.2); ax2.set_ylim(-2.6, 5.2)
+    ax2.set_xlabel("x1"); ax2.set_ylabel("x2")
+    ax2.set_title("Project on orthogonal axes,\nstretch by $\\lambda_i$, add",
+                  fontsize=12.5)
+    clean(ax2)
+
+    fig.tight_layout()
+    fig.savefig(f"{OUT}/L23_spectral_axes.png", dpi=200, bbox_inches="tight")
+    plt.close(fig)
+
+
+if __name__ == "__main__":
+    for fn in (fig_l1, fig_l10, fig_l14, fig_l15, fig_l18, fig_l19, fig_l20,
+               fig_l12, fig_l13, fig_l14_ls, fig_l20_pca, fig_l16_det,
+               fig_l21, fig_l12_adj, fig_markov_chain, fig_linear_programming,
+               fig_l2, fig_l3, fig_l4, fig_l5, fig_l22_markov,
+               fig_l22_fourier, fig_l23):
+        fn()
+        print("ok", fn.__name__)
