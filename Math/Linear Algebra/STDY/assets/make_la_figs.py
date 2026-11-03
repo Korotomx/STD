@@ -804,8 +804,136 @@ def fig_l12_adj():
     plt.close(fig)
 
 
+# ---------------------------------------------------------------- Markov chain (topic)
+def fig_markov_chain():
+    fig, (ax, ax2) = plt.subplots(1, 2, figsize=(12.6, 5.2),
+                                  gridspec_kw={"width_ratios": [1.0, 1.15]})
+
+    A = np.array([0.0, 0.0]); B = np.array([2.2, 0.0]); r = 0.30
+
+    for c, name in [(A, "A"), (B, "B")]:
+        ax.add_patch(Circle(c, r, facecolor="white", edgecolor="#333333",
+                            lw=2.0, zorder=4))
+        ax.text(c[0], c[1], name, ha="center", va="center", fontsize=16, zorder=5)
+
+    # self loops (arc over each node)
+    for c, lab in [(A, "0.6"), (B, "0.8")]:
+        ax.annotate("", xy=(c[0] + 0.16, c[1] + 0.12), xytext=(c[0] - 0.16, c[1] + 0.12),
+                    arrowprops=dict(arrowstyle="-|>", connectionstyle="arc3,rad=-0.7",
+                                    color=BLUE, lw=2.2, mutation_scale=15), zorder=3)
+        ax.text(c[0], c[1] + 0.66, lab, ha="center", va="center", fontsize=12,
+                color=BLUE)
+
+    # cross edges: A -> B (top), B -> A (bottom)
+    ax.add_patch(FancyArrowPatch(A + (r, 0.05), B - (r, 0.05), arrowstyle="-|>",
+                                 mutation_scale=16, connectionstyle="arc3,rad=0.30",
+                                 color=ORANGE, lw=2.4, zorder=3))
+    ax.add_patch(FancyArrowPatch(B - (r, -0.05), A + (r, -0.05), arrowstyle="-|>",
+                                 mutation_scale=16, connectionstyle="arc3,rad=-0.30",
+                                 color=GREEN, lw=2.4, zorder=3))
+    ax.text(1.10, 0.40, "0.4", ha="center", fontsize=12, color=ORANGE)
+    ax.text(1.10, -0.46, "0.2", ha="center", fontsize=12, color=GREEN)
+    ax.text(1.10, -0.98, "P = [[0.6, 0.2], [0.4, 0.8]]", ha="center", fontsize=11, color="#333333")
+    ax.set_xlim(-1.0, 3.4); ax.set_ylim(-1.5, 1.5)
+    ax.set_aspect("equal"); ax.axis("off")
+    ax.set_title("A 2-state Markov chain:\neach column of $P$ sums to 1", fontsize=12)
+
+    P = np.array([[0.6, 0.2], [0.4, 0.8]])
+    piA = 1 / 3
+    k = np.arange(0, 16)
+    for u0, col, lab in [([1.0, 0.0], RED, "start in A"),
+                         ([0.0, 1.0], ORANGE, "start in B")]:
+        u = np.array(u0, dtype=float)
+        tr = []
+        for _ in k:
+            tr.append(u[0]); u = P @ u
+        ax2.plot(k, tr, marker="o", ms=4, lw=1.8, color=col, label=lab)
+    ax2.axhline(piA, color=GRAY, ls="--", lw=1.6)
+    ax2.text(12.6, piA + 0.05, r"$\pi_A=\frac{1}{3}$ (stationary)", color=GRAY,
+             fontsize=11, ha="right")
+    ax2.set_xlabel("step $k$"); ax2.set_ylabel(r"$P(X_k=A)$")
+    ax2.set_ylim(-0.06, 1.10)
+    ax2.set_title(r"$u_k=P^k u_0\to\pi$ forgets the start\n(rate set by $|\lambda_2|=0.4$)",
+                  fontsize=12)
+    ax2.legend(frameon=False, loc="center right")
+    clean(ax2, equal=False)
+
+    fig.tight_layout()
+    fig.savefig(f"{OUT}/markov_chain_convergence.png", dpi=200, bbox_inches="tight")
+    plt.close(fig)
+
+
+# ---------------------------------------------------------------- Linear programming (topic)
+def fig_linear_programming():
+    fig, (ax, ax2) = plt.subplots(1, 2, figsize=(12.8, 5.4))
+
+    x = np.linspace(-1.5, 26, 300)
+    wood = 20 - x / 2          # x + 2y <= 40
+    labor = 30 - 1.5 * x       # 3x + 2y <= 60
+    poly = np.array([[0, 0], [20, 0], [10, 15], [0, 20]])
+
+    # left: feasible region, corners, optimal objective line
+    ax.add_patch(Polygon(poly, closed=True, facecolor=GRAY, alpha=0.20,
+                         edgecolor="none", zorder=0))
+    ax.plot(x, wood, color=BLUE, lw=2.2, label=r"$x+2y\leq40$  (wood)")
+    ax.plot(x, labor, color=GREEN, lw=2.2, label=r"$3x+2y\leq60$  (labor)")
+    for (xi, yi), lab, col in [
+            ((0, 0), "(0, 0)   z = 0", "#333333"),
+            ((20, 0), "(20, 0)   z = 800", "#333333"),
+            ((0, 20), "(0, 20)   z = 1200", "#333333"),
+            ((10, 15), "(10, 15)   z = 1300", RED)]:
+        ax.scatter([xi], [yi], color=col, s=55, zorder=6)
+        dy = 1.6 if yi > 12 else -1.8
+        ax.text(xi, yi + dy, lab, ha="center", fontsize=10.5, color=col,
+                bbox=dict(boxstyle="round,pad=0.2", fc="white", ec="none", alpha=0.85))
+    ax.scatter([10], [15], marker="*", s=340, color=RED, zorder=7,
+               edgecolor="white", lw=1.0)
+    obj = 1300 / 60 - (2 / 3) * x
+    ax.plot(x, obj, color=RED, ls="--", lw=1.8, zorder=5)
+    ax.text(3.4, 1300 / 60 - (2 / 3) * 3.4 + 1.3, r"$40x+60y=1300$",
+            color=RED, fontsize=11, rotation=-33.7, va="bottom", ha="left")
+    g = np.array([40.0, 60.0]); g = g / np.linalg.norm(g)
+    ax.add_patch(FancyArrowPatch((5, 3), (5 + 3.2 * g[0], 3 + 3.2 * g[1]),
+                                 arrowstyle="-|>", mutation_scale=18,
+                                 color=RED, lw=2.6, zorder=6))
+    ax.text(5 + 3.5 * g[0], 3 + 3.5 * g[1], "increase\nprofit", color=RED,
+            fontsize=10, ha="left", va="center")
+    ax.set_xlim(-2, 26); ax.set_ylim(-2, 26)
+    ax.set_xlabel("chairs $x$"); ax.set_ylabel("tables $y$")
+    ax.set_title("Feasible region: optimum at a vertex\n(10 chairs, 15 tables $\\to$ $\\$1300)",
+                 fontsize=12)
+    ax.legend(frameon=False, loc="upper right")
+    clean(ax)
+
+    # right: the simplex walk from corner to corner
+    ax2.add_patch(Polygon(poly, closed=True, facecolor=GRAY, alpha=0.18,
+                          edgecolor="none", zorder=0))
+    ax2.plot(x, wood, color=BLUE, lw=1.6, alpha=0.85)
+    ax2.plot(x, labor, color=GREEN, lw=1.6, alpha=0.85)
+    path = np.array([[0, 0], [0, 20], [10, 15]])
+    ax2.plot(path[:, 0], path[:, 1], color=PURPLE, lw=2.6, zorder=4, alpha=0.9)
+    for a, b in zip(path[:-1], path[1:]):
+        ax2.add_patch(FancyArrowPatch(a, b, arrowstyle="-|>", mutation_scale=20,
+                                      color=PURPLE, lw=2.6, zorder=5,
+                                      shrinkA=6, shrinkB=6))
+    for i, (xi, yi) in enumerate(path):
+        ax2.scatter([xi], [yi], color=PURPLE, s=70, zorder=6)
+        ax2.text(xi + 0.8, yi + 0.8, ["$(0,0)$", "$(0,20)$", "$(10,15)$"][i],
+                 fontsize=10.5, color=PURPLE)
+    ax2.text(4.2, 7.5, "simplex walk:\ncorner $\\to$ corner", color=PURPLE, fontsize=11)
+    ax2.set_xlim(-2, 26); ax2.set_ylim(-2, 26)
+    ax2.set_xlabel("chairs $x$"); ax2.set_ylabel("tables $y$")
+    ax2.set_title("Simplex visits 3 of 4 corners,\nstill finds the global optimum",
+                  fontsize=12)
+    clean(ax2)
+
+    fig.tight_layout()
+    fig.savefig(f"{OUT}/linear_programming_simplex.png", dpi=200, bbox_inches="tight")
+    plt.close(fig)
+
+
 for fn in (fig_l1, fig_l10, fig_l14, fig_l15, fig_l18, fig_l19, fig_l20,
            fig_l12, fig_l13, fig_l14_ls, fig_l20_pca, fig_l16_det,
-           fig_l21, fig_l12_adj):
+           fig_l21, fig_l12_adj, fig_markov_chain, fig_linear_programming):
     fn()
     print("ok", fn.__name__)
