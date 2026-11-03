@@ -2,7 +2,7 @@
 
 ## 课程材料
 
-- [[Linear Algebra/STDY/STDY|STDY]] — L1~L23、L25 知识点（L24 待补）
+- [[Linear Algebra/STDY/STDY|STDY]] — L1~L23、L25 知识点（L24 待补）+ 专题笔记 [[马尔可夫链]]、[[线性规划与单纯形法]]
 - [[Linear Algebra/Ref/Ref|Ref · 原始材料索引]] — 18.06 字幕（lecture 1~27）、18.06SC 习题课、3b1b 系列、数学不难、专题视频，按类目列出
 - 当前主线材料：lecture 23 [[23. Differential Equations and exp(At)]] 与习题课 [[Differential Equations and exp (At)]]；lecture 24 [[24. Markov Matrices; Fourier Series]] 与习题课 [[Markov Matrices]]；lecture 25 [[25. Symmetric Matrices and Positive Definiteness]] 与习题课 [[Symmetric Matrices and Positive Definiteness]]；lecture 27 [[27. Positive Definite Matrices and Minima]] 与习题课 [[Positive Definite Matrices and Minima]]
 - [[Linear Algebra/Assignments/Assignments|Assignments]] — 题目类内容
@@ -47,6 +47,8 @@
 - [[L23 对称矩阵与正定矩阵]] — 实特征值与正交特征基、谱定理 $A=Q\Lambda Q^{\mathsf T}$、投影叠加/主轴定理、主元符号=特征值符号、正定四判据、$A^{\mathsf T}A$ 与列满秩、习题课四证。
 - [[L24 复矩阵与快速傅里叶变换]] — 暂跳待补（lecture 26）；Hermitian/酉矩阵、傅里叶矩阵、FFT。
 - [[L25 正定矩阵与极小值]] — 四种判别法（能量/特征值/主元/顺序主子式）、配方=消元、碗与马鞍、椭圆主轴、Hessian 与极小值、三对角与参数 $c$ 数例。
+- [[马尔可夫链]] — 链的随机过程视角：无记忆性、转移矩阵=马尔可夫矩阵、平稳分布、MCMC/PageRank/LLM 三个应用；与 L22 互补。
+- [[线性规划与单纯形法]] — LP 三要素、可行域与顶点、单纯形法角到角、凸性保证全局最优、影子价格与对偶。
 
 ## 命题速查
 
@@ -97,6 +99,11 @@
 - 正定的几何：曲面是开口向上的碗、原点为严格极小、等高线是椭圆/椭球；主轴方向 = 特征向量，半轴长 $1/\sqrt{\lambda_i}$（$A=Q\Lambda Q^{\mathsf T}$）。[[L25 正定矩阵与极小值]]
 - 多元极小：$\nabla f=0$ 只是驻点，Hessian 正定才是严格极小；二变量判据 $f_{xx}>0,\ f_{xx}f_{yy}>f_{xy}^2$ 就是顺序主子式。[[L25 正定矩阵与极小值]]
 - $A^{\mathsf T}A$ 正定 ⟺ $A$ 列满秩 → 正规方程唯一解；正定 ⇒ Cholesky $A=LL^{\mathsf T}$。[[L25 正定矩阵与极小值]]
+- 马尔可夫链：$P(X_{n+1}\mid X_n,\dots,X_0)=P(X_{n+1}\mid X_n)$，无记忆；转移矩阵列和为 $1$ = 马尔可夫矩阵；平稳分布 = $\lambda=1$ 特征向量。[[马尔可夫链]] [[L22 马尔可夫矩阵与傅里叶级数]]
+- 同一个马尔可夫骨架三种穿法：过程（链）、代数（矩阵）、应用（MCMC/PageRank/LLM）。[[马尔可夫链]]
+- LP = 线性目标 + 线性约束；最优解在可行域顶点上。[[线性规划与单纯形法]]
+- 单纯形法沿边从角到角，靠 reduced cost 判方向；凸可行域 + 线性目标 ⇒ 无改善边 = 全局最优。[[线性规划与单纯形法]]
+- 约束影子价格 = 对偶变量：多一单位资源目标能改善多少。[[线性规划与单纯形法]]
 
 ## 依赖图
 
@@ -121,6 +128,7 @@ flowchart LR
 
 ## 当前进度
 
+- 2026-11-04：新建专题笔记 [[马尔可夫链]]（链的随机过程视角 + MCMC/PageRank/LLM）与 [[线性规划与单纯形法]]（Simplex 视频转写），同步 STDY、Ref、Inbox、Concentrated。
 - 2026-11-03：L23 对称矩阵与正定矩阵补写完成（lecture 25 + 18.06SC 习题课）：实特征值与正交特征基、谱定理 $A=Q\Lambda Q^{\mathsf T}$、投影叠加/主轴定理、主元符号=特征值符号、正定四判据与两个 $2\times2$ 例子、$A^{\mathsf T}A$ 与列满秩。
 - 2026-11-03：L22 马尔可夫矩阵与傅里叶级数补写完成（lecture 24 + 18.06SC 习题课；延伸整理 MCMC 视频）：$\lambda=1$ 与平稳分布、收敛速度、两个两状态例子、正交基展开、Fourier 系数积分公式、Metropolis–Hastings。
 - 2026-11-02：L21 微分方程与矩阵指数补写完成（lecture 23 + 18.06SC 习题课）；新增相图/稳定区图和邻接矩阵/SCC 块结构图，L12 增补「矩阵即图」一节（强连通分量、置换相似、Frobenius 标准形）。
@@ -148,6 +156,8 @@ flowchart LR
 | L23 对称矩阵与正定矩阵 | 完成 | 待自测 | 0 |
 | L24 复矩阵与快速傅里叶变换 | 待补 | — | 0 |
 | L25 正定矩阵与极小值 | 完成 | 待自测 | 0 |
+| 马尔可夫链（专题） | 完成 | 待自测 | 0 |
+| 线性规划与单纯形法（专题） | 完成 | 待自测 | 0 |
 
 错题记在 [[Linear Algebra/Errors|Errors]]，每条指到具体小节；每日题目见 [[Linear Algebra/Problems/Problems|Problems]]。
 

@@ -36,3 +36,4 @@
 | Artificial_Intelligence/MIT 6.S191/Captures/MIT 6.S191 AI for Science | AI | [[L8 AI for Science]] | 已处理 | 2026-10-30 |
 | Raw/CNN Explainer.md | AI | [[L3 卷积神经网络]] | 已处理 | 2026-10-19 |
 | Raw/How the Claude Code team does code review.md | AI | [[AI 代码评审 Claude Code 团队实践]] | 已处理 | 2026-10-22 |
+| Math/Linear Algebra/Ref/Simplex Algorithm Visually Explained | 数学 | [[线性规划与单纯形法]] | 已处理 | 2026-11-04 |

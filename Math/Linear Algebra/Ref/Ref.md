@@ -91,3 +91,4 @@ lecture 26 的材料尚未到；对应 L24 留空位。
 - [[Matrix trace isn't just summing the diagonal  Lie groups, algebras, brackets 5]] — 迹的几何意义；用于 [[L19 特征值与特征向量]]
 - [[The Single Most Undervalued Fact of Linear Algebra]] — 矩阵即图、强连通分量、可约矩阵与 Frobenius 标准形；用于 [[L12 图·网络·关联矩阵]] 的补充一节
 - [[How Markov Chain Monte Carlo Finds the Impossible]] — Metropolis–Hastings、细致平衡、多峰陷阱；用于 [[L22 马尔可夫矩阵与傅里叶级数]] 的延伸一节
+- [[Simplex Algorithm Visually Explained]] — 线性规划三要素、可行域与顶点、单纯形法、凸性与影子价格；用于 [[线性规划与单纯形法]]
