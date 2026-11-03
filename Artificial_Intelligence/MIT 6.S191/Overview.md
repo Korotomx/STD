@@ -9,11 +9,12 @@ MIT 6.S191 Introduction to Deep Learning（2026 Edition）课程入口。
 - [[L5 强化学习]] — Q 函数 / DQN / 策略梯度
 - [[L6 语言模型与新前沿]] — 泛化失败模式 / 扩散模型 / LLM
 - [[L8 AI for Science]] — emulator / no free lunch / DFT / 蛋白动力学
+- [[L9 大规模并行训练]] — 显存账本 / 数据·张量·流水线·专家并行 / ZeRO·FSDP·Megatron / 5D 组合
 
 
 ## 进度
 
-L1~L6 笔记全部完成；客座 L8「AI for Science」已完成（L7 暂未见材料）。
+L1~L6 笔记全部完成；客座 L8「AI for Science」已完成（L7 暂未见材料）；L9「大规模并行训练」已完成（视频描述标 Lecture 8，按上游序列记为 L9）。
 
 ## 掌握度
 
@@ -28,6 +29,7 @@ L1~L6 笔记全部完成；客座 L8「AI for Science」已完成（L7 暂未见
 | L5 强化学习 | 完成 | 待自测 |
 | L6 语言模型与新前沿 | 完成 | 待自测 |
 | L8 AI for Science | 完成 | 待自测 |
+| L9 大规模并行训练 | 完成 | 待自测 |
 
 ## Captures
 
@@ -39,7 +41,8 @@ L1~L6 笔记全部完成；客座 L8「AI for Science」已完成（L7 暂未见
 - [[MIT 6.S191 Deep Generative Modeling|L4 生成模型]]
 - [[MIT 6.S191 Reinforcement Learning|L5 强化学习]]
 - [[MIT 6.S191 Language Models and New Frontiers|L6 语言模型]] — 原文在 `CUDA/Ref/`
-- [[MIT 6.S191 AI for Science|L8 AI for Science]] — 待整理
+- [[MIT 6.S191 AI for Science|L8 AI for Science]]
+- [[MIT 6.S191 Secrets of Massively Parallel Training|L9 大规模并行训练]]
 
 ## 命题速查
 
@@ -64,3 +67,8 @@ L1~L6 笔记全部完成；客座 L8「AI for Science」已完成（L7 暂未见
 - no free lunch 要先验，bitter lesson 说数据最终赢；用方程生成数据 = 把先验变成数据。[[L8 AI for Science]]
 - DFT 把波函数（指数成本）换成电子密度（立方成本），剩下未知的交换关联泛函可用 ML 学。[[L8 AI for Science]]
 - MD 的瓶颈是飞秒步长 × 毫秒事件的串行步数；emulator 把每步求解换成一次前向。[[L8 AI for Science]]
+- 训练显存 ≈ 参数 + 梯度 + 优化器状态 + 激活；1B 参数约 28 GB，70B 约 2 TB。[[L9 大规模并行训练]]
+- 数据并行切 batch、只做一次 all-reduce，最省通信；有效 batch 太大会伤泛化。[[L9 大规模并行训练]]
+- ZeRO 分片优化器状态/梯度/参数；stage 3 让单卡放不下的大模型也能训练。[[L9 大规模并行训练]]
+- 流水线按深度切、张量按层内矩阵切、序列按 token 切、专家按 MoE 切；通信密集的 TP 留在节点内。[[L9 大规模并行训练]]
+- 实际训练是 5D 并行组合：DP × TP × PP × EP × CP，让通信层级匹配集群拓扑。[[L9 大规模并行训练]]

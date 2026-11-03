@@ -27,8 +27,12 @@
 | Raw/Creative Thinking.md（Shannon 1952 讲座） | AI | [[Shannon 创造性思维 1952]] | 已处理 | 2026-10-29 |
 | Math/Linear Algebra/Ref/Eigenvectors Are Hiding Something Nobody Talks About! | 数学 | [[L20 对角化与矩阵的幂]]（三个图景） | 已处理 | 2026-11-01 |
 | Math/Linear Algebra/Ref/Matrix trace isn't just summing the diagonal | 数学 | [[L19 特征值与特征向量]]（迹=散度） | 已处理 | 2026-11-01 |
-| Math/Linear Algebra/Ref/25. Symmetric Matrices and Positive Definiteness | 数学 | [[L23 对称矩阵与正定矩阵]]（待补） | 待处理 | 2026-11-01 |
-| Math/Linear Algebra/Ref/Symmetric Matrices and Positive Definiteness（习题课） | 数学 | [[L23 对称矩阵与正定矩阵]]（待补） | 待处理 | 2026-11-01 |
+| Math/Linear Algebra/Ref/25. Symmetric Matrices and Positive Definiteness | 数学 | [[L23 对称矩阵与正定矩阵]] | 已处理 | 2026-11-03 |
+| Math/Linear Algebra/Ref/Symmetric Matrices and Positive Definiteness（习题课） | 数学 | [[L23 对称矩阵与正定矩阵]] | 已处理 | 2026-11-03 |
+| Math/Linear Algebra/Ref/24. Markov Matrices; Fourier Series | 数学 | [[L22 马尔可夫矩阵与傅里叶级数]] | 已处理 | 2026-11-03 |
+| Math/Linear Algebra/Ref/Markov Matrices（习题课） | 数学 | [[L22 马尔可夫矩阵与傅里叶级数]] | 已处理 | 2026-11-03 |
+| Math/Linear Algebra/Ref/How Markov Chain Monte Carlo Finds the Impossible | 数学 | [[L22 马尔可夫矩阵与傅里叶级数]]（延伸） | 已处理 | 2026-11-03 |
+| Artificial_Intelligence/MIT 6.S191/Captures/MIT 6.S191 Secrets of Massively Parallel Training | AI | [[L9 大规模并行训练]] | 已处理 | 2026-11-03 |
 | Artificial_Intelligence/MIT 6.S191/Captures/MIT 6.S191 AI for Science | AI | [[L8 AI for Science]] | 已处理 | 2026-10-30 |
 | Raw/CNN Explainer.md | AI | [[L3 卷积神经网络]] | 已处理 | 2026-10-19 |
 | Raw/How the Claude Code team does code review.md | AI | [[AI 代码评审 Claude Code 团队实践]] | 已处理 | 2026-10-22 |
