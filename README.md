@@ -22,6 +22,7 @@
 
 **今日完成**：
 
+- 2026-11-05：给 [[L5 转置·置换·向量空间]] 补「转置的几何意义」——点积写成 $v^{\mathsf T}x$、剪切把点积从 2 变 6、$A^{\mathsf T}A=I$ 才保点积、只变换 $x$ 时另一侧用 $(A^{-1})^{\mathsf T}$、不可逆时用 $x\cdot(A^{\mathsf T}\bar v)=(Ax)\cdot\bar v$、SVD 下 $A^{\mathsf T}=R_2\Sigma R_1^{\mathsf T}$、转置 vs 逆；配四联图 `L5_transpose_dot_product.png`（剪切/转置配对/正交旋转/SVD）；同步 STDY、Ref、Concentrated、Inbox 与 Overview。
 - 2026-11-04：给 [[L2 消元]]、[[L3 矩阵乘法与逆]]、[[L4 A=LU 分解]]、[[L5 转置·置换·向量空间]]、[[L22 马尔可夫矩阵与傅里叶级数]]、[[L23 对称矩阵与正定矩阵]] 补 7 张英文标注示意图（消元行图像与 $E_{21}A=U$、秩 1 外积与奇异塌缩、$LU$ 账本与多右端运算量、转置/子空间/列空间、马尔可夫收敛、Fourier 部分和与系数衰减、谱分解主轴与投影伸缩）；绘图代码并入 `STDY/assets/make_la_figs.py`。
 - 2026-11-04：新建专题笔记 [[马尔可夫链]]（链的随机过程视角 + MCMC/PageRank/LLM）与 [[线性规划与单纯形法]]（Simplex 视频转写），同步 STDY、Ref、Inbox、Concentrated、Overview。
 - 2026-11-03：补写 [[L23 对称矩阵与正定矩阵]]（lecture 25 + 18.06SC 习题课）——实特征值与正交特征基、谱定理 $A=Q\Lambda Q^{\mathsf T}$、投影叠加/主轴定理、主元符号=特征值符号、正定四判据与两个 $2\times2$ 例子、$A^{\mathsf T}A$ 与列满秩。
@@ -85,6 +86,18 @@
 **下一步**：已收官，不再安排；隔较长时间后需要时再按需复习。
 
 **笔记**：[[Artificial_Intelligence/DeepLearningRM/Overview|DeepLearningRM 主页]]
+
+## AI · Unlimited（补充）
+
+**进度**：补充/零散笔记持续更新；最新《量化 让模型更小更快》（2026-11-05）。
+
+**今日完成**：
+
+- 2026-11-05：整理 [[量化 让模型更小更快]]（IBM Technology 视频）——70B 模型 FP16 140 GB / INT8 70 GB / INT4 35 GB 的比特账本、逐层 scale+round 映射、FP16/FP8/INT8/INT4 对照、PTQ vs QAT；配显存条形图与量化数轴图；同步 Unlimited 与 AI 主页、Inbox。
+
+**下一步**：按素材继续补；索引见 [[Artificial_Intelligence/Unlimited/Overview|Unlimited 主页]]。
+
+**笔记**：[[Artificial_Intelligence/Unlimited/Overview|Unlimited 主页]]
 
 ## Python
 

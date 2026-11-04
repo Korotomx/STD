@@ -191,5 +191,5 @@ src_y -= 0.5f;
 
 - TensorRT 11.4 C++ API：`ILogger` / `IRuntime` / `ICudaEngine` / `IExecutionContext` / `Deserializing a Plan` / `setTensorAddress` / `enqueueV3`；Best Practices；`trtexec --verbose`、`polygraphy`（可选）。
 - Nsight Systems / Nsight Compute；CUDA 指南 C03/C04/C06/C08 按需。
-- 背景笔记：[[N018 CUDA-cuDNN-TensorRT三层结构]] · [[N019 TensorRT部署onnx转engine并推理]]（ONNX/engine 区别、编译原理、trtexec 操作）· [[N026 TensorRT-engine推理全流程]] · [[N027 数值精度与量化 FP32-FP16-BF16-TF32-INT8]] · [[DeepLearningRM/Errors/Errors#E002 TensorRT11的API变化|E002]]。
+- 背景笔记：[[N018 CUDA-cuDNN-TensorRT三层结构]] · [[N019 TensorRT部署onnx转engine并推理]]（ONNX/engine 区别、编译原理、trtexec 操作）· [[N026 TensorRT-engine推理全流程]] · [[N027 数值精度与量化 FP32-FP16-BF16-TF32-INT8]] · [[量化 让模型更小更快]]（FP8/INT4 与 PTQ/QAT 的部署取舍）· [[DeepLearningRM/Errors/Errors#E002 TensorRT11的API变化|E002]]。
 - 编译链接细节：[[T00 编译与链接 TensorRT 程序]]；本地剪藏：[[Session 1.1 CUDA Programming Model]]、[[Session 1.2 Triton-TileLang]]。

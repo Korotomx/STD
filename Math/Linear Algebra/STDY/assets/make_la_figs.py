@@ -1201,6 +1201,117 @@ def fig_l5():
     plt.close(fig)
 
 
+# ---------------------------------------------------------------- L5 transpose geometry
+def fig_l5_transpose():
+    A = np.array([[1.0, 1.0], [0.0, 1.0]])
+    x = np.array([0.0, 2.0])
+    v = np.array([1.0, 1.0])
+    Ax, Av = A @ x, A @ v
+
+    fig = plt.figure(figsize=(13.0, 10.4))
+    gs = fig.add_gridspec(2, 2, wspace=0.22, hspace=0.30)
+
+    def arrows(ax, pairs):
+        for vec, col, ls, lab, off in pairs:
+            ax.add_patch(FancyArrowPatch(
+                (0, 0), vec, arrowstyle="-|>", mutation_scale=16,
+                color=col, lw=2.4, linestyle=ls, alpha=0.95))
+            ax.text(vec[0] + off[0], vec[1] + off[1], lab, color=col,
+                    fontsize=11)
+
+    # (a) shear changes the dot product
+    ax = fig.add_subplot(gs[0, 0])
+    arrows(ax, [(x, BLUE, "-", "$x$", (-0.34, 0.06)),
+                (v, GREEN, "-", "$v$", (0.08, 0.06)),
+                (Ax, BLUE, "--", "$Ax$", (0.08, -0.28)),
+                (Av, GREEN, "--", "$Av$", (0.08, 0.10))])
+    ax.plot([x[0], v[0]], [x[1], v[1]], color=GRAY, ls=":", lw=1.1)
+    ax.plot([Ax[0], Av[0]], [Ax[1], Av[1]], color=GRAY, ls=":", lw=1.1)
+    ax.text(0.05, 2.62, "$x\\cdot v = 2$", color="#333333", fontsize=12)
+    ax.text(1.45, 2.55, "$(Ax)\\cdot(Av) = 6$", color=RED, fontsize=12)
+    ax.text(0.02, -0.62, "a shear changes lengths and angles",
+            color=GRAY, fontsize=10.5)
+    ax.set_xlim(-0.55, 3.05); ax.set_ylim(-0.85, 2.95)
+    ax.set_xlabel("x"); ax.set_ylabel("y")
+    ax.set_title("(a) Shear: dot product is not preserved", fontsize=12.5)
+    clean(ax)
+
+    # (b) A^T pairs the output vector back with the input
+    ax = fig.add_subplot(gs[0, 1])
+    vbar = np.array([1.0, 0.0])
+    v_back = A.T @ vbar
+    arrows(ax, [(x, BLUE, "-", "$x$", (-0.34, 0.06)),
+                (v_back, GREEN, "-", "$v=A^{T}\\bar v$", (0.10, 0.06)),
+                (Ax, BLUE, "--", "$Ax$", (0.08, -0.28)),
+                (vbar, ORANGE, "--", "$\\bar v$", (0.08, 0.08))])
+    ax.text(0.05, 2.62, "input: $x\\cdot v = 2$", color="#333333",
+            fontsize=11.5)
+    ax.text(1.35, 2.62, "output: $Ax\\cdot\\bar v = 2$", color=RED,
+            fontsize=11.5)
+    ax.text(0.02, -0.62, "$v=A^{T}\\bar v$ moves $\\bar v$ back to the input side",
+            color=GRAY, fontsize=10.0)
+    ax.set_xlim(-0.55, 3.05); ax.set_ylim(-0.85, 2.95)
+    ax.set_xlabel("x"); ax.set_ylabel("y")
+    ax.set_title("(b) $A^{T}$ restores the same dot product", fontsize=12.5)
+    clean(ax)
+
+    # (c) orthogonal matrix preserves the dot product
+    ax = fig.add_subplot(gs[1, 0])
+    Q = np.array([[0.0, -1.0], [1.0, 0.0]])
+    x2 = np.array([1.0, 2.0]); v2 = np.array([3.0, -1.0])
+    Qx, Qv = Q @ x2, Q @ v2
+    arrows(ax, [(x2, BLUE, "-", "$x$", (0.08, 0.10)),
+                (v2, GREEN, "-", "$v$", (0.08, -0.26)),
+                (Qx, BLUE, "--", "$Qx$", (-0.52, 0.04)),
+                (Qv, GREEN, "--", "$Qv$", (0.08, 0.10))])
+    ax.text(-3.55, 2.95, "$x\\cdot v = Qx\\cdot Qv = 1$", fontsize=11.5)
+    ax.text(-3.55, 2.55, "$Q^{T}Q=I$, so $Q^{T}=Q^{-1}$", color=PURPLE,
+            fontsize=11)
+    ax.text(-3.55, -3.15, "rotations and reflections keep lengths and angles",
+            color=GRAY, fontsize=10.2)
+    ax.set_xlim(-3.8, 3.6); ax.set_ylim(-3.4, 3.3)
+    ax.set_xlabel("x"); ax.set_ylabel("y")
+    ax.set_title("(c) Orthogonal $Q$: dot product is preserved", fontsize=12.5)
+    clean(ax)
+
+    # (d) SVD view: transpose reverses both rotations
+    ax = fig.add_subplot(gs[1, 1])
+    th = np.linspace(0, 2 * np.pi, 400)
+    circ = np.vstack([np.cos(th), np.sin(th)])
+    ell = A @ circ
+    ax.plot(circ[0], circ[1], color=GRAY, lw=1.6, ls="--")
+    ax.plot(ell[0], ell[1], color=BLUE, lw=2.6)
+    ax.text(-1.62, -1.35, "unit circle", color=GRAY, fontsize=9.5)
+    ax.text(0.55, -1.28, "$A$ applied", color=BLUE, fontsize=9.5)
+    U, S, Vt = np.linalg.svd(A)
+    V = Vt.T
+    for col, lab, off in [
+            (V[:, 0], "$v_1$", (0.08, 0.08)),
+            (V[:, 1], "$v_2$", (-0.55, 0.05))]:
+        ax.add_patch(FancyArrowPatch(
+            (0, 0), col, arrowstyle="-|>", mutation_scale=12,
+            color=GREEN, lw=1.4, ls="--", alpha=0.75))
+        ax.text(col[0] + off[0], col[1] + off[1], lab, color=GREEN,
+                fontsize=10)
+    for i, col in enumerate((RED, ORANGE)):
+        vec = U[:, i] * S[i]
+        ax.add_patch(FancyArrowPatch(
+            (0, 0), vec, arrowstyle="-|>", mutation_scale=14,
+            color=col, lw=2.4))
+    ax.text(0.02, 0.97, "$A=R_1\\Sigma R_2^{T}$\n$A^{T}=R_2\\Sigma R_1^{T}$",
+            transform=ax.transAxes, va="top", fontsize=11.5)
+    ax.text(0.02, 0.03, "transpose: reverse both rotations, keep $\\Sigma$",
+            transform=ax.transAxes, fontsize=9.5, color=GRAY)
+    ax.set_xlim(-1.9, 2.1); ax.set_ylim(-1.9, 1.9)
+    ax.set_xlabel("x"); ax.set_ylabel("y")
+    ax.set_title("(d) SVD: $A^{T}$ reverses the rotations", fontsize=12.5)
+    clean(ax)
+
+    fig.savefig(f"{OUT}/L5_transpose_dot_product.png", dpi=200,
+                bbox_inches="tight")
+    plt.close(fig)
+
+
 # ---------------------------------------------------------------- L22 Markov
 def fig_l22_markov():
     fig, (ax, ax2) = plt.subplots(1, 2, figsize=(12.8, 5.2),
@@ -1362,7 +1473,7 @@ if __name__ == "__main__":
     for fn in (fig_l1, fig_l10, fig_l14, fig_l15, fig_l18, fig_l19, fig_l20,
                fig_l12, fig_l13, fig_l14_ls, fig_l20_pca, fig_l16_det,
                fig_l21, fig_l12_adj, fig_markov_chain, fig_linear_programming,
-               fig_l2, fig_l3, fig_l4, fig_l5, fig_l22_markov,
-               fig_l22_fourier, fig_l23):
+               fig_l2, fig_l3, fig_l4, fig_l5, fig_l5_transpose,
+               fig_l22_markov, fig_l22_fourier, fig_l23):
         fn()
         print("ok", fn.__name__)

@@ -18,6 +18,7 @@
 - [[Differential Equations and exp (At)]] — 18.06SC 习题课，三阶方程与矩阵指数第一列；已用于 [[L21 微分方程与矩阵指数]]
 - [[24. Markov Matrices; Fourier Series]] — lecture 24 字幕；已整理为 [[L22 马尔可夫矩阵与傅里叶级数]]
 - [[Markov Matrices]] — 18.06SC 习题课，两状态粒子、$A^n$ 与平稳分布；已并入 [[L22 马尔可夫矩阵与傅里叶级数]]
+- [[The Matrix Transpose Visual Intuition]] — 点积保持、正交矩阵、SVD、转置 vs 逆；已用于 [[L5 转置·置换·向量空间]] 的「转置的几何意义」一节
 - [[How Markov Chain Monte Carlo Finds the Impossible]] — Metropolis–Hastings 与细致平衡；已作为 L22 的延伸一节
 
 ## 笔记链接
@@ -26,7 +27,7 @@
 - [[L2 消元]] — 消元、主元与回代；消元矩阵 $E$、置换 $P$、RREF。
 - [[L3 矩阵乘法与逆]] — 矩阵乘法五种视角；逆、奇异判据、Gauss-Jordan。
 - [[L4 A=LU 分解]] — $A=LU$、乘数账本、$n^3/3$、$PA=LU$。
-- [[L5 转置·置换·向量空间]] — 置换、转置、对称；向量空间与列空间。
+- [[L5 转置·置换·向量空间]] — 置换、转置、对称；转置与点积/正交矩阵/SVD 的几何；向量空间与列空间。
 - [[L6 列空间与零空间]] — 可解性与子空间的两种描述。
 - [[L7 求解Ax=0主变量与特解]] — 零空间算法；主元/自由变量、特解、$[-F;I]$。
 - [[L8 求解Ax=b]] — 增广消元；通解 = 特解 + 零空间；秩的四种情形。

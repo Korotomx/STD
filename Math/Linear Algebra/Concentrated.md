@@ -20,6 +20,10 @@
 - **Gauss-Jordan 求逆**：$[A\mid I]\to[I\mid A^{-1}]$；若左边出现零行则 $A$ 奇异。[[L3 矩阵乘法与逆]]
 - **可逆等价条件**：$A$ 可逆 $\iff$ 消元无零主元 $\iff$ $Ax=0$ 只有零解 $\iff$ $\det A\ne0$ $\iff$ 列线性无关。[[L3 矩阵乘法与逆]] [[L16 行列式的性质]]
 - **转置性质**：$(A^{\mathsf T})^{\mathsf T}=A$、$(A+B)^{\mathsf T}=A^{\mathsf T}+B^{\mathsf T}$、$(AB)^{\mathsf T}=B^{\mathsf T}A^{\mathsf T}$。[[L5 转置·置换·向量空间]]
+- **转置的几何作用**：$x\cdot(A^{\mathsf T}\bar v)=(Ax)\cdot\bar v$；把 $\bar v$ 从输出空间搬回输入空间，使点积守恒。[[L5 转置·置换·向量空间]]
+- **何时两边同时变换也保点积**：$(Av)\cdot(Ax)=v^{\mathsf T}A^{\mathsf T}Ax$；$A^{\mathsf T}A=I$（正交矩阵）时不变。只变换 $x$ 时另一侧用 $(A^{-1})^{\mathsf T}$。[[L5 转置·置换·向量空间]]
+- **SVD 与转置**：$A=R_1\Sigma R_2^{\mathsf T}$ → $A^{\mathsf T}=R_2\Sigma R_1^{\mathsf T}$；转置反向两个旋转、缩放不变，逆还须 $\Sigma\to\Sigma^{-1}$。[[L5 转置·置换·向量空间]]
+- **转置 vs 逆**：转置永远存在（非方阵维度互换）；逆只对满秩方阵存在。[[L5 转置·置换·向量空间]]
 - **置换矩阵**：每行每列恰有一个 $1$；$P^{-1}=P^{\mathsf T}$，$\det P=\pm1$。[[L5 转置·置换·向量空间]]
 
 ## 向量空间、子空间与秩

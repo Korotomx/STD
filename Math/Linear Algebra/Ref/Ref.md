@@ -92,3 +92,4 @@ lecture 26 的材料尚未到；对应 L24 留空位。
 - [[The Single Most Undervalued Fact of Linear Algebra]] — 矩阵即图、强连通分量、可约矩阵与 Frobenius 标准形；用于 [[L12 图·网络·关联矩阵]] 的补充一节
 - [[How Markov Chain Monte Carlo Finds the Impossible]] — Metropolis–Hastings、细致平衡、多峰陷阱；用于 [[L22 马尔可夫矩阵与傅里叶级数]] 的延伸一节
 - [[Simplex Algorithm Visually Explained]] — 线性规划三要素、可行域与顶点、单纯形法、凸性与影子价格；用于 [[线性规划与单纯形法]]
+- [[The Matrix Transpose Visual Intuition]] — 点积保持、正交矩阵、SVD、转置 vs 逆；用于 [[L5 转置·置换·向量空间]] 的几何一节
