@@ -221,6 +221,30 @@ M     = [ s    0    pad_x ]     M_inv = [ 1/s   0   -pad_x/s ]
 
 逆偏置 `-pad/s` 是展开后自然得到的，不用背。
 
+### 在 CUDA 核里落地
+
+`03_yolo` 的 `warp_affine` 手写 inverse warping，宿主先算逆矩阵：
+
+```cpp
+float mat[6] = {1.0f / r, 0.0f, -(float)dw / r,
+                0.0f, 1.0f / r, -(float)dh / r};
+```
+
+核里目标像素 `(dx, dy)` 先做半像素校正，再反算源坐标：
+
+```cuda
+affine(&src_x, &src_y, dx + 0.5f, dy + 0.5f, mat);
+src_x -= 0.5f;
+src_y -= 0.5f;
+```
+
+- `dx/dy` 是整数索引；`+0.5` 移到像素中心，`-0.5` 换成「像素中心为整数」的采样约定。
+- 矩阵第三列 `-pad/r` 就是逆偏置 `q_x`，与 `src=(dst-pad)/s` 完全等价。
+- 越界判据 `src_x >= 0 && src_x + 1 <= src_w` 保证四个邻居都在图内，否则填 114 灰边。
+- `pitch` 传 `img.step`，按每行字节数寻址，不假设 `W*3`。
+
+注意方向：`cv::warpAffine` 收**正变换**矩阵（源→目标），内部自己求逆；手写 CUDA 核通常直接收**逆矩阵**（目标→源），每个目标像素采一次源图。
+
 ### 用数轴看偏置
 
 ```

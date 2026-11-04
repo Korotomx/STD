@@ -86,7 +86,7 @@ block 是**执行单位**，tile 是**数据单位**；一个 block 可以处理
 | 内容 | 所有 GPU 使用方式的基础（CUDA、Vulkan、Direct3D…） | nvcc、头文件、库（cuBLAS/cuDNN/CUTLASS…）、性能工具 |
 | 安装 | Windows 侧；WSL2 里**不要**装 Linux 驱动 | WSL2 里装 toolkit（不含驱动组件） |
 
-CUDA Runtime API 建在 Driver API 之上；两者可以混用。多数场景不必手写 kernel：cuBLAS/cuDNN/CUTLASS、Triton、TensorRT 已覆盖大部分需求，自己写的价值在库里没有的算子、算子融合、特殊布局，以及把前后处理搬上 GPU（如 groundzero 的 letterbox + 归一化 + HWC→CHW）。
+CUDA Runtime API 建在 Driver API 之上；两者可以混用。多数场景不必手写 kernel：cuBLAS/cuDNN/CUTLASS、Triton、TensorRT 已覆盖大部分需求，自己写的价值在库里没有的算子、算子融合、特殊布局，以及把前后处理搬上 GPU（如 groundzero 的 letterbox + 归一化 + HWC→CHW，已在 `03_yolo` 落地）。
 
 ```mermaid
 flowchart LR
@@ -179,7 +179,7 @@ last error: no error
 | 坑 | 现象 | 解决 |
 |---|---|---|
 | 系统 gcc 15 太新 | `unsupported GNU version! gcc versions later than 14 are not supported` | 装 `g++-14`，nvcc 加 `-ccbin g++-14` |
-| glibc 2.42 的 C23 数学函数 | `cospi / sinpi / rsqrt` 的 `exception specification is incompatible` | nvcc 加 `-U_GNU_SOURCE` |
+| glibc 2.43 的 C23 数学函数 | `cospi / sinpi / rsqrt` 的 `exception specification is incompatible` | nvcc 加 `-U_GNU_SOURCE` |
 | 默认架构 | 不写 `-arch` 可能生成旧架构 cubin，在 sm_120 上无 kernel image | 默认加 `-arch=sm_120` |
 
 已封装为 `~/.local/bin/nvcc` wrapper（PATH 中优先于 `/usr/local/cuda/bin/nvcc`），直接 `nvcc hello.cu -o hello` 即可。另装 CUDA 13.1 toolkit 用于对照新版手册，但 `/usr/local/cuda` 默认仍指 12.8，与 torch 2.11.0+cu128 一致。

@@ -15,7 +15,9 @@ flowchart TD
 
 ```mermaid
 flowchart LR
-    A["image BGR"] --> B["letterbox 640"] --> C["RGB /255 HWC to CHW"] --> D[H2D] --> E[engine] --> F[D2H] --> G["decode + inverse map"] --> H["boxes + 8 keypoints"]
+    A["image BGR<br/>HWC uint8"] -->|cudaMemcpy| D["d_src"]
+    D --> K["warp_affine kernel<br/>letterbox + RGB /255 + CHW"]
+    K --> E[engine] --> F[D2H] --> G["decode + inverse map"] --> H["boxes + 8 keypoints"]
 ```
 
 ```mermaid
@@ -72,7 +74,7 @@ flowchart LR
 
 **第 3 周 · CUDA 加速与剖析**
 
-1. preprocess kernel：letterbox + normalize + HWC→CHW 融合。
+1. preprocess kernel：letterbox + normalize + HWC→CHW 融合。✅ 2026-11-05 已提前完成。
 2. postprocess kernel：decode + 阈值过滤（groundzero 不需要 NMS）。
 3. pinned memory + streams + 前后帧 overlap；CUDA Graph 选做。
 4. `nsys` 看时间线，`ncu` 看 occupancy / 带宽 / stall。
@@ -129,6 +131,48 @@ flowchart LR
 5. 能给出分阶段耗时表，并指出瓶颈在预处理、PCIe 还是推理。
 6. 能换模型 / 尺寸 / 精度 / 设备。
 
+## 03_yolo GPU 预处理核（2026-11-05）
+
+把 CPU 的 `cv::resize + copyMakeBorder + blobFromImage` 换成一次 kernel，代码在 `trt_lab/03_yolo/preprocess_kernel.cu`。
+
+```text
+imread（BGR / HWC / uint8，连续）
+  └─ cudaMemcpy 整块 H2D → d_src
+        └─ warp_affine kernel（默认流，16×16 block，640×640 → 40×40 grid）
+              每线程一个目标像素：
+              (dx,dy) → 逆仿射 → 源图连续坐标 → 双线性采样 BGR
+              → 图外填 114 → RGB /255 → 写入 CHW
+        └─ 直接写 engine 输入 buffer（CPU 预处理与 blob 的 H2D 都省掉，只保留原图一次 H2D）
+              └─ enqueueV3(nullptr) → D2H → 解码逆 letterbox → 画框/关键点
+```
+
+宿主算逆仿射矩阵：
+
+```cpp
+float mat[6] = {1.0f / r, 0.0f, -(float)dw / r,
+                0.0f, 1.0f / r, -(float)dh / r};
+```
+
+核里先做像素中心校正：
+
+```cuda
+affine(&src_x, &src_y, dx + 0.5f, dy + 0.5f, mat);
+src_x -= 0.5f;
+src_y -= 0.5f;
+```
+
+三个容易卡的点：
+
+- **±0.5 是像素中心**：`+0.5` 把整数索引移到像素中心；`-0.5` 换成「像素中心为整数」的采样约定，`__float2int_rd/ru` 取到的才是相邻像素。
+- **边界判据**：`src_x >= 0 && src_x + 1 <= src_w` 同时保证四个邻居都在图内；不满足就写 114/255 的灰边。
+- **pitch**：传 `img.step`（OpenCV 每行字节数），不假设 `W*3`；以后换 `cudaMallocPitch` 或 ROI 子矩阵也不用改核。原图 `imread` 是连续内存，所以 H2D 一次 `cudaMemcpy` 就够。
+
+`__constant__ float mat[6]` 让所有线程只读同一组矩阵，宿主用 `cudaMemcpyToSymbol` 写入；`launch_warp_affine` 用 `extern "C"` 暴露给 g++ 编译的 `.cpp`。
+
+构建拆两步：`nvcc -c preprocess_kernel.cu` → `g++-14 preprocess.cpp preprocess_kernel.o`。nvcc 要 `-ccbin g++-14` 和 `-Xcompiler=-U_GNU_SOURCE`（glibc 2.43 的 C23 `sinpi/rsqrt` 冲突）。
+
+验证：GPU 版与 CPU 版框、8 个关键点完全一致；整图平均像素差 `0.036`，差异集中在框线边缘，是双线性取整差 1 px。
+
 ## 当前进度
 
 - [x] 2026-10-26 `01_deserialize`
@@ -139,8 +183,9 @@ flowchart LR
 - [x] 2026-10-26 `02_start`：反序列化 + `createExecutionContext` + I/O 打印。
 - [x] 2026-10-26 FP16 engine：`best.fp16.onnx` → `trtexec` → `best_fp16.engine`，FP32 711 qps → FP16 1428 qps。
 - [x] 2026-10-29 `02_runner`：反序列化 → 按 I/O 维度 `cudaMalloc` → `setTensorAddress` → `enqueueV3` + `cudaStreamSynchronize` → D2H；精简到 73 行，与导师 `tensor_malloc(idx)` 对齐；输入填充留给预处理。
-- [x] 2026-11-04 `03_yolo`：`imread` → letterbox 640（114 灰边）→ `cv::dnn::blobFromImage`（/255、swapRB、HWC→CHW）→ `cudaMemcpy` 线性 H2D → `enqueueV3(nullptr)` 默认流 → 解码逆 letterbox → 画框 + 8 关键点；与 Python 结果一致（FP16 差 1~2 px）。
-- [ ] **下一步**：分阶段计时（CPU 预处理 / H2D / 推理 / D2H）→ 显式 stream + `cudaMemcpyAsync` → 预处理 kernel 融合。
+- [x] 2026-11-04 `03_yolo` CPU 版：`imread` → letterbox 640（114 灰边）→ `cv::dnn::blobFromImage`（/255、swapRB、HWC→CHW）→ `cudaMemcpy` 线性 H2D → `enqueueV3(nullptr)` 默认流 → 解码逆 letterbox → 画框 + 8 关键点；与 Python 结果一致（FP16 差 1~2 px）。
+- [x] 2026-11-05 `03_yolo` GPU 预处理：`preprocess_kernel.cu` 用 `warp_affine` 一次完成 letterbox + 双线性 + BGR→RGB + /255 + HWC→CHW，结果直接写 engine 输入 buffer；与 CPU 版框/关键点一致，整图平均像素差 `0.036`。详见上文「03_yolo GPU 预处理核」。
+- [ ] **下一步**：分阶段计时（预处理 kernel / H2D / 推理 / D2H）→ postprocess 搬 GPU → pinned memory + 显式 stream / `cudaMemcpyAsync` overlap。
 
 ## 资源
 

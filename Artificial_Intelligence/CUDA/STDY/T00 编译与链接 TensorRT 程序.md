@@ -109,7 +109,7 @@ readelf -d rewrite | grep -i runpath
 | 有 `__global__`、`<<<>>>`、`.cu` 文件 | **nvcc** |
 | 两者混合 | nvcc 编 `.cu`，g++ 编 `.cpp`，最后一起链接 |
 
-`rewrite.cpp` 只有 `iostream`，没有 device 代码，g++ 足够。第 3 周写预处理 kernel 时才引入 nvcc，用 `~/.local/bin/nvcc` wrapper（自动加 `-ccbin g++-14 -U_GNU_SOURCE -arch=sm_120`）。注意 nvcc 需要 `-U_GNU_SOURCE` 绕开 glibc 2.42 的 C23 符号冲突，但**纯 host 的 g++ 不能加**，否则 libstdc++ 的 `<fstream>` 会缺 `__c_locale`。
+`rewrite.cpp` 只有 `iostream`，没有 device 代码，g++ 足够。`03_yolo` 写预处理 kernel 时开始引入 nvcc：`preprocess_kernel.cu` 单独用 nvcc 编成 `.o`，`preprocess.cpp` 仍用 g++-14 编，最后一起链接。可以用 `~/.local/bin/nvcc` wrapper（自动加 `-ccbin g++-14 -U_GNU_SOURCE -arch=sm_120`），也可以在 `build.sh` 里显式写 `-ccbin g++-14 -arch=sm_120 -Xcompiler=-U_GNU_SOURCE`。注意 nvcc 需要 `-U_GNU_SOURCE` 绕开 glibc 2.43 的 C23 符号冲突，但**纯 host 的 g++ 不能加**，否则 libstdc++ 的 `<fstream>` 会缺 `__c_locale`。
 
 ## 反直觉：写了 `-lnvinfer`，`ldd` 里却没有
 
@@ -167,6 +167,6 @@ ELF 64-bit LSB pie executable, x86-64, dynamically linked
 | `unsupported GNU version! gcc later than 14` | 系统 gcc 15 | 用 `g++-14` / nvcc wrapper |
 | `<fstream>` 报 `__c_locale` 缺失 | 给 host 编译加了 `-U_GNU_SOURCE` | host 编译不要加 |
 
-这篇对应 `01_deserialize` 的编译环节；`01_deserialize` 与 `02_start` 已完成，下一步 `02_runner`（`cudaMalloc` + `setTensorAddress` + `enqueueV3`），路线见 [[TensorRT 部署学习路径]]。CUDA 侧的编译坑见 [[C01 Introduction]]。
+这篇对应 `01_deserialize` 的编译环节；`01_deserialize` → `03_yolo`（含 GPU 预处理核）已完成，下一步是分阶段计时与 postprocess GPU 化，路线见 [[TensorRT 部署学习路径]]。CUDA 侧的编译坑见 [[C01 Introduction]]。
 
 > PS：排查动态库优先用 `ldd ./rewrite`（看实际解析到哪）、`readelf -d rewrite | grep -E 'NEEDED|RUNPATH'`（看写进 ELF 的依赖）、`LD_DEBUG=libs ./rewrite`（看加载器搜索过程）、`nm -C`（看符号定义/未定义）。

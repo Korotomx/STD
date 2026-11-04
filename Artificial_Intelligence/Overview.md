@@ -2,21 +2,21 @@
 
 ## MIT 6.S191（主线课程）
 
-- 进度：L1~L6 笔记全部完成（基础 / RNN / CNN / 生成模型 / 强化学习 / 语言模型）
-- 下一步：按需复习；关注 2026 版的 guest lectures 与 labs
+- 进度：L1~L6 笔记全部完成（基础 / RNN / CNN / 生成模型 / 强化学习 / 语言模型）；L8「AI for Science」、L9「大规模并行训练」已完成
+- 下一步：按需复习；L7 有材料再补；关注 2026 版的 guest lectures 与 labs
 - 笔记：[[MIT 6.S191/Overview|6.S191 主页]]
 
 ## CUDA / TensorRT
 
-- 进度：CUDA C01/C02；TensorRT `01_deserialize`、`02_start`，FP16 engine 已建
-- 下一步：`02_runner`（显存绑定 + `enqueueV3`）
+- 进度：CUDA C01/C02；TensorRT `01_deserialize`、`02_start`、`02_runner`、`03_yolo` 完成——GPU 预处理核（letterbox + 双线性 + HWC→CHW）直接写 engine 输入，全链路闭环
+- 下一步：分阶段计时 → postprocess 搬 GPU → pinned memory + 显式 stream / `cudaMemcpyAsync` overlap
 - 笔记：[[CUDA/Overview|CUDA 主页]] · [[CUDA/TensorRT 部署学习路径|TensorRT 路径]]
 - 部署参考：[[UltraLytics/Overview|UltraLytics]] — YOLO 导出与量化、OpenCV 像素遍历、TensorRT-RTX 快速入门
 
 ## DeepLearningRM（RoboMaster 考核）
 
-- 进度：任务一 ResNet-18 / MNIST 完成；任务二 C++ ONNX + ROS2 整链完成（mAP50 0.789，CPU ~17 FPS，报告 2026-10-21）；任务三未开始
-- 下一步：任务三标定 + PnP（或补演示视频）
+- 进度：任务一 ResNet-18 / MNIST 完成；任务二 C++ ONNX + ROS2 整链完成（mAP50 0.789，CPU ~17 FPS，报告 2026-10-21）；任务三不做，RM 线 2026-11-01 收官
+- 下一步：已收官，不再安排；按需复习
 - 笔记：[[DeepLearningRM/Overview|DeepLearningRM 主页]]
 
 ## Python

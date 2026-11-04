@@ -12,4 +12,4 @@
 ## TensorRT
 
 - [[T00 编译与链接 TensorRT 程序]] — 从 `.cpp` 到 ELF，`-I/-L/-l`、rpath、`--as-needed`。
-- [[TensorRT 部署学习路径]] — 四周路线、对象生命周期、验收标准与进度。
+- [[TensorRT 部署学习路径]] — 四周路线、对象生命周期、验收标准与进度；含 `03_yolo` GPU 预处理核（`warp_affine`、双线性、`__constant__`、pitch）。

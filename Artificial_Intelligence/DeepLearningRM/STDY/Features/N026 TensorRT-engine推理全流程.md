@@ -175,3 +175,5 @@ python infer_engine.py        # ④ 推理验证
 ## 总结
 
 engine 推理是一条自己负责前后处理的数据管线：letterbox（记 `r` 和 `pad`）→ RGB → 归一化 → CHW → batch；Runtime → deserialize → Context → `set_tensor_address` → `execute_async_v3` → `synchronize`；`[1,300,30]` 按列拆成框/分数/类别/关键点；框和关键点用同一组 `r`、`pad` 逆映射；验证先比数值再看图，性能看端到端。
+
+C++ / CUDA 工程化版本（groundzero 交通标志 pose，预处理搬上 GPU）见 [[TensorRT 部署学习路径]]；坐标与双线性细节见 [[N028 图像坐标与Letterbox仿射变换]]、[[双线性插值 从一维线性到二维图像]]。
