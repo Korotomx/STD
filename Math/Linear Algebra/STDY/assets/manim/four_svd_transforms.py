@@ -44,11 +44,14 @@ CENTERS = [
     np.array([3.5, -1.85, 0.0]),   # A^T
 ]
 PANEL_LABELS = [
-    Text("A", font="DejaVu Sans", font_size=42, color=INK),
-    Text("A⁻¹", font="DejaVu Sans", font_size=42, color=INK),
-    Text("A⁻ᵀ", font="DejaVu Sans", font_size=42, color=INK),
-    Text("Aᵀ", font="DejaVu Sans", font_size=42, color=INK),
+    Text("A", font="DejaVu Sans", font_size=38, color=INK),
+    Text("A⁻¹", font="DejaVu Sans", font_size=38, color=INK),
+    Text("A⁻ᵀ", font="DejaVu Sans", font_size=38, color=INK),
+    Text("Aᵀ", font="DejaVu Sans", font_size=38, color=INK),
 ]
+
+
+SCALE = 0.88
 
 
 def make_content(center):
@@ -56,7 +59,7 @@ def make_content(center):
     circle = Circle(radius=1.0, color=GRAY, stroke_width=2.4)
     red = Line([-1.0, 0.0, 0.0], [1.0, 0.0, 0.0], color=RED, stroke_width=3.2)
     green = Line([0.0, -1.0, 0.0], [0.0, 1.0, 0.0], color=GREEN, stroke_width=3.2)
-    return VGroup(circle, red, green).move_to(center)
+    return VGroup(circle, red, green).scale(SCALE).move_to(center)
 
 
 class FourSVDTransforms(Scene):
@@ -72,7 +75,7 @@ class FourSVDTransforms(Scene):
         contents = [make_content(c) for c in CENTERS]
         labels = []
         for lab, c in zip(PANEL_LABELS, CENTERS):
-            lab.move_to(c + np.array([-1.45, 1.32, 0.0]))
+            lab.move_to(c + np.array([-1.60, 1.45, 0.0]))
             labels.append(lab)
 
         self.play(
