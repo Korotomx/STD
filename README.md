@@ -61,14 +61,15 @@
 
 ## AI · CUDA / TensorRT
 
-**进度**：CUDA C01/C02 完成（向量加法 0.60 ms / 335 GB/s）；TensorRT `01_deserialize`、`02_start`、`02_runner` 完成，裸 FP16 engine 已建（711 → 1428 qps）。
+**进度**：CUDA C01/C02 完成（向量加法 0.60 ms / 335 GB/s）；TensorRT `01_deserialize`、`02_start`、`02_runner`、`03_yolo` 完成——真实图片 letterbox 预处理 → `cudaMemcpy` H2D → 默认流推理 → 解码逆映射画图，全链路闭环，结果与 Python 参考一致（框差 1~2 px，FP16）。
 
 **今日完成**：
 
+- 2026-11-04：完成 TensorRT `03_yolo`——`imread` → letterbox（114 灰边）→ `cv::dnn::blobFromImage`（/255、BGR→RGB、HWC→CHW）→ `cudaMemcpy` 一次线性拷贝 → `enqueueV3(nullptr)` 默认流 → 解码逆 letterbox → 画框/关键点；弄通「连续内存 vs ROI」「`cudaMemcpy2D`+`cudaMallocPitch` 何时才需要」「先默认流后 stream」三点；数据集移入 `trt_lab/datasets`，修复 `infer_engine.py` 路径。
 - 整理 [[X01 Triton 与 TileLang]]；把 UltraLytics 三份官方文档整理成 [[YOLO 导出 格式与量化]]、[[OpenCV 高效遍历像素]]、[[TensorRT-RTX 快速入门]]。
 - 2026-10-29：完成 TensorRT `02_runner`（反序列化 → 按维度 `cudaMalloc` → `setTensorAddress` → `enqueueV3` + 同步 → D2H），精简到 73 行；对照官方端到端例子理清 runtime 链路，输入填充留给预处理。
 
-**下一步**：`03_yolo`（真实图片 → letterbox → 推理 → 解码，按需）。
+**下一步**：分阶段计时（预处理 / H2D / 推理 / D2H，对照 Python 2.3/6.0 ms）→ 显式 stream + `cudaMemcpyAsync` → 预处理 kernel 化（letterbox + 归一化 + HWC→CHW 融合）。
 
 **笔记**：[[Artificial_Intelligence/CUDA/Overview|CUDA 主页]] · [[Artificial_Intelligence/CUDA/TensorRT 部署学习路径|TensorRT 路径]] · [[Artificial_Intelligence/UltraLytics/Overview|UltraLytics 主页]]
 
