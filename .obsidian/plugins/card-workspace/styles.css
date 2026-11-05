@@ -1,0 +1,3330 @@
+/*
+ * Copyright (c) 2026 kenanlian
+ * SPDX-License-Identifier: GPL-3.0-only
+ * See LICENSE for the GNU General Public License, version 3.
+ */
+
+/*
+ * Section map: this file is organized into named sections marked with
+ * `=== name ===` comments (tokens, layout, toolbar, nav, card, preview,
+ * search, bulk, modal, utility). New styles must be inserted inside the
+ * section that matches their purpose, and must never be appended to the
+ * end of the file. Reordering existing rules requires a separate, dedicated
+ * change that carries visual regression verification, since CSS rules of
+ * equal specificity resolve by source order.
+ */
+
+/* === layout === */
+.workspace-leaf-content[data-type="folder-card-view"] > .view-content {
+  padding: 0;
+  /* The card list and navigation own scrolling; the host must not add a second scrollbar. */
+  overflow: hidden;
+}
+
+/*
+ * Phone auto-hide follows the host's `is-hidden-nav`, which slides away its fixed view header.
+ * The space the host reserves for that header and the plugin toolbar collapse with it in one
+ * untransitioned layout change; `mobile-chrome.ts` animates the move with a transform.
+ * Like hidden-nav notes, the cards then run under the status bar behind the host's top fade.
+ */
+body.is-phone.is-hidden-nav .workspace-leaf-content[data-type="folder-card-view"] > .view-content {
+  margin-top: 0;
+  mask-image: var(--view-top-fade-mask);
+}
+
+body.is-phone .folder-card-view .fce-shell[data-fce-device="phone"] .fce-header {
+  transition: opacity 0.2s ease-in-out;
+}
+
+body.is-phone.is-hidden-nav .folder-card-view .fce-shell[data-fce-device="phone"] .fce-header {
+  margin-top: calc(-1 * var(--fce-toolbar-height, 0px));
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.is-phone .folder-card-view .fce-shell[data-fce-device="phone"] .fce-header {
+    transition: none;
+  }
+}
+
+.folder-card-view,
+.folder-card-view .fce-shell {
+  height: 100%;
+}
+
+/* === tokens === */
+.folder-card-view {
+  --fce-bg: var(--background-primary);
+  --fce-surface: var(--background-secondary);
+  --fce-surface-alt: var(--background-secondary-alt, var(--background-secondary));
+  --fce-text: var(--text-normal);
+  --fce-text-muted: var(--text-muted);
+  --fce-border: var(--background-modifier-border);
+  --fce-hover: var(--background-modifier-hover);
+  --fce-accent: var(--interactive-accent);
+  --fce-accent-hover: var(--interactive-accent-hover, var(--interactive-accent));
+  --fce-wall-gap: 12px;
+  --fce-card-min-width: 280px;
+  --fce-card-padding: 11px 12px 12px;
+  --fce-card-gap: 8px;
+  --fce-card-bg: var(--fce-surface);
+  --fce-card-border-color: var(--fce-border);
+  --fce-card-hover-border-color: var(--fce-accent-hover);
+  --fce-card-hover-lift: -1px;
+  --fce-card-elevation: 0 2px 6px rgba(0, 0, 0, 0.14);
+  --fce-card-hover-elevation: 0 4px 10px rgba(0, 0, 0, 0.16);
+  --fce-search-height: 30px;
+  --fce-title-line-height: 1.35;
+  /* file-text's outline sits at x=4 on the 24 canvas. Pull the box left by that
+     inset so the visible edge meets the preview column. */
+  --fce-card-file-ink-inset: calc(var(--icon-size, 18px) * 4 / 24 - var(--icon-stroke, 1.75px) / 2);
+  --fce-preview-line-height: 1.5;
+  --fce-preview-line-clamp: 5;
+  --fce-preview-context-spacing: 4px;
+  --fce-nav-row-height: 30px;
+  --fce-nav-section-height: 30px;
+  --fce-nav-row-radius: var(--radius-s, 4px);
+  --fce-nav-leading-slot: var(--icon-size, 16px);
+  --fce-nav-disclosure-slot: 12px;
+  --fce-nav-disclosure-target: 16px;
+  --fce-nav-disclosure-gap: 6px;
+  /* Shifts the disclosure square toward the indent without resizing its track. */
+  --fce-nav-disclosure-nudge: 2px;
+  --fce-nav-leading-track: calc(var(--fce-nav-disclosure-slot) + var(--fce-nav-disclosure-gap) + var(--fce-nav-leading-slot));
+  --fce-nav-indent-step: 12px;
+  --fce-nav-label-gap: 8px;
+  --fce-nav-metadata-slot: 24px;
+  --fce-nav-action-slot: 22px;
+  --fce-nav-range-marker-size: 2px;
+  --fce-nav-range-marker-inset: 3px;
+  --fce-nav-focus-inset: 2px;
+  --fce-nav-divider-size: 1px;
+  --fce-nav-divider-hit-size: 10px;
+  --fce-nav-section-divider-inset: 2px;
+  --fce-nav-section-divider-offset: 6px;
+  --fce-nav-row-hover: var(--nav-item-background-hover, var(--background-modifier-hover, rgba(127, 127, 127, 0.12)));
+  --fce-nav-row-active-bg: var(--nav-item-background-active, var(--background-modifier-hover, rgba(127, 127, 127, 0.12)));
+  --fce-nav-row-active-color: var(--nav-item-color-active, var(--text-normal, #202020));
+  --fce-nav-bg: var(--background-secondary, #f3f3f3);
+  --fce-nav-icon-color: var(--text-muted, #6b6b6b);
+  --fce-nav-row-selected-bg: var(--fce-nav-row-active-bg);
+  --fce-nav-row-selected-marker: var(--interactive-accent, #7c3aed);
+  --fce-nav-checked-bg: var(--fce-nav-row-active-bg);
+  --fce-nav-focus-ring: var(--background-modifier-border-focus, var(--interactive-accent, #7c3aed));
+  --fce-nav-reveal-bg: color-mix(in srgb, var(--interactive-accent, #7c3aed) 22%, var(--fce-nav-bg));
+  --fce-nav-reveal-border: var(--interactive-accent, #7c3aed);
+  /*
+   * Derived from the text color instead of a theme hover token: the row is
+   * already painted with `--fce-nav-row-hover`, which many themes alias to the
+   * same value, leaving the chevron hover invisible.
+   */
+  --fce-nav-chevron-hover-bg: color-mix(in srgb, var(--text-normal, #202020) 16%, transparent);
+  /*
+   * Built from the stronger hover border because the plain border token is nearly
+   * invisible in most themes at the widths this separator uses; the mix keeps it
+   * below a hard rule while staying legible against the pane background.
+   */
+  --fce-nav-section-divider: color-mix(
+    in srgb,
+    var(--background-modifier-border-hover, var(--background-modifier-border, rgba(127, 127, 127, 0.35))) 35%,
+    transparent
+  );
+  --fce-nav-count-color: var(--text-faint, var(--text-muted, #6b6b6b));
+}
+
+/*
+ * The panel publishes font size, density, and card style as shell attributes.
+ * Scaled font tokens must be declared here rather than on `.folder-card-view`:
+ * a custom property resolves its `var()` references where it is declared.
+ */
+.folder-card-view .fce-shell {
+  --fce-font-scale: 1;
+  --fce-font-ui-medium: calc(var(--font-ui-medium, 14px) * var(--fce-font-scale));
+  --fce-font-ui-small: calc(var(--font-ui-small, 13px) * var(--fce-font-scale));
+  --fce-font-ui-smaller: calc(var(--font-ui-smaller, 12px) * var(--fce-font-scale));
+  --fce-title-font-size: var(--fce-font-ui-medium);
+  --fce-preview-font-size: var(--fce-font-ui-small);
+  font-size: calc(1em * var(--fce-font-scale));
+}
+
+.folder-card-view .fce-shell[data-fce-font-size="small"] { --fce-font-scale: 0.9; }
+.folder-card-view .fce-shell[data-fce-font-size="large"] { --fce-font-scale: 1.1; }
+.folder-card-view .fce-shell[data-fce-font-size="x-large"] { --fce-font-scale: 1.2; }
+
+.folder-card-view .fce-shell[data-fce-density="compact"] {
+  --fce-wall-gap: 8px;
+  --fce-card-padding: 7px 10px 8px;
+  --fce-card-gap: 5px;
+  --fce-search-height: 26px;
+  --fce-nav-row-height: 26px;
+  --fce-nav-section-height: 26px;
+}
+
+.folder-card-view .fce-shell[data-fce-density="comfortable"] {
+  --fce-wall-gap: 16px;
+  --fce-card-padding: 14px 16px 16px;
+  --fce-card-gap: 10px;
+  --fce-search-height: 34px;
+  --fce-nav-row-height: 34px;
+  --fce-nav-section-height: 34px;
+}
+
+/* === layout === */
+.folder-card-view .fce-shell {
+  display: flex;
+  flex-direction: row;
+  background: var(--fce-bg);
+  color: var(--fce-text);
+}
+
+.folder-card-view .fce-shell.is-nav-hidden .fce-nav-pane {
+  display: none;
+}
+
+.folder-card-view .fce-shell.is-single.is-nav-visible .fce-main-pane {
+  display: none;
+}
+
+.folder-card-view .fce-shell.is-single .fce-nav-pane {
+  flex: 1 1 auto;
+  width: 100%;
+  border-right: none;
+}
+
+.folder-card-view .fce-shell.is-single .fce-nav-resize-handle {
+  display: none;
+}
+
+.folder-card-view .fce-main-pane {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+}
+
+/* === nav === */
+.folder-card-view .fce-nav-pane {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+  min-height: 0;
+  box-sizing: border-box;
+  border-inline-end: 0;
+  background: var(--fce-nav-bg);
+  overflow: hidden;
+}
+
+.folder-card-view .fce-nav-pane-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2px;
+  padding: 6px;
+  flex: 0 0 auto;
+  min-width: 0;
+}
+
+.folder-card-view .fce-nav-pane-header-group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+  margin-inline-start: auto;
+}
+
+.folder-card-view .fce-nav-header-button {
+  flex: 0 0 auto;
+  aspect-ratio: 1;
+  color: var(--fce-text-muted);
+}
+
+.folder-card-view .fce-nav-header-button.is-active {
+  background-color: var(--background-modifier-hover);
+  color: var(--icon-color-hover);
+}
+
+.folder-card-view .fce-nav-filter-line {
+  flex: 0 0 auto;
+}
+
+.folder-card-view .fce-nav-pane .fce-nav-filter input[type="search"],
+.folder-card-view .fce-nav-pane .fce-nav-filter input[type="search"]:is(:hover, :focus, :active) {
+  /* Keep theme input surfaces and focus rings inside the wrapper from showing through. */
+  border: 0;
+  outline: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+/*
+ * The 4px inset aligns each section header icon with the pane header buttons,
+ * whose icons sit at the header's 6px padding plus the `clickable-icon` inset.
+ */
+.folder-card-view .fce-nav-pane-sections {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding-inline-start: 4px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
+}
+
+.folder-card-view .fce-nav-resize-handle {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-end: 0;
+  width: var(--fce-nav-divider-hit-size);
+  cursor: col-resize;
+  touch-action: none;
+  z-index: 2;
+}
+
+.folder-card-view .fce-nav-resize-handle::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inset-inline-end: 0;
+  width: var(--fce-nav-divider-size);
+  background: var(--fce-border, #3f3f46);
+}
+
+.folder-card-view .fce-nav-resize-handle:hover::before,
+.folder-card-view .fce-nav-resize-handle:active::before {
+  background: var(--interactive-accent, #7c3aed);
+}
+
+.folder-card-view .fce-nav-resize-handle:focus-visible {
+  outline: 2px solid var(--fce-nav-focus-ring);
+  outline-offset: calc(-1 * var(--fce-nav-focus-inset));
+}
+
+.folder-card-view .fce-nav-tree {
+  width: 100%;
+  min-width: 0;
+  max-height: none;
+  padding: 0;
+  overflow: visible;
+}
+
+.folder-card-view .fce-nav-tree .fce-tree-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr) max-content;
+  align-items: center;
+  gap: 0 var(--fce-nav-label-gap);
+  width: auto;
+  max-width: calc(100% - 8px);
+  min-width: 0;
+  min-height: var(--fce-nav-row-height);
+  margin-inline: 4px;
+  padding-block: 2px;
+  padding-inline-end: 6px;
+  box-sizing: border-box;
+  border-radius: var(--fce-nav-row-radius);
+  color: var(--fce-text);
+  font-size: var(--fce-font-ui-small);
+  line-height: 1.35;
+  cursor: default;
+  transition: background-color 120ms ease, box-shadow 120ms ease, color 120ms ease;
+}
+
+.folder-card-view .fce-nav-tree .fce-tree-row.is-section {
+  min-height: var(--fce-nav-section-height);
+  margin-block-start: 10px;
+  margin-block-end: 3px;
+  color: var(--fce-text-muted);
+  font-size: var(--fce-font-ui-smaller);
+  font-weight: var(--font-semibold, 600);
+}
+
+/*
+ * Group separator painted inside the existing section gap, so it adds no height.
+ * The first section uses the same hairline to separate the filter from Favorites.
+ */
+.folder-card-view .fce-nav-tree .fce-tree-row.is-section::before {
+  content: "";
+  position: absolute;
+  inset-inline: var(--fce-nav-section-divider-inset);
+  top: calc(-1 * var(--fce-nav-section-divider-offset));
+  height: 1px;
+  background: var(--fce-nav-section-divider);
+  pointer-events: none;
+}
+
+/*
+ * Ancestor-chain highlight. Deliberately not scoped to `.fce-tree-row`: the
+ * extra class would outrank `:hover` below and paint the pointer's own row with
+ * the quieter ancestor background instead of the full hover background.
+ */
+.folder-card-view .fce-nav-tree .is-subtree-hovered {
+  background: color-mix(in srgb, var(--fce-nav-row-hover) 40%, transparent);
+}
+
+.folder-card-view .fce-nav-tree .fce-tree-row:hover {
+  background: var(--fce-nav-row-hover);
+}
+
+.folder-card-view .fce-nav-tree .fce-tree-row.is-section:hover,
+.folder-card-view .fce-nav-tree .fce-tree-row.is-section:focus-visible,
+.folder-card-view .fce-nav-tree .fce-tree-row.is-section:focus-within,
+.folder-card-view .fce-nav-tree .fce-tree-row.is-section.is-subtree-hovered {
+  background: transparent;
+  color: var(--fce-text);
+}
+
+.folder-card-view .fce-nav-tree .fce-tree-row.is-section:hover .fce-tree-item-chevron,
+.folder-card-view .fce-nav-tree .fce-tree-row.is-section:focus-visible .fce-tree-item-chevron,
+.folder-card-view .fce-nav-tree .fce-tree-row.is-section:focus-within .fce-tree-item-chevron {
+  color: var(--fce-text);
+}
+
+/*
+ * The painted surface is square and wider than the layout track, so negative
+ * inline margins pull it back onto the track. The two margins must keep summing
+ * to slot - target, which is what lets the nudge bias the square toward the
+ * indent while the track width, identity column, and total indent stay put.
+ */
+.folder-card-view .fce-nav-tree .fce-tree-item-disclosure {
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: var(--fce-nav-disclosure-target);
+  height: var(--fce-nav-disclosure-target);
+  margin-inline-start: calc(
+    (var(--fce-nav-disclosure-slot) - var(--fce-nav-disclosure-target)) / 2 - var(--fce-nav-disclosure-nudge)
+  );
+  margin-inline-end: calc(
+    (var(--fce-nav-disclosure-slot) - var(--fce-nav-disclosure-target)) / 2 + var(--fce-nav-disclosure-nudge)
+  );
+  margin-block: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--fce-nav-row-radius);
+  background: transparent;
+  box-shadow: none;
+  color: var(--text-faint, var(--fce-text-muted));
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.folder-card-view .fce-nav-tree button.fce-tree-item-disclosure {
+  cursor: pointer;
+  transition: background-color 120ms ease, color 120ms ease;
+}
+
+/*
+ * Hit area grows to the full row height without widening the painted square,
+ * so it never reaches the identity glyph.
+ */
+.folder-card-view .fce-nav-tree button.fce-tree-item-disclosure::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  inset-block: calc((var(--fce-nav-row-height) - var(--fce-nav-disclosure-target)) / -2);
+}
+
+.folder-card-view .fce-nav-tree button.fce-tree-item-disclosure:hover,
+.folder-card-view .fce-nav-tree button.fce-tree-item-disclosure:focus-visible {
+  background: var(--fce-nav-chevron-hover-bg);
+  color: var(--text-normal);
+}
+
+.folder-card-view .fce-nav-tree .fce-tree-item-chevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--fce-nav-disclosure-slot);
+  height: var(--fce-nav-disclosure-slot);
+  --icon-size: var(--fce-nav-disclosure-slot);
+  pointer-events: none;
+}
+
+.folder-card-view .fce-nav-tree .fce-tree-item-identity {
+  display: inline-flex;
+  flex: 0 0 var(--fce-nav-leading-slot);
+  align-items: center;
+  justify-content: center;
+  width: var(--fce-nav-leading-slot);
+  height: var(--fce-nav-leading-slot);
+  color: var(--fce-nav-icon-color);
+  pointer-events: none;
+}
+
+.folder-card-view .fce-nav-tree .fce-tree-row:focus-visible {
+  outline: 2px solid var(--fce-nav-focus-ring);
+  outline-offset: calc(-1 * var(--fce-nav-focus-inset));
+}
+
+.folder-card-view .fce-nav-tree .fce-tree-row.is-current-range {
+  background: var(--fce-nav-row-selected-bg);
+  color: var(--fce-nav-row-active-color);
+  font-weight: var(--nav-item-weight-active, 600);
+}
+
+.folder-card-view .fce-nav-tree .fce-tree-row.is-current-range::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block: var(--fce-nav-range-marker-inset);
+  width: var(--fce-nav-range-marker-size);
+  border-radius: var(--fce-nav-range-marker-size);
+  background: var(--fce-nav-row-selected-marker);
+}
+
+.folder-card-view .fce-nav-tree .fce-tree-row.is-checked-filter {
+  background: var(--fce-nav-checked-bg);
+}
+
+.folder-card-view .fce-nav-tree .fce-tree-row.is-active-file {
+  color: var(--text-accent, var(--fce-text));
+}
+
+.folder-card-view .fce-nav-tree .fce-tree-row.is-active-file .fce-tree-item-identity {
+  color: var(--text-accent, var(--fce-nav-icon-color));
+}
+
+.folder-card-view .fce-nav-tree .fce-tree-row.is-revealed {
+  background: var(--fce-nav-reveal-bg);
+  box-shadow: inset 0 0 0 2px var(--fce-nav-reveal-border);
+}
+
+/* Reuse the empty parent-tag color for out-of-scope metadata. Keep menu actions
+ * and row focus/drop feedback at full strength. */
+.folder-card-view .fce-nav-tree .fce-tree-row.is-synthetic .fce-tree-label,
+.folder-card-view .fce-nav-tree .fce-tree-row.is-muted .fce-tree-label,
+.folder-card-view .fce-nav-tree .fce-tree-row.is-muted .fce-tree-item-identity,
+.folder-card-view .fce-nav-tree .fce-tree-row.is-muted .fce-nav-row-count {
+  color: var(--text-faint, var(--fce-text-muted));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .folder-card-view .fce-nav-filter,
+  .folder-card-view .fce-nav-tree button.fce-tree-item-disclosure {
+    transition: none;
+  }
+}
+
+.folder-card-view .fce-nav-tree .fce-popup-row-leading,
+.folder-card-view .fce-nav-tree .fce-popup-row-content,
+.folder-card-view .fce-nav-tree .fce-popup-row-trailing {
+  min-width: 0;
+}
+
+.folder-card-view .fce-nav-tree .fce-popup-row-leading {
+  flex: 0 0 auto;
+  justify-content: flex-start;
+  gap: var(--fce-nav-disclosure-gap);
+  width: max-content;
+  min-width: max-content;
+  min-height: var(--fce-nav-leading-slot);
+}
+
+.folder-card-view .fce-nav-tree .fce-tree-button {
+  display: flex;
+  overflow: hidden;
+}
+
+.folder-card-view .fce-nav-tree .fce-tree-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.folder-card-view .fce-nav-tree .fce-nav-row-trailing {
+  display: grid;
+  width: auto;
+  justify-items: end;
+  justify-content: end;
+  min-height: var(--fce-nav-leading-slot);
+}
+
+.folder-card-view .fce-nav-tree .fce-nav-row-summary,
+.folder-card-view .fce-nav-tree .fce-nav-row-actions {
+  grid-area: 1 / 1;
+  align-self: center;
+}
+
+.folder-card-view .fce-nav-tree .fce-nav-row-summary,
+.folder-card-view .fce-nav-tree .fce-nav-row-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 2px;
+  min-height: var(--fce-nav-leading-slot);
+}
+
+.folder-card-view .fce-nav-tree .fce-nav-row-actions > * {
+  flex: 0 0 var(--fce-nav-action-slot);
+  width: var(--fce-nav-action-slot);
+  height: var(--fce-nav-action-slot);
+  min-width: 0;
+  padding: 0;
+}
+
+.folder-card-view .fce-nav-tree .fce-nav-row-actions {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.folder-card-view .fce-nav-tree .fce-tree-row:hover .fce-nav-row-actions,
+.folder-card-view .fce-nav-tree .fce-tree-row:focus-visible .fce-nav-row-actions {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.folder-card-view .fce-nav-tree .fce-tree-row:hover .fce-nav-row-trailing.has-actions .fce-nav-row-summary,
+.folder-card-view .fce-nav-tree .fce-tree-row:focus-visible .fce-nav-row-trailing.has-actions .fce-nav-row-summary {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.folder-card-view .fce-nav-projected-row[data-nav-section="links"]:not(.is-section) .fce-nav-row-more {
+  display: none;
+}
+
+.folder-card-view .fce-nav-tree .fce-tree-row-check {
+  color: var(--text-accent, var(--interactive-accent, #7c3aed));
+}
+
+.folder-card-view .fce-nav-tree.is-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.folder-card-view .fce-favorites-menu .fce-tree-row.is-missing {
+  opacity: 0.55;
+}
+
+.folder-card-view .fce-nav-row-count {
+  min-width: var(--fce-nav-metadata-slot);
+  margin-inline-start: 0;
+  color: var(--fce-nav-count-color);
+  font-size: var(--fce-font-ui-smaller);
+  font-variant-numeric: tabular-nums;
+  text-align: end;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.folder-card-view .fce-nav-active-tag-count,
+.folder-card-view .fce-nav-active-property-count {
+  color: var(--fce-nav-count-color);
+  font-size: var(--fce-font-ui-smaller);
+  font-variant-numeric: tabular-nums;
+  text-align: end;
+}
+
+/* Caption under a section: align with the header label, not the item icon+label column. */
+.folder-card-view .fce-nav-no-results,
+.folder-card-view .fce-nav-section-empty {
+  min-width: 0;
+  padding-block: 6px 8px;
+  padding-inline: calc(4px + var(--fce-nav-disclosure-slot) + var(--fce-nav-label-gap)) 8px;
+  color: var(--fce-text-muted);
+  font-size: var(--fce-font-ui-small);
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+/* === toolbar === */
+.folder-card-view .fce-header {
+  padding: 0;
+}
+
+.folder-card-view .fce-header.is-bulk-mode {
+  border-bottom: 1px solid var(--fce-border);
+  background:
+    linear-gradient(180deg, var(--fce-surface-alt) 0%, var(--fce-bg) 100%);
+}
+
+
+
+.folder-card-view .fce-toolbar-buttons {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 6px;
+  min-width: 0;
+}
+
+.folder-card-view .fce-toolbar-scope {
+  display: flex;
+  align-items: center;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  padding: 0 4px;
+  color: var(--fce-text);
+  font-size: var(--fce-font-ui-small);
+}
+
+.folder-card-view .fce-toolbar-scope-text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.folder-card-view .fce-toolbar-scope.is-box .fce-toolbar-scope-text,
+.folder-card-view .fce-toolbar-scope.is-links .fce-toolbar-scope-text {
+  font-weight: var(--font-medium, 600);
+}
+
+.folder-card-view .fce-toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex: 0 0 auto;
+}
+
+.folder-card-view .fce-toolbar-button {
+  flex: 0 0 auto;
+  aspect-ratio: 1;
+  color: var(--fce-text-muted);
+}
+
+.folder-card-view .fce-toolbar-button.is-selected {
+  background-color: var(--background-modifier-hover);
+  color: var(--icon-color-hover);
+}
+
+.folder-card-view .fce-toolbar-content-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0 10px 4px;
+}
+
+.folder-card-view .fce-toolbar-content-row.is-bulk-mode {
+  padding-bottom: 6px;
+}
+
+.folder-card-view .fce-toolbar-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  font-size: calc(12px * var(--fce-font-scale));
+  color: var(--fce-text-muted);
+  line-height: 1.4;
+}
+
+.folder-card-view .fce-toolbar-summary-segment {
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.folder-card-view .fce-toolbar-toggle {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px;
+  border: 1px solid var(--fce-border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--fce-text-muted);
+  font-size: calc(12px * var(--fce-font-scale));
+  line-height: 1.2;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.folder-card-view .fce-toolbar-toggle:hover {
+  background: var(--background-modifier-hover);
+  color: var(--fce-text);
+}
+
+.folder-card-view .fce-toolbar-toggle.is-selected {
+  border-color: var(--fce-accent);
+  color: var(--fce-accent);
+}
+
+.folder-card-view .fce-toolbar-toggle-label {
+  font-weight: 500;
+}
+
+/* === search === */
+.folder-card-view .fce-toolbar-search-row {
+  padding: 0 8px 6px;
+}
+
+.folder-card-view .fce-toolbar-search-row.is-bulk-mode {
+  padding-bottom: 8px;
+}
+
+.folder-card-view .fce-toolbar-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--background-modifier-form-field);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-s);
+  height: var(--fce-search-height);
+}
+
+.folder-card-view .fce-toolbar-search:focus-within {
+  border-color: var(--fce-accent);
+  box-shadow: 0 0 0 1px var(--fce-accent);
+}
+
+.folder-card-view .fce-search-input {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0 8px;
+  background: transparent;
+  border: none;
+  color: var(--fce-text);
+  font-size: var(--fce-font-ui-small);
+  outline: none;
+}
+
+.folder-card-view .fce-search-input:focus {
+  box-shadow: none;
+}
+
+.folder-card-view .fce-search-input::placeholder {
+  color: var(--fce-text-muted);
+}
+
+.folder-card-view .fce-search-clear {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin-right: 3px;
+  color: var(--fce-text-muted);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-s);
+  cursor: pointer;
+}
+
+.folder-card-view .fce-search-clear:hover {
+  color: var(--fce-text);
+  background: var(--background-modifier-hover);
+}
+
+/* Native page previews opened by cards are attached to the window body. */
+body .popover.hover-popover.fce-card-hover-preview {
+  --popover-width: min(var(--fce-hover-preview-width, 600px), max(0px, calc(100vw - 32px)));
+  --popover-height: min(var(--fce-hover-preview-height, 400px), max(0px, calc(100vh - 32px)));
+  width: var(--popover-width);
+  height: var(--popover-height);
+  min-width: 0;
+  min-height: 0;
+  max-width: max(0px, calc(100vw - 32px));
+  max-height: max(0px, calc(100vh - 32px));
+}
+
+/* Native suggestions attach to the document body, outside .folder-card-view.
+   Obsidian owns the surface and selected/hover states; match the panel's density. */
+.suggestion-container.fce-search-history-popover {
+  box-sizing: border-box;
+  width: var(--fce-search-history-width);
+  min-width: 0;
+  max-width: calc(100vw - 16px);
+  translate: var(--fce-search-history-offset-x, 0px) 0;
+  font-size: var(--font-ui-small, 13px);
+}
+.fce-search-history-popover .suggestion-item.fce-search-history-row {
+  box-sizing: border-box;
+  align-items: center;
+  min-height: 28px;
+  padding: 2px 8px;
+  gap: 6px;
+  font-size: var(--font-ui-small, 13px);
+  line-height: 1.4;
+}
+.fce-search-history-popover .suggestion-title { font-size: inherit; }
+.suggestion-item.fce-search-history-row .suggestion-content { min-width: 0; }
+.suggestion-item.fce-search-history-row .fce-search-suggestion {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.suggestion-item.fce-search-history-row .fce-search-history-delete {
+  width: 20px;
+  height: 20px;
+  padding: 2px;
+  --icon-size: 14px;
+  color: var(--text-muted);
+}
+.suggestion-item.fce-search-history-clear {
+  box-shadow: inset 0 1px 0 var(--background-modifier-border);
+  color: var(--text-muted);
+}
+.fce-search-history-popover .suggestion-item.fce-search-history-clear {
+  font-size: var(--font-ui-smaller, 12px);
+}
+
+.folder-card-view .fce-search-input { min-width: 0; }
+.folder-card-view .fce-search-input::-webkit-search-cancel-button { display: none; }
+
+/* === bulk === */
+.folder-card-view .fce-toolbar-bulk-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 8px 10px 10px;
+  border-top: 1px solid var(--fce-border);
+  background: var(--fce-surface-alt);
+}
+
+.folder-card-view .fce-toolbar-bulk-summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  flex-wrap: wrap;
+  color: var(--fce-text-muted);
+  font-size: calc(12px * var(--fce-font-scale));
+  line-height: 1.3;
+}
+
+.folder-card-view .fce-toolbar-bulk-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.folder-card-view .fce-toolbar-bulk-separator {
+  width: 1px;
+  height: 16px;
+  margin: 0 4px;
+  background: var(--fce-border);
+}
+
+.folder-card-view .fce-toolbar-bulk-button {
+  flex: 0 0 auto;
+  padding: 4px;
+  border-radius: var(--radius-s);
+  background: transparent;
+  color: var(--fce-text-muted);
+  cursor: pointer;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 120ms ease, color 120ms ease;
+}
+
+.folder-card-view .fce-toolbar-bulk-button:hover:not(:disabled) {
+  background: var(--background-modifier-hover);
+  color: var(--fce-text);
+}
+
+.folder-card-view .fce-toolbar-bulk-button.is-destructive {
+  color: var(--text-error, #c0392b);
+}
+
+.folder-card-view .fce-toolbar-bulk-button.is-destructive:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--text-error, #c0392b) 12%, transparent);
+  color: var(--text-error, #c0392b);
+}
+
+.folder-card-view .fce-toolbar-bulk-button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+
+
+/* === modal === */
+.fce-setting-slider-value {
+  min-width: 2ch;
+  color: var(--text-muted);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.fce-popup-menu {
+  position: fixed;
+  z-index: var(--layer-menu, 10);
+  background: var(--background-primary);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-m, 8px);
+  box-shadow: var(--shadow-s, 0 2px 8px rgba(0, 0, 0, 0.15));
+}
+
+.fce-box-picker-menu {
+  min-width: 180px;
+  padding: 6px;
+  border-color: var(--background-modifier-border-hover, var(--background-modifier-border));
+}
+
+.fce-popup-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.fce-popup-row-leading,
+.fce-popup-row-trailing {
+  flex: 0 0 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  min-height: 16px;
+}
+
+.fce-popup-row-content {
+  min-width: 0;
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+}
+
+.fce-popup-menu .fce-popup-row {
+  min-height: 28px;
+  border-radius: 4px;
+  color: var(--text-normal);
+  font-size: var(--font-ui-small, 13px);
+  line-height: 1.4;
+  transition: background-color 120ms ease, color 120ms ease;
+}
+
+.fce-popup-menu .fce-popup-row:hover {
+  background: var(--background-modifier-hover);
+}
+
+.fce-popup-menu .fce-popup-row:focus-within {
+  outline: 2px solid var(--fce-accent);
+  outline-offset: -2px;
+  border-radius: var(--radius-s, 4px);
+}
+
+.fce-box-picker-menu .fce-popup-row {
+  justify-content: space-between;
+  width: 100%;
+  padding: 4px 8px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  white-space: nowrap;
+  box-shadow: none;
+  outline: none;
+}
+
+.fce-box-picker-menu .fce-popup-row-leading {
+  color: var(--fce-text-muted);
+}
+
+.fce-box-picker-item-label {
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* === nav === */
+.fce-folder-menu .fce-tree-row.is-selected,
+.fce-tag-menu .fce-tree-row.is-selected,
+.fce-favorites-menu .fce-tree-row.is-selected {
+  color: var(--text-normal);
+  background: var(--background-modifier-hover);
+}
+
+.fce-folder-menu .fce-tree-row-check,
+.fce-tag-menu .fce-tree-row-check,
+.fce-property-menu .fce-tree-row-check,
+.fce-favorites-menu .fce-tree-row-check {
+  color: var(--text-normal);
+}
+
+/* === utility === */
+.folder-card-view .fce-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* === layout === */
+.folder-card-view .fce-list-frame {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.folder-card-view .fce-list {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-anchor: none;
+  padding: var(--fce-wall-gap);
+}
+
+/* Themes often make the idle thumb transparent; reveal it for the whole list hover, not only the thumb hover. */
+body:not(.native-scrollbars) .folder-card-view .fce-list:hover::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-active-thumb-bg);
+}
+
+.folder-card-view .fce-list.is-bulk-mode {
+  background: linear-gradient(180deg, var(--fce-bg) 0%, var(--fce-surface-alt) 100%);
+}
+
+.folder-card-view .fce-virtual-spacer {
+  width: 100%;
+}
+
+.folder-card-view .fce-wall-row {
+  box-sizing: border-box;
+  width: 100%;
+  padding-bottom: var(--fce-wall-gap);
+}
+
+.folder-card-view .fce-wall-row.is-last {
+  padding-bottom: 0;
+}
+
+.folder-card-view .fce-wall-row-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--fce-column-count, 1), minmax(0, 1fr));
+  gap: var(--fce-wall-gap);
+  align-items: start;
+}
+
+.folder-card-view .fce-empty {
+  margin: 20px 8px;
+  padding: 18px;
+  border-radius: 12px;
+  background: var(--fce-surface);
+  border: 1px dashed var(--fce-border);
+  color: var(--fce-text-muted);
+  text-align: center;
+}
+
+/* === card === */
+/* The header sits closer to its own cards than to the previous group. */
+.folder-card-view .fce-wall-group-row {
+  box-sizing: border-box;
+  width: 100%;
+  padding-bottom: calc(var(--fce-wall-gap) * 0.67);
+}
+
+/* Half the wall gap. The pinned-header lead reads `--fce-wall-gap` and uses the same ratio. */
+.folder-card-view .fce-wall-group-row.is-following {
+  padding-top: calc(var(--fce-wall-gap) * 0.5);
+}
+
+.folder-card-view .fce-wall-group-row.is-pinned-source .fce-card-group-header {
+  visibility: hidden;
+}
+
+/* Sits over the scrollport. The list unmounts a header once it leaves the
+   window, so the pin cannot be the in-flow row. */
+.folder-card-view .fce-sticky-group-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  padding: 0 var(--fce-wall-gap);
+  background: var(--fce-bg);
+}
+
+.folder-card-view .fce-card-group-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  width: 100%;
+  height: auto;
+  min-height: 28px;
+  padding: 4px 6px 4px 4px;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--fce-border);
+  border-radius: var(--radius-s, 4px) var(--radius-s, 4px) 0 0;
+  box-shadow: none;
+  color: var(--fce-text);
+  font-size: var(--fce-font-ui-small);
+  font-weight: normal;
+  text-align: start;
+  cursor: pointer;
+  transition: background-color 120ms ease;
+}
+
+.folder-card-view .fce-card-group-header:hover {
+  background: var(--fce-hover);
+}
+
+.folder-card-view .fce-card-group-header:focus-visible {
+  outline: 2px solid var(--background-modifier-border-focus, var(--fce-accent));
+  outline-offset: -2px;
+  border-radius: var(--radius-s, 4px);
+}
+
+.folder-card-view .fce-card-group-header.is-collapsed {
+  color: var(--fce-text-muted);
+}
+
+.folder-card-view .fce-card-group-chevron {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  color: var(--text-faint, var(--fce-text-muted));
+}
+
+.folder-card-view .fce-card-group-chevron svg {
+  width: 14px;
+  height: 14px;
+}
+
+.folder-card-view .fce-card-group-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.folder-card-view .fce-card-group-dimension {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 1 auto;
+  gap: 4px;
+  min-width: 0;
+  max-width: 45%;
+  padding: 1px 7px 1px 6px;
+  border-radius: var(--tag-radius, 2em);
+  background: var(--background-modifier-hover);
+  color: var(--fce-text-muted);
+  font-size: var(--fce-font-ui-smaller);
+  line-height: 1.5;
+}
+
+.folder-card-view .fce-card-group-dimension-icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+}
+
+.folder-card-view .fce-card-group-dimension-icon svg {
+  width: 12px;
+  height: 12px;
+}
+
+.folder-card-view .fce-card-group-dimension-text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.folder-card-view .fce-card-group-divider {
+  flex: 0 0 auto;
+  width: 1px;
+  height: 11px;
+  background: var(--fce-border);
+}
+
+/* Multiple chips never truncate individually; the row fades out instead. The
+   fade only covers the last 18px of a box that always reaches the count, so
+   short rows never touch it and no overflow measurement is needed. */
+.folder-card-view .fce-card-group-values {
+  display: flex;
+  align-items: center;
+  flex: 1 1 auto;
+  gap: 4px;
+  min-width: 0;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, black calc(100% - 18px), transparent);
+  mask-image: linear-gradient(90deg, black calc(100% - 18px), transparent);
+}
+
+.folder-card-view .fce-card-group-value {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  padding: 1px var(--tag-padding-x, 0.6em);
+  border-radius: var(--tag-radius, 2em);
+  background: var(--tag-background, var(--background-modifier-hover));
+  color: var(--tag-color, var(--text-accent));
+  font-size: var(--fce-font-ui-smaller);
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* A lone chip may shrink to an ellipsis instead of fading. */
+.folder-card-view .fce-card-group-value:only-child {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+.folder-card-view .fce-card-group-value-text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.folder-card-view .fce-card-group-value-prefix {
+  flex: 0 0 auto;
+  opacity: 0.62;
+}
+
+.folder-card-view .fce-card-group-value-icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  margin-right: 4px;
+}
+
+.folder-card-view .fce-card-group-value.is-off .fce-card-group-value-icon {
+  color: var(--text-faint, var(--fce-text-muted));
+}
+
+.folder-card-view .fce-card-group-value-icon svg {
+  width: 13px;
+  height: 13px;
+}
+
+.folder-card-view .fce-card-group-header.is-missing .fce-card-group-value {
+  background: var(--background-modifier-hover);
+  color: var(--fce-text-muted);
+}
+
+.folder-card-view .fce-card-group-count {
+  flex: 0 0 auto;
+  min-width: 22px;
+  margin-left: auto;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: var(--background-modifier-hover);
+  color: var(--fce-text-muted);
+  font-size: var(--fce-font-ui-smaller);
+  font-weight: normal;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.folder-card-view .fce-card {
+  border-radius: var(--clickable-icon-radius, var(--radius-s));
+  border: 1px solid var(--fce-card-border-color);
+  background: var(--fce-card-bg);
+  box-shadow: var(--fce-card-elevation);
+  overflow: hidden;
+  cursor: pointer;
+  height: 100%;
+  transition: transform 120ms ease, box-shadow 120ms ease, border-color 120ms ease, background-color 120ms ease;
+}
+
+/* Hit a draggable presentation container before Chromium handles Shift selection.
+ * Keep hover containers active and leave buttons and their contents untouched. */
+.folder-card-view .fce-card-body,
+.folder-card-view .fce-card-header,
+.folder-card-view .fce-card-title-group,
+.folder-card-view .fce-card-body > .fce-excerpt,
+.folder-card-view .fce-card-image,
+.folder-card-view .fce-card-task-footer {
+  -webkit-user-drag: element;
+}
+
+.folder-card-view .fce-card-title-group *,
+.folder-card-view .fce-card-body > .fce-excerpt > :not(button),
+.folder-card-view .fce-card-body > .fce-excerpt > :not(button) *,
+.folder-card-view .fce-card-image *,
+.folder-card-view .fce-card-task-footer * {
+  pointer-events: none;
+}
+
+.folder-card-view .fce-card.fce-card-radius-compact {
+  border-radius: var(--clickable-icon-radius, var(--radius-s));
+}
+
+.folder-card-view .fce-card.fce-card-radius-medium {
+  border-radius: var(--radius-m, 8px);
+}
+
+.folder-card-view .fce-card.fce-card-radius-rounded {
+  border-radius: var(--radius-l, 12px);
+}
+
+.folder-card-view .fce-card:hover {
+  transform: translateY(var(--fce-card-hover-lift));
+  border-color: var(--fce-card-hover-border-color);
+  background: var(--fce-hover);
+  box-shadow: var(--fce-card-hover-elevation);
+}
+
+.folder-card-view .fce-card.is-selected {
+  border-color: var(--fce-accent);
+  background: var(--fce-hover);
+  box-shadow: 0 0 0 1px var(--fce-accent), var(--fce-card-hover-elevation);
+}
+
+.folder-card-view .fce-card.is-bulk-selected {
+  border-color: var(--fce-accent);
+  background: var(--fce-surface-alt);
+  box-shadow: inset 0 0 0 1px var(--fce-accent), var(--fce-card-elevation);
+}
+
+.folder-card-view .fce-card.is-selected.is-bulk-selected {
+  background: var(--fce-hover);
+  box-shadow:
+    0 0 0 1px var(--fce-accent),
+    inset 0 0 0 2px var(--fce-bg),
+    inset 0 0 0 3px var(--fce-accent),
+    var(--fce-card-hover-elevation);
+}
+
+.folder-card-view .fce-card.is-dragging {
+  opacity: 0.55;
+  border-color: var(--fce-accent);
+  box-shadow: 0 0 0 1px var(--fce-accent), var(--fce-card-hover-elevation);
+}
+
+/*
+ * Card styles. Elevation tokens must stay valid shadow-list members, so the
+ * flat styles use a transparent zero shadow instead of `none`.
+ */
+.folder-card-view .fce-shell[data-fce-card-style="outline"],
+.folder-card-view .fce-shell[data-fce-card-style="flat"],
+.folder-card-view .fce-shell[data-fce-card-style="accent-bar"],
+.folder-card-view .fce-shell[data-fce-card-style="list"] {
+  --fce-card-hover-lift: 0px;
+  --fce-card-elevation: 0 0 transparent;
+  --fce-card-hover-elevation: 0 0 transparent;
+}
+
+.folder-card-view .fce-shell[data-fce-card-style="outline"] {
+  --fce-card-bg: transparent;
+}
+
+.folder-card-view .fce-shell[data-fce-card-style="flat"] {
+  --fce-card-border-color: transparent;
+  --fce-card-hover-border-color: transparent;
+}
+
+.folder-card-view .fce-shell[data-fce-card-style="accent-bar"] .fce-card {
+  border-left-width: 4px;
+  border-left-color: color-mix(in srgb, var(--fce-accent) 55%, transparent);
+}
+
+.folder-card-view .fce-shell[data-fce-card-style="accent-bar"] .fce-card:hover,
+.folder-card-view .fce-shell[data-fce-card-style="accent-bar"] .fce-card.is-pinned,
+.folder-card-view .fce-shell[data-fce-card-style="accent-bar"] .fce-card.is-selected,
+.folder-card-view .fce-shell[data-fce-card-style="accent-bar"] .fce-card.is-bulk-selected {
+  border-left-color: var(--fce-accent);
+}
+
+/* List rows keep only separators; selection moves from a ring to a leading bar. */
+.folder-card-view .fce-shell[data-fce-card-style="list"] {
+  --fce-card-bg: transparent;
+  --fce-card-hover-border-color: var(--fce-border);
+}
+
+.folder-card-view .fce-shell[data-fce-card-style="list"] .fce-card {
+  border-width: 0 0 1px;
+  border-radius: 0;
+}
+
+.folder-card-view .fce-shell[data-fce-card-style="list"] .fce-wall-row.is-first .fce-card {
+  border-top-width: 1px;
+}
+
+.folder-card-view .fce-shell[data-fce-card-style="list"] .fce-wall-row,
+.folder-card-view .fce-shell[data-fce-card-style="list"] .fce-wall-group-row {
+  padding-bottom: 0;
+}
+
+.folder-card-view .fce-shell[data-fce-card-style="list"] .fce-card.is-selected,
+.folder-card-view .fce-shell[data-fce-card-style="list"] .fce-card.is-bulk-selected,
+.folder-card-view .fce-shell[data-fce-card-style="list"] .fce-card.is-selected.is-bulk-selected {
+  border-color: var(--fce-border);
+  box-shadow: inset 3px 0 0 var(--fce-accent);
+}
+
+.folder-card-view .fce-shell[data-fce-card-style="list"] .fce-card.is-dragging {
+  border-color: var(--fce-border);
+  box-shadow: none;
+}
+
+
+/* Explicit fills override style transparency without changing geometry. */
+.fce-card-color-icon.fce-card-color-red,
+.folder-card-view .fce-card[data-fce-card-background="red"] { --fce-card-tint: var(--color-red); }
+.fce-card-color-icon.fce-card-color-orange,
+.folder-card-view .fce-card[data-fce-card-background="orange"] { --fce-card-tint: var(--color-orange); }
+.fce-card-color-icon.fce-card-color-yellow,
+.folder-card-view .fce-card[data-fce-card-background="yellow"] { --fce-card-tint: var(--color-yellow); }
+.fce-card-color-icon.fce-card-color-green,
+.folder-card-view .fce-card[data-fce-card-background="green"] { --fce-card-tint: var(--color-green); }
+.fce-card-color-icon.fce-card-color-cyan,
+.folder-card-view .fce-card[data-fce-card-background="cyan"] { --fce-card-tint: var(--color-cyan); }
+.fce-card-color-icon.fce-card-color-blue,
+.folder-card-view .fce-card[data-fce-card-background="blue"] { --fce-card-tint: var(--color-blue); }
+.fce-card-color-icon.fce-card-color-purple,
+.folder-card-view .fce-card[data-fce-card-background="purple"] { --fce-card-tint: var(--color-purple); }
+.fce-card-color-icon.fce-card-color-pink,
+.folder-card-view .fce-card[data-fce-card-background="pink"] { --fce-card-tint: var(--color-pink); }
+.folder-card-view .fce-card[data-fce-card-background] {
+  --fce-card-color-fill: color-mix(in srgb, var(--fce-card-tint) 12%, var(--fce-surface, var(--background-secondary)));
+}
+.folder-card-view .fce-card[data-fce-card-background] {
+  background: var(--fce-card-color-fill);
+}
+.folder-card-view .fce-card[data-fce-card-background]:hover,
+.folder-card-view .fce-card[data-fce-card-background].is-selected,
+.folder-card-view .fce-card[data-fce-card-background].is-bulk-selected {
+  background: color-mix(in srgb, var(--fce-card-tint) 18%, var(--fce-surface));
+}
+.fce-card-color-icon {
+  color: color-mix(in srgb, var(--fce-card-tint) 45%, var(--background-modifier-border));
+}
+
+.fce-card-native-drag-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.fce-card-drag-ghost {
+  position: fixed;
+  top: -10000px;
+  left: -10000px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  max-width: 300px;
+  padding: 8px 10px;
+  border-radius: var(--radius-s);
+  background: var(--background-modifier-message, #222);
+  color: var(--text-on-accent, #fff);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  font-size: var(--font-ui-small, 13px);
+  line-height: 1.25;
+  pointer-events: none;
+  z-index: var(--layer-popover, 30);
+}
+
+.fce-card-drag-ghost-self {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+  font-weight: var(--font-semibold, 600);
+}
+
+.fce-card-drag-ghost-icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  width: 15px;
+  height: 15px;
+  color: currentColor;
+  opacity: 0.9;
+}
+
+.fce-card-drag-ghost-icon svg {
+  width: 15px;
+  height: 15px;
+}
+
+.fce-card-drag-ghost-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fce-card-drag-ghost-action {
+  color: var(--text-muted);
+  font-weight: var(--font-medium, 500);
+  white-space: nowrap;
+}
+
+.cm-dropCursor {
+  border-left-color: var(--text-accent);
+}
+
+.folder-card-view .fce-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fce-card-gap);
+  min-height: 100%;
+  padding: var(--fce-card-padding);
+}
+
+.folder-card-view .fce-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.folder-card-view .fce-card-title-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  flex: 1;
+}
+
+.folder-card-view .fce-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 0 0 auto;
+}
+
+.folder-card-view .fce-card-search-count {
+  font-size: calc(0.7rem * var(--fce-font-scale));
+  color: var(--fce-text-muted);
+  white-space: nowrap;
+  flex: 0 0 auto;
+}
+
+.folder-card-view .fce-card-task-footer {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: calc(0.7rem * var(--fce-font-scale));
+  line-height: 1;
+  color: var(--text-accent, var(--fce-accent));
+}
+
+.folder-card-view .fce-card-task-icon {
+  display: flex;
+  align-items: center;
+}
+
+/* Overrides Obsidian's `.svg-icon { stroke-width: var(--icon-stroke) }` so the
+   glyph reads as bold as the adjacent count at this small size. */
+.folder-card-view .fce-card-task-icon svg {
+  width: 13px;
+  height: 13px;
+  stroke-width: 2.5px;
+}
+
+.folder-card-view .fce-card-task-count {
+  font-weight: var(--font-semibold, 600);
+}
+
+.folder-card-view .fce-card-file-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--fce-text-muted);
+  opacity: 0.7;
+  margin-inline-start: calc(-1 * var(--fce-card-file-ink-inset));
+}
+
+.folder-card-view .fce-card h4 {
+  margin: 0;
+  color: var(--fce-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+  font-size: var(--fce-title-font-size);
+  line-height: var(--fce-title-line-height);
+  font-weight: 600;
+  flex: 1;
+}
+
+/* === search === */
+.folder-card-view .fce-search-hit {
+  padding: 0 2px;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--text-highlight-bg, var(--text-accent)) 70%, transparent);
+  color: inherit;
+}
+
+/* === bulk === */
+.folder-card-view .fce-card-bulk-checkbox {
+  margin: 0;
+  cursor: pointer;
+}
+
+/* === card === */
+.folder-card-view .fce-card-pin-btn {
+  background: transparent;
+  box-shadow: none;
+  border: none;
+  padding: 4px;
+  border-radius: 6px;
+  color: var(--fce-text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 120ms ease, background-color 120ms ease, color 120ms ease;
+  margin: -4px -4px -4px 0;
+}
+
+.folder-card-view .fce-card-pin-btn:hover {
+  background-color: var(--fce-surface-alt);
+  color: var(--fce-text);
+}
+
+.folder-card-view .fce-card:hover .fce-card-pin-btn,
+.folder-card-view .fce-card:focus-within .fce-card-pin-btn {
+  opacity: 1;
+}
+
+.folder-card-view .fce-card.is-pinned .fce-card-pin-btn {
+  opacity: 1;
+  color: var(--fce-accent);
+}
+
+.folder-card-view .fce-more-actions-btn {
+  background: transparent;
+  box-shadow: none;
+  border: none;
+  padding: 4px;
+  border-radius: 6px;
+  color: var(--fce-text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 120ms ease, background-color 120ms ease, color 120ms ease;
+  margin: -4px -4px -4px 0;
+}
+
+.folder-card-view .fce-more-actions-btn:hover {
+  background-color: var(--fce-surface-alt);
+  color: var(--fce-text);
+}
+
+.folder-card-view .fce-card:hover .fce-more-actions-btn,
+.folder-card-view .fce-card:focus-within .fce-more-actions-btn {
+  opacity: 1;
+}
+
+.folder-card-view .fce-card.is-pinned .fce-more-actions-btn {
+  opacity: 1;
+}
+
+.folder-card-view .fce-card-reference-count {
+  flex-shrink: 0;
+  font-size: var(--font-smallest);
+  color: var(--text-muted);
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: var(--background-secondary);
+}
+
+.folder-card-view .fce-reference-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-width: 0;
+  font-size: var(--fce-preview-font-size);
+  line-height: var(--fce-preview-line-height);
+}
+
+.folder-card-view .fce-excerpt.fce-reference-list {
+  max-block-size: none;
+}
+
+.folder-card-view .fce-reference-content {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  line-height: var(--fce-preview-line-height);
+  overflow-wrap: anywhere;
+}
+
+.folder-card-view .fce-reference-paragraph-count {
+  color: var(--text-faint);
+  font-size: var(--font-smallest);
+}
+
+.folder-card-view .fce-references-toggle,
+.folder-card-view .fce-reference-target {
+  height: auto;
+  padding: 4px 0;
+  border: none;
+  box-shadow: none;
+  background: transparent;
+  color: var(--text-accent);
+  font-size: var(--font-smallest);
+  text-align: left;
+  cursor: pointer;
+}
+
+.folder-card-view .fce-card-body.has-right-image .fce-reference-details {
+  grid-column: 1;
+  grid-row: 3;
+  min-width: 0;
+}
+
+.folder-card-view .fce-card-body.has-right-image.has-reference-preview .fce-reference-details {
+  grid-row: 2;
+}
+
+.folder-card-view .fce-card-body.has-right-image.has-reference-details .fce-card-task-footer {
+  grid-row: auto;
+}
+
+/* === preview === */
+.folder-card-view .fce-excerpt {
+  margin: 0;
+  color: var(--fce-text);
+  font-size: var(--fce-preview-font-size);
+  line-height: var(--fce-preview-line-height);
+  max-block-size: calc(var(--fce-preview-line-clamp) * 1em * var(--fce-preview-line-height));
+  border-radius: var(--radius-s);
+  overflow: hidden;
+}
+
+.folder-card-view .fce-preview-empty {
+  margin: 0;
+  color: var(--fce-text-muted);
+}
+
+.folder-card-view .fce-excerpt.is-search {
+  display: block;
+  max-block-size: calc(var(--fce-preview-line-clamp) * 1em * var(--fce-preview-line-height) + var(--fce-preview-divider-count, 0) * (2 * var(--fce-preview-context-spacing) + 1px));
+}
+
+.folder-card-view .fce-preview-context-divider {
+  flex: 0 0 auto;
+  height: 1px;
+  margin-block: var(--fce-preview-context-spacing);
+  background: var(--fce-border);
+  pointer-events: none;
+}
+
+.folder-card-view .fce-search-snippet {
+  display: block;
+  width: 100%;
+  height: calc(2em * var(--fce-preview-line-height));
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+  text-align: start;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.folder-card-view .fce-search-snippet:hover,
+.folder-card-view .fce-search-snippet:focus-visible {
+  background: var(--background-modifier-hover);
+}
+
+.folder-card-view .fce-reference-snippet.is-opening {
+  height: auto;
+}
+
+.folder-card-view .fce-search-snippet-text {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.folder-card-view .fce-search-snippet-layout {
+  display: flex;
+  gap: 0.35em;
+  align-items: flex-start;
+}
+
+.folder-card-view .fce-search-snippet-layout > .fce-preview-list-marker {
+  max-inline-size: 30%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.folder-card-view .fce-search-snippet-text.is-code {
+  white-space: pre-wrap;
+  background: var(--fce-surface-alt);
+  border-radius: var(--radius-s);
+}
+
+.folder-card-view .fce-search-snippet-text.is-code code {
+  padding: 0;
+  background: transparent;
+}
+
+.folder-card-view .fce-excerpt.is-empty,
+.folder-card-view .fce-excerpt.is-loading {
+  display: flex;
+  align-items: flex-start;
+}
+
+.folder-card-view .fce-excerpt p {
+  margin: 0;
+}
+
+.folder-card-view .fce-excerpt .fce-preview-list-item {
+  display: flex;
+  gap: 0.35em;
+  align-items: flex-start;
+  line-height: inherit;
+}
+
+.folder-card-view .fce-excerpt .fce-preview-list-marker {
+  flex: 0 0 auto;
+  white-space: pre;
+}
+
+.folder-card-view .fce-excerpt .fce-preview-list-content {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+}
+
+/* Open and done share this box. `1lh` needs the inherited preview line-height
+   so the box centers on the first text line instead of sitting on the glyph box. */
+.folder-card-view .fce-excerpt .fce-preview-task {
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  inline-size: 0.92em;
+  block-size: 0.92em;
+  border-radius: 2px;
+  margin-block-start: calc((1lh - 0.92em) / 2);
+  overflow: hidden;
+  border: 1.5px solid var(--fce-text-muted);
+  background: transparent;
+  line-height: inherit;
+  color: var(--fce-text-muted);
+}
+
+.folder-card-view .fce-excerpt .fce-preview-task-done {
+  border-color: var(--fce-accent);
+  background: var(--fce-accent);
+}
+
+.folder-card-view .fce-excerpt .fce-preview-task-done::after {
+  content: "";
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  width: 0.22em;
+  height: 0.42em;
+  border-style: solid;
+  border-color: var(--text-on-accent, var(--background-primary));
+  border-width: 0 0.12em 0.12em 0;
+  transform: translate(-50%, -65%) rotate(45deg);
+}
+
+.folder-card-view .fce-excerpt .fce-preview-task-glyph {
+  font-size: 0.68em;
+  line-height: 1;
+}
+
+.folder-card-view .fce-excerpt .fce-preview-heading {
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: 600;
+}
+
+.folder-card-view .fce-excerpt .fce-preview-link {
+  color: var(--link-color, var(--interactive-accent));
+  text-decoration: underline;
+}
+
+.folder-card-view .fce-excerpt code {
+  padding: 0 3px;
+  border-radius: 4px;
+  font-family: var(--font-monospace);
+  font-size: 0.96em;
+  line-height: inherit;
+  background: var(--fce-surface-alt);
+}
+
+.folder-card-view .fce-excerpt .fce-preview-code {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-s);
+  background: var(--fce-surface-alt);
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.folder-card-view .fce-excerpt .fce-preview-code code {
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.folder-card-view .fce-excerpt.is-code {
+  font-size: var(--fce-preview-font-size);
+  line-height: var(--fce-preview-line-height);
+}
+
+/* === modal === */
+.menu.fce-card-context-menu {
+  min-width: 220px;
+}
+
+.menu.fce-card-drag-insert-menu,
+.menu.fce-card-drag-heading-menu {
+  min-width: 220px;
+}
+
+.menu.fce-card-drag-heading-menu .menu-item-icon {
+  margin-inline-start: calc(var(--fce-heading-depth, 0) * var(--size-4-4, 16px));
+}
+
+.menu.fce-card-context-menu .menu-item.fce-menu-item-danger,
+.menu.fce-card-context-menu .menu-item.fce-menu-item-danger .menu-item-title,
+.menu.fce-card-context-menu .menu-item.fce-menu-item-danger .menu-item-icon {
+  color: var(--text-error, #c0392b);
+}
+
+/* === sort & group menu (Obsidian DOM menu) === */
+/* DOM menus attach to the document body, so these rules must rely on core
+   Obsidian variables instead of the .folder-card-view-scoped --fce-* tokens. */
+.menu.fce-sort-group-menu {
+  min-width: 200px;
+}
+
+.menu.fce-sort-group-menu .menu-item.fce-menu-section-title,
+.menu.fce-sort-group-menu .menu-item.fce-menu-section-title .menu-item-title,
+.menu.fce-sort-group-menu .menu-item.fce-menu-section-title .menu-item-icon {
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller, 12px);
+  opacity: 1;
+}
+
+.menu.fce-sort-group-menu .menu-item.fce-menu-section-title {
+  pointer-events: none;
+  cursor: default;
+}
+
+/* === toolbar === */
+.fce-filter-menu {
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+/* === modal === */
+/* Modals mount on document.body, outside .folder-card-view, so only core Obsidian variables apply. */
+.fce-compat-modal__footer {
+  display: flex;
+  flex-shrink: 0;
+  justify-content: flex-end;
+  gap: var(--size-4-2);
+  padding-top: var(--size-4-4);
+}
+
+.fce-compat-modal.mod-scrollable-content {
+  display: flex;
+  flex-direction: column;
+  max-height: var(--dialog-max-height);
+}
+
+.fce-compat-modal.mod-scrollable-content .modal-content {
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.fce-modal-preview-row {
+  display: block;
+}
+
+.fce-box-name__preview {
+  margin: 0 0 var(--size-4-2);
+  color: var(--text-muted);
+  font-size: var(--font-ui-small);
+}
+
+.fce-box-config__rule-missing .setting-item-description {
+  color: var(--text-error);
+}
+
+.fce-modal-preview {
+  max-height: 240px;
+  overflow: auto;
+  padding: var(--setting-items-padding-y) var(--setting-items-padding-x);
+  color: var(--text-muted);
+  font-family: var(--font-monospace);
+  font-size: var(--font-smaller);
+  line-height: var(--line-height-normal);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  user-select: text;
+}
+
+.fce-modal-preview.is-error {
+  color: var(--text-error);
+}
+
+.fce-modal-intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-2-2);
+  margin-bottom: var(--size-4-3);
+  color: var(--text-muted);
+  font-size: var(--font-ui-small);
+  line-height: var(--line-height-normal);
+}
+
+.fce-modal-intro__summary {
+  color: var(--text-normal);
+  font-weight: var(--font-medium);
+}
+
+.fce-property-picker__search {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding-block: var(--size-4-2) var(--size-4-3);
+  background-color: var(--modal-background);
+}
+
+.fce-property-picker__search .setting-item-info {
+  display: none;
+}
+
+.fce-property-picker__search .search-input-container {
+  width: 100%;
+}
+
+.fce-property-picker__warning .setting-item-name {
+  color: var(--text-warning);
+}
+
+.fce-property-picker__unavailable .setting-item-name {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ---------------------------------------------------------------------------
+ * Favorites manual drag reorder (favorites nav section only)
+ * ------------------------------------------------------------------------- */
+
+.folder-card-view .fce-nav-tree .fce-tree-row.is-folder-dragging,
+.folder-card-view .fce-nav-tree .fce-tree-row.is-favorite-dragging,
+.folder-card-view .fce-nav-tree .fce-tree-row.is-navigation-dragging {
+  opacity: 0.45;
+}
+
+.folder-card-view .fce-nav-tree .fce-tree-row.is-drop-before {
+  box-shadow: inset 0 2px 0 0 var(--fce-accent);
+}
+
+.folder-card-view .fce-nav-tree .fce-tree-row.is-drop-after {
+  box-shadow: inset 0 -2px 0 0 var(--fce-accent);
+}
+
+.folder-card-view .fce-card-body.has-right-image { display: grid; grid-template-columns: minmax(0, 1fr) 88px; align-content: start; gap: var(--fce-card-gap) 10px; }
+.folder-card-view .fce-card-body.has-right-image .fce-card-header { grid-column: 1 / -1; grid-row: 1; }
+.folder-card-view .fce-card-body.has-right-image .fce-excerpt { grid-column: 1; grid-row: 2; min-width: 0; }
+.folder-card-view .fce-card-body.has-right-image .fce-card-image { grid-column: 2; grid-row: 2; }
+.folder-card-view .fce-card-body.has-right-image .fce-card-task-footer { grid-column: 1 / -1; grid-row: 3; }
+.folder-card-view .fce-card-image {
+  width: 88px; height: 88px; flex: 0 0 88px; overflow: hidden;
+  border-radius: 6px; background: var(--background-secondary); position: relative;
+}
+.folder-card-view .fce-card-image.is-inline { width: 100%; height: 160px; flex: none; }
+.folder-card-view .fce-card-image img { width: 100%; height: 100%; display: block; object-fit: contain; -webkit-user-drag: none; opacity: 0; }
+.folder-card-view .fce-card-image img.is-loaded { opacity: 1; }
+.folder-card-view .fce-card-image img.is-revealing { animation: fce-card-image-reveal 240ms ease-out; }
+@keyframes fce-card-image-reveal { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .folder-card-view .fce-card-image img.is-revealing { animation: none; }
+}
+.folder-card-view .fce-card-image.is-cover img { object-fit: cover; }
+.folder-card-view .fce-card-image-placeholder { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--text-faint); }
+.folder-card-view .fce-card-image-placeholder svg { width: 20px; height: 20px; }
+.folder-card-view .fce-card-image.is-missing-export { height: auto; background: none; }
+.folder-card-view .fce-card-image.is-missing-export .fce-diagram-message {
+  position: static;
+  display: block;
+  padding: 0;
+  color: var(--fce-text);
+  font-size: var(--fce-preview-font-size);
+  line-height: var(--fce-preview-line-height);
+  text-align: start;
+  overflow-wrap: anywhere;
+}
+
+.folder-card-view .fce-nav-tree .fce-tree-row.is-drop-inside {
+  background: var(--background-modifier-hover);
+  box-shadow: inset 0 0 0 2px var(--fce-accent);
+}
+
+/* Navigation visibility draft manager */
+.fce-navigation-visibility__search {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding-block: var(--size-4-2) var(--size-4-3);
+  background-color: var(--modal-background);
+}
+.fce-navigation-visibility__search .setting-item-info { display: none; }
+.fce-navigation-visibility__search .search-input-container { width: 100%; }
+.fce-navigation-visibility__list .setting-item-name { overflow-wrap: anywhere; }
+.fce-navigation-visibility__error { color: var(--text-error); }
+
+.fce-navigation-visibility__actions .setting-item-info { display: none; }
+.fce-navigation-visibility__actions .setting-item-control { flex-wrap: wrap; }
+
+/* --- bulk tags / properties --- */
+.fce-bulk-metadata-modal {
+  --dialog-width: 600px;
+}
+
+.fce-bulk-metadata-notice {
+  margin-bottom: var(--size-4-3);
+  padding: var(--size-4-2) var(--size-4-3);
+  border-left: 3px solid rgb(var(--color-orange-rgb));
+  border-radius: var(--radius-s);
+  background-color: rgba(var(--color-orange-rgb), 0.1);
+  font-size: var(--font-ui-small);
+  line-height: var(--line-height-normal);
+}
+
+/* Rows below carry their own group heading or placeholders, so the name column is dropped. */
+.fce-bulk-metadata-modal :is(.fce-metadata-picker, .fce-property-edit-row, .fce-property-add-row) {
+  flex-wrap: wrap;
+  gap: var(--size-4-2);
+}
+
+.fce-bulk-metadata-modal :is(.fce-metadata-picker, .fce-property-edit-row, .fce-property-add-row) > .setting-item-info {
+  display: none;
+}
+
+.fce-bulk-metadata-modal :is(.fce-metadata-picker, .fce-property-edit-row, .fce-property-add-row) > .setting-item-control {
+  flex: 1 1 100%;
+  justify-content: flex-start;
+  gap: var(--size-4-2);
+  min-width: 0;
+}
+
+.fce-bulk-metadata-modal :is(.fce-metadata-picker, .fce-property-edit-row) > .setting-item-control > input,
+.fce-bulk-metadata-modal .fce-property-value-editor > input,
+.fce-bulk-metadata-modal .fce-property-value-line > input {
+  flex: 1 1 auto;
+  width: auto;
+  min-width: 0;
+}
+
+.fce-bulk-metadata-modal button.clickable-icon:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.fce-bulk-metadata-modal .fce-property-value-editor {
+  display: flex;
+  flex: 1 1 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--size-4-2);
+  min-width: 0;
+}
+
+.fce-bulk-metadata-modal .fce-property-value-line {
+  display: flex;
+  flex: 1 1 100%;
+  align-items: center;
+  gap: var(--size-4-2);
+  min-width: 0;
+}
+
+.fce-property-value-label {
+  color: var(--text-muted);
+  font-size: var(--font-ui-small);
+}
+
+.fce-bulk-metadata-modal .fce-property-add {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--size-4-1);
+  padding: var(--size-2-2) var(--size-4-2);
+  background-color: transparent;
+  box-shadow: none;
+  color: var(--text-muted);
+}
+
+.fce-bulk-metadata-modal .fce-property-add:hover:not(:disabled) {
+  background-color: var(--background-modifier-hover);
+  color: var(--text-normal);
+}
+
+.fce-property-add__icon {
+  display: inline-flex;
+  --icon-size: var(--icon-s);
+}
+
+.fce-bulk-metadata-modal .fce-metadata-chips {
+  display: flex;
+  flex: 1 1 100%;
+  flex-wrap: wrap;
+  gap: var(--size-4-1) var(--size-4-2);
+  min-width: 0;
+}
+
+.fce-bulk-metadata-modal .fce-metadata-chips:empty {
+  display: none;
+}
+
+.fce-bulk-metadata-modal .fce-metadata-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--size-2-1);
+  max-width: 100%;
+  height: auto;
+  min-height: 24px;
+  padding: var(--size-2-1) var(--size-2-2) var(--size-2-1) var(--size-4-2);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 999px;
+  background-color: var(--background-secondary);
+  box-shadow: none;
+  color: var(--text-normal);
+  font-size: var(--font-ui-small);
+  cursor: pointer;
+}
+
+.fce-bulk-metadata-modal .fce-metadata-chip:hover:not(:disabled) {
+  background-color: var(--background-modifier-hover);
+}
+
+.fce-metadata-chip__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fce-metadata-chip__remove {
+  display: inline-flex;
+  color: var(--text-faint);
+  --icon-size: 12px;
+}
+
+.fce-metadata-chip:hover .fce-metadata-chip__remove {
+  color: var(--text-normal);
+}
+
+.fce-bulk-metadata-modal .fce-metadata-chips.mod-add .fce-metadata-chip {
+  border-color: transparent;
+  background-color: var(--tag-background);
+  color: var(--tag-color);
+}
+
+.fce-bulk-metadata-modal .fce-metadata-chips.mod-remove .fce-metadata-chip {
+  border-color: rgba(var(--color-red-rgb), 0.25);
+  background-color: rgba(var(--color-red-rgb), 0.08);
+  color: var(--text-error);
+}
+
+.fce-metadata-chips.mod-remove .fce-metadata-chip__label {
+  text-decoration: line-through;
+}
+
+.fce-bulk-metadata-feedback > :empty {
+  display: none;
+}
+
+.fce-bulk-metadata-validation,
+.fce-bulk-metadata-result {
+  margin-top: var(--size-4-3);
+  font-size: var(--font-ui-small);
+  line-height: var(--line-height-normal);
+}
+
+.fce-bulk-metadata-validation {
+  color: var(--text-muted);
+}
+
+.fce-bulk-metadata-result {
+  padding: var(--size-4-2) var(--size-4-3);
+  border-radius: var(--radius-s);
+  background-color: rgba(var(--color-green-rgb), 0.1);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  user-select: text;
+}
+
+.fce-bulk-metadata-result.is-error {
+  background-color: rgba(var(--color-red-rgb), 0.1);
+  color: var(--text-error);
+}
+
+.folder-card-view .fce-diagram-message { padding: 16px; text-align: center; color: var(--text-muted); }
+.folder-card-view .fce-diagram-truncated { position: absolute; bottom: 0; left: 0; right: 0; padding: 2px 6px; font-size: var(--font-smallest); color: var(--text-muted); background: var(--background-primary); text-align: center; }
+
+/* Keep a new template's editable title visible even when the host hides inline titles. */
+body:not(.show-inline-title) .inline-title.fce-template-title-entry { display: block; }
+.fce-nav-projected-row.is-template.is-unavailable .fce-tree-label { opacity: 0.55; }
+/* These documents contain only the plugin's card, never workspace chrome. */
+html.fce-quick-input-window:root,
+html.fce-quick-input-window:root > body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+html.fce-quick-input-window:root > body::before,
+html.fce-quick-input-window:root > body::after { display: none; }
+/* Shared by the draft card and native prompts layered over it. */
+html.fce-quick-input-window:root > body {
+  --fce-quick-input-radius: max(24px, calc(var(--input-height, 32px) / 2), var(--radius-l, 12px));
+}
+html.fce-quick-input-window:root > body[data-quick-input-radius="compact"] {
+  --fce-quick-input-radius: 8px;
+}
+html.fce-quick-input-window:root > body[data-quick-input-radius="medium"] {
+  --fce-quick-input-radius: 16px;
+}
+/* Native prompts cover the whole transparent window: clip their backdrop to the card and fit the prompt inside it. */
+html.fce-quick-input-window:root > body > .modal-container {
+  border-radius: var(--fce-quick-input-radius);
+  overflow: hidden;
+}
+html.fce-quick-input-window .modal-container .prompt {
+  --prompt-max-width: calc(100vw - 32px);
+  --prompt-max-height: calc(100vh - 48px);
+}
+html.fce-quick-input-window .modal-container .modal {
+  max-width: calc(100vw - 32px);
+  max-height: calc(100vh - 32px);
+}
+.fce-quick-input-resize { position: absolute; z-index: 1; -webkit-app-region: no-drag; }
+.fce-quick-input-resize[data-edge="n"], .fce-quick-input-resize[data-edge="s"] { left: 14px; right: 14px; height: 5px; cursor: ns-resize; }
+.fce-quick-input-resize[data-edge="e"], .fce-quick-input-resize[data-edge="w"] { top: 14px; bottom: 14px; width: 5px; cursor: ew-resize; }
+.fce-quick-input-resize[data-edge="n"] { top: 0; }
+.fce-quick-input-resize[data-edge="s"] { bottom: 0; }
+.fce-quick-input-resize[data-edge="e"] { right: 0; }
+.fce-quick-input-resize[data-edge="w"] { left: 0; }
+.fce-quick-input-resize:is([data-edge="ne"], [data-edge="nw"], [data-edge="se"], [data-edge="sw"]) { width: 14px; height: 14px; }
+.fce-quick-input-resize[data-edge="ne"] { top: 0; right: 0; cursor: nesw-resize; }
+.fce-quick-input-resize[data-edge="nw"] { top: 0; left: 0; cursor: nwse-resize; }
+.fce-quick-input-resize[data-edge="se"] { bottom: 0; right: 0; cursor: nwse-resize; }
+.fce-quick-input-resize[data-edge="sw"] { bottom: 0; left: 0; cursor: nesw-resize; }
+.fce-shortcut-status { flex-basis: 100%; color: var(--text-muted); font-size: var(--font-ui-small); }
+.setting-item.fce-shortcut-setting { flex-wrap: wrap; }
+.fce-quick-input {
+  --fce-quick-input-tint: var(--interactive-accent);
+  --fce-quick-input-frame: 5px;
+  --fce-quick-input-border: color-mix(in srgb, var(--fce-quick-input-tint) 28%, var(--background-modifier-border));
+  --fce-quick-input-send-background: var(--fce-quick-input-border);
+  --fce-quick-input-send-color: color-mix(in srgb, var(--fce-quick-input-tint) 8%, var(--text-normal));
+  --fce-quick-input-send-border: color-mix(in srgb, var(--fce-quick-input-tint) 55%, var(--background-modifier-border));
+  width: 100%;
+  height: 100%;
+  pointer-events: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 0 var(--fce-quick-input-frame);
+  /* CSS owns the sole contour; the native window is transparent and unframed. */
+  border: 0;
+  border-radius: var(--fce-quick-input-radius);
+  overflow: hidden;
+  background: color-mix(in srgb, var(--fce-quick-input-tint) 12%, var(--background-secondary));
+  color: var(--text-normal);
+  box-shadow: inset 0 0 0 1px var(--fce-quick-input-border);
+}
+.fce-quick-input[data-color="primary"],
+.fce-quick-input[data-color="secondary"] {
+  background: var(--fce-quick-input-tint);
+}
+/* Choose black or white from the fill's linear-sRGB luminance, independently of theme colors. */
+@supports (color: color(from white srgb-linear round(up, r, 1) g b)) {
+  .fce-quick-input {
+    --fce-quick-input-send-contrast: round(up, max(0, calc(0.179 - (r * 0.2126 + g * 0.7152 + b * 0.0722))), 1);
+    --fce-quick-input-send-color: color(from var(--fce-quick-input-send-background) srgb-linear var(--fce-quick-input-send-contrast) var(--fce-quick-input-send-contrast) var(--fce-quick-input-send-contrast) / 1);
+  }
+}
+.fce-quick-input-grip {
+  flex: 0 0 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-faint);
+  position: relative;
+  -webkit-app-region: no-drag;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+.fce-quick-input-grip svg { width: 16px; height: 16px; }
+.fce-quick-input-grip:hover { color: var(--text-muted); }
+.fce-quick-input-grip.is-dragging { cursor: grabbing; }
+.fce-quick-input-grip-icon { position: absolute; left: calc(50% - 8px); display: flex; }
+.fce-quick-input-editor, .fce-quick-input-footer { -webkit-app-region: no-drag; }
+.fce-quick-input-editor {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--background-primary);
+  border-radius: calc(var(--fce-quick-input-radius) - var(--fce-quick-input-frame));
+}
+.fce-quick-input-editor .markdown-source-view { flex: 1; min-height: 0; height: 100%; --file-margins: 10px 12px; }
+.fce-quick-input-properties {
+  font-family: var(--font-interface);
+  font-size: var(--font-ui-small);
+  /* Native widgets use paint containment; allow the property hover/focus rings. */
+  overflow-clip-margin: 2px;
+}
+.fce-quick-input-properties .metadata-properties-heading {
+  display: grid;
+  grid-template-columns: calc(var(--size-4-1) + var(--icon-size)) minmax(0, 1fr);
+  align-items: center;
+  padding: 0;
+}
+.fce-quick-input-properties .metadata-properties-heading::before { pointer-events: none; }
+.fce-quick-input-properties .metadata-properties-heading .collapse-indicator {
+  position: static;
+  opacity: 1;
+  justify-content: center;
+  padding: 0;
+  padding-inline-start: var(--size-4-1);
+  margin: 0;
+}
+.fce-quick-input-properties .metadata-properties-title { padding: var(--metadata-input-padding); }
+.fce-quick-input-properties[aria-disabled="true"] { opacity: 0.65; pointer-events: none; }
+.fce-quick-input-editor .cm-editor { height: 100%; }
+.fce-quick-input-editor .cm-scroller { overflow: auto; padding: 10px 12px; }
+.fce-quick-input-editor .cm-sizer { max-width: none; margin: 0; }
+/* One row at every window width: the folder name truncates first, then the send label. */
+.fce-quick-input-footer {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  box-sizing: border-box;
+  min-height: 40px;
+  padding: 6px 6px 6px 4px;
+  container-type: inline-size;
+}
+@container (max-width: 380px) {
+  .fce-quick-input-footer .fce-quick-input-send-label { display: none; }
+}
+.fce-quick-input-footer button {
+  margin: 0;
+  flex: none;
+  border-radius: var(--fce-quick-input-radius);
+  box-shadow: none;
+}
+.fce-quick-input-footer .fce-quick-input-pin {
+  --icon-size: 16px;
+  padding: 4px;
+  height: auto;
+  border: 0;
+  border-radius: var(--radius-s);
+  box-shadow: none;
+}
+.fce-quick-input-pin[aria-pressed="true"] { color: var(--interactive-accent); }
+/* Tint the primary action more strongly than the surrounding frame. */
+.fce-quick-input-footer button.mod-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--fce-quick-input-send-color);
+  background: var(--fce-quick-input-send-background);
+  border: 1px solid var(--fce-quick-input-send-border);
+}
+.fce-quick-input-footer button.mod-cta:hover:not(:disabled) {
+  color: var(--fce-quick-input-send-color);
+  background: var(--fce-quick-input-send-background);
+  border-color: var(--fce-quick-input-tint);
+}
+.fce-quick-input-footer button.mod-cta:disabled {
+  color: var(--fce-quick-input-send-color);
+  background: var(--fce-quick-input-send-background);
+  opacity: 0.65;
+}
+.fce-quick-input-footer button.mod-cta > span,
+.fce-quick-input-send-icon svg { color: inherit; }
+.fce-quick-input-send-icon { display: inline-flex; align-items: center; }
+
+/* File type remains identifiable when a thumbnail is disabled or unavailable. */
+.folder-card-view .fce-card-extension {
+  flex: 0 0 auto;
+  color: var(--text-muted);
+  font-size: 0.75em;
+  font-weight: 600;
+}
+
+/* Draft controls share the editor scrollport and retain the theme's title typography at a compact size. */
+.fce-quick-input-window .fce-quick-input .fce-quick-input-title.inline-title {
+  display: block;
+  width: 100%;
+  height: auto;
+  padding: 0;
+  margin: 0 0 8px;
+  color: var(--inline-title-color);
+  font-family: var(--inline-title-font);
+  font-size: var(--h3-size);
+  font-weight: var(--inline-title-weight);
+  font-style: var(--inline-title-style);
+  line-height: var(--h3-line-height, var(--line-height-tight));
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.fce-quick-input-window .fce-quick-input .fce-quick-input-title.inline-title::placeholder { color: var(--text-faint); }
+:root .fce-quick-input [hidden] { display: none; }
+.fce-quick-input-footer .fce-quick-input-folder,
+.fce-quick-input-footer .fce-quick-input-boxes {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  flex: 0 1 auto;
+}
+.fce-quick-input-footer .fce-quick-input-folder { max-width: min(200px, 45%); }
+.fce-quick-input-footer .fce-quick-input-boxes { flex: none; }
+.fce-quick-input-footer .fce-quick-input-folder > svg,
+.fce-quick-input-footer .fce-quick-input-boxes > svg { flex: none; }
+.fce-quick-input-footer .fce-quick-input-folder.is-invalid { color: var(--text-error); }
+.fce-quick-input-choice-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fce-quick-input-choice-count {
+  min-width: 16px;
+  padding: 0 4px;
+  box-sizing: border-box;
+  border-radius: var(--radius-s);
+  background: var(--background-modifier-hover);
+  color: var(--text-normal);
+  font-size: var(--font-ui-smaller);
+  line-height: 16px;
+  text-align: center;
+}
+.fce-quick-input-actions { display: flex; flex: none; gap: 8px; margin-left: auto; }
+/* Prompt rows keep a fixed check column so names stay left-aligned. */
+.fce-quick-input-choice-row { display: flex; gap: 8px; align-items: center; }
+.fce-quick-input-choice-row .fce-quick-input-choice-name { flex: 1 1 auto; min-width: 0; }
+.fce-quick-input-choice-check { display: inline-flex; flex: 0 0 16px; }
+.fce-quick-input-choice-check svg { width: 16px; height: 16px; }
+/* Device policy stays fixed; container width alone controls tablet pane layout. */
+.folder-card-view .fce-shell[data-fce-device="phone"],
+.folder-card-view .fce-shell[data-fce-device="tablet"] {
+  min-width: 0;
+  max-height: var(--fce-region-height, 100%);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  padding-inline: env(safe-area-inset-left, 0px) env(safe-area-inset-right, 0px);
+  --fce-card-min-width: 240px;
+}
+.folder-card-view .fce-shell[data-fce-device="phone"] .fce-wall-row-grid { grid-template-columns: minmax(0, 1fr); }
+.folder-card-view .fce-shell[data-fce-device="phone"] .fce-main-pane,
+.folder-card-view .fce-shell[data-fce-device="tablet"] .fce-main-pane { display: flex; min-width: 0; }
+.folder-card-view .fce-shell[data-fce-device="phone"] .fce-toolbar,
+.folder-card-view .fce-shell[data-fce-device="tablet"] .fce-toolbar { flex-wrap: wrap; min-width: 0; }
+.folder-card-view .fce-shell[data-fce-device="phone"] .fce-toolbar > *,
+.folder-card-view .fce-shell[data-fce-device="tablet"] .fce-toolbar > * { max-width: 100%; min-width: 0; }
+/* Phones show the scope in the host view header instead. */
+.folder-card-view .fce-shell[data-fce-device="phone"] .fce-toolbar-scope { display: none; }
+.folder-card-view .fce-shell[data-fce-device="phone"] .fce-toolbar-actions { margin-inline-start: auto; }
+.folder-card-view .fce-shell[data-fce-device="phone"] :is(button, input, select),
+.folder-card-view .fce-shell[data-fce-device="tablet"] :is(button, input, select),
+.folder-card-view .fce-shell[data-fce-device="tablet"] .fce-tree-row,
+.fce-mobile-navigation button { min-height: 44px; min-width: 44px; }
+/* Phone tree rows stay compact; in-row actions keep their painted slot and extend the
+ * touch target to the full row height invisibly instead of inflating every row. */
+.folder-card-view.fce-mobile-navigation {
+  --fce-nav-row-height: 36px;
+  --fce-nav-section-height: 36px;
+  --fce-nav-action-slot: 28px;
+}
+.fce-mobile-navigation .fce-nav-tree .fce-nav-row-actions > * { position: relative; min-width: 0; min-height: 0; }
+.fce-mobile-navigation .fce-nav-tree .fce-nav-row-actions > *::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  inset-block: calc((var(--fce-nav-row-height) - var(--fce-nav-action-slot)) / -2);
+}
+.folder-card-view .fce-shell[data-fce-device="phone"] :is(input, textarea),
+.folder-card-view .fce-shell[data-fce-device="tablet"] :is(input, textarea),
+.fce-mobile-navigation input,
+.fce-mobile-quick-input :is(input, textarea, .cm-content) { font-size: max(16px, var(--font-text-size)); }
+.folder-card-view .fce-shell[data-fce-device="phone"] .fce-more-actions-btn,
+.folder-card-view .fce-shell[data-fce-device="tablet"] .fce-more-actions-btn,
+.folder-card-view .fce-shell[data-fce-device="tablet"] .fce-nav-row-more,
+.fce-mobile-navigation .fce-nav-row-more { opacity: 1; visibility: visible; }
+/* The pane paints the whole drawer, as the sidebar does on desktop; host Modal padding and
+ * its empty title bar would otherwise frame it in the modal background. */
+.modal-container > .fce-mobile-navigation.modal {
+  width: min(90vw, 360px); height: 100dvh;
+  max-height: 100dvh; margin-inline-start: 0; margin-inline-end: auto;
+  align-self: stretch; border: 0; border-radius: 0;
+  padding: var(--safe-area-inset-top, env(safe-area-inset-top, 0px)) 0 var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px)) var(--safe-area-inset-left, env(safe-area-inset-left, 0px));
+  background: var(--fce-nav-bg);
+}
+.fce-mobile-navigation.modal > :is(.modal-header-button, .modal-close-button, .modal-header, .modal-title) { display: none; }
+.fce-mobile-navigation.modal > .modal-content { display: flex; flex: 1; min-height: 0; margin: 0; padding: 0; overflow: hidden; }
+.fce-mobile-navigation .fce-nav-pane { display: flex; width: 100%; min-width: 0; flex: 1; }
+.fce-mobile-navigation .fce-nav-resize-handle { display: none; }
+/* Obsidian Android draws under the status bar and exposes insets as variables; env() is the iOS fallback. */
+.fce-mobile-quick-input.modal {
+  --fce-quick-input-radius: var(--radius-m, 8px);
+  --fce-mobile-safe-top: var(--safe-area-inset-top, env(safe-area-inset-top, 0px));
+  --fce-mobile-safe-right: var(--safe-area-inset-right, env(safe-area-inset-right, 0px));
+  --fce-mobile-safe-bottom: var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px));
+  --fce-mobile-safe-left: var(--safe-area-inset-left, env(safe-area-inset-left, 0px));
+  position: fixed; left: 50%; transform: translateX(-50%);
+  top: calc(var(--fce-viewport-top, 0px) + max(0px, (var(--fce-viewport-height, 100dvh) - 640px) / 2));
+  width: min(720px, 96vw); height: min(640px, var(--fce-viewport-height, 90dvh)); max-height: var(--fce-viewport-height, 90dvh);
+  display: flex; flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+  background: var(--background-primary);
+}
+.fce-mobile-quick-input.is-phone.modal {
+  top: var(--fce-viewport-top, 0px); left: 0; transform: none;
+  width: 100vw; max-width: 100vw; height: var(--fce-viewport-height, 100dvh); border: 0; border-radius: 0;
+  padding: var(--fce-mobile-safe-top) var(--fce-mobile-safe-right) 0 var(--fce-mobile-safe-left);
+}
+/* The plugin header replaces the host title and close button, which overlap the status bar on phones. */
+.fce-mobile-quick-input.modal > :is(.modal-header-button, .modal-close-button, .modal-header, .modal-title) { display: none; }
+.fce-mobile-quick-input .modal-content { display: flex; flex-direction: column; flex: 1; min-height: 0; margin: 0; padding: 0; overflow: hidden; }
+.fce-mobile-quick-input-body { display: flex; flex-direction: column; flex: 1; min-height: 0; }
+.fce-mobile-quick-input-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  flex: none;
+  min-height: 52px;
+  padding: 4px 12px 4px 4px;
+  border-bottom: 1px solid var(--background-modifier-border);
+  background: var(--background-primary);
+}
+.fce-mobile-quick-input-heading {
+  overflow: hidden;
+  color: var(--text-normal);
+  font-size: var(--font-ui-medium, 15px);
+  font-weight: var(--font-semibold, 600);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.fce-mobile-quick-input .fce-quick-input-cancel {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  color: var(--text-muted);
+  --icon-size: 20px;
+}
+.fce-mobile-quick-input .fce-quick-input-send {
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  height: 36px;
+  margin: 0;
+  padding: 0 16px;
+  border-radius: 18px;
+  box-shadow: none;
+  font-weight: var(--font-semibold, 600);
+  white-space: nowrap;
+  --icon-size: 16px;
+}
+.fce-mobile-quick-input .fce-quick-input-send:disabled {
+  background: var(--interactive-normal);
+  color: var(--text-faint);
+  opacity: 1;
+  cursor: default;
+}
+.fce-mobile-quick-input .fce-quick-input-send-label { overflow: hidden; text-overflow: ellipsis; }
+.fce-mobile-quick-input .fce-quick-input-editor {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  border-radius: 0;
+  background: var(--background-primary);
+}
+.fce-mobile-quick-input .fce-quick-input-editor .cm-scroller { padding: 16px 16px 24px; }
+.fce-mobile-quick-input .fce-quick-input-editor > .fce-quick-input-title.inline-title { padding: 16px 16px 0; box-sizing: border-box; }
+.fce-mobile-quick-input .fce-quick-input-footer {
+  flex: none;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 4px;
+  min-height: 0;
+  padding: 4px 8px max(4px, var(--fce-mobile-safe-bottom));
+  border-top: 1px solid var(--background-modifier-border);
+  background: var(--background-secondary);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.fce-mobile-quick-input .fce-quick-input-footer::-webkit-scrollbar { display: none; }
+.fce-mobile-quick-input .fce-quick-input-footer button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 44px;
+  height: 44px;
+  padding: 0 10px;
+  border-radius: var(--radius-m, 8px);
+  background: transparent;
+  box-shadow: none;
+  color: var(--text-muted);
+  --icon-size: 20px;
+}
+.fce-mobile-quick-input .fce-quick-input-footer button:disabled { opacity: 0.4; }
+.fce-mobile-quick-input .fce-quick-input-footer .fce-quick-input-folder {
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: min(60%, 260px);
+  height: 36px;
+  margin-inline-end: 4px;
+  padding: 0 12px;
+  border-radius: 18px;
+  background: var(--background-modifier-hover);
+  color: var(--text-normal);
+  font-size: var(--font-ui-small, 13px);
+  --icon-size: 16px;
+}
+.fce-mobile-quick-input .fce-quick-input-footer .fce-quick-input-folder.is-invalid { color: var(--text-error); }
+:root .fce-mobile-quick-input .fce-quick-input-footer [hidden] { display: none; }
+.fce-mobile-draft-source {
+  flex: 1;
+  width: 100%;
+  min-height: 100px;
+  padding: 8px 16px 24px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  resize: none;
+}
+.fce-mobile-draft-source:focus { box-shadow: none; }
+.fce-copy-fallback { width: 100%; min-height: 200px; font-size: 16px; }
+body.is-mobile .fce-compat-modal { max-width: calc(100vw - 16px); max-height: 90dvh; overflow: auto; }
+body.is-mobile :is(.fce-card, .fce-tree-row) { -webkit-touch-callout: none; }
+
+.fce-mobile-quick-input .fce-quick-input-title.inline-title {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 0 12px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--inline-title-color);
+  font-family: var(--inline-title-font);
+  font-size: max(16px, var(--h3-size));
+  font-weight: var(--inline-title-weight);
+  font-style: var(--inline-title-style);
+  line-height: var(--h3-line-height, var(--line-height-tight));
+}
+.fce-mobile-quick-input .fce-quick-input-title.inline-title:focus { border: 0; box-shadow: none; outline: none; }
+.fce-mobile-quick-input .fce-quick-input-title.inline-title::placeholder { color: var(--text-faint); }
+
+/* Content icons are separate intent regions; their slot remains stable. The hover
+ * plate is a square centred on the glyph and sized from it, so navigation and card
+ * icons get the same proportion regardless of their slot shape, without shifting
+ * layout or widening the hit area into neighbouring controls. */
+.folder-card-view .fce-content-icon-button {
+  --fce-icon-plate-size: calc(var(--icon-size, 16px) + 8px);
+  position: relative;
+  isolation: isolate;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-s);
+  box-shadow: none;
+  background: transparent;
+  min-width: 0;
+  min-height: 0;
+  cursor: pointer;
+  pointer-events: auto;
+}
+.folder-card-view .fce-nav-tree .fce-tree-item-identity.fce-content-icon-button {
+  pointer-events: auto;
+}
+.folder-card-view .fce-content-icon-button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--fce-icon-plate-size);
+  height: var(--fce-icon-plate-size);
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  border-radius: var(--radius-s, 4px);
+  background: transparent;
+  pointer-events: none;
+  transition: background-color 120ms ease, box-shadow 120ms ease;
+}
+.folder-card-view .fce-content-icon-button:hover {
+  background: transparent;
+  box-shadow: none;
+}
+@media (hover: hover) {
+  .folder-card-view .fce-content-icon-button:hover::before {
+    background: var(--background-modifier-hover);
+  }
+}
+.folder-card-view .fce-content-icon-button:active::before {
+  background: var(--background-modifier-active-hover, var(--background-modifier-hover));
+}
+.folder-card-view .fce-content-icon-button:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+.folder-card-view .fce-content-icon-button:focus-visible::before {
+  box-shadow: 0 0 0 2px var(--interactive-accent);
+}
+.folder-card-view .fce-card-file-icon.fce-content-icon-button {
+  flex: 0 0 18px;
+  width: 18px;
+  height: 20px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .folder-card-view .fce-content-icon-button::before { transition: none; }
+}
+/* Touch layouts keep the icon slot size; an invisible margin supplies the touch target
+ * instead of the 44px minimum that would otherwise inflate the title row. */
+.folder-card-view .fce-shell[data-fce-device] .fce-content-icon-button,
+.fce-mobile-navigation .fce-content-icon-button {
+  min-width: 0;
+  min-height: 0;
+}
+.folder-card-view .fce-shell[data-fce-device="phone"] .fce-content-icon-button::after,
+.folder-card-view .fce-shell[data-fce-device="tablet"] .fce-content-icon-button::after,
+.fce-mobile-navigation .fce-content-icon-button::after {
+  content: "";
+  position: absolute;
+  inset: -8px -6px;
+}
+/* Expandable rows render the disclosure as a button and leaves as a span; both must keep
+ * the same track width or the identity icons of sibling rows stop lining up. */
+.folder-card-view .fce-shell[data-fce-device] .fce-nav-tree .fce-tree-item-disclosure,
+.fce-mobile-navigation .fce-nav-tree .fce-tree-item-disclosure {
+  min-width: 0;
+  min-height: 0;
+}
+.folder-card-view .fce-shell[data-fce-device] .fce-nav-tree button.fce-tree-item-disclosure::before {
+  inset-block: -14px;
+  inset-inline-start: -8px;
+}
+.fce-mobile-navigation .fce-nav-tree button.fce-tree-item-disclosure::before { inset-inline-start: -8px; }
+.fce-emoji-icon {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+  line-height: 1;
+  font-style: normal;
+  font-weight: normal;
+}
+/* Emoji glyphs fill their em box while Lucide glyphs leave a margin, so emoji are
+ * set slightly smaller than the slot to match the neighbouring icons' weight. */
+.folder-card-view .fce-nav-tree .fce-tree-item-identity.fce-emoji-icon {
+  font-size: calc(var(--fce-nav-leading-slot) * 0.9);
+}
+.folder-card-view .fce-card-file-icon.fce-emoji-icon,
+.fce-card-drag-ghost-icon.fce-emoji-icon {
+  margin-inline-start: 0;
+  opacity: 1;
+  font-size: calc(var(--icon-size, 18px) * 0.85);
+}
+.fce-icon-setting-button {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--input-height, 32px);
+  min-width: var(--input-height, 32px);
+  height: var(--input-height, 32px);
+  padding: 0;
+  line-height: 1;
+}
+.fce-icon-setting-button.fce-emoji-icon { font-size: 16px; }
+.fce-icon-setting-button.fce-icon-none {
+  color: var(--text-muted);
+  font-size: var(--font-ui-small, 13px);
+  white-space: normal;
+}
+.fce-icon-setting-reset.fce-is-hidden { display: none; }
+
+.fce-icon-picker {
+  position: fixed;
+  z-index: var(--layer-popover, 1100);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 10px 8px;
+  gap: 8px;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-l, 10px);
+  background: var(--background-primary);
+  color: var(--text-normal);
+  box-shadow: var(--shadow-l);
+  overflow: hidden;
+  outline: none;
+  font-size: var(--font-ui-small, 13px);
+  animation: fce-icon-picker-in 120ms ease-out;
+  --fce-picker-safe-top: env(safe-area-inset-top, 0px);
+  --fce-picker-safe-right: env(safe-area-inset-right, 0px);
+  --fce-picker-safe-bottom: env(safe-area-inset-bottom, 0px);
+  --fce-picker-safe-left: env(safe-area-inset-left, 0px);
+}
+/* Anchors inside a host Modal (mobile navigation, settings) need the picker above that layer. */
+.fce-icon-picker.is-above-modal { z-index: calc(var(--layer-modal, 50) + 1); }
+@keyframes fce-icon-picker-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: none; }
+}
+.fce-icon-picker.is-sheet {
+  border-width: 1px 0 0;
+  border-radius: var(--radius-l, 12px) var(--radius-l, 12px) 0 0;
+  padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+  --fce-picker-safe-bottom: 0px;
+  animation-name: fce-icon-picker-sheet-in;
+}
+@keyframes fce-icon-picker-sheet-in {
+  from { transform: translateY(24px); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fce-icon-picker { animation: none; }
+}
+:root .fce-icon-picker [hidden] { display: none; }
+
+.fce-icon-picker-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.fce-icon-picker-current {
+  display: inline-flex;
+  flex: 0 0 32px;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-m, 8px);
+  background: var(--background-secondary);
+  color: var(--text-muted);
+  --icon-size: 18px;
+}
+.fce-icon-picker-current.fce-emoji-icon { font-size: 20px; }
+.fce-icon-picker-current.fce-icon-none {
+  box-sizing: border-box;
+  border: 1px dashed var(--background-modifier-border-hover, var(--background-modifier-border));
+  background: transparent;
+}
+.fce-icon-picker-heading { flex: 1; min-width: 0; }
+.fce-icon-picker-title {
+  overflow: hidden;
+  font-weight: var(--font-semibold, 600);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.fce-icon-picker-subtitle {
+  color: var(--text-muted);
+  font-size: var(--font-smallest, 11px);
+}
+.fce-icon-picker .fce-icon-picker-close {
+  display: inline-flex;
+  flex: 0 0 28px;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+}
+
+.fce-icon-picker-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.fce-icon-picker-tabs {
+  display: inline-flex;
+  flex: 0 0 auto;
+  padding: 2px;
+  border-radius: var(--radius-m, 8px);
+  background: var(--background-modifier-hover);
+}
+.fce-icon-picker .fce-icon-picker-tab {
+  height: 26px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: calc(var(--radius-m, 8px) - 2px);
+  background: transparent;
+  box-shadow: none;
+  color: var(--text-muted);
+  font-size: var(--font-ui-small, 13px);
+  cursor: pointer;
+}
+.fce-icon-picker .fce-icon-picker-tab:hover { color: var(--text-normal); }
+.fce-icon-picker .fce-icon-picker-tab[aria-selected="true"] {
+  background: var(--background-primary);
+  box-shadow: var(--shadow-s);
+  color: var(--text-normal);
+}
+.fce-icon-picker-search {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  height: 30px;
+}
+
+.fce-icon-picker-emoji-bar {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.fce-icon-picker-groups {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  min-width: 0;
+}
+.fce-icon-picker-emoji-bar.is-choosing-tone .fce-icon-picker-groups { visibility: hidden; }
+.fce-icon-picker .fce-icon-picker-group,
+.fce-icon-picker .fce-icon-picker-tone,
+.fce-icon-picker .fce-icon-picker-tone-option {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-s, 4px);
+  background: transparent;
+  box-shadow: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+.fce-icon-picker .fce-icon-picker-group { filter: grayscale(1); opacity: 0.6; }
+.fce-icon-picker .fce-icon-picker-group:hover,
+.fce-icon-picker .fce-icon-picker-group.is-active { filter: none; opacity: 1; }
+.fce-icon-picker .fce-icon-picker-group.is-active { background: var(--background-modifier-hover); }
+.fce-icon-picker .fce-icon-picker-tone {
+  margin-inline-start: 4px;
+  border-inline-start: 1px solid var(--background-modifier-border);
+  border-radius: 0 var(--radius-s, 4px) var(--radius-s, 4px) 0;
+}
+.fce-icon-picker .fce-icon-picker-group:hover,
+.fce-icon-picker .fce-icon-picker-tone:hover,
+.fce-icon-picker .fce-icon-picker-tone-option:hover { background: var(--background-modifier-hover); }
+.fce-icon-picker-tones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+  margin-top: -36px;
+  padding-inline-end: 32px;
+}
+.fce-icon-picker .fce-icon-picker-tone-option.is-selected {
+  background: var(--background-modifier-hover);
+  box-shadow: inset 0 0 0 1px var(--interactive-accent);
+}
+
+.fce-icon-picker-viewport {
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 280px;
+  min-height: 96px;
+  flex: 1 1 280px;
+  margin-inline: -4px;
+  padding-inline: 4px;
+  overscroll-behavior: contain;
+}
+.fce-icon-picker.is-sheet .fce-icon-picker-viewport { height: min(44vh, 360px); }
+.fce-icon-picker.is-sheet .fce-icon-picker-search { height: 36px; font-size: max(16px, var(--font-text-size, 16px)); }
+.fce-icon-picker.is-sheet .fce-icon-picker-tab { height: 32px; }
+.fce-icon-picker-grid { position: relative; width: 100%; }
+.fce-icon-picker-section {
+  position: absolute;
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  height: 28px;
+  padding: 0 2px 4px;
+  box-sizing: border-box;
+  color: var(--text-faint, var(--text-muted));
+  font-size: var(--font-smallest, 11px);
+  font-weight: var(--font-semibold, 600);
+  letter-spacing: 0.02em;
+}
+.fce-icon-picker-grid-row {
+  position: absolute;
+  display: grid;
+  grid-template-columns: repeat(var(--fce-picker-columns, 8), minmax(0, 1fr));
+  width: 100%;
+  height: 38px;
+}
+/* Columns stretch to fill the row, so the candidate keeps a fixed square centred
+ * in its cell instead of taking the column width. */
+.fce-icon-picker .fce-icon-picker-candidate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  justify-self: center;
+  width: 34px;
+  height: 34px;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-m, 6px);
+  background: transparent;
+  box-shadow: none;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+.fce-icon-picker .fce-icon-picker-candidate:hover {
+  background: var(--background-modifier-hover);
+  color: var(--text-normal);
+}
+.fce-icon-picker .fce-icon-picker-candidate.fce-emoji-icon { font-size: 22px; }
+.fce-icon-picker .fce-icon-picker-candidate.is-selected {
+  background: var(--background-modifier-active-hover, var(--background-modifier-hover));
+  box-shadow: inset 0 0 0 1.5px var(--interactive-accent);
+  color: var(--text-normal);
+}
+.fce-icon-picker .fce-icon-picker-candidate:focus-visible { outline: 2px solid var(--interactive-accent); outline-offset: -2px; }
+.fce-icon-picker-candidate svg { width: 18px; height: 18px; }
+.fce-icon-picker-empty {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  color: var(--text-muted);
+  text-align: center;
+}
+.fce-icon-picker-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.fce-icon-picker-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 30px;
+  padding-top: 8px;
+  border-top: 1px solid var(--background-modifier-border);
+}
+.fce-icon-picker-preview {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  color: var(--text-muted);
+}
+.fce-icon-picker-preview-icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-normal);
+  --icon-size: 20px;
+}
+.fce-icon-picker-preview-icon.fce-emoji-icon { font-size: 20px; }
+.fce-icon-picker-preview-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.fce-icon-picker .fce-icon-picker-none,
+.fce-icon-picker .fce-icon-picker-reset {
+  flex: 0 0 auto;
+  height: 26px;
+  padding: 0 8px;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--text-muted);
+  font-size: var(--font-ui-small, 13px);
+  cursor: pointer;
+}
+.fce-icon-picker .fce-icon-picker-none:hover,
+.fce-icon-picker .fce-icon-picker-reset:hover:not(:disabled) {
+  background: var(--background-modifier-hover);
+  color: var(--text-normal);
+}
+.fce-icon-picker .fce-icon-picker-reset:disabled { opacity: 0.45; cursor: default; }
+.fce-icon-picker .fce-icon-picker-none.is-selected {
+  background: var(--background-modifier-active-hover, var(--background-modifier-hover));
+  color: var(--text-normal);
+}
+.fce-icon-picker-error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-error);
+  font-size: var(--font-ui-small, 13px);
+}
+.fce-icon-picker-error button { flex: 0 0 auto; }
+
+.folder-card-view .fce-card-title-text {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  pointer-events: auto;
+  -webkit-user-drag: element;
+}
+
+.fce-touch-drag-ghost { z-index: calc(var(--layer-modal, 50) + 1); pointer-events: none; }
+.fce-card-drag-count { margin-inline-start: 6px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
