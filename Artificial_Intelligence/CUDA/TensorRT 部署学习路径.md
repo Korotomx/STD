@@ -95,6 +95,22 @@ flowchart LR
 - `cudaMalloc` 的结果要查、要释放，用 RAII 包住。
 - Ultralytics engine 的 JSON 头要跳过，不能直接反序列化。
 - 动态 engine 先 `setInputShape`，再取输出 shape。
+- **矩阵运算：host 推导，device 求值。** CUDA 没有矩阵类型，`float3`/`float4` 只是访存用的 POD、没有运算符；每线程的仿射/单应最终就是 6~13 次 FMA，手写标量就是最优。3×3 单应求逆这类长公式在 host 用 Eigen / `cv::invertAffineTransform` 算完，平铺成系数传进去，内核里绝不求逆（几万个线程各求一次逆是灾难）。
+
+  想少打字就封一层，`__forceinline__` 展开后与手写同码：
+
+  ```cuda
+  struct Affine2D { float m[6]; };
+
+  __device__ __forceinline__ float2 apply(const Affine2D& a, float2 p)
+  {
+      return make_float2(a.m[0] * p.x + a.m[1] * p.y + a.m[2],
+                         a.m[3] * p.x + a.m[4] * p.y + a.m[5]);
+  }
+  // 调用：float2 s = apply(M, make_float2(dx + 0.5f, dy + 0.5f));
+  ```
+
+  只有每线程要解方程、SVD、批量小矩阵乘时才上库（cuBLASDx / CUTLASS）；大矩阵 GEMM 才用 cuBLAS。
 
 ## 故障注入实验
 
@@ -146,12 +162,24 @@ imread（BGR / HWC / uint8，连续）
               └─ enqueueV3(nullptr) → D2H → 解码逆 letterbox → 画框/关键点
 ```
 
-宿主算逆仿射矩阵：
+宿主用 `Affine` 算正/逆两份矩阵，核只拿 `mat_inv`：
 
 ```cpp
-float mat[6] = {1.0f / r, 0.0f, -(float)dw / r,
-                0.0f, 1.0f / r, -(float)dh / r};
+class Affine {
+public:
+    float mat[6], mat_inv[6];
+    Affine(double src_w, double src_h, double dst_w, double dst_h) {
+        double scale = std::min(dst_w / src_w, dst_h / src_h);      // 正向
+        mat[0] = scale; mat[1] = 0; mat[2] = 0.5 * (dst_w - scale * src_w);
+        mat[3] = 0;     mat[4] = scale; mat[5] = 0.5 * (dst_h - scale * src_h);
+        scale = std::max(src_w / dst_w, src_h / dst_h);            // 逆矩阵
+        mat_inv[0] = scale; mat_inv[1] = 0; mat_inv[2] = 0.5 * (src_w - scale * dst_w);
+        mat_inv[3] = 0;     mat_inv[4] = scale; mat_inv[5] = 0.5 * (src_h - scale * dst_h);
+    }
+};
 ```
+
+由 `1/min(dst/src) = max(src/dst)` 可得 `mat_inv[0] = 1/r`、`mat_inv[2] = -dw/r`，与原先手推的 `{1/r, 0, -dw/r, 0, 1/r, -dh/r}` 等价；区别是全程浮点、不取整（`new_w` 为奇数时比整数除法少半像素偏差），且支持非正方形 dst。解码框/关键点时直接 `mat_inv[0]*x + mat_inv[2]`，不再单独维护 `r/dw/dh`。
 
 核里先做像素中心校正：
 

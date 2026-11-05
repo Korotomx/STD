@@ -66,7 +66,7 @@
 
 **今日完成**：
 
-- 2026-11-05：完成 TensorRT `03_yolo` GPU 预处理核——`preprocess_kernel.cu`（`affine` + `warp_affine`，16×16 block，每线程一个目标像素）替代 `cv::resize + copyMakeBorder + blobFromImage`；原图整块 `cudaMemcpy` H2D 后，kernel 直接写 engine 输入 buffer，省掉 CPU 预处理和 blob 的 H2D，只保留原图一次 H2D；逆仿射矩阵经 `__constant__ float mat[6]` + `cudaMemcpyToSymbol` 传入；构建拆成 `nvcc -c` + `g++-14` 链接，记下 `-ccbin g++-14`、`-Xcompiler=-U_GNU_SOURCE` 两个坑。验证：GPU 版与 CPU 版框、8 关键点完全一致，`mean diff 0.036`（差异集中在框线边缘）。
+- 2026-11-05：完成 TensorRT `03_yolo` GPU 预处理核——`preprocess_kernel.cu`（`affine` + `warp_affine`，16×16 block，每线程一个目标像素）替代 `cv::resize + copyMakeBorder + blobFromImage`；原图整块 `cudaMemcpy` H2D 后，kernel 直接写 engine 输入 buffer，省掉 CPU 预处理和 blob 的 H2D，只保留原图一次 H2D；逆仿射矩阵经 `__constant__ float mat[6]` + `cudaMemcpyToSymbol` 传入；构建拆成 `nvcc -c` + `g++-14` 链接，记下 `-ccbin g++-14`、`-Xcompiler=-U_GNU_SOURCE` 两个坑。验证：GPU 版与 CPU 版框、8 关键点完全一致，`mean diff 0.036`（差异集中在框线边缘）。另把宿主手推的逆仿射矩阵换成 `Affine` 类（正/逆两份，全浮点不取整，解码直接用 `mat_inv`），与导师代码对齐；笔记补「矩阵运算：host 推导，device 求值」。
 - 2026-11-04：完成 TensorRT `03_yolo` CPU 版——`imread` → letterbox（114 灰边）→ `cv::dnn::blobFromImage`（/255、BGR→RGB、HWC→CHW）→ `cudaMemcpy` 一次线性拷贝 → `enqueueV3(nullptr)` 默认流 → 解码逆 letterbox → 画框/关键点；弄通「连续内存 vs ROI」「`cudaMemcpy2D`+`cudaMallocPitch` 何时才需要」「先默认流后 stream」三点；数据集移入 `trt_lab/datasets`，修复 `infer_engine.py` 路径。
 - 整理 [[X01 Triton 与 TileLang]]；把 UltraLytics 三份官方文档整理成 [[YOLO 导出 格式与量化]]、[[OpenCV 高效遍历像素]]、[[TensorRT-RTX 快速入门]]。
 - 2026-10-29：完成 TensorRT `02_runner`（反序列化 → 按维度 `cudaMalloc` → `setTensorAddress` → `enqueueV3` + 同步 → D2H），精简到 73 行；对照官方端到端例子理清 runtime 链路，输入填充留给预处理。
