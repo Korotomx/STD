@@ -21,10 +21,10 @@
 | Artificial_Intelligence/MIT 6.S191/Captures（L3~L6） | AI | [[MIT 6.S191/Overview\|6.S191 主页]] | 已处理 | 2026-10-28 |
 | Artificial_Intelligence/CUDA/Ref/Session 1.2 Triton-TileLang | CUDA | [[X01 Triton 与 TileLang]] | 已处理 | 2026-10-28 |
 | Artificial_Intelligence/UltraLytics/OfficialDocuments（三篇） | AI | [[UltraLytics/Overview\|UltraLytics]] | 已处理 | 2026-10-28 |
-| Raw/Agent Harness for Learning Things.md | AI | [[AI 学习系统 教学与练习闭环]] | 已处理 | 2026-10-28 |
-| Raw/llm-wiki.md | AI | [[LLM Wiki 增量知识库]] | 已处理 | 2026-10-28 |
+| Raw/Agent Harness for Learning Things.md | AI | [[Sight/Agent Harness 学习闭环\|Agent Harness 学习闭环]] | 已处理 | 2026-10-28 |
+| Raw/llm-wiki.md | AI | [[Sight/LLM Wiki 持久知识库模式\|LLM Wiki 持久知识库模式]] | 已处理 | 2026-10-28 |
 | 有道「CS」单词本 | English | English/YYYY-MM-DD | 已处理至 10-30（27 词） | 2026-10-30 |
-| Raw/Creative Thinking.md（Shannon 1952 讲座） | AI | [[Shannon 创造性思维 1952]] | 已处理 | 2026-10-29 |
+| Raw/Creative Thinking.md（Shannon 1952 讲座） | AI | [[Sight/Shannon 创造性思维 三个条件与六种方法\|Shannon 创造性思维]] | 已处理 | 2026-10-29 |
 | Math/Linear Algebra/Ref/Eigenvectors Are Hiding Something Nobody Talks About! | 数学 | [[L20 对角化与矩阵的幂]]（三个图景） | 已处理 | 2026-11-01 |
 | Math/Linear Algebra/Ref/Matrix trace isn't just summing the diagonal | 数学 | [[L19 特征值与特征向量]]（迹=散度） | 已处理 | 2026-11-01 |
 | Math/Linear Algebra/Ref/25. Symmetric Matrices and Positive Definiteness | 数学 | [[L23 对称矩阵与正定矩阵]] | 已处理 | 2026-11-03 |
@@ -35,7 +35,7 @@
 | Artificial_Intelligence/MIT 6.S191/Captures/MIT 6.S191 Secrets of Massively Parallel Training | AI | [[L9 大规模并行训练]] | 已处理 | 2026-11-03 |
 | Artificial_Intelligence/MIT 6.S191/Captures/MIT 6.S191 AI for Science | AI | [[L8 AI for Science]] | 已处理 | 2026-10-30 |
 | Raw/CNN Explainer.md | AI | [[L3 卷积神经网络]] | 已处理 | 2026-10-19 |
-| Raw/How the Claude Code team does code review.md | AI | [[AI 代码评审 Claude Code 团队实践]] | 已处理 | 2026-10-22 |
+| Raw/How the Claude Code team does code review.md | AI | [[Sight/Claude Code 团队代码评审流程\|Claude Code 团队代码评审流程]] | 已处理 | 2026-10-22 |
 | Math/Linear Algebra/Ref/Simplex Algorithm Visually Explained | 数学 | [[线性规划与单纯形法]] | 已处理 | 2026-11-04 |
 | Math/Linear Algebra/Ref/The Matrix Transpose Visual Intuition | 数学 | [[L5 转置·置换·向量空间]]（几何一节） | 已处理 | 2026-11-05 |
 | Artificial_Intelligence/Unlimited/Capture/What Is Quantization How AI Models Get Smaller & Faster | AI | [[量化 让模型更小更快]] | 已处理 | 2026-11-05 |

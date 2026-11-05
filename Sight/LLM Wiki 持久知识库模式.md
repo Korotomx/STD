@@ -202,19 +202,18 @@ Bush 的设想其实更接近这个模式，而不是后来的万维网：
 - **Dataview**：查询页面 frontmatter，生成动态表格和列表。
 - **Git**：wiki 就是一堆 Markdown 文件的仓库，版本历史、分支、协作都免费得到。
 
+## 与本 vault 的关系
+
+这套结构与当前 Obsidian 库几乎同构：`Raw/`、`Captures/`、`Ref/`、`OfficialDocuments/` 是不可变来源层；各栏目笔记是 wiki 层；笔记规范（记忆 + 各栏目 Overview）就是 schema。差别是本库还多了「主页/索引/进度」和人工确定的目录结构。
+
 ## 这份文档本身是“想法文件”
 
 它有意保持抽象：讲模式，不讲具体实现。目录结构、schema 约定、页面格式、工具链，都取决于你的领域、偏好和所用 LLM。所有东西都是可选、模块化的——挑有用的，忽略没用的。
 
 正确用法是把它交给你的 LLM agent，一起实例化一个适合你的版本。文档只负责传达模式，剩下的 LLM 能自己补。
 
-## 关联
-
-已有 AI 笔记：[[Artificial_Intelligence/Unlimited/LLM Wiki 持久知识库|LLM Wiki 持久知识库]]。
-
 ## 词汇
 
-> 只收 CET6 及以上词汇；人名、地名不收。已与 `English/` 及前面 Sight 笔记的词表比对，重复项不再列出。
 
 - **contradiction** 矛盾
 - **supersede** 取代；淘汰

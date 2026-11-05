@@ -6,7 +6,10 @@
 - [[双线性插值 从一维线性到二维图像]] — 两次沿 x、一次沿 y 的四点加权插值。
 - [[量化 让模型更小更快]] — LLM 权重的比特账本、逐层映射、FP16/FP8/INT8/INT4、PTQ vs QAT。
 - [[Obsidian 笔记发布为静态网站·设想]] — Quartz + GitHub Pages 的试水方案与踩坑。
-- [[AI 代码评审 Claude Code 团队实践]] — 90% 代码由 Claude 写时的七层评审、风险分级与收敛。
-- [[AI 学习系统 教学与练习闭环]] — 用 agent harness 学东西：探测边界 → 最小依赖树教学 → 自适应练习 → 命题推理链图。
-- [[LLM Wiki 增量知识库]] — RAG 每次重新检索 vs LLM 持续维护 wiki；三层架构、ingest/query/lint、index 与 log。
-- [[Shannon 创造性思维 1952]] — 三个前提（训练/智力/动机）与六种可练的思维技巧：简化、类比、重述、推广、拆解、反演。
+
+## 已并入 Sight
+
+- [[Sight/Claude Code 团队代码评审流程|AI 代码评审 Claude Code 团队实践]] — 90% 代码由 Claude 写时的七层评审、风险分级与收敛。
+- [[Sight/Agent Harness 学习闭环|AI 学习系统 教学与练习闭环]] — 探测边界 → 最小依赖树教学 → 自适应练习 → 命题推理链图。
+- [[Sight/LLM Wiki 持久知识库模式|LLM Wiki 增量知识库]] — RAG 每次重新检索 vs LLM 持续维护 wiki；三层架构、ingest/query/lint、index 与 log。
+- [[Sight/Shannon 创造性思维 三个条件与六种方法|Shannon 创造性思维 1952]] — 三个前提与六种可练的思维技巧：简化、类比、重述、推广、拆解、反演。

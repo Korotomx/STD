@@ -447,13 +447,8 @@ EUV 从 Kinoshita 的第一张图像到量产，用了 **30 年**：
 
 如果 Kinoshita、Hawryluk 和 ASML 的人都“理性”，这台机器不会存在。
 
-## 关联
-
-已有 AI/工程笔记：[[Artificial_Intelligence/Unlimited/EUV 光刻|EUV 光刻]]（若不存在可忽略）。
-
 ## 词汇
 
-> 只收 CET6 及以上词汇；人名、地名不收。已与 `English/` 及前面 Sight 笔记的词表比对，重复项不再列出。
 
 - **lithography** 光刻
 - **photoresist** 光刻胶

@@ -135,7 +135,6 @@ CNN Explainer 用 TensorFlow.js 在浏览器里加载预训练模型，前端用
 
 ## 词汇
 
-> 只收 CET6 及以上词汇；人名、地名不收。已与 `English/` 及前面 Sight 笔记的词表比对，重复项不再列出。
 
 - **tensor** 张量
 - **neuron** 神经元

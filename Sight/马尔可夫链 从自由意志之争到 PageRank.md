@@ -161,7 +161,6 @@ P(X_{n+1}=x\mid X_n)
 
 ## 词汇
 
-> 只收 CET6 及以上词汇；人名、地名不收。已与 `English/` 及前面 Sight 笔记的词表比对，重复项不再列出。
 
 - **independence** 独立性
 - **dependent** 相关的；依赖的

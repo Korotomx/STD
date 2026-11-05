@@ -174,7 +174,6 @@ T \approx \frac{2B}{A+B}e^{-U}
 
 ## 词汇
 
-> 只收 CET6 及以上词汇；人名、地名不收。已与 `English/` 及前面 Sight 笔记的词表比对，重复项不再列出。
 
 - **transmittance** 透射率
 - **reflectance** 反射率
