@@ -21,17 +21,17 @@ flowchart TD
 
 > [!question] 1. 标准正交基下，投影矩阵为什么从 $A(A^{\mathsf T}A)^{-1}A^{\mathsf T}$ 变成 $QQ^{\mathsf T}$？
 
-> [!success]- 答案
+> [!success]- ✓ 答案
 > 因为 $Q^{\mathsf T}Q=I$。把 $A$ 换成 $Q$，中间的 $(Q^{\mathsf T}Q)^{-1}$ 就是 $I^{-1}=I$，整个求逆项消失。
 
 > [!question] 2. 一个长方形矩阵 $Q$ 的列标准正交，$Q^{\mathsf T}Q=I$，那么 $QQ^{\mathsf T}=I$ 吗？
 
-> [!success]- 答案
+> [!success]- ✓ 答案
 > 不一定。$Q$ 不是方阵时 $QQ^{\mathsf T}$ 是投影矩阵，不等于 $I$；只有当 $Q$ 是方阵（列空间填满整个空间）时才有 $QQ^{\mathsf T}=I$。
 
 > [!question] 3. Gram-Schmidt 第二步里，$B=b-\frac{A^{\mathsf T}b}{A^{\mathsf T}A}A$ 减掉的到底是什么？为什么减完就垂直？
 
-> [!success]- 答案
+> [!success]- ✓ 答案
 > 减掉的是 $b$ 在 $A$ 方向上的投影。剩下的 $B$ 就是投影误差，而误差垂直于投影方向——直接计算 $A^{\mathsf T}B=A^{\mathsf T}b-\frac{A^{\mathsf T}b}{A^{\mathsf T}A}A^{\mathsf T}A=0$。
 
 ## 1. 标准正交基
@@ -56,7 +56,7 @@ $$
 
 > [!question] 检查点：一组标准正交向量为什么一定线性无关？
 
-> [!success]- 答案
+> [!success]- ✓ 答案
 > 设 $\sum c_iq_i=0$，两边点乘 $q_j$：交叉项 $q_i^{\mathsf T}q_j=0$ 全消，只剩 $c_j\,q_j^{\mathsf T}q_j=c_j=0$。每个系数都必须为零，所以线性无关。
 
 ## 2. 正交矩阵：$Q^{\mathsf T}=Q^{-1}$
@@ -100,7 +100,7 @@ $$
 
 > [!question] 检查点：矩形 $Q$ 的列标准正交，$Q^{\mathsf T}Q=I$ 成立，能否推出 $QQ^{\mathsf T}=I$？
 
-> [!success]- 答案
+> [!success]- ✓ 答案
 > 不能。$Q$ 是 $m\times n$ 且 $m>n$ 时，$QQ^{\mathsf T}$ 是 $m\times m$ 的投影矩阵，投到 $Q$ 的列空间，不等于 $I$。只有方阵情形两边才都是 $I$。
 
 ## 3. 标准正交基让公式全部退化
@@ -154,7 +154,7 @@ $$
 
 > [!question] 检查点：标准正交基下求投影系数，为什么不用解方程组？
 
-> [!success]- 答案
+> [!success]- ✓ 答案
 > 因为 $Q^{\mathsf T}Q=I$，正规方程退化成 $\hat x=Q^{\mathsf T}b$，逐分量是 $\hat x_i=q_i^{\mathsf T}b$。每个系数就是一个独立点积，互不影响，不需要消元或求逆。
 
 ## 4. Gram-Schmidt：把无关向量掰成标准正交
@@ -282,7 +282,7 @@ $$
 
 > [!question] 检查点：Gram-Schmidt 为什么可以把归一化放到最后，而不是每减一次就归一化？
 
-> [!success]- 答案
+> [!success]- ✓ 答案
 > 正交性与长度无关：$B$ 减去投影后已经垂直于前面的方向，除以 $\|B\|$ 只改变长度、不改变方向。最后统一归一化只做一次除法，也把平方根集中到一处。
 
 ## 5. $A=QR$：Gram-Schmidt 的矩阵语言
@@ -363,7 +363,7 @@ flowchart LR
 
 > [!question] 检查点：为什么 $R$ 一定是上三角？
 
-> [!success]- 答案
+> [!success]- ✓ 答案
 > 第 $j$ 个原始列 $a_j$ 只由 $q_1,\dots,q_j$ 组合而成——后面的 $q_{j+1},\dots$ 在构造 $a_j$ 时还不存在。所以 $i>j$ 时 $r_{ij}=q_i^{\mathsf T}a_j=0$，对角线以下全为零。
 
 ## 识别信号
