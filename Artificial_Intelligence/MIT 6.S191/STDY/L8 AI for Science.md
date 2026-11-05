@@ -40,7 +40,7 @@ Sutton 2019 的 **bitter lesson**：历史上不断有人靠精巧先验提升�
 
 ## emulator：两阶段，摊销成本
 
-![[viz-artificial-intelligence-mit-6-s191-stdy-l8-ai-for-science-md-01-1793897300621.png|900]]
+![[viz-artificial-intelligence-mit-6-s191-stdy-l8-ai-for-science-md-01-1793897300621.svg|900]]
 
 1. **离线阶段**：用传统软件把方程解成千上万次，生成合成数据。
 2. **训练阶段**：在这个数据集上训练网络；数据贵，所以数据集和模型都不大，成本远低于训练前沿 LLM。

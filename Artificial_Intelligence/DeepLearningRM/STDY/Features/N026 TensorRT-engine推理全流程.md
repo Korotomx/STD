@@ -10,7 +10,7 @@ engine 只负责 `[1,3,640,640]` 进、`[1,300,30]` 出；预处理、绑定显�
   → 置信度过滤 → 逆映射 → 原图坐标的框 + 8 关键点
 ```
 
-![[viz-artificial-intelligence-deeplearningrm-stdy-features-n026-te-01-1793897300616.png|900]]
+![[viz-artificial-intelligence-deeplearningrm-stdy-features-n026-te-01-1793897300616.svg|900]]
 
 ## 预处理：letterbox
 

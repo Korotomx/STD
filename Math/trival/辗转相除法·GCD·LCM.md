@@ -64,7 +64,7 @@ $$
 
 算法流程：
 
-![[viz-math-trival-gcd-lcm-md-01-1793897300657.png|650]]
+![[viz-math-trival-gcd-lcm-md-01-1793897300657.svg|650]]
 
 ## 最小公倍数
 

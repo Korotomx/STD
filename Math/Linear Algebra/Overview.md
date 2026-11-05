@@ -116,7 +116,7 @@
 
 ## 依赖图
 
-![[viz-math-linear-algebra-overview-md-01-1793897300623.png|900]]
+![[viz-math-linear-algebra-overview-md-01-1793897300623.svg|900]]
 
 ## 当前进度
 

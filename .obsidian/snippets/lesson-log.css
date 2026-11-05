@@ -55,13 +55,27 @@
   --callout-icon: lucide-mouse-pointer-click;
 }
 
-/* Lesson visuals */
+/* Lesson visuals — author palette: paper #131312, accent #EE8F4E */
 .markdown-preview-view img[src*="/viz/"],
 .markdown-preview-view img[src*="viz-"] {
-  border-radius: 8px;
-  background: #000;
+  border-radius: 6px;
+  background: #131312;
   margin: 0.7em 0;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  box-shadow: none;
+}
+
+/* Author-style headings (pi/learn): orange on dark paper */
+.theme-dark .markdown-preview-view h1,
+.theme-dark .markdown-preview-view h2,
+.theme-dark .markdown-rendered h1,
+.theme-dark .markdown-rendered h2 {
+  color: #EE8F4E;
+  font-weight: 700;
+}
+
+.theme-dark .markdown-preview-view h1,
+.theme-dark .markdown-rendered h1 {
+  letter-spacing: -0.015em;
 }
 
 /* Mermaid blocks inside lessons get a little breathing room */

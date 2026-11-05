@@ -38,7 +38,7 @@
 
 ## 一个改动的生命周期
 
-![[viz-sight-claude-code-md-01-1793897300670.png|360]]
+![[viz-sight-claude-code-md-01-1793897300670.svg|360]]
 
 ### 1. 提交 PR 前：先自己验证
 
@@ -100,7 +100,7 @@
 
 ### 事故就是 eval
 
-![[viz-sight-claude-code-md-02-1793897300671.png|900]]
+![[viz-sight-claude-code-md-02-1793897300671.svg|900]]
 
 团队把历史上导致事故的 PR（包括 fix-forward 和 revert）收集起来，让熟悉那段代码的工程师确认 bug 和位置，组成 eval 集。reviewer 每天对它跑分；任何对 reviewer 的改动都要在这个集合上重新评分。
 

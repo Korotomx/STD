@@ -4,7 +4,7 @@ LeNet-5 和 AlexNet 是经典 CNN 的前两站：前者证明「卷积 + 池化 
 
 LeCun 1998 年为手写数字识别设计，共 7 层（不计输入）：卷积提特征、池化降采样、全连接分类。
 
-![[viz-artificial-intelligence-deeplearningrm-stdy-concepts-n009-le-01-1793897300612.png|900]]
+![[viz-artificial-intelligence-deeplearningrm-stdy-concepts-n009-le-01-1793897300612.svg|900]]
 
 - 前半段（C1~S4）：卷积 + 池化反复，负责特征提取
 - 后半段（C5~输出）：全连接，负责分类
@@ -37,7 +37,7 @@ LeCun 1998 年为手写数字识别设计，共 7 层（不计输入）：卷积
 
 Krizhevsky 等 2012 年拿下 ImageNet 冠军，把 top-5 错误率从 ~26% 打到 ~15.3%，证明「深 CNN + 大数据 + GPU」可行。骨架和 LeNet 完全一样，只是更深、更宽、图更大。
 
-![[viz-artificial-intelligence-deeplearningrm-stdy-concepts-n009-le-02-1793897300613.png|900]]
+![[viz-artificial-intelligence-deeplearningrm-stdy-concepts-n009-le-02-1793897300613.svg|900]]
 
 ### 各层参数
 

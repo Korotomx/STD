@@ -2,7 +2,7 @@
 
 ## 依赖图
 
-![[viz-cuda-c01-dependency-map-1793896875388.png|520]]
+![[viz-cuda-c01-dependency-map-1793896875388.svg|520]]
 
 读图顺序就是学习顺序：根节点是三条不需要证明的真理；每往下一层，只问「上一层已经成立了，为什么自然会走到这一步」。不要按目录背结论，按边推。
 
@@ -85,7 +85,7 @@ GPU 用较低的单线程性能换高得多的总吞吐，所以「一个线程�
 - 跑在 GPU 上的函数叫 **kernel**，启动它叫 **launch**；一次 launch 等于同时启动成千上万个线程执行同一段代码。
 - CPU 和 GPU 可以同时执行，性能最好时两边都不闲着。
 
-![[viz-cuda-c01-host-device-1793896945988.png|800]]
+![[viz-cuda-c01-host-device-1793896945988.svg|800]]
 
 > [!question] 检查点：`__global__` 函数在哪调用、在哪执行？它能不能直接读写 host 的普通变量？
 
@@ -137,7 +137,7 @@ block 之间**没有执行顺序保证**：可能并行、可能串行、可能�
 
 **为什么现在需要这个节点？** 上一层的 block 需要有一个物理落点：它到底跑在 GPU 的哪个部件上？这个部件有多少资源，决定了同时能驻留多少 block。
 
-![[viz-cuda-c01-hardware-hierarchy-1793896946183.png|800]]
+![[viz-cuda-c01-hardware-hierarchy-1793896946183.svg|800]]
 
 - **SM** 是调度线程块的基本硬件单位；寄存器文件、shared memory + L1 的统一缓存、常量缓存和运算单元都在 SM 内。
 - **GPC** 是 SM 的分组，再往上是整个 GPU 和显存。
@@ -178,7 +178,7 @@ block 之间**没有执行顺序保证**：可能并行、可能串行、可能�
 
 CUDA Runtime API 建在 Driver API 之上；两者可以混用。多数场景不必手写 kernel：cuBLAS/cuDNN/CUTLASS、Triton、TensorRT 已覆盖大部分需求，自己写的价值在库里没有的算子、算子融合、特殊布局，以及把前后处理搬上 GPU（如 groundzero 的 letterbox + 归一化 + HWC→CHW，已在 `03_yolo` 落地）。
 
-![[viz-cuda-c01-compilation-pipeline-1793896946473.png|800]]
+![[viz-cuda-c01-compilation-pipeline-1793896946473.svg|800]]
 
 - **PTX**：NVIDIA GPU 的虚拟指令集架构（类汇编），版本如 `compute_80`。
 - **cubin**：针对某个 SM 版本的真实二进制，如 `sm_120`。

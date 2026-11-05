@@ -4,7 +4,7 @@
 
 全连接层本质是「矩阵乘法 + 偏置」，是线性运算。**多个线性变换复合仍是线性变换**（矩阵相乘还是矩阵），所以多层全连接等价于一层——加再多层也没用，连 XOR 都拟合不了。
 
-![[viz-artificial-intelligence-deeplearningrm-stdy-concepts-n004-si-01-1793897300606.png|520]]
+![[viz-artificial-intelligence-deeplearningrm-stdy-concepts-n004-si-01-1793897300606.svg|520]]
 
 ## 常用激活函数
 
@@ -19,7 +19,7 @@ sigmoid 的导数 `σ'(x)=σ(x)(1−σ(x))`，两端趋近 0，是梯度消失�
 
 ### 怎么选
 
-![[viz-artificial-intelligence-deeplearningrm-stdy-concepts-n004-si-02-1793897300607.png|650]]
+![[viz-artificial-intelligence-deeplearningrm-stdy-concepts-n004-si-02-1793897300607.svg|650]]
 
 ## 前向传播
 
@@ -30,7 +30,7 @@ z = W·x + b        # 线性：加权求和 + 偏置
 a = σ(z)           # 非线性：过激活函数
 ```
 
-![[viz-artificial-intelligence-deeplearningrm-stdy-concepts-n004-si-03-1793897300608.png|900]]
+![[viz-artificial-intelligence-deeplearningrm-stdy-concepts-n004-si-03-1793897300608.svg|900]]
 
 一层层 `z → a` 串起来，最后输出 `a_L` 就是预测。
 
@@ -66,7 +66,7 @@ L = [(1.0−1.5)² + (2.0−2.5)²] / 2 = (0.25+0.25)/2 = 0.25
         (误差)   (激活导数)  (输入)
 ```
 
-![[viz-artificial-intelligence-deeplearningrm-stdy-concepts-n004-si-04-1793897300609.png|900]]
+![[viz-artificial-intelligence-deeplearningrm-stdy-concepts-n004-si-04-1793897300609.svg|900]]
 
 直觉：误差从输出层倒着传回每层，每层承担自己的责任。
 

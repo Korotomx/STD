@@ -1,6 +1,6 @@
 把 C01 的 grid → block → thread 模型落成固定套路：**分配 → 搬数据 → 配 grid/block → launch → 同步 → 回收**。程序是否正确取决于三件事：索引算得对不对、同步有没有做、错误有没有查。
 
-![[viz-artificial-intelligence-cuda-stdy-c02-programming-model-md-01-1793897300600.png|900]]
+![[viz-artificial-intelligence-cuda-stdy-c02-programming-model-md-01-1793897300600.svg|900]]
 
 第 4 步返回时 kernel 可能还没开始跑，第 5 步才是「它真的做完了」的分界线。
 
@@ -120,7 +120,7 @@ cudaMemcpy(hC, dC, BYTES, cudaMemcpyDeviceToHost);
 
 ## kernel launch 是异步的
 
-![[viz-artificial-intelligence-cuda-stdy-c02-programming-model-md-02-1793897300601.png|650]]
+![[viz-artificial-intelligence-cuda-stdy-c02-programming-model-md-02-1793897300601.svg|650]]
 
 - `cudaDeviceSynchronize()` 等待**该设备上所有 stream 的所有工作**；多 stream 场景用 `cudaStreamSynchronize` 或 CUDA Event（C08）。
 - `cudaMemcpy` 已隐含一次等待；但**在 host 上计时**或**连续 launch 多个 kernel** 时必须显式同步。

@@ -75,7 +75,7 @@ $$
 
 **$N=[-F;I]$ 就是「自由变量 → 解」这个线性映射的矩阵**，零空间是它的像。
 
-![[viz-math-linear-algebra-stdy-l7-ax-0-md-01-1793897300654.png|900]]
+![[viz-math-linear-algebra-stdy-l7-ax-0-md-01-1793897300654.svg|900]]
 
 **为什么是基**：
 

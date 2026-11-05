@@ -18,7 +18,7 @@ Lyrical 用 `find_package` + `${rclcpp_TARGETS}`，不用已移除的 `ament_tar
 
 ### 节点交互
 
-![[viz-ros2-stdy-projects-turtle-draw-md-01-1793897300664.png|900]]
+![[viz-ros2-stdy-projects-turtle-draw-md-01-1793897300664.svg|900]]
 
 两个节点都只发布，无订阅、服务、动作、参数。**不能同时跑**：会变成两个发布者抢同一话题，海龟被两股命令拉扯。
 
@@ -104,7 +104,7 @@ ros2 param set /turtle_painter background_r 255
   → 画布背景色改变
 ```
 
-![[viz-ros2-stdy-projects-turtle-draw-md-02-1793897300665.png|520]]
+![[viz-ros2-stdy-projects-turtle-draw-md-02-1793897300665.svg|520]]
 
 核心思想：一个节点可以既是「参数提供者」（被别人改），又是「参数客户端」（改别人）。
 

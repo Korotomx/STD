@@ -2,11 +2,11 @@
 
 ## 对象与数据流
 
-![[viz-artificial-intelligence-cuda-tensorrt-md-01-1793897300603.png|650]]
+![[viz-artificial-intelligence-cuda-tensorrt-md-01-1793897300603.svg|650]]
 
-![[viz-artificial-intelligence-cuda-tensorrt-md-02-1793897300604.png|900]]
+![[viz-artificial-intelligence-cuda-tensorrt-md-02-1793897300604.svg|900]]
 
-![[viz-artificial-intelligence-cuda-tensorrt-md-03-1793897300605.png|900]]
+![[viz-artificial-intelligence-cuda-tensorrt-md-03-1793897300605.svg|900]]
 
 ## 对象生命周期
 

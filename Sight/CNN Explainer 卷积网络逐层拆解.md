@@ -18,7 +18,7 @@
 
 ## Tiny VGG 的整体流水线
 
-![[viz-sight-cnn-explainer-md-01-1793897300669.png|900]]
+![[viz-sight-cnn-explainer-md-01-1793897300669.svg|900]]
 
 Tiny VGG 比现代 CNN 小得多，但保留了同样的基本层和操作，适合用来理解结构。
 

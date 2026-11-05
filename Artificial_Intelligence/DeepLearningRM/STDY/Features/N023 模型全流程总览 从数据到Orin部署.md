@@ -1,6 +1,6 @@
 一条模型链路：图片 + 标注训练出 `.pt`，导出成通用 `.onnx`，在目标设备编译成 `.engine`，再写推理代码把输出变成框和关键点，最后接到 ROS2。每一步产物格式不同，先搞清「谁吃谁」。
 
-![[viz-artificial-intelligence-deeplearningrm-stdy-features-n023-or-01-1793897300615.png|900]]
+![[viz-artificial-intelligence-deeplearningrm-stdy-features-n023-or-01-1793897300615.svg|900]]
 
 ## 八个阶段
 

@@ -31,13 +31,13 @@ turtle_chase_game/
 
 编译链路：
 
-![[viz-ros2-stdy-projects-turtle-chase-game-md-01-1793897300660.png|800]]
+![[viz-ros2-stdy-projects-turtle-chase-game-md-01-1793897300660.svg|800]]
 
 goal 里引用 `geometry_msgs/Pose`，所以 `rosidl_generate_interfaces` 必须写 `DEPENDENCIES geometry_msgs`；`chaser` / `chasing_control` 要链接 `cpp_typesupport_target`，`runner` 不用。
 
 ## 节点交互全景
 
-![[viz-ros2-stdy-projects-turtle-chase-game-md-02-1793897300661.png|900]]
+![[viz-ros2-stdy-projects-turtle-chase-game-md-02-1793897300661.svg|900]]
 
 | 交互 | 类型 | 方向 | 说明 |
 |---|---|---|---|
@@ -235,11 +235,11 @@ rclcpp::shutdown();
 
 启动链路：
 
-![[viz-ros2-stdy-projects-turtle-chase-game-md-03-1793897300662.png|650]]
+![[viz-ros2-stdy-projects-turtle-chase-game-md-03-1793897300662.svg|650]]
 
 追击与重生循环：
 
-![[viz-ros2-stdy-projects-turtle-chase-game-md-04-1793897300663.png|800]]
+![[viz-ros2-stdy-projects-turtle-chase-game-md-04-1793897300663.svg|800]]
 
 关键对象生命周期：
 
