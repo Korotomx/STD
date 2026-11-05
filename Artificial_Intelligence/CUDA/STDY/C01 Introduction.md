@@ -11,14 +11,17 @@
 先不看下文，凭现在的理解回答。答不出或答错都很正常——探针的目的就是找到边缘。
 
 > [!question]- 1. 1000 个完全独立的数据元素，每个做同样的加法。CPU 和 GPU 谁更可能快？为什么？
+
 > [!success]- 答案
 > GPU 更可能快：同一套运算作用在海量数据上，能把工作拆成大量并行任务。但前提是数据搬运、同步、kernel 启动的开销可控；数据量小、串行依赖强时 CPU 可能更快。
 
 > [!question]- 2. 一个 GPU kernel 的输入数据，最开始在哪？谁负责把它搬过去？
+
 > [!success]- 答案
 > 最开始在 host（CPU 直连内存）。host code 通过 `cudaMemcpy` 把数据搬到 device 显存，再 launch kernel；算完再搬回来。
 
 > [!question]- 3. 两个 thread block 之间能不能用 `__syncthreads()` 同步？
+
 > [!success]- 答案
 > 不能。`__syncthreads()` 只同步同一个 block 内的线程；block 之间没有执行顺序保证。需要跨 block 同步时，拆成多次 kernel launch，或用 Cooperative Groups。
 
@@ -48,6 +51,7 @@
 - 这条真理直接推出 host/device 分工和内存层次。
 
 > [!question]- 检查点：这三条里，哪一条直接解释了「GPU 为什么要把晶体管花在大量 ALU 上」？
+
 > [!success]- 答案
 > 真理 2。既然多个执行单元可以同时执行，把晶体管花在更多 ALU 上就能提高总吞吐；代价是缓存和控制逻辑变少，单线程延迟变差。
 
@@ -68,6 +72,7 @@ GPU 用较低的单线程性能换高得多的总吞吐，所以「一个线程�
 但 GPU 不是对所有任务都更快：只有工作能拆成大量并行任务、且数据搬运/同步/kernel 启动开销可控时，吞吐优势才体现；串行依赖强、分支杂乱、数据量又小的任务可能不如 CPU。
 
 > [!question]- 检查点：一个任务有 8 个元素，每个元素依赖前一个元素的结果。GPU 的吞吐优势还能发挥吗？
+
 > [!success]- 答案
 > 很难。这是强串行依赖，8 个元素无法同时算；GPU 的大量 ALU 闲着，反而要付数据搬运和启动开销。CPU 的高单线程性能更合适。
 
@@ -97,6 +102,7 @@ flowchart LR
 ```
 
 > [!question]- 检查点：`__global__` 函数在哪调用、在哪执行？它能不能直接读写 host 的普通变量？
+
 > [!success]- 答案
 > 在 host 调用（`kernel<<<...>>>()`），在 device 执行。不能直接读写 host 的普通变量；host 和 device 有各自的内存，必须通过 `cudaMemcpy` 等 API 搬。device 代码也不能调用 host 函数。
 
@@ -112,6 +118,7 @@ flowchart LR
 写 kernel 的核心工作之一，就是让数据尽量在寄存器/shared memory 里被复用，减少对 global memory 的往返。细节见 [[C02 Programming Model]]。
 
 > [!question]- 检查点：寄存器最快，为什么不让所有数据都放寄存器？
+
 > [!success]- 答案
 > 寄存器是每个线程私有的，数量非常有限。放不下时数据会溢出到 local/global memory，延迟骤增；寄存器用量还直接影响一个 SM 能驻留多少线程。容量和速度必须折中。
 
@@ -131,10 +138,12 @@ block 之间**没有执行顺序保证**：可能并行、可能串行、可能�
 索引公式、`dim3`、二维映射、warp/SIMT 和内存层次都在 [[C02 Programming Model]]。
 
 > [!question]- 检查点：为什么「block 之间没有顺序保证」反而是好事？
+
 > [!success]- 答案
 > 因为硬件可以按自己的资源和调度情况，把任意大的 grid 拆开、排队、复用任意小的 GPU；如果 block 之间必须有顺序或同步，grid 的大小就被硬件规模锁死了。
 
 > [!question]- 检查点：为什么 shared memory 能让 block 内的线程通信，而不同 block 之间不行？
+
 > [!success]- 答案
 > shared memory 是每个 SM 内的资源，一个 block 固定跑在同一个 SM 上，所以 block 内线程能访问同一块 shared memory；不同 block 可能落在不同 SM，没有共享的 shared memory，也没有执行顺序保证。
 
@@ -160,6 +169,7 @@ flowchart TB
 - 线程块被调度到某一个 SM 上；寄存器/共享内存用量决定一个 SM 能同时驻留多少 block（occupancy）。
 
 > [!question]- 检查点：一个 SM 的 shared memory 被某个 block 用掉一大半，会发生什么？
+
 > [!success]- 答案
 > 这个 SM 能同时驻留的 block 数会减少，occupancy 下降，可能掩盖不了内存延迟。共享内存不是越多越好，要按 block 的实际需求分配。
 
@@ -174,6 +184,7 @@ flowchart TB
 `hello<<<2, 4>>>` 每个 block 只有 4 个线程，却要占满一个 warp（32 lane），**lane 利用率 4/32 = 12.5%**。这就是「block 线程数尽量取 32 的倍数」的直接原因。
 
 > [!question]- 检查点：block 有 40 个线程，硬件实际按几个 warp 调度？最后一个 warp 有多少 lane 闲置？
+
 > [!success]- 答案
 > 2 个 warp（32 + 8）。第二个 warp 只有 8 个 lane 在工作，24 个闲置，利用率 8/32 = 25%。
 
@@ -210,6 +221,7 @@ flowchart LR
 发布时常用 `-gencode` 同时打包「目标 cubin + 一份 PTX」：当前 GPU 直接跑 cubin，未来 GPU 用 PTX JIT 兜底。
 
 > [!question]- 检查点：用 `-arch=sm_86` 编译出的 cubin，能在 sm_90 的 GPU 上直接跑吗？如果同时打包了 `compute_86` 的 PTX 呢？
+
 > [!success]- 答案
 > cubin 不能：跨 major（8 → 9）不兼容，没有匹配的 kernel image。如果 fatbin 里还带了 `compute_86` 的 PTX，驱动可以在 sm_90 上 JIT 出 cubin 再跑，所以「cubin + PTX」一起打包才稳。
 
@@ -279,10 +291,12 @@ last error: no error
 ## 补充检查点
 
 > [!question]- 1. 为什么每次 kernel launch 后都要查 `cudaGetLastError()`？
+
 > [!success]- 答案
 > kernel 启动/执行失败常常不会让 host 程序崩溃，而是静默留下错误码；不查就会以为跑成功了。它是异步的，错误可能在下一次同步或 API 调用时才暴露。
 
 > [!question]- 2. 一个 grid 有 100 万个 block，GPU 只有 26 个 SM，怎么跑？
+
 > [!success]- 答案
 > 排队复用。SM 同时只驻留有限个 block，跑完一批再调度下一批；block 之间没有顺序保证，所以任意大的 grid 都能在任意小的 GPU 上推进。
 
