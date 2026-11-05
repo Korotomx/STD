@@ -41,12 +41,12 @@
 /* Correct / incorrect */
 .callout[data-callout="success"] {
   --callout-color: 34, 197, 94;
-  --callout-icon: lucide-check-circle-2;
+  --callout-icon: lucide-check;
 }
 
 .callout[data-callout="failure"] {
   --callout-color: 239, 68, 68;
-  --callout-icon: lucide-x-circle;
+  --callout-icon: lucide-x;
 }
 
 /* The user's selected answer */
@@ -58,11 +58,10 @@
 /* Lesson visuals */
 .markdown-preview-view img[src*="/viz/"],
 .markdown-preview-view img[src*="viz-"] {
-  border-radius: 10px;
-  border: 1px solid var(--background-modifier-border);
+  border-radius: 8px;
   background: #fff;
-  padding: 6px;
-  margin: 0.6em 0;
+  margin: 0.7em 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
 }
 
 /* Mermaid blocks inside lessons get a little breathing room */
