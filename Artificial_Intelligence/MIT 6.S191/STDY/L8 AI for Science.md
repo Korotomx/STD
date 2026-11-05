@@ -41,9 +41,12 @@ Sutton 2019 的 **bitter lesson**：历史上不断有人靠精巧先验提升�
 ## emulator：两阶段，摊销成本
 
 ```mermaid
+%%{init: {'theme':'base','themeCSS':'.nodeLabel{color:#E5E7EB!important;fill:#E5E7EB!important}.edgeLabel p{background-color:#131312!important}.edgeLabel{color:#E5E7EB!important}svg{background:transparent!important}','themeVariables':{'primaryColor':'#1E1E2E','primaryTextColor':'#E5E7EB','primaryBorderColor':'#A78BFA','secondaryColor':'#1E1E2E','tertiaryColor':'#1E1E2E','lineColor':'#9CA3AF','textColor':'#E5E7EB','mainBkg':'#1E1E2E','nodeBorder':'#A78BFA','clusterBkg':'#131312','clusterBorder':'#3A3A4A','edgeLabelBackground':'#131312','actorBkg':'#1E1E2E','actorBorder':'#A78BFA','actorTextColor':'#E5E7EB','actorLineColor':'#9CA3AF','signalColor':'#9CA3AF','signalTextColor':'#E5E7EB','labelBoxBkgColor':'#1E1E2E','labelBoxBorderColor':'#A78BFA','labelTextColor':'#E5E7EB','loopTextColor':'#E5E7EB','noteBkgColor':'#1E1E2E','noteBorderColor':'#A78BFA','noteTextColor':'#E5E7EB','stateBkg':'#1E1E2E','stateBorder':'#A78BFA','stateTextColor':'#E5E7EB','transitionColor':'#9CA3AF','transitionLabelColor':'#E5E7EB','fontFamily':'Noto Sans CJK SC, sans-serif','fontSize':'16px'}}}%%
 flowchart LR
     S["模拟器 solver<br/>DFT / NWP / MD<br/>慢，但可信"] -->|"离线求解大量体系"| D[("合成数据集<br/>自动标注")] --> T["训练神经网络"] --> E["emulator<br/>一次前向，毫秒级"]
     E -->|"成千上万次调用"| U["药物筛选 / 天气预报 / MD"]
+classDef default fill:#1E1E2E,stroke:#A78BFA,stroke-width:1.5px,color:#E5E7EB
+linkStyle default stroke:#9CA3AF
 ```
 
 1. **离线阶段**：用传统软件把方程解成千上万次，生成合成数据。

@@ -3,6 +3,7 @@
 ## 依赖图
 
 ```mermaid
+%%{init: {'theme':'base','themeCSS':'.nodeLabel{color:#E5E7EB!important;fill:#E5E7EB!important}.edgeLabel p{background-color:#131312!important}.edgeLabel{color:#E5E7EB!important}svg{background:transparent!important}','themeVariables':{'primaryColor':'#1E1E2E','primaryTextColor':'#E5E7EB','primaryBorderColor':'#A78BFA','secondaryColor':'#1E1E2E','tertiaryColor':'#1E1E2E','lineColor':'#9CA3AF','textColor':'#E5E7EB','mainBkg':'#1E1E2E','nodeBorder':'#A78BFA','clusterBkg':'#131312','clusterBorder':'#3A3A4A','edgeLabelBackground':'#131312','actorBkg':'#1E1E2E','actorBorder':'#A78BFA','actorTextColor':'#E5E7EB','actorLineColor':'#9CA3AF','signalColor':'#9CA3AF','signalTextColor':'#E5E7EB','labelBoxBkgColor':'#1E1E2E','labelBoxBorderColor':'#A78BFA','labelTextColor':'#E5E7EB','loopTextColor':'#E5E7EB','noteBkgColor':'#1E1E2E','noteBorderColor':'#A78BFA','noteTextColor':'#E5E7EB','stateBkg':'#1E1E2E','stateBorder':'#A78BFA','stateTextColor':'#E5E7EB','transitionColor':'#9CA3AF','transitionLabelColor':'#E5E7EB','fontFamily':'Noto Sans CJK SC, sans-serif','fontSize':'16px'}}}%%
 flowchart TD
     A["多个执行单元可并行"] --> T["吞吐 vs 延迟"]
     B["数据必须先到可访问内存"] --> H["host 控制 / device 计算"]
@@ -12,6 +13,8 @@ flowchart TD
     T --> GOAL["目标：解释性能<br/>写第一个 kernel"]
     W --> GOAL
     M --> GOAL
+classDef default fill:#1E1E2E,stroke:#A78BFA,stroke-width:1.5px,color:#E5E7EB
+linkStyle default stroke:#9CA3AF
 ```
 
 读图顺序就是学习顺序：根节点是三条不需要证明的真理；每往下一层，只问「上一层已经成立了，为什么自然会走到这一步」。不要按目录背结论，按边推。
@@ -96,6 +99,7 @@ GPU 用较低的单线程性能换高得多的总吞吐，所以「一个线程�
 - CPU 和 GPU 可以同时执行，性能最好时两边都不闲着。
 
 ```mermaid
+%%{init: {'theme':'base','themeCSS':'.nodeLabel{color:#E5E7EB!important;fill:#E5E7EB!important}.edgeLabel p{background-color:#131312!important}.edgeLabel{color:#E5E7EB!important}svg{background:transparent!important}','themeVariables':{'primaryColor':'#1E1E2E','primaryTextColor':'#E5E7EB','primaryBorderColor':'#A78BFA','secondaryColor':'#1E1E2E','tertiaryColor':'#1E1E2E','lineColor':'#9CA3AF','textColor':'#E5E7EB','mainBkg':'#1E1E2E','nodeBorder':'#A78BFA','clusterBkg':'#131312','clusterBorder':'#3A3A4A','edgeLabelBackground':'#131312','actorBkg':'#1E1E2E','actorBorder':'#A78BFA','actorTextColor':'#E5E7EB','actorLineColor':'#9CA3AF','signalColor':'#9CA3AF','signalTextColor':'#E5E7EB','labelBoxBkgColor':'#1E1E2E','labelBoxBorderColor':'#A78BFA','labelTextColor':'#E5E7EB','loopTextColor':'#E5E7EB','noteBkgColor':'#1E1E2E','noteBorderColor':'#A78BFA','noteTextColor':'#E5E7EB','stateBkg':'#1E1E2E','stateBorder':'#A78BFA','stateTextColor':'#E5E7EB','transitionColor':'#9CA3AF','transitionLabelColor':'#E5E7EB','fontFamily':'Noto Sans CJK SC, sans-serif','fontSize':'16px'}}}%%
 flowchart LR
     subgraph HOST["Host (CPU)"]
         HC["host code<br/>prepare data / launch"]
@@ -109,6 +113,8 @@ flowchart LR
     HC -- "kernel launch (grid, block)" --> DC
     DM -- "cudaMemcpy D2H" --> HM
     DC -. "cudaDeviceSynchronize" .-> HC
+classDef default fill:#1E1E2E,stroke:#A78BFA,stroke-width:1.5px,color:#E5E7EB
+linkStyle default stroke:#9CA3AF
 ```
 
 > [!question] 检查点：`__global__` 函数在哪调用、在哪执行？它能不能直接读写 host 的普通变量？
@@ -162,6 +168,7 @@ block 之间**没有执行顺序保证**：可能并行、可能串行、可能�
 **为什么现在需要这个节点？** 上一层的 block 需要有一个物理落点：它到底跑在 GPU 的哪个部件上？这个部件有多少资源，决定了同时能驻留多少 block。
 
 ```mermaid
+%%{init: {'theme':'base','themeCSS':'.nodeLabel{color:#E5E7EB!important;fill:#E5E7EB!important}.edgeLabel p{background-color:#131312!important}.edgeLabel{color:#E5E7EB!important}svg{background:transparent!important}','themeVariables':{'primaryColor':'#1E1E2E','primaryTextColor':'#E5E7EB','primaryBorderColor':'#A78BFA','secondaryColor':'#1E1E2E','tertiaryColor':'#1E1E2E','lineColor':'#9CA3AF','textColor':'#E5E7EB','mainBkg':'#1E1E2E','nodeBorder':'#A78BFA','clusterBkg':'#131312','clusterBorder':'#3A3A4A','edgeLabelBackground':'#131312','actorBkg':'#1E1E2E','actorBorder':'#A78BFA','actorTextColor':'#E5E7EB','actorLineColor':'#9CA3AF','signalColor':'#9CA3AF','signalTextColor':'#E5E7EB','labelBoxBkgColor':'#1E1E2E','labelBoxBorderColor':'#A78BFA','labelTextColor':'#E5E7EB','loopTextColor':'#E5E7EB','noteBkgColor':'#1E1E2E','noteBorderColor':'#A78BFA','noteTextColor':'#E5E7EB','stateBkg':'#1E1E2E','stateBorder':'#A78BFA','stateTextColor':'#E5E7EB','transitionColor':'#9CA3AF','transitionLabelColor':'#E5E7EB','fontFamily':'Noto Sans CJK SC, sans-serif','fontSize':'16px'}}}%%
 flowchart TB
     GPU["GPU"] --> GPC["GPC (group of SMs)"]
     GPU --> L2["L2 cache (shared by all SMs)"]
@@ -171,6 +178,8 @@ flowchart TB
     SM0 --> UC["unified data cache<br/>shared memory + L1"]
     SM0 --> CC["constant cache"]
     SM0 --> FU["functional units"]
+classDef default fill:#1E1E2E,stroke:#A78BFA,stroke-width:1.5px,color:#E5E7EB
+linkStyle default stroke:#9CA3AF
 ```
 
 - **SM** 是调度线程块的基本硬件单位；寄存器文件、shared memory + L1 的统一缓存、常量缓存和运算单元都在 SM 内。
@@ -213,6 +222,7 @@ flowchart TB
 CUDA Runtime API 建在 Driver API 之上；两者可以混用。多数场景不必手写 kernel：cuBLAS/cuDNN/CUTLASS、Triton、TensorRT 已覆盖大部分需求，自己写的价值在库里没有的算子、算子融合、特殊布局，以及把前后处理搬上 GPU（如 groundzero 的 letterbox + 归一化 + HWC→CHW，已在 `03_yolo` 落地）。
 
 ```mermaid
+%%{init: {'theme':'base','themeCSS':'.nodeLabel{color:#E5E7EB!important;fill:#E5E7EB!important}.edgeLabel p{background-color:#131312!important}.edgeLabel{color:#E5E7EB!important}svg{background:transparent!important}','themeVariables':{'primaryColor':'#1E1E2E','primaryTextColor':'#E5E7EB','primaryBorderColor':'#A78BFA','secondaryColor':'#1E1E2E','tertiaryColor':'#1E1E2E','lineColor':'#9CA3AF','textColor':'#E5E7EB','mainBkg':'#1E1E2E','nodeBorder':'#A78BFA','clusterBkg':'#131312','clusterBorder':'#3A3A4A','edgeLabelBackground':'#131312','actorBkg':'#1E1E2E','actorBorder':'#A78BFA','actorTextColor':'#E5E7EB','actorLineColor':'#9CA3AF','signalColor':'#9CA3AF','signalTextColor':'#E5E7EB','labelBoxBkgColor':'#1E1E2E','labelBoxBorderColor':'#A78BFA','labelTextColor':'#E5E7EB','loopTextColor':'#E5E7EB','noteBkgColor':'#1E1E2E','noteBorderColor':'#A78BFA','noteTextColor':'#E5E7EB','stateBkg':'#1E1E2E','stateBorder':'#A78BFA','stateTextColor':'#E5E7EB','transitionColor':'#9CA3AF','transitionLabelColor':'#E5E7EB','fontFamily':'Noto Sans CJK SC, sans-serif','fontSize':'16px'}}}%%
 flowchart LR
     SRC["CUDA C++<br/>hello.cu"] -->|nvcc| PTX["PTX<br/>virtual ISA (compute_XY)"]
     PTX -->|ptxas| CUBIN["cubin<br/>real binary (sm_XY)"]
@@ -220,6 +230,8 @@ flowchart LR
     CUBIN --> FAT
     FAT --> RUN["runtime picks<br/>matching cubin"]
     PTX -. "forward compatible: JIT for newer GPU" .-> RUN
+classDef default fill:#1E1E2E,stroke:#A78BFA,stroke-width:1.5px,color:#E5E7EB
+linkStyle default stroke:#9CA3AF
 ```
 
 - **PTX**：NVIDIA GPU 的虚拟指令集架构（类汇编），版本如 `compute_80`。

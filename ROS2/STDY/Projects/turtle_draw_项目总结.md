@@ -19,6 +19,7 @@ Lyrical 用 `find_package` + `${rclcpp_TARGETS}`，不用已移除的 `ament_tar
 ### 节点交互
 
 ```mermaid
+%%{init: {'theme':'base','themeCSS':'.nodeLabel{color:#E5E7EB!important;fill:#E5E7EB!important}.edgeLabel p{background-color:#131312!important}.edgeLabel{color:#E5E7EB!important}svg{background:transparent!important}','themeVariables':{'primaryColor':'#1E1E2E','primaryTextColor':'#E5E7EB','primaryBorderColor':'#A78BFA','secondaryColor':'#1E1E2E','tertiaryColor':'#1E1E2E','lineColor':'#9CA3AF','textColor':'#E5E7EB','mainBkg':'#1E1E2E','nodeBorder':'#A78BFA','clusterBkg':'#131312','clusterBorder':'#3A3A4A','edgeLabelBackground':'#131312','actorBkg':'#1E1E2E','actorBorder':'#A78BFA','actorTextColor':'#E5E7EB','actorLineColor':'#9CA3AF','signalColor':'#9CA3AF','signalTextColor':'#E5E7EB','labelBoxBkgColor':'#1E1E2E','labelBoxBorderColor':'#A78BFA','labelTextColor':'#E5E7EB','loopTextColor':'#E5E7EB','noteBkgColor':'#1E1E2E','noteBorderColor':'#A78BFA','noteTextColor':'#E5E7EB','stateBkg':'#1E1E2E','stateBorder':'#A78BFA','stateTextColor':'#E5E7EB','transitionColor':'#9CA3AF','transitionLabelColor':'#E5E7EB','fontFamily':'Noto Sans CJK SC, sans-serif','fontSize':'16px'}}}%%
 flowchart LR
     N1(["draw_circle<br/>恒定 v+ω"])
     N2(["draw_square<br/>4×(直走+转90°)"])
@@ -29,10 +30,10 @@ flowchart LR
     N2 -->|"直走 / 转弯"| T
     T -->|订阅| S
 
-    classDef node fill:#ffe0e0,stroke:#c33,stroke-width:2px;
-    classDef topic fill:#d0f0c0,stroke:#363,stroke-width:2px;
     class N1,N2,S node;
     class T topic;
+classDef default fill:#1E1E2E,stroke:#A78BFA,stroke-width:1.5px,color:#E5E7EB
+linkStyle default stroke:#9CA3AF
 ```
 
 两个节点都只发布，无订阅、服务、动作、参数。**不能同时跑**：会变成两个发布者抢同一话题，海龟被两股命令拉扯。
@@ -120,6 +121,7 @@ ros2 param set /turtle_painter background_r 255
 ```
 
 ```mermaid
+%%{init: {'theme':'base','themeCSS':'.nodeLabel{color:#E5E7EB!important;fill:#E5E7EB!important}.edgeLabel p{background-color:#131312!important}.edgeLabel{color:#E5E7EB!important}svg{background:transparent!important}','themeVariables':{'primaryColor':'#1E1E2E','primaryTextColor':'#E5E7EB','primaryBorderColor':'#A78BFA','secondaryColor':'#1E1E2E','tertiaryColor':'#1E1E2E','lineColor':'#9CA3AF','textColor':'#E5E7EB','mainBkg':'#1E1E2E','nodeBorder':'#A78BFA','clusterBkg':'#131312','clusterBorder':'#3A3A4A','edgeLabelBackground':'#131312','actorBkg':'#1E1E2E','actorBorder':'#A78BFA','actorTextColor':'#E5E7EB','actorLineColor':'#9CA3AF','signalColor':'#9CA3AF','signalTextColor':'#E5E7EB','labelBoxBkgColor':'#1E1E2E','labelBoxBorderColor':'#A78BFA','labelTextColor':'#E5E7EB','loopTextColor':'#E5E7EB','noteBkgColor':'#1E1E2E','noteBorderColor':'#A78BFA','noteTextColor':'#E5E7EB','stateBkg':'#1E1E2E','stateBorder':'#A78BFA','stateTextColor':'#E5E7EB','transitionColor':'#9CA3AF','transitionLabelColor':'#E5E7EB','fontFamily':'Noto Sans CJK SC, sans-serif','fontSize':'16px'}}}%%
 flowchart TB
     cmd(["ros2 param set"])
     tp(["/turtle_painter<br/>参数中转站"])
@@ -130,10 +132,8 @@ flowchart TB
     tp -->|"参数回调 + 参数客户端"| ts
     ts --> bg
 
-    classDef node fill:#fca5a5,stroke:#7f1d1d
-    classDef result fill:#86efac,stroke:#14532d
-    class cmd,tp,ts node
-    class bg result
+classDef default fill:#1E1E2E,stroke:#A78BFA,stroke-width:1.5px,color:#E5E7EB
+linkStyle default stroke:#9CA3AF
 ```
 
 核心思想：一个节点可以既是「参数提供者」（被别人改），又是「参数客户端」（改别人）。

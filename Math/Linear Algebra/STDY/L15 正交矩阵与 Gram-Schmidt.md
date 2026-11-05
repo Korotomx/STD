@@ -3,6 +3,7 @@
 ## 依赖图
 
 ```mermaid
+%%{init: {'theme':'base','themeCSS':'.nodeLabel{color:#E5E7EB!important;fill:#E5E7EB!important}.edgeLabel p{background-color:#131312!important}.edgeLabel{color:#E5E7EB!important}svg{background:transparent!important}','themeVariables':{'primaryColor':'#1E1E2E','primaryTextColor':'#E5E7EB','primaryBorderColor':'#A78BFA','secondaryColor':'#1E1E2E','tertiaryColor':'#1E1E2E','lineColor':'#9CA3AF','textColor':'#E5E7EB','mainBkg':'#1E1E2E','nodeBorder':'#A78BFA','clusterBkg':'#131312','clusterBorder':'#3A3A4A','edgeLabelBackground':'#131312','actorBkg':'#1E1E2E','actorBorder':'#A78BFA','actorTextColor':'#E5E7EB','actorLineColor':'#9CA3AF','signalColor':'#9CA3AF','signalTextColor':'#E5E7EB','labelBoxBkgColor':'#1E1E2E','labelBoxBorderColor':'#A78BFA','labelTextColor':'#E5E7EB','loopTextColor':'#E5E7EB','noteBkgColor':'#1E1E2E','noteBorderColor':'#A78BFA','noteTextColor':'#E5E7EB','stateBkg':'#1E1E2E','stateBorder':'#A78BFA','stateTextColor':'#E5E7EB','transitionColor':'#9CA3AF','transitionLabelColor':'#E5E7EB','fontFamily':'Noto Sans CJK SC, sans-serif','fontSize':'16px'}}}%%
 flowchart TD
     R1["列标准正交<br/>QᵀQ = I"] --> O["正交矩阵（方阵）<br/>Qᵀ = Q⁻¹"]
     R2["投影与正规方程<br/>AᵀA x̂ = Aᵀb"] --> F["公式退化<br/>P = QQᵀ, x̂ = Qᵀb"]
@@ -11,6 +12,8 @@ flowchart TD
     R1 --> G
     G --> QR["A = QR<br/>R 上三角"]
     QR --> L["QR 解最小二乘<br/>R x̂ = Qᵀb"]
+classDef default fill:#1E1E2E,stroke:#A78BFA,stroke-width:1.5px,color:#E5E7EB
+linkStyle default stroke:#9CA3AF
 ```
 
 读图顺序就是学习顺序：$Q^{\mathsf T}Q=I$ 是根；方阵时它长成 $Q^{\mathsf T}=Q^{-1}$；代入上一章的投影与正规方程，求逆全部消失；另一条支线从「$A$ 列线性无关」出发，Gram-Schmidt 负责把任意无关列变成这种 $Q$，写进矩阵就是 $A=QR$。
@@ -353,12 +356,15 @@ $$
 $R$ 是上三角，回代即可。不构造 $A^{\mathsf T}A$，条件数从 $\kappa(A)^2$ 降到 $\kappa(A)$，所以实际软件（LAPACK 的 `gelsy` 等）都用 QR 而不是正规方程。
 
 ```mermaid
+%%{init: {'theme':'base','themeCSS':'.nodeLabel{color:#E5E7EB!important;fill:#E5E7EB!important}.edgeLabel p{background-color:#131312!important}.edgeLabel{color:#E5E7EB!important}svg{background:transparent!important}','themeVariables':{'primaryColor':'#1E1E2E','primaryTextColor':'#E5E7EB','primaryBorderColor':'#A78BFA','secondaryColor':'#1E1E2E','tertiaryColor':'#1E1E2E','lineColor':'#9CA3AF','textColor':'#E5E7EB','mainBkg':'#1E1E2E','nodeBorder':'#A78BFA','clusterBkg':'#131312','clusterBorder':'#3A3A4A','edgeLabelBackground':'#131312','actorBkg':'#1E1E2E','actorBorder':'#A78BFA','actorTextColor':'#E5E7EB','actorLineColor':'#9CA3AF','signalColor':'#9CA3AF','signalTextColor':'#E5E7EB','labelBoxBkgColor':'#1E1E2E','labelBoxBorderColor':'#A78BFA','labelTextColor':'#E5E7EB','loopTextColor':'#E5E7EB','noteBkgColor':'#1E1E2E','noteBorderColor':'#A78BFA','noteTextColor':'#E5E7EB','stateBkg':'#1E1E2E','stateBorder':'#A78BFA','stateTextColor':'#E5E7EB','transitionColor':'#9CA3AF','transitionLabelColor':'#E5E7EB','fontFamily':'Noto Sans CJK SC, sans-serif','fontSize':'16px'}}}%%
 flowchart LR
     A["A 列线性无关"] --> GS["Gram-Schmidt"]
     GS --> Q["Q 列标准正交"]
     GS --> R["R 上三角"]
     Q --> LS["最小二乘: Rx̂ = Qᵀb"]
     Q --> P["投影: P = QQᵀ"]
+classDef default fill:#1E1E2E,stroke:#A78BFA,stroke-width:1.5px,color:#E5E7EB
+linkStyle default stroke:#9CA3AF
 ```
 
 > [!question] 检查点：为什么 $R$ 一定是上三角？
