@@ -80,13 +80,7 @@ target_link_libraries(status_reporter ... ${cpp_typesupport_target})
 (turtlesim) ──Pose──▶ [/turtle1/pose] ──▶ (status_reporter) ──TurtleStatus──▶ [/turtle1/status] ──▶ (status_watcher)
 ```
 
-```mermaid
-graph LR
-  T((turtlesim)) -->|Pose| P[/turtle1/pose/]
-  P --> R((status_reporter))
-  R -->|TurtleStatus| S[/turtle1/status/]
-  S --> W((status_watcher))
-```
+![[viz-ros2-stdy-features-n043-msg-md-01-1793897300659.png|900]]
 
 发布端订原生 Pose，回调里把位姿「翻译」成自定义消息——这是自定义消息最典型的用法：
 

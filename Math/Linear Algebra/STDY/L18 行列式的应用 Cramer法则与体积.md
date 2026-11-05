@@ -186,15 +186,7 @@ $$
 
   这是换元积分里 Jacobian 的来源，也是 Cramer 体积比的底层原因：$A$ 把单位立方体变成列向量张成的平行体，$b$ 的坐标就是它在像空间里的「体积占比」。
 
-```mermaid
-flowchart TB
-    D["det A"] --> INV["A inverse = adj(A) / det A"]
-    D --> CR["Cramer: x_j = det A_j / det A"]
-    D --> VOL["abs(det A) = volume scale"]
-    CR --> RATIO["x_j = signed volume ratio"]
-    VOL --> RATIO
-    VOL --> JAC["Jacobian in change of variables"]
-```
+![[viz-math-linear-algebra-stdy-l18-cramer-md-01-1793897300646.png|800]]
 
 ## 拓展延伸
 

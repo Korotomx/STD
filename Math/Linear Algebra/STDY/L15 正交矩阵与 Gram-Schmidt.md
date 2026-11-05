@@ -288,14 +288,7 @@ $$
 
 $R$ 是上三角，回代即可。不构造 $A^{\mathsf T}A$，条件数从 $\kappa(A)^2$ 降到 $\kappa(A)$，所以实际软件（LAPACK 的 `gelsy` 等）都用 QR 而不是正规方程。
 
-```mermaid
-flowchart LR
-    A["A 列线性无关"] --> GS["Gram-Schmidt"]
-    GS --> Q["Q 列标准正交"]
-    GS --> R["R 上三角"]
-    Q --> LS["最小二乘: Rx̂ = Qᵀb"]
-    Q --> P["投影: P = QQᵀ"]
-```
+![[viz-math-linear-algebra-stdy-l15-gram-schmidt-md-01-1793897300644.png|900]]
 
 ## 识别信号
 

@@ -18,17 +18,7 @@
 
 ## Tiny VGG 的整体流水线
 
-```mermaid
-flowchart LR
-    A["Input<br/>RGB 图像"] --> B["Conv 3×3<br/>+ ReLU"]
-    B --> C["Conv 3×3<br/>+ ReLU"]
-    C --> D["MaxPool<br/>2×2, stride 2"]
-    D --> E["Conv 3×3<br/>+ ReLU"]
-    E --> F["Conv 3×3<br/>+ ReLU"]
-    F --> G["MaxPool<br/>2×2, stride 2"]
-    G --> H["Flatten<br/>三维 → 一维"]
-    H --> I["Softmax<br/>10 类概率"]
-```
+![[viz-sight-cnn-explainer-md-01-1793897300669.png|900]]
 
 Tiny VGG 比现代 CNN 小得多，但保留了同样的基本层和操作，适合用来理解结构。
 

@@ -1,12 +1,6 @@
 `rewrite.cpp` 是文本，`g++-14` 把它翻译成 ELF 可执行文件 `rewrite`；`build_rewrite.sh` 只是把这条长命令存进文本文件。脚本不参与运行，真正跑起来的是 `rewrite`。这篇把**编译、链接、加载**三个时刻的路径拆开。
 
-```mermaid
-flowchart LR
-    S["build_rewrite.sh<br/>saved command list"] -->|"bash reads line by line"| G["g++-14 command"]
-    A["rewrite.cpp<br/>source text"] --> G
-    G -->|"compile + link"| B["rewrite<br/>ELF machine code"]
-    B -->|"./rewrite"| C["OS loader<br/>jump to main"]
-```
+![[viz-artificial-intelligence-cuda-stdy-t00-tensorrt-md-01-1793897300602.png|900]]
 
 ## 三种文件与四步编译
 

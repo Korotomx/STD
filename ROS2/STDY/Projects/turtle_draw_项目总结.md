@@ -18,22 +18,7 @@ Lyrical 用 `find_package` + `${rclcpp_TARGETS}`，不用已移除的 `ament_tar
 
 ### 节点交互
 
-```mermaid
-flowchart LR
-    N1(["draw_circle<br/>恒定 v+ω"])
-    N2(["draw_square<br/>4×(直走+转90°)"])
-    T["/turtle1/cmd_vel<br/>Twist<br/>QoS 20 / 10"]
-    S(["turtlesim_node"])
-
-    N1 -->|"linear.x=2.0 · angular.z=2.0"| T
-    N2 -->|"直走 / 转弯"| T
-    T -->|订阅| S
-
-    classDef node fill:#ffe0e0,stroke:#c33,stroke-width:2px;
-    classDef topic fill:#d0f0c0,stroke:#363,stroke-width:2px;
-    class N1,N2,S node;
-    class T topic;
-```
+![[viz-ros2-stdy-projects-turtle-draw-md-01-1793897300664.png|900]]
 
 两个节点都只发布，无订阅、服务、动作、参数。**不能同时跑**：会变成两个发布者抢同一话题，海龟被两股命令拉扯。
 
@@ -119,22 +104,7 @@ ros2 param set /turtle_painter background_r 255
   → 画布背景色改变
 ```
 
-```mermaid
-flowchart TB
-    cmd(["ros2 param set"])
-    tp(["/turtle_painter<br/>参数中转站"])
-    ts(["/turtlesim"])
-    bg(["画布背景色"])
-
-    cmd -->|"set_parameters"| tp
-    tp -->|"参数回调 + 参数客户端"| ts
-    ts --> bg
-
-    classDef node fill:#fca5a5,stroke:#7f1d1d
-    classDef result fill:#86efac,stroke:#14532d
-    class cmd,tp,ts node
-    class bg result
-```
+![[viz-ros2-stdy-projects-turtle-draw-md-02-1793897300665.png|520]]
 
 核心思想：一个节点可以既是「参数提供者」（被别人改），又是「参数客户端」（改别人）。
 

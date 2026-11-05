@@ -4,14 +4,7 @@
 
 全连接层本质是「矩阵乘法 + 偏置」，是线性运算。**多个线性变换复合仍是线性变换**（矩阵相乘还是矩阵），所以多层全连接等价于一层——加再多层也没用，连 XOR 都拟合不了。
 
-```mermaid
-flowchart TD
-    A["Linear layer 1"] --> B["Linear layer 2"] --> C["Linear layer 3"]
-    C -.still linear.-> D["Equivalent to one linear transform"]
-    D --> E["Cannot fit XOR or curved boundaries"]
-    F["Add activation σ per layer"] --> G["Nonlinearity"]
-    G --> H["Can approximate complex functions"]
-```
+![[viz-artificial-intelligence-deeplearningrm-stdy-concepts-n004-si-01-1793897300606.png|520]]
 
 ## 常用激活函数
 
@@ -26,14 +19,7 @@ sigmoid 的导数 `σ'(x)=σ(x)(1−σ(x))`，两端趋近 0，是梯度消失�
 
 ### 怎么选
 
-```mermaid
-flowchart TD
-    Q{"Which layer?"} -->|Hidden| H["ReLU / Leaky ReLU<br/>(default)"]
-    Q -->|Output| R{"Task?"}
-    R -->|Binary| S["sigmoid"]
-    R -->|Multi-class| T["softmax"]
-    R -->|Regression| U["linear (no activation)"]
-```
+![[viz-artificial-intelligence-deeplearningrm-stdy-concepts-n004-si-02-1793897300607.png|650]]
 
 ## 前向传播
 
@@ -44,14 +30,7 @@ z = W·x + b        # 线性：加权求和 + 偏置
 a = σ(z)           # 非线性：过激活函数
 ```
 
-```mermaid
-flowchart LR
-    X["Input x"] --> Z1["z1 = W1·x + b1"]
-    Z1 --> A1["a1 = σ(z1)"]
-    A1 --> Z2["z2 = W2·a1 + b2"]
-    Z2 --> A2["ŷ = a2 = σ(z2)"]
-    A2 --> L["loss = f(ŷ, y)"]
-```
+![[viz-artificial-intelligence-deeplearningrm-stdy-concepts-n004-si-03-1793897300608.png|900]]
 
 一层层 `z → a` 串起来，最后输出 `a_L` 就是预测。
 
@@ -87,13 +66,7 @@ L = [(1.0−1.5)² + (2.0−2.5)²] / 2 = (0.25+0.25)/2 = 0.25
         (误差)   (激活导数)  (输入)
 ```
 
-```mermaid
-flowchart RL
-    L["loss"] -->|"∂L/∂ŷ"| O["Output layer"]
-    O -->|"chain rule"| H["Hidden layers"]
-    H --> G["gradient ∂L/∂w"]
-    G --> U["w ← w − lr·∂L/∂w"]
-```
+![[viz-artificial-intelligence-deeplearningrm-stdy-concepts-n004-si-04-1793897300609.png|900]]
 
 直觉：误差从输出层倒着传回每层，每层承担自己的责任。
 

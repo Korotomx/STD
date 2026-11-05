@@ -1,15 +1,6 @@
 把 C01 的 grid → block → thread 模型落成固定套路：**分配 → 搬数据 → 配 grid/block → launch → 同步 → 回收**。程序是否正确取决于三件事：索引算得对不对、同步有没有做、错误有没有查。
 
-```mermaid
-flowchart LR
-    A["1. allocate<br/>cudaMalloc / cudaMallocManaged"] --> B["2. copy input<br/>cudaMemcpy H2D"]
-    B --> C["3. launch config<br/>blocks = ceil_div(n, threads)"]
-    C --> D["4. launch<br/>kernel&lt;&lt;&lt;blocks, threads&gt;&gt;&gt;"]
-    D --> E["5. synchronize<br/>cudaDeviceSynchronize"]
-    E --> F["6. copy back + free<br/>cudaMemcpy D2H / cudaFree"]
-    E -. "async errors surface here" .-> G["cudaGetLastError"]
-    D -. "launch-time error" .-> G
-```
+![[viz-artificial-intelligence-cuda-stdy-c02-programming-model-md-01-1793897300600.png|900]]
 
 第 4 步返回时 kernel 可能还没开始跑，第 5 步才是「它真的做完了」的分界线。
 
@@ -129,18 +120,7 @@ cudaMemcpy(hC, dC, BYTES, cudaMemcpyDeviceToHost);
 
 ## kernel launch 是异步的
 
-```mermaid
-sequenceDiagram
-    participant H as Host (CPU)
-    participant G as GPU
-    H->>G: vecAdd launch (blocks, threads) enqueued
-    Note over H: returns immediately
-    H->>H: next line (may read devC too early)
-    G->>G: kernel actually starts
-    H->>G: cudaDeviceSynchronize()
-    Note over H: blocks until all GPU work completes
-    G-->>H: return; devC now valid
-```
+![[viz-artificial-intelligence-cuda-stdy-c02-programming-model-md-02-1793897300601.png|650]]
 
 - `cudaDeviceSynchronize()` 等待**该设备上所有 stream 的所有工作**；多 stream 场景用 `cudaStreamSynchronize` 或 CUDA Event（C08）。
 - `cudaMemcpy` 已隐含一次等待；但**在 host 上计时**或**连续 launch 多个 kernel** 时必须显式同步。

@@ -10,14 +10,7 @@ engine 只负责 `[1,3,640,640]` 进、`[1,300,30]` 出；预处理、绑定显�
   → 置信度过滤 → 逆映射 → 原图坐标的框 + 8 关键点
 ```
 
-```mermaid
-flowchart LR
-    A["BGR image"] -->|"letterbox + RGB + CHW"| B["[1,3,640,640]"]
-    B -->|"engine forward"| C["[1,300,30]"]
-    C -->|"conf filter + decode"| D["boxes + keypoints<br/>640 space"]
-    D -->|"minus pad, divide r"| E["original coordinates"]
-    E --> F["draw / ROS2 publish"]
-```
+![[viz-artificial-intelligence-deeplearningrm-stdy-features-n026-te-01-1793897300616.png|900]]
 
 ## 预处理：letterbox
 
