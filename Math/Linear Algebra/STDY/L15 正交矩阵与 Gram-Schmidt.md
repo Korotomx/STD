@@ -2,7 +2,15 @@
 
 ## 依赖图
 
-![[viz-math-la-l15-dependency-1793897694918.svg|650]]
+```mermaid
+flowchart TD
+    R1["列标准正交<br/>QᵀQ = I"] --> O["正交矩阵（方阵）<br/>Qᵀ = Q⁻¹"]
+    R2["投影与正规方程<br/>AᵀA x̂ = Aᵀb"] --> F["公式退化<br/>P = QQᵀ, x̂ = Qᵀb"]
+    R1 --> F
+    F --> G["Gram-Schmidt<br/>逐次减掉投影"]
+    G --> Q["A = QR<br/>R 上三角"]
+    Q --> L["QR 解最小二乘<br/>R x̂ = Qᵀb"]
+```
 
 读图顺序就是学习顺序：$Q^{\mathsf T}Q=I$ 是根；方阵时它长成 $Q^{\mathsf T}=Q^{-1}$；代入上一章的投影与正规方程，求逆全部消失；Gram-Schmidt 负责把任意无关列变成这种 $Q$，写进矩阵就是 $A=QR$。
 
@@ -343,7 +351,14 @@ $$
 
 $R$ 是上三角，回代即可。不构造 $A^{\mathsf T}A$，条件数从 $\kappa(A)^2$ 降到 $\kappa(A)$，所以实际软件（LAPACK 的 `gelsy` 等）都用 QR 而不是正规方程。
 
-![[viz-math-linear-algebra-stdy-l15-gram-schmidt-md-01-1793897300644.svg|900]]
+```mermaid
+flowchart LR
+    A["A 列线性无关"] --> GS["Gram-Schmidt"]
+    GS --> Q["Q 列标准正交"]
+    GS --> R["R 上三角"]
+    Q --> LS["最小二乘: Rx̂ = Qᵀb"]
+    Q --> P["投影: P = QQᵀ"]
+```
 
 > [!question] 检查点：为什么 $R$ 一定是上三角？
 

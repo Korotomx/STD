@@ -32,7 +32,15 @@ LLM Wiki 在原始资料和你之间放了一层**结构化、互相链接的 Ma
 
 ## 三层架构
 
-![[viz-sight-llm-wiki-md-01-1793897300674.svg|650]]
+```mermaid
+flowchart TB
+    A["Raw sources<br/>文章、论文、图片、数据<br/>不可变，只读"] --> B["LLM ingest"]
+    B --> C["Wiki<br/>总结页、实体页、概念页<br/>对比、综述、综合"]
+    C --> D["你阅读、提问"]
+    D -->|"好答案归档"| C
+    S["Schema<br/>CLAUDE.md / AGENTS.md<br/>结构、约定、工作流"] -.-> B
+    S -.-> D
+```
 
 ### 1. Raw sources（原始资料）
 
@@ -88,7 +96,14 @@ LLM 生成的 Markdown 文件目录：
 
 最重要的洞察：**好答案可以归档回 wiki，变成新页面。** 你要的对比、一次分析、发现的一个连接，都很有价值，不该消失在聊天记录里。这样，探索本身也像摄入资料一样在知识库里复利。
 
-![[viz-sight-llm-wiki-md-02-1793897300675.svg|900]]
+```mermaid
+flowchart LR
+    Q["问题"] --> S["搜索相关页面"]
+    S --> R["阅读并综合"]
+    R --> A["答案 + 引用"]
+    A -->|"值得保留"| W["归档为新 wiki 页"]
+    W --> S
+```
 
 ### Lint（体检）
 

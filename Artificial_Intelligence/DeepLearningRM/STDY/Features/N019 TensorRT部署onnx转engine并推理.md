@@ -30,7 +30,14 @@ TensorRT 内部网络（TensorRT 层组成的图，在内存里）
 best.engine（二进制文件）
 ```
 
-![[viz-artificial-intelligence-deeplearningrm-stdy-features-n019-te-01-1793897300614.svg|650]]
+```mermaid
+flowchart TB
+    A[best.onnx] -->|"① OnnxParser"| B["TensorRT network<br/>632 TRT layers"]
+    B -->|"② optimize + pick tactic"| C["GPU kernels + weights + memory plan"]
+    C -->|"③ serialize"| D[best.engine]
+    B -.unsupported op.-> E[Parse error]
+    C -.workspace too small.-> F[Tactic error]
+```
 
 ### ① Parse
 

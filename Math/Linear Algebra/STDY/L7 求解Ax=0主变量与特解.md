@@ -75,7 +75,13 @@ $$
 
 **$N=[-F;I]$ 就是「自由变量 → 解」这个线性映射的矩阵**，零空间是它的像。
 
-![[viz-math-linear-algebra-stdy-l7-ax-0-md-01-1793897300654.svg|900]]
+```mermaid
+flowchart LR
+    XF["x_f ∈ R^(n−r)<br/>自由变量"] -->|"乘以 −F"| XP["x_p = −F·x_f<br/>主元变量被确定"]
+    XF -->|"乘以 I"| XF2["x_f 原样保留"]
+    XP --> X["x ∈ N(A)"]
+    XF2 --> X
+```
 
 **为什么是基**：
 

@@ -31,13 +31,46 @@ turtle_chase_game/
 
 编译链路：
 
-![[viz-ros2-stdy-projects-turtle-chase-game-md-01-1793897300660.svg|800]]
+```mermaid
+flowchart LR
+    A["ChaseTurtle.action"] -->|"rosidl_generate_interfaces"| G["chase_turtle.hpp"]
+    G --> G2["ChaseTurtle::Goal / Result / Feedback"]
+    B["runner.cpp"] --> E1["runner"]
+    C["chaser.cpp"] --> E2["chaser"]
+    D["chasing_control.cpp"] --> E3["chasing_control"]
+    E1 -.-> R1[(rclcpp + geometry_msgs + turtlesim_msgs)]
+    E2 -.-> R2[(rclcpp + rclcpp_action + 生成的 action 类型)]
+    E3 -.-> R2
+```
 
 goal 里引用 `geometry_msgs/Pose`，所以 `rosidl_generate_interfaces` 必须写 `DEPENDENCIES geometry_msgs`；`chaser` / `chasing_control` 要链接 `cpp_typesupport_target`，`runner` 不用。
 
 ## 节点交互全景
 
-![[viz-ros2-stdy-projects-turtle-chase-game-md-02-1793897300661.svg|900]]
+```mermaid
+flowchart LR
+    RN(["runner<br/>turtle2 随机游走<br/>500ms 周期"])
+    CH(["chaser<br/>turtle1 追击<br/>Action 服务端"])
+    CC(["chasing_control<br/>裁判<br/>Action 客户端"])
+    TS(["turtlesim_node<br/>仿真器"])
+
+    T2V["/turtle2/cmd_vel<br/>Twist"]
+    T1V["/turtle1/cmd_vel<br/>Twist"]
+    T2P["/turtle2/pose<br/>Pose"]
+    T1P["/turtle1/pose<br/>Pose"]
+
+    RN -->|publish| T2V --> TS
+    CH -->|publish| T1V --> TS
+    TS -->|publish| T2P --> CH
+    TS -->|publish| T1P --> CH
+    CC -.->|"/spawn /kill<br/>/turtle1/set_pen<br/>/turtle2/set_pen"| TS
+    CC -.->|"chase_turtle (Action)<br/>goal / feedback / result"| CH
+
+    classDef node fill:#ffe0e0,stroke:#c33,stroke-width:2px;
+    classDef topic fill:#d0f0c0,stroke:#363,stroke-width:2px;
+    class RN,CH,CC,TS node;
+    class T2V,T1V,T2P,T1P topic;
+```
 
 | 交互 | 类型 | 方向 | 说明 |
 |---|---|---|---|
@@ -235,11 +268,48 @@ rclcpp::shutdown();
 
 启动链路：
 
-![[viz-ros2-stdy-projects-turtle-chase-game-md-03-1793897300662.svg|650]]
+```mermaid
+sequenceDiagram
+    autonumber
+    participant CC as chasing_control
+    participant TS as turtlesim_node
+    participant CH as chaser
+
+    loop 每 1s，直到就绪
+        CC->>CC: start() 查 service_is_ready / action_server_is_ready
+    end
+    CC->>TS: set_pen(turtle1, off=1)
+    TS-->>CC: 响应 → random_spawn
+    CC->>TS: spawn(turtle2, x, y, θ)
+    TS-->>CC: 响应 → hide_turtle2_trace
+    CC->>TS: set_pen(turtle2, off=1)
+    TS-->>CC: 响应 → send_goal
+    CC->>CH: send_goal(target_pose)
+    Note over CH: handle_goal → ACCEPT_AND_EXECUTE
+    Note over CH: handle_accepted 存 m_goal_handle
+```
 
 追击与重生循环：
 
-![[viz-ros2-stdy-projects-turtle-chase-game-md-04-1793897300663.svg|800]]
+```mermaid
+sequenceDiagram
+    autonumber
+    participant CC as chasing_control
+    participant CH as chaser
+    participant TS as turtlesim_node
+    participant RN as runner
+
+    loop 追击阶段（两龟各自 500ms 周期）
+        RN->>TS: 发 /turtle2/cmd_vel
+        CH->>TS: 发 /turtle1/cmd_vel
+        CH-->>CC: feedback(distance, angle)
+    end
+    CH-->>CC: result(caught = true)
+    CC->>TS: kill(turtle2)
+    TS-->>CC: 响应 → random_spawn
+    CC->>TS: spawn(turtle2, 新随机位置)
+    Note over CC: 重新 set_pen → send_goal，进入下一轮
+```
 
 关键对象生命周期：
 

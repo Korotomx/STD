@@ -38,7 +38,19 @@
 
 ## 一个改动的生命周期
 
-![[viz-sight-claude-code-md-01-1793897300670.svg|360]]
+```mermaid
+flowchart TB
+    A["作者/Claude 完成改动"] --> B["1. 提交 PR 前自检<br/>tests / build / lint<br/>fresh-context subagent 复审"]
+    B --> C["2. 每个 PR 的 AI review<br/>并行找 bug + verifier 投票<br/>按严重度排序"]
+    C --> D["3. Security review<br/>未解决发现可阻塞合并"]
+    D --> E["4. 必需 CI<br/>lint / types / tests / build"]
+    E --> F["5. 人工批准<br/>按风险分级：0 / 1 / 2 人"]
+    F --> G["6. Merge queue<br/>在最新 main 上重跑检查"]
+    G --> H["7. 发布<br/>feature flag → 内部 → latest → stable"]
+    H --> I["监控 / 快速回滚"]
+    I -.->|"事故或回退"| J["进入 eval 集"]
+    J -.-> C
+```
 
 ### 1. 提交 PR 前：先自己验证
 
@@ -100,7 +112,17 @@
 
 ### 事故就是 eval
 
-![[viz-sight-claude-code-md-02-1793897300671.svg|900]]
+```mermaid
+flowchart LR
+    A["事故或回退"] --> B["专家确认案例<br/>bug 在哪里"]
+    B --> C["加入 eval 集"]
+    C --> D["每天跑 reviewer"]
+    D --> E{"分数上升？"}
+    E -->|"是"| F["保留改动"]
+    E -->|"否"| G["丢弃或回退"]
+    F --> H["改 prompt / 工具 / 模型"]
+    H --> D
+```
 
 团队把历史上导致事故的 PR（包括 fix-forward 和 revert）收集起来，让熟悉那段代码的工程师确认 bug 和位置，组成 eval 集。reviewer 每天对它跑分；任何对 reviewer 的改动都要在这个集合上重新评分。
 

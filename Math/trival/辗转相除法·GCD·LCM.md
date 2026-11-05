@@ -64,7 +64,13 @@ $$
 
 算法流程：
 
-![[viz-math-trival-gcd-lcm-md-01-1793897300657.svg|650]]
+```mermaid
+flowchart TD
+    A["输入 a, b"] --> B{"b = 0 ?"}
+    B -- 否 --> C["r = a mod b<br/>a ← b, b ← r"]
+    C --> B
+    B -- 是 --> D["返回 |a|"]
+```
 
 ## 最小公倍数
 

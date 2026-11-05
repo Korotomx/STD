@@ -2,11 +2,34 @@
 
 ## 对象与数据流
 
-![[viz-artificial-intelligence-cuda-tensorrt-md-01-1793897300603.svg|650]]
+```mermaid
+flowchart TD
+    L[ILogger] --> R[IRuntime]
+    R --> E["ICudaEngine<br/>plan"]
+    E --> C[IExecutionContext]
+    C --> I[input device buffer]
+    C --> O[output device buffer]
+    I --> Q["enqueueV3 / execute_async_v3"]
+    O --> Q
+```
 
-![[viz-artificial-intelligence-cuda-tensorrt-md-02-1793897300604.svg|900]]
+```mermaid
+flowchart LR
+    A["image BGR<br/>HWC uint8"] -->|cudaMemcpy| D["d_src"]
+    D --> K["warp_affine kernel<br/>letterbox + RGB /255 + CHW"]
+    K --> E[engine] --> F[D2H] --> G["decode + inverse map"] --> H["boxes + 8 keypoints"]
+```
 
-![[viz-artificial-intelligence-cuda-tensorrt-md-03-1793897300605.svg|900]]
+```mermaid
+flowchart LR
+    subgraph BT["build time"]
+        O[ONNX] --> P[OnnxParser] --> N[network] --> B["builder / optimizer"] --> S[plan bytes]
+    end
+    subgraph RT["run time"]
+        S --> D[deserialize] --> R[IRuntime] --> E[ICudaEngine] --> C[IExecutionContext]
+        C --> Q["setTensorAddress + enqueueV3"]
+    end
+```
 
 ## 对象生命周期
 

@@ -45,7 +45,15 @@ P=
 \end{pmatrix}
 \]
 
-![[viz-sight-pagerank-md-01-1793897300682.svg|650]]
+```mermaid
+stateDiagram-v2
+    V: Vowel 43%
+    C: Consonant 57%
+    V --> V: 13%
+    V --> C: 87%
+    C --> V: 65%
+    C --> C: 35%
+```
 
 从任意字母开始，反复按矩阵抽样。起初元音比例上下乱跳，几千步后稳定回 **43%**——和 Markov 手数的结果一致。
 
@@ -102,7 +110,14 @@ r=\alpha P^T r+\frac{1-\alpha}{N}\mathbf{1}
 
 85% 的时间跟随链接，15% 的时间随机跳到任意页面。这样随机冲浪者不会困在某个环里，所有页面都能被探索到。
 
-![[viz-sight-pagerank-md-02-1793897300683.svg|900]]
+```mermaid
+flowchart LR
+    A["Random surfer"] -->|"85%: follow a link"| B["Neighbor page"]
+    A -->|"15%: teleport"| C["Any page"]
+    B --> D["Long-run visit frequency"]
+    C --> D
+    D --> E["PageRank score"]
+```
 
 一个页面即使有一百个低质量页面指向它，也未必能刷上去：那些页面本身没有权重，长期看贡献很小。
 

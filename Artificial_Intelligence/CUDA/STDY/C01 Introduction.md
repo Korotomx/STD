@@ -2,7 +2,17 @@
 
 ## 依赖图
 
-![[viz-cuda-c01-dependency-map-1793896875388.svg|650]]
+```mermaid
+flowchart TD
+    A["多个执行单元可并行"] --> T["吞吐 vs 延迟"]
+    B["数据必须先到可访问内存"] --> H["host 控制 / device 计算"]
+    B --> M["内存层次"]
+    H --> G["grid → block → thread"]
+    G --> W["warp = 32 lane"]
+    T --> GOAL["目标：解释性能<br/>写第一个 kernel"]
+    W --> GOAL
+    M --> GOAL
+```
 
 读图顺序就是学习顺序：根节点是三条不需要证明的真理；每往下一层，只问「上一层已经成立了，为什么自然会走到这一步」。不要按目录背结论，按边推。
 
@@ -85,7 +95,21 @@ GPU 用较低的单线程性能换高得多的总吞吐，所以「一个线程�
 - 跑在 GPU 上的函数叫 **kernel**，启动它叫 **launch**；一次 launch 等于同时启动成千上万个线程执行同一段代码。
 - CPU 和 GPU 可以同时执行，性能最好时两边都不闲着。
 
-![[viz-cuda-c01-host-device-1793896945988.svg|800]]
+```mermaid
+flowchart LR
+    subgraph HOST["Host (CPU)"]
+        HC["host code<br/>prepare data / launch"]
+        HM["host memory"]
+    end
+    subgraph DEV["Device (GPU)"]
+        DC["kernel code<br/>thousands of threads"]
+        DM["device memory<br/>(global memory)"]
+    end
+    HM -- "cudaMemcpy H2D" --> DM
+    HC -- "kernel launch (grid, block)" --> DC
+    DM -- "cudaMemcpy D2H" --> HM
+    DC -. "cudaDeviceSynchronize" .-> HC
+```
 
 > [!question] 检查点：`__global__` 函数在哪调用、在哪执行？它能不能直接读写 host 的普通变量？
 
@@ -137,7 +161,17 @@ block 之间**没有执行顺序保证**：可能并行、可能串行、可能�
 
 **为什么现在需要这个节点？** 上一层的 block 需要有一个物理落点：它到底跑在 GPU 的哪个部件上？这个部件有多少资源，决定了同时能驻留多少 block。
 
-![[viz-cuda-c01-hardware-hierarchy-1793896946183.svg|800]]
+```mermaid
+flowchart TB
+    GPU["GPU"] --> GPC["GPC (group of SMs)"]
+    GPU --> L2["L2 cache (shared by all SMs)"]
+    GPC --> SM0["SM 0"]
+    GPC --> SM1["SM 1 ..."]
+    SM0 --> RF["register file<br/>per thread"]
+    SM0 --> UC["unified data cache<br/>shared memory + L1"]
+    SM0 --> CC["constant cache"]
+    SM0 --> FU["functional units"]
+```
 
 - **SM** 是调度线程块的基本硬件单位；寄存器文件、shared memory + L1 的统一缓存、常量缓存和运算单元都在 SM 内。
 - **GPC** 是 SM 的分组，再往上是整个 GPU 和显存。
@@ -178,7 +212,15 @@ block 之间**没有执行顺序保证**：可能并行、可能串行、可能�
 
 CUDA Runtime API 建在 Driver API 之上；两者可以混用。多数场景不必手写 kernel：cuBLAS/cuDNN/CUTLASS、Triton、TensorRT 已覆盖大部分需求，自己写的价值在库里没有的算子、算子融合、特殊布局，以及把前后处理搬上 GPU（如 groundzero 的 letterbox + 归一化 + HWC→CHW，已在 `03_yolo` 落地）。
 
-![[viz-cuda-c01-compilation-pipeline-1793896946473.svg|800]]
+```mermaid
+flowchart LR
+    SRC["CUDA C++<br/>hello.cu"] -->|nvcc| PTX["PTX<br/>virtual ISA (compute_XY)"]
+    PTX -->|ptxas| CUBIN["cubin<br/>real binary (sm_XY)"]
+    PTX --> FAT["fatbin<br/>multiple cubins + PTX"]
+    CUBIN --> FAT
+    FAT --> RUN["runtime picks<br/>matching cubin"]
+    PTX -. "forward compatible: JIT for newer GPU" .-> RUN
+```
 
 - **PTX**：NVIDIA GPU 的虚拟指令集架构（类汇编），版本如 `compute_80`。
 - **cubin**：针对某个 SM 版本的真实二进制，如 `sm_120`。

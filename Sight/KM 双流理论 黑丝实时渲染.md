@@ -16,7 +16,23 @@ KM 节点组只输出两个灰度量：
 
 三项相加后送入材质输出。
 
-![[viz-sight-km-md-01-1793897300673.svg|900]]
+```mermaid
+flowchart LR
+    N["Normal / view direction"] --> COS["cos θ"]
+    D["Base thickness D"] --> X["Effective thickness X = D / cos θ"]
+    COS --> X
+    TEX["Fiber texture · skin color"] --> W["W = dot(texture, skin)"]
+    W --> X
+    K["K, S"] --> KM["KM constants: A = 1 + K/S, B = sqrt(A² − 1)"]
+    X --> KM
+    KM --> T["Transmittance T"]
+    KM --> R["Reflectance R"]
+    SKIN["Skin shading"] --> MIX["Blend"]
+    FAB["Fabric shading"] --> MIX
+    T --> MIX
+    R --> MIX
+    MIX --> OUT["Material output"]
+```
 
 ## 有效厚度：视角与织物密度
 

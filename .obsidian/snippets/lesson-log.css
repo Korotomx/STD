@@ -1,5 +1,64 @@
-/* md-log teaching notes — readable callouts, clean lesson visuals. */
+/* md-log / lesson notes — author's Obsidian look (π-learn):
+   orange headings, rose bold, blue italic, purple Mermaid nodes. */
 
+:root,
+.theme-dark {
+  --h1-color: #EE8F4E;
+  --h2-color: #EE8F4E;
+  --h3-color: #EE8F4E;
+  --h4-color: #EE8F4E;
+  --h5-color: #EE8F4E;
+  --h6-color: #B9A08C;
+
+  --strong-color: #D98C8C;   /* 玫红：加粗 */
+  --em-color: #7FB4D0;       /* 蓝：斜体 */
+  --link-color: #D98C8C;
+  --link-color-hover: #EE8F4E;
+  --text-accent: #EE8F4E;
+  --text-accent-hover: #F2A468;
+}
+
+/* ---- Headings: orange, clear hierarchy ---- */
+.theme-dark .markdown-rendered h1,
+.theme-dark .markdown-rendered h2,
+.theme-dark .markdown-rendered h3,
+.theme-dark .markdown-rendered h4,
+.theme-dark .markdown-preview-view h1,
+.theme-dark .markdown-preview-view h2,
+.theme-dark .markdown-preview-view h3,
+.theme-dark .markdown-preview-view h4,
+.theme-dark .HyperMD-header,
+.theme-dark .cm-header {
+  color: #EE8F4E;
+  font-weight: 700;
+}
+
+.theme-dark .markdown-rendered h1,
+.theme-dark .markdown-preview-view h1 {
+  letter-spacing: -0.015em;
+}
+
+/* ---- Inline marks: bold rose, italic blue ---- */
+.theme-dark .markdown-rendered strong,
+.theme-dark .markdown-preview-view strong,
+.theme-dark .cm-strong {
+  color: #D98C8C;
+}
+
+.theme-dark .markdown-rendered em,
+.theme-dark .markdown-preview-view em,
+.theme-dark .cm-em {
+  color: #7FB4D0;
+}
+
+.theme-dark .markdown-rendered a.internal-link,
+.theme-dark .markdown-preview-view a.internal-link,
+.theme-dark .markdown-rendered a.external-link,
+.theme-dark .markdown-preview-view a.external-link {
+  color: #D98C8C;
+}
+
+/* ---- Callouts ---- */
 .callout {
   margin: 1.1em 0;
   border-radius: 10px;
@@ -12,13 +71,8 @@
   letter-spacing: 0.01em;
 }
 
-.callout-content > :first-child {
-  margin-top: 0.35em;
-}
-
-.callout-content > :last-child {
-  margin-bottom: 0.15em;
-}
+.callout-content > :first-child { margin-top: 0.35em; }
+.callout-content > :last-child  { margin-bottom: 0.15em; }
 
 /* YOU */
 .callout[data-callout="quote"] {
@@ -26,19 +80,19 @@
   --callout-icon: lucide-message-circle;
 }
 
-/* LUNA's lesson prose */
+/* PI / lesson prose — teal like the author's PI block */
 .callout[data-callout="abstract"] {
-  --callout-color: #6366F1;
+  --callout-color: #4FA3B8;
   --callout-icon: lucide-sparkles;
 }
 
 /* Quiz prompt */
 .callout[data-callout="question"] {
-  --callout-color: #A855F7;
+  --callout-color: #A78BFA;
   --callout-icon: lucide-help-circle;
 }
 
-/* Correct / incorrect */
+/* Correct / incorrect — the progress check marks */
 .callout[data-callout="success"] {
   --callout-color: #22C55E;
   --callout-icon: lucide-check;
@@ -55,7 +109,134 @@
   --callout-icon: lucide-mouse-pointer-click;
 }
 
-/* Lesson visuals — author palette: paper #131312, accent #EE8F4E */
+/* ---- Mermaid: native Obsidian rendering, purple nodes on dark paper ----
+   Matches the author's node-map look: fill #1E1E2E, purple border #A78BFA. */
+.theme-dark .mermaid svg,
+.theme-dark .block-language-mermaid svg {
+  background: transparent !important;
+  max-width: 100%;
+}
+
+.theme-dark .mermaid .node rect,
+.theme-dark .mermaid .node circle,
+.theme-dark .mermaid .node ellipse,
+.theme-dark .mermaid .node polygon,
+.theme-dark .mermaid .node path,
+.theme-dark .block-language-mermaid .node rect,
+.theme-dark .block-language-mermaid .node circle,
+.theme-dark .block-language-mermaid .node ellipse,
+.theme-dark .block-language-mermaid .node polygon,
+.theme-dark .block-language-mermaid .node path {
+  fill: #1E1E2E !important;
+  stroke: #A78BFA !important;
+  stroke-width: 1.5px !important;
+}
+
+.theme-dark .mermaid .label,
+.theme-dark .mermaid .nodeLabel,
+.theme-dark .mermaid text,
+.theme-dark .mermaid tspan,
+.theme-dark .block-language-mermaid .label,
+.theme-dark .block-language-mermaid .nodeLabel,
+.theme-dark .block-language-mermaid text,
+.theme-dark .block-language-mermaid tspan {
+  color: #E5E7EB !important;
+  fill: #E5E7EB !important;
+}
+
+.theme-dark .mermaid .edgePath .path,
+.theme-dark .mermaid .flowchart-link,
+.theme-dark .mermaid .messageLine0,
+.theme-dark .mermaid .messageLine1,
+.theme-dark .mermaid .relation,
+.theme-dark .mermaid .actor-line,
+.theme-dark .mermaid .loopLine,
+.theme-dark .block-language-mermaid .edgePath .path,
+.theme-dark .block-language-mermaid .flowchart-link,
+.theme-dark .block-language-mermaid .messageLine0,
+.theme-dark .block-language-mermaid .messageLine1,
+.theme-dark .block-language-mermaid .relation,
+.theme-dark .block-language-mermaid .actor-line,
+.theme-dark .block-language-mermaid .loopLine {
+  stroke: #9CA3AF !important;
+}
+
+.theme-dark .mermaid marker path,
+.theme-dark .block-language-mermaid marker path {
+  fill: #9CA3AF !important;
+  stroke: #9CA3AF !important;
+}
+
+.theme-dark .mermaid .edgeLabel,
+.theme-dark .mermaid .edgeLabel rect,
+.theme-dark .mermaid .labelBkg,
+.theme-dark .block-language-mermaid .edgeLabel,
+.theme-dark .block-language-mermaid .edgeLabel rect,
+.theme-dark .block-language-mermaid .labelBkg {
+  background-color: #131312 !important;
+  fill: #131312 !important;
+}
+
+.theme-dark .mermaid .edgeLabel text,
+.theme-dark .mermaid .edgeLabel span,
+.theme-dark .block-language-mermaid .edgeLabel text,
+.theme-dark .block-language-mermaid .edgeLabel span {
+  color: #9CA3AF !important;
+  fill: #9CA3AF !important;
+}
+
+/* subgraphs */
+.theme-dark .mermaid .cluster rect,
+.theme-dark .block-language-mermaid .cluster rect {
+  fill: #131312 !important;
+  stroke: #3A3A4A !important;
+}
+
+/* sequence / state extras */
+.theme-dark .mermaid .actor,
+.theme-dark .block-language-mermaid .actor {
+  fill: #1E1E2E !important;
+  stroke: #A78BFA !important;
+}
+
+.theme-dark .mermaid .note,
+.theme-dark .block-language-mermaid .note {
+  fill: #1E1E2E !important;
+  stroke: #A78BFA !important;
+}
+
+.theme-dark .mermaid .noteText,
+.theme-dark .mermaid .noteText tspan,
+.theme-dark .block-language-mermaid .noteText,
+.theme-dark .block-language-mermaid .noteText tspan {
+  fill: #E5E7EB !important;
+}
+
+.theme-dark .mermaid .labelBox,
+.theme-dark .block-language-mermaid .labelBox {
+  fill: #1E1E2E !important;
+  stroke: #A78BFA !important;
+}
+
+.theme-dark .mermaid .activation0,
+.theme-dark .mermaid .activation1,
+.theme-dark .mermaid .activation2,
+.theme-dark .block-language-mermaid .activation0,
+.theme-dark .block-language-mermaid .activation1,
+.theme-dark .block-language-mermaid .activation2 {
+  fill: #1E1E2E !important;
+  stroke: #A78BFA !important;
+}
+
+.theme-dark .mermaid .stateGroup rect,
+.theme-dark .mermaid .stateGroup circle,
+.theme-dark .block-language-mermaid .stateGroup rect,
+.theme-dark .block-language-mermaid .stateGroup circle {
+  fill: #1E1E2E !important;
+  stroke: #A78BFA !important;
+}
+
+/* ---- User-placed images keep a dark mat ---- */
 .markdown-preview-view img[src*="/viz/"],
 .markdown-preview-view img[src*="viz-"] {
   border-radius: 6px;
@@ -64,29 +245,7 @@
   box-shadow: none;
 }
 
-/* Author-style headings (pi/learn): orange on dark paper */
-.theme-dark .markdown-preview-view h1,
-.theme-dark .markdown-preview-view h2,
-.theme-dark .markdown-rendered h1,
-.theme-dark .markdown-rendered h2 {
-  color: #EE8F4E;
-  font-weight: 700;
-}
-
-.theme-dark .markdown-preview-view h1,
-.theme-dark .markdown-rendered h1 {
-  letter-spacing: -0.015em;
-}
-
-/* Mermaid blocks inside lessons get a little breathing room */
-.markdown-preview-view .mermaid {
-  margin: 0.8em 0;
-  padding: 8px;
-  border-radius: 10px;
-  background: #fff;
-}
-
-/* Quiz options in the mirrored log stay tight */
+/* Quiz options stay tight */
 .callout[data-callout="question"] .callout-content ol {
   margin: 0.3em 0 0.1em;
   padding-left: 1.3em;

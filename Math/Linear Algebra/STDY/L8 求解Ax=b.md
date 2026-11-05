@@ -94,7 +94,17 @@ $$
 
 解集是零空间的一个平移：先找任意一个落到 $b$ 的点 $x_p$，再加上被压到 0 的方向 $N(A)$——这些方向不改变落点，只把点沿平面滑动。
 
-![[viz-math-linear-algebra-stdy-l8-ax-b-md-01-1793897300655.svg|900]]
+```mermaid
+flowchart LR
+    subgraph R4["输入空间 R^4"]
+        XP["x_p<br/>落到 b 的一个点"]
+        N["N(A)<br/>被压成 0 的二维平面"]
+        SOL["解集 = x_p + N(A)<br/>不过原点的平面"]
+    end
+    XP --> SOL
+    N -->|"整体平移"| SOL
+    SOL -->|"A 作用"| B["b"]
+```
 
 - 解集自由度 $=\dim N(A)=n-r$。
 - 三种落点：$b\in C(A)$ 且 $N(A)=\{0\}$ → 唯一原像；$b\in C(A)$ 且零空间有厚度 → 一族原像；$b\notin C(A)$ → 无原像。
