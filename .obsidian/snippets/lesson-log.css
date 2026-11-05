@@ -3,6 +3,11 @@
 
 :root,
 .theme-dark {
+  --background-primary: #131312;
+  --background-primary-alt: #181818;
+  --background-secondary: #181818;
+  --background-secondary-alt: #0E0E0E;
+
   --h1-color: #EE8F4E;
   --h2-color: #EE8F4E;
   --h3-color: #EE8F4E;
@@ -111,6 +116,12 @@
 
 /* ---- Mermaid: native Obsidian rendering, purple nodes on dark paper ----
    Matches the author's node-map look: fill #1E1E2E, purple border #A78BFA. */
+.theme-dark .mermaid,
+.theme-dark .block-language-mermaid {
+  background: transparent !important;
+  padding: 8px 0;
+}
+
 .theme-dark .mermaid svg,
 .theme-dark .block-language-mermaid svg {
   background: transparent !important;
