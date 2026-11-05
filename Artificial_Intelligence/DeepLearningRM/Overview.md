@@ -44,10 +44,6 @@ RoboMaster 深度学习组分流考核的笔记入口。三个任务主线，加
 
 - [[DeepLearningRM/Errors/Errors|Errors]] — E001 matplotlib 无显示环境 · E002 TensorRT 11 API · E003 任务不匹配 · E004 训练 OOM · E005 workspace 单位 · E006 engine JSON 头
 
-## extra
-
-- [[extra/extra|extra]] — 外文剪藏《Give me 31 minutes, I will make PyTorch click forever》
-
 ---
 
 环境：Python 3.11（`dl_env`）+ PyTorch 2.11 cu128；CUDA 12.8 + cuDNN 9.27 + TensorRT 11.4；RTX 5060 8GB；ROS 2 Lyrical。
