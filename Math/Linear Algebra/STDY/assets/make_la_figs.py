@@ -1469,11 +1469,57 @@ def fig_l23():
     plt.close(fig)
 
 
+# ---------------------------------------------------------------- L24 roots / FFT
+def fig_l24():
+    fig, (ax, ax2) = plt.subplots(1, 2, figsize=(12.8, 5.2))
+
+    t = np.linspace(0, 2 * np.pi, 400)
+    ax.plot(np.cos(t), np.sin(t), color=GRAY, ls="--", lw=1.4)
+    n = 8
+    for k in range(n):
+        th = 2 * np.pi * k / n
+        x, y = np.cos(th), np.sin(th)
+        col = RED if k % 2 == 0 else BLUE
+        ax.plot([0, x], [0, y], color=col, lw=1.1, alpha=0.55)
+        ax.scatter([x], [y], color=col, s=55, zorder=5)
+        ax.text(1.15 * x, 1.15 * y, f"$W^{k}$", color=col,
+                fontsize=11, ha="center", va="center")
+    ax.text(0, 0, "$W=e^{2\\pi i/n}$", fontsize=10.5, ha="center",
+            va="center",
+            bbox=dict(facecolor="white", edgecolor="none", pad=1.5))
+    ax.set_xlim(-1.38, 1.38); ax.set_ylim(-1.38, 1.38)
+    ax.set_xlabel("Re"); ax.set_ylabel("Im")
+    ax.set_title("Eighth roots of unity: columns of $F_8$",
+                 fontsize=12.5)
+    clean(ax)
+
+    ns = np.array([16, 32, 64, 128, 256, 512, 1024, 2048, 4096])
+    ax2.loglog(ns, ns ** 2, color=RED, lw=2.2, label="$n^2$")
+    ax2.loglog(ns, 0.5 * ns * np.log2(ns), color=BLUE, lw=2.2,
+               label="$(n/2)\\log_2 n$")
+    ax2.scatter([1024], [1024 ** 2], color=RED, s=35, zorder=5)
+    ax2.scatter([1024], [0.5 * 1024 * 10], color=BLUE, s=35, zorder=5)
+    ax2.annotate("n=1024: 1,048,576", (1024, 1024 ** 2),
+                 xytext=(45, 1.4e6), fontsize=9.5, color=RED)
+    ax2.annotate("n=1024: 5,120", (1024, 5120),
+                 xytext=(1220, 2200), fontsize=9.5, color=BLUE,
+                 arrowprops=dict(arrowstyle="-", color=BLUE, lw=0.8,
+                                 alpha=0.6))
+    ax2.set_xlabel("n"); ax2.set_ylabel("multiplications")
+    ax2.set_title("FFT: divide and conquer wins", fontsize=12.5)
+    ax2.legend(frameon=False, loc="upper left")
+    clean(ax2, equal=False)
+
+    fig.tight_layout()
+    fig.savefig(f"{OUT}/L24_roots_fft.png", dpi=200, bbox_inches="tight")
+    plt.close(fig)
+
+
 if __name__ == "__main__":
     for fn in (fig_l1, fig_l10, fig_l14, fig_l15, fig_l18, fig_l19, fig_l20,
                fig_l12, fig_l13, fig_l14_ls, fig_l20_pca, fig_l16_det,
                fig_l21, fig_l12_adj, fig_markov_chain, fig_linear_programming,
                fig_l2, fig_l3, fig_l4, fig_l5, fig_l5_transpose,
-               fig_l22_markov, fig_l22_fourier, fig_l23):
+               fig_l22_markov, fig_l22_fourier, fig_l23, fig_l24):
         fn()
         print("ok", fn.__name__)

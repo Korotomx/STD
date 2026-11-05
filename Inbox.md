@@ -39,3 +39,7 @@
 | Math/Linear Algebra/Ref/Simplex Algorithm Visually Explained | 数学 | [[线性规划与单纯形法]] | 已处理 | 2026-11-04 |
 | Math/Linear Algebra/Ref/The Matrix Transpose Visual Intuition | 数学 | [[L5 转置·置换·向量空间]]（几何一节） | 已处理 | 2026-11-05 |
 | Artificial_Intelligence/Unlimited/Capture/What Is Quantization How AI Models Get Smaller & Faster | AI | [[量化 让模型更小更快]] | 已处理 | 2026-11-05 |
+| Math/Linear Algebra/Ref/26. Complex Matrices; Fast Fourier Transform | 数学 | [[L24 复矩阵与快速傅里叶变换]] | 已处理 | 2026-11-05 |
+| Math/Linear Algebra/Ref/Complex Matrices | 数学 | [[L24 复矩阵与快速傅里叶变换]]（习题课） | 已处理 | 2026-11-05 |
+| Math/Linear Algebra/Ref/24b. Quiz 2 Review | 数学 | [[Linear Algebra/Concentrated\|Concentrated]]（Quiz 2 要点） | 已处理 | 2026-11-05 |
+| Math/Linear Algebra/Ref/Exam 2 Problem Solving | 数学 | [[Linear Algebra/Concentrated\|Concentrated]]（Quiz 2 要点） | 已处理 | 2026-11-05 |

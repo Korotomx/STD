@@ -2,15 +2,18 @@
 
 ## 课程材料
 
-- [[Linear Algebra/STDY/STDY|STDY]] — L1~L23、L25 知识点（L24 待补）+ 专题笔记 [[马尔可夫链]]、[[线性规划与单纯形法]]
+- [[Linear Algebra/STDY/STDY|STDY]] — L1~L25 知识点 + 专题笔记 [[马尔可夫链]]、[[线性规划与单纯形法]]
 - [[Linear Algebra/Ref/Ref|Ref · 原始材料索引]] — 18.06 字幕（lecture 1~27）、18.06SC 习题课、3b1b 系列、数学不难、专题视频，按类目列出
-- 当前主线材料：lecture 23 [[23. Differential Equations and exp(At)]] 与习题课 [[Differential Equations and exp (At)]]；lecture 24 [[24. Markov Matrices; Fourier Series]] 与习题课 [[Markov Matrices]]；lecture 25 [[25. Symmetric Matrices and Positive Definiteness]] 与习题课 [[Symmetric Matrices and Positive Definiteness]]；lecture 27 [[27. Positive Definite Matrices and Minima]] 与习题课 [[Positive Definite Matrices and Minima]]
+- 当前主线材料：lecture 23 [[23. Differential Equations and exp(At)]] 与习题课 [[Differential Equations and exp (At)]]；lecture 24 [[24. Markov Matrices; Fourier Series]] 与习题课 [[Markov Matrices]]；lecture 25 [[25. Symmetric Matrices and Positive Definiteness]] 与习题课 [[Symmetric Matrices and Positive Definiteness]]；lecture 26 [[26. Complex Matrices; Fast Fourier Transform]] 与习题课 [[Complex Matrices]]；lecture 27 [[27. Positive Definite Matrices and Minima]] 与习题课 [[Positive Definite Matrices and Minima]]
 - [[Linear Algebra/Assignments/Assignments|Assignments]] — 题目类内容
 - [[Linear Algebra/Exam|Exam]] — PDF 讲义知识点清单与未覆盖项；[[Linear Algebra/Concentrated|Concentrated]] — 已学定理与性质分类汇编
 
 ## 待整理原始材料
 
 - [[13. Quiz 1 Review]] · [[Exam 1 Problem Solving]] — 复习与习题课材料，暂不单独成笔记
+- [[24b. Quiz 2 Review]] · [[Exam 2 Problem Solving]] — 复习与考试讲评，已提炼进 [[Linear Algebra/Concentrated|Concentrated]] 的「Quiz 2 / Exam 2 复习要点」
+- [[26. Complex Matrices; Fast Fourier Transform]] — lecture 26 字幕；已整理为 [[L24 复矩阵与快速傅里叶变换]]
+- [[Complex Matrices]] — 18.06SC 习题课，Hermitian 矩阵对角化；已并入 [[L24 复矩阵与快速傅里叶变换]]
 - 数学不难 11 特征值分解、12 PCA — 已用于 [[L20 对角化与矩阵的幂]] 的数据图景；13.1 二次型 — 已用于 [[L25 正定矩阵与极小值]] 的几何部分
 - [[Eigenvectors Are Hiding Something Nobody Talks About!]] — 特征值/对角化/PCA/PageRank 专题视频；已用于 L20 的耦合振子、PCA、PageRank 三个图景
 - [[Matrix trace isn't just summing the diagonal  Lie groups, algebras, brackets 5]] — 迹的几何直观与李代数；已用于 [[L19 特征值与特征向量]] 的「迹的几何意义：散度」
@@ -46,7 +49,7 @@
 - [[L21 微分方程与矩阵指数]] — $u'=Au$、纯指数解、$e^{At}=Se^{\Lambda t}S^{-1}$、稳定性与左半平面、迹/行列式判据、高阶方程转 companion 矩阵、三阶数例。
 - [[L22 马尔可夫矩阵与傅里叶级数]] — 列和为 $1$ → $\lambda=1$；$A-I$ 奇异给出平稳分布；其余特征值 $|\lambda_i|\le1$ 决定收敛；加州/马萨诸塞与两状态粒子两例；正交基展开 $x_i=q_i^{\mathsf T}v$；Fourier 级数的积分公式；MCMC 延伸（细致平衡、burn-in、多峰陷阱）。
 - [[L23 对称矩阵与正定矩阵]] — 实特征值与正交特征基、谱定理 $A=Q\Lambda Q^{\mathsf T}$、投影叠加/主轴定理、主元符号=特征值符号、正定四判据、$A^{\mathsf T}A$ 与列满秩、习题课四证。
-- [[L24 复矩阵与快速傅里叶变换]] — 暂跳待补（lecture 26）；Hermitian/酉矩阵、傅里叶矩阵、FFT。
+- [[L24 复矩阵与快速傅里叶变换]] — 共轭转置与复内积、Hermitian/酉矩阵、傅里叶矩阵的列正交与逆、FFT 偶奇分治 $O(n\log n)$、循环矩阵与卷积。
 - [[L25 正定矩阵与极小值]] — 四种判别法（能量/特征值/主元/顺序主子式）、配方=消元、碗与马鞍、椭圆主轴、Hessian 与极小值、三对角与参数 $c$ 数例。
 - [[马尔可夫链]] — 链的随机过程视角：无记忆性、转移矩阵=马尔可夫矩阵、平稳分布、MCMC/PageRank/LLM 三个应用；与 L22 互补。
 - [[线性规划与单纯形法]] — LP 三要素、可行域与顶点、单纯形法角到角、凸性保证全局最优、影子价格与对偶。
@@ -94,6 +97,11 @@
 - 正定四判据：$x^{\mathsf T}Ax>0$（$x\ne0$）$\iff$ 特征值全正 $\iff$ 主元全正 $\iff$ 顺序主子式全正。[[L23 对称矩阵与正定矩阵]] [[L25 正定矩阵与极小值]]
 - 正定 ⇒ 可逆；$A^{\mathsf T}A$ 正定 $\iff$ $A$ 列满秩。[[L23 对称矩阵与正定矩阵]]
 - $\det A>0$ 不足以判定正定，必须检查所有顺序主子式；对角元为负即可一票否决。[[L23 对称矩阵与正定矩阵]]
+- 复内积 $y^{\mathsf H}x$、长度 $z^{\mathsf H}z$；转置与共轭必须一起出现。[[L24 复矩阵与快速傅里叶变换]]
+- Hermitian $A^{\mathsf H}=A$：特征值全实，不同特征值的特征向量复正交；酉矩阵 $Q^{\mathsf H}Q=I$。[[L24 复矩阵与快速傅里叶变换]]
+- 傅里叶矩阵 $(F_n)_{jk}=W^{jk}$，$W=e^{2\pi i/n}$：列正交、长度 $\sqrt n$，$F_n^{-1}=\frac1nF_n^{\mathsf H}$；$F_nx$ 是多项式在 $n$ 个单位根上的取值。[[L24 复矩阵与快速傅里叶变换]]
+- FFT：偶奇拆分 $p(z)=p_e(z^2)+zp_o(z^2)$，$T(n)=2T(n/2)+n/2=\frac n2\log_2 n$，把 $n^2$ 降到 $O(n\log n)$。[[L24 复矩阵与快速傅里叶变换]]
+- 循环矩阵被 $F_n$ 对角化，循环卷积 = 逐点乘法（卷积定理）。[[L24 复矩阵与快速傅里叶变换]]
 - 邻接矩阵把有向图装进线性代数；节点重编号 = $P^{\mathsf T}AP$，按 SCC 排序后得到块上三角与 Frobenius 标准形。[[L12 图·网络·关联矩阵]]
 - $A$ 正定 ⟺ $x^{\mathsf T}Ax>0\ (x\ne0)$ ⟺ 特征值全正 ⟺ 主元全正 ⟺ 顺序主子式全正；四个测试是同一件事的四种视角。[[L25 正定矩阵与极小值]]
 - 配方就是消元：$x^{\mathsf T}Ax=(L^{\mathsf T}x)^{\mathsf T}D(L^{\mathsf T}x)=\sum p_i(\text{线性式}_i)^2$，主元在平方外、乘数在平方内；$D_k=p_1\cdots p_k$ 让行列式测试与主元测试必然一致。[[L25 正定矩阵与极小值]]
@@ -129,13 +137,14 @@ flowchart LR
 
 ## 当前进度
 
+- 2026-11-05：L24 复矩阵与快速傅里叶变换补写完成（lecture 26 + 18.06SC 习题课）：共轭转置与复内积、Hermitian/酉矩阵、傅里叶矩阵列正交与逆、FFT 偶奇分治与 $O(n\log n)$、循环矩阵与卷积；新增 L24 单位根/代价对比图。Quiz 2 Review 与 Exam 2 Problem Solving 提炼进 Concentrated，不单独成篇。
 - 2026-11-04：新建专题笔记 [[马尔可夫链]]（链的随机过程视角 + MCMC/PageRank/LLM）与 [[线性规划与单纯形法]]（Simplex 视频转写），同步 STDY、Ref、Inbox、Concentrated。
 - 2026-11-03：L23 对称矩阵与正定矩阵补写完成（lecture 25 + 18.06SC 习题课）：实特征值与正交特征基、谱定理 $A=Q\Lambda Q^{\mathsf T}$、投影叠加/主轴定理、主元符号=特征值符号、正定四判据与两个 $2\times2$ 例子、$A^{\mathsf T}A$ 与列满秩。
 - 2026-11-03：L22 马尔可夫矩阵与傅里叶级数补写完成（lecture 24 + 18.06SC 习题课；延伸整理 MCMC 视频）：$\lambda=1$ 与平稳分布、收敛速度、两个两状态例子、正交基展开、Fourier 系数积分公式、Metropolis–Hastings。
 - 2026-11-02：L21 微分方程与矩阵指数补写完成（lecture 23 + 18.06SC 习题课）；新增相图/稳定区图和邻接矩阵/SCC 块结构图，L12 增补「矩阵即图」一节（强连通分量、置换相似、Frobenius 标准形）。
 - 当前：L25 正定矩阵与极小值笔记完成（2026-11-01），lecture 27 与习题课已整理；配三张英文标注彩色图（碗/马鞍、椭圆与主轴、临界方向能量）。同期给 L1、L10、L12、L13、L14、L15、L18、L19、L20 各补一张彩色示意图，另补 L14 最小二乘拟合、L14 概率/正则化、L16 行列式性质三联图、L20 PCA 主方向；绘图脚本归档在 `STDY/assets/make_la_figs.py`。
 - 2026-11-01：整理 [[Linear Algebra/Exam|Exam]]（15 份中文讲义的逐讲知识点、✅/◐/○ 覆盖标记、未学清单、Threshold test I 备考建议）与 [[Linear Algebra/Concentrated|Concentrated]]（已学定理与性质按主题汇编）；建立 [[Linear Algebra/Ref/Ref|Ref 索引]]；Overview 命题并入主页「命题速查」后改为跳转。
-- 讲次安排：L22（马尔可夫与傅里叶，lecture 24）、L23（对称矩阵与正定，lecture 25）已于 2026-11-03 补写；L24（复矩阵与 FFT，lecture 26）暂跳，保留空位，之后补写；主线按实际进度走到 L25。
+- 讲次安排：L22（马尔可夫与傅里叶，lecture 24）、L23（对称矩阵与正定，lecture 25）已于 2026-11-03 补写；L24（复矩阵与 FFT，lecture 26）已于 2026-11-05 补齐；主线按实际进度走到 L25。
 
 ## 掌握度
 
@@ -155,7 +164,7 @@ flowchart LR
 | L21 微分方程与矩阵指数 | 完成 | 待自测 | 0 |
 | L22 马尔可夫矩阵与傅里叶级数 | 完成 | 待自测 | 0 |
 | L23 对称矩阵与正定矩阵 | 完成 | 待自测 | 0 |
-| L24 复矩阵与快速傅里叶变换 | 待补 | — | 0 |
+| L24 复矩阵与快速傅里叶变换 | 完成 | 待自测 | 0 |
 | L25 正定矩阵与极小值 | 完成 | 待自测 | 0 |
 | 马尔可夫链（专题） | 完成 | 待自测 | 0 |
 | 线性规划与单纯形法（专题） | 完成 | 待自测 | 0 |
@@ -164,4 +173,4 @@ flowchart LR
 
 ## 下一步
 
-- L22、L23、L25 按 [[Review]] 到期自测；L24 留空位待补；主线下一讲从 lecture 28 起（等 Ref 材料）。
+- L22、L23、L24、L25 按 [[Review]] 到期自测；主线下一讲从 lecture 28 起（等 Ref 材料）。

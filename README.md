@@ -18,10 +18,11 @@
 
 ## 数学 · 线性代数
 
-**进度**：MIT 18.06 L1~L23、L25 笔记完成；专题笔记《马尔可夫链》《线性规划与单纯形法》已完成；L24（lecture 26）暂跳，讲次号预留。
+**进度**：MIT 18.06 L1~L25 笔记完成；专题笔记《马尔可夫链》《线性规划与单纯形法》已完成。
 
 **今日完成**：
 
+- 2026-11-05：补写 [[L24 复矩阵与快速傅里叶变换]]（lecture 26 + 18.06SC 习题课）——共轭转置与复内积、Hermitian/酉矩阵、傅里叶矩阵的列正交与逆 $F_n^{-1}=\frac1nF_n^{\mathsf H}$、FFT 偶奇分治 $T(n)=\frac n2\log_2 n$、循环矩阵与卷积；配单位根/代价对比图。Quiz 2 Review 与 Exam 2 Problem Solving 提炼进 [[Linear Algebra/Concentrated|Concentrated]]；同步 STDY、Ref、Inbox、Overview。
 - 2026-11-05：给 [[L5 转置·置换·向量空间]] 补「转置的几何意义」——点积写成 $v^{\mathsf T}x$、剪切把点积从 2 变 6、$A^{\mathsf T}A=I$ 才保点积、只变换 $x$ 时另一侧用 $(A^{-1})^{\mathsf T}$、不可逆时用 $x\cdot(A^{\mathsf T}\bar v)=(Ax)\cdot\bar v$、SVD 下 $A^{\mathsf T}=R_2\Sigma R_1^{\mathsf T}$、转置 vs 逆；配四联图 `L5_transpose_dot_product.png`（剪切/转置配对/正交旋转/SVD）和 manim 动画 `L5_four_svd_transforms.gif`（$A,A^{-1},A^{-\mathsf T},A^{\mathsf T}$ 四条「旋转—缩放—旋转」路线并行演示）；同步 STDY、Ref、Concentrated、Inbox 与 Overview。
 - 2026-11-04：给 [[L2 消元]]、[[L3 矩阵乘法与逆]]、[[L4 A=LU 分解]]、[[L5 转置·置换·向量空间]]、[[L22 马尔可夫矩阵与傅里叶级数]]、[[L23 对称矩阵与正定矩阵]] 补 7 张英文标注示意图（消元行图像与 $E_{21}A=U$、秩 1 外积与奇异塌缩、$LU$ 账本与多右端运算量、转置/子空间/列空间、马尔可夫收敛、Fourier 部分和与系数衰减、谱分解主轴与投影伸缩）；绘图代码并入 `STDY/assets/make_la_figs.py`。
 - 2026-11-04：新建专题笔记 [[马尔可夫链]]（链的随机过程视角 + MCMC/PageRank/LLM）与 [[线性规划与单纯形法]]（Simplex 视频转写），同步 STDY、Ref、Inbox、Concentrated、Overview。
@@ -42,7 +43,7 @@
 - 2026-11-01：按 `Downloads/LinearAlgebra` 15 份讲义整理 [[Linear Algebra/Exam|Exam]]（逐讲知识点 + ✅/◐/○ 覆盖标记 + 未学清单 + 参照 Threshold test I 的备考建议）；按主题汇编已学定理与性质为 [[Linear Algebra/Concentrated|Concentrated]]。
 - 2026-11-01：给 [[L19 特征值与特征向量]] 补「速算技巧」——信号表（行和/秩 1/三角/置换/零化多项式）、行和与秩 1 数例、$p(A)=O\Rightarrow p(\lambda)=0$、$2\times2$/$3\times3$ 展开式、特征向量快取，以及「行变换不保特征值」的坑；同步 Concentrated。
 
-**下一步**：补 Exam 里标记 ○ 的四块算法缺口（初等变换/标准形、坐标与过渡矩阵、正交对角化、二次型标准形）；L24 有材料再回补；主线从 lecture 28 起，等 Ref 材料。
+**下一步**：补 Exam 里标记 ○ 的四块算法缺口（初等变换/标准形、坐标与过渡矩阵、正交对角化、二次型标准形）；主线从 lecture 28 起，等 Ref 材料。
 
 **笔记**：[[Math/Overview]]
 
