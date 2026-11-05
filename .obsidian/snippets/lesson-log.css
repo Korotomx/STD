@@ -81,36 +81,30 @@
 /* YOU */
 .callout[data-callout="quote"] {
   --callout-color: #3B82F6;
-  --callout-icon: lucide-message-circle;
 }
 
 /* PI / lesson prose — teal like the author's PI block */
 .callout[data-callout="abstract"] {
   --callout-color: #4FA3B8;
-  --callout-icon: lucide-sparkles;
 }
 
 /* Quiz prompt */
 .callout[data-callout="question"] {
   --callout-color: #A78BFA;
-  --callout-icon: lucide-help-circle;
 }
 
 /* Correct / incorrect — the progress check marks */
 .callout[data-callout="success"] {
   --callout-color: #22C55E;
-  --callout-icon: lucide-check;
 }
 
 .callout[data-callout="failure"] {
   --callout-color: #EF4444;
-  --callout-icon: lucide-x;
 }
 
 /* The user's selected answer */
 .callout[data-callout="example"] {
   --callout-color: #F59E0B;
-  --callout-icon: lucide-mouse-pointer-click;
 }
 
 /* ---- Mermaid: native Obsidian rendering, purple nodes on dark paper ----

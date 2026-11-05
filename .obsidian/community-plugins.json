@@ -1,4 +1,12 @@
 [
   "obsidian-git",
-  "card-workspace"
+  "card-workspace",
+  "table-editor-obsidian",
+  "dataview",
+  "obsidian-excalidraw-plugin",
+  "homepage",
+  "obsidian-latex-suite",
+  "omnisearch",
+  "pdf-plus",
+  "templater-obsidian"
 ]
