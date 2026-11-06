@@ -300,7 +300,7 @@ $$
 T(N)=2T(N/2)+O(N)\;\Longrightarrow\;T(N)=O(N\log N).
 $$
 
-这一对「相加 / 相减」就是蝶形（butterfly）。
+这一对「相加 / 相减」就是蝶形（butterfly）。 
 
 ```mermaid
 %%{init: {'theme':'base','themeCSS':'.nodeLabel{color:#E5E7EB!important;fill:#E5E7EB!important}.edgeLabel p{background-color:#131312!important}.edgeLabel{color:#E5E7EB!important}svg{background:transparent!important}','themeVariables':{'primaryColor':'#1E1E2E','primaryTextColor':'#E5E7EB','primaryBorderColor':'#A78BFA','lineColor':'#9CA3AF','mainBkg':'#1E1E2E','nodeBorder':'#A78BFA','clusterBkg':'#131312','edgeLabelBackground':'#131312','fontFamily':'Noto Sans CJK SC, sans-serif'}}}%%
