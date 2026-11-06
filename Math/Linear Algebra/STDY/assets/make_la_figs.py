@@ -18,10 +18,39 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import Polygon, FancyArrowPatch, Rectangle, Circle, Patch
 from matplotlib.lines import Line2D
+from matplotlib.colors import LinearSegmentedColormap
 
 OUT = "/mnt/c/X/STD/STD/Math/Linear Algebra/STDY/assets"
+
+PAPER, PANEL, INK, MUTED, GRID = "#131312", "#1E1E2E", "#E5E7EB", "#9CA3AF", "#3A3A4A"
 RED, BLUE, GREEN, ORANGE, PURPLE, GRAY = (
-    "#d62728", "#1f77b4", "#2ca02c", "#ff7f0e", "#9467bd", "#7f7f7f")
+    "#ff6b6b", "#4dabf7", "#51cf66", "#ffa94d", "#b197fc", "#9CA3AF")
+PAPER_RGB = (0.0745, 0.0745, 0.0706)
+PANEL_RGB = (0.1176, 0.1176, 0.1804)
+
+plt.rcParams.update({
+    "figure.facecolor": PAPER,
+    "savefig.facecolor": PAPER,
+    "axes.facecolor": PAPER,
+    "axes.edgecolor": MUTED,
+    "axes.labelcolor": INK,
+    "axes.titlecolor": INK,
+    "text.color": INK,
+    "xtick.color": MUTED,
+    "ytick.color": MUTED,
+    "grid.color": GRID,
+    "legend.facecolor": PAPER,
+    "legend.edgecolor": GRID,
+    "figure.dpi": 100,
+})
+
+
+def dark3d(ax):
+    for axis in (ax.xaxis, ax.yaxis, ax.zaxis):
+        axis.set_pane_color(PANEL_RGB + (1.0,))
+        axis._axinfo["grid"]["color"] = GRID
+        axis._axinfo["axisline"]["color"] = MUTED
+        axis._axinfo["tick"]["color"] = MUTED
 
 
 def clean(ax, equal=True):
@@ -40,11 +69,11 @@ def fig_l1():
     x = np.linspace(-0.6, 3.2, 200)
     ax.plot(x, 2 * x, color=BLUE, lw=2.2, label="2x - y = 0")
     ax.plot(x, (3 + x) / 2, color=RED, lw=2.2, label="-x + 2y = 3")
-    ax.scatter([1], [2], color="black", s=60, zorder=5)
+    ax.scatter([1], [2], color=INK, s=60, zorder=5)
     ax.annotate("solution (1, 2)", (1, 2), textcoords="offset points",
                 xytext=(12, 20), fontsize=11)
-    ax.axhline(0, color="black", lw=0.8)
-    ax.axvline(0, color="black", lw=0.8)
+    ax.axhline(0, color=INK, lw=0.8)
+    ax.axvline(0, color=INK, lw=0.8)
     ax.set_xlim(-0.6, 3.2); ax.set_ylim(-0.6, 3.4)
     ax.set_xlabel("x"); ax.set_ylabel("y")
     ax.set_title("Row picture: two lines meet at one point", fontsize=13)
@@ -68,8 +97,8 @@ def fig_l1():
     ax.text(-1.75, 3.3, "$b = (0,3)$", color=RED, fontsize=11)
     ax.text(1.05, 1.15, "$2\\,c_2$", color=GREEN, fontsize=10, alpha=0.9)
     ax.text(-2.9, 0.55, "$1\\,c_1 + 2\\,c_2 = b$", fontsize=12)
-    ax.axhline(0, color="black", lw=0.8)
-    ax.axvline(0, color="black", lw=0.8)
+    ax.axhline(0, color=INK, lw=0.8)
+    ax.axvline(0, color=INK, lw=0.8)
     ax.set_xlim(-3.2, 3.2); ax.set_ylim(-1.8, 5.2)
     ax.set_xlabel("x"); ax.set_ylabel("y")
     ax.set_title("Column picture: combine columns to reach b", fontsize=13)
@@ -86,15 +115,16 @@ def fig_l10():
 
     # left: R^3, row space = z-axis, null space = xy-plane (v = (0,0,1))
     ax = fig.add_subplot(1, 2, 1, projection="3d")
+    dark3d(ax)
     s, t = np.meshgrid(np.linspace(-1.3, 1.3, 2), np.linspace(-1.3, 1.3, 2))
-    ax.plot_surface(s, t, 0 * s, color="#9ecae1", alpha=0.45, linewidth=0)
+    ax.plot_surface(s, t, 0 * s, color=BLUE, alpha=0.45, linewidth=0)
     ax.plot([0, 0], [0, 0], [-1.5, 1.5], color=RED, lw=3)
     d = 0.25
-    ax.plot([0, d, d, 0], [0, 0, 0, 0], [d, d, 0, 0], color="black", lw=1.2)
-    ax.scatter([0], [0], [0], color="black", s=25)
+    ax.plot([0, d, d, 0], [0, 0, 0, 0], [d, d, 0, 0], color=INK, lw=1.2)
+    ax.scatter([0], [0], [0], color=INK, s=25)
     ax.text2D(0.58, 0.78, "row space = span(v)\ndim 1", color=RED, fontsize=10,
               transform=ax.transAxes)
-    ax.text2D(0.04, 0.38, "null space = plane v.x = 0\ndim 2", color="#08519c",
+    ax.text2D(0.04, 0.38, "null space = plane v.x = 0\ndim 2", color=BLUE,
               fontsize=10, transform=ax.transAxes)
     ax.set_xlim(-1.4, 1.4); ax.set_ylim(-1.4, 1.4); ax.set_zlim(-1.6, 1.6)
     ax.set_title("R^3: row space and null space\nare orthogonal complements",
@@ -118,11 +148,11 @@ def fig_l10():
     u1, u2 = q / np.linalg.norm(q), m / np.linalg.norm(m)
     d = 0.28
     ax.plot([d * u1[0], d * (u1[0] + u2[0]), d * u2[0]],
-            [d * u1[1], d * (u1[1] + u2[1]), d * u2[1]], color="black", lw=1.2)
+            [d * u1[1], d * (u1[1] + u2[1]), d * u2[1]], color=INK, lw=1.2)
     ax.text(1.45, 2.1, "column space\n(Ax), dim 1", color=GREEN, fontsize=10)
     ax.text(-3.45, -2.1, "left null space\n(A^T y = 0), dim 1", color=PURPLE,
             fontsize=10)
-    ax.scatter([0], [0], color="black", s=25, zorder=5)
+    ax.scatter([0], [0], color=INK, s=25, zorder=5)
     ax.set_xlim(-3.6, 3.2); ax.set_ylim(-3.4, 3.6)
     ax.set_xlabel("y1"); ax.set_ylabel("y2")
     ax.set_title("R^2: column space and left null space\nare orthogonal complements",
@@ -138,6 +168,7 @@ def fig_l10():
 def fig_l14():
     fig = plt.figure(figsize=(12.6, 5.4))
     ax = fig.add_subplot(1, 2, 1, projection="3d")
+    dark3d(ax)
 
     a1 = np.array([1.0, 0.0, 0.35]); a2 = np.array([0.0, 1.0, 0.55])
     b = np.array([1.2, 1.2, -0.6])
@@ -145,7 +176,7 @@ def fig_l14():
     p = b - (b @ n) / (n @ n) * n
     s, t = np.meshgrid(np.linspace(-1.15, 1.15, 2), np.linspace(-1.15, 1.15, 2))
     X = s * a1[0] + t * a2[0]; Y = s * a1[1] + t * a2[1]; Z = s * a1[2] + t * a2[2]
-    ax.plot_surface(X, Y, Z, color="#9ecae1", alpha=0.4, linewidth=0)
+    ax.plot_surface(X, Y, Z, color=BLUE, alpha=0.4, linewidth=0)
     ax.quiver(0, 0, 0, *b, color=RED, lw=2.6, arrow_length_ratio=0.09)
     ax.quiver(0, 0, 0, *p, color=BLUE, lw=2.6, arrow_length_ratio=0.09)
     ax.quiver(*p, *(b - p), color=ORANGE, lw=2.6, arrow_length_ratio=0.14)
@@ -157,7 +188,7 @@ def fig_l14():
     u1 = p / np.linalg.norm(p); u2 = (b - p) / np.linalg.norm(b - p); d = 0.16
     c = p + d * u1
     ax.plot([c[0], c[0] + d * u2[0]], [c[1], c[1] + d * u2[1]], [c[2], c[2] + d * u2[2]],
-            color="black", lw=1.2)
+            color=INK, lw=1.2)
     ax.set_xlim(-0.8, 1.5); ax.set_ylim(-0.8, 1.5); ax.set_zlim(-0.9, 1.0)
     ax.set_xticks([-0.5, 0.0, 0.5, 1.0, 1.5])
     ax.set_yticks([-0.5, 0.0, 0.5, 1.0, 1.5])
@@ -203,11 +234,11 @@ def fig_l15():
                                      color=col, lw=2.6))
         ax.text(*(vec + np.array(off)), lab, color=col, fontsize=13)
     ax.plot([0, proj[0]], [0, proj[1]], ls="--", color=GRAY, lw=1.6)
-    ax.scatter([proj[0]], [proj[1]], color="black", s=25, zorder=5)
+    ax.scatter([proj[0]], [proj[1]], color=INK, s=25, zorder=5)
     ax.add_patch(FancyArrowPatch(proj, a2, arrowstyle="-|>", mutation_scale=16,
                                  color=GREEN, lw=2.2))
     ax.text(0.95, 1.35, "$e = a_2 - \\mathrm{proj}$", color=GREEN, fontsize=11)
-    ax.text(proj[0] + 0.1, proj[1] - 0.25, "proj", color="black", fontsize=10)
+    ax.text(proj[0] + 0.1, proj[1] - 0.25, "proj", color=INK, fontsize=10)
     ax.set_xlim(-0.4, 3.6); ax.set_ylim(-0.3, 2.6)
     ax.set_xlabel("x"); ax.set_ylabel("y")
     ax.set_title("Step 1: subtract the projection onto $a_1$", fontsize=13)
@@ -223,7 +254,7 @@ def fig_l15():
         ax.text(*(vec * 1.08), lab, color=col, fontsize=13)
     d = 0.12
     ax.plot([d * q1[0], d * (q1[0] + q2[0]), d * q2[0]],
-            [d * q1[1], d * (q1[1] + q2[1]), d * q2[1]], color="black", lw=1.2)
+            [d * q1[1], d * (q1[1] + q2[1]), d * q2[1]], color=INK, lw=1.2)
     ax.set_xlim(-1.3, 1.3); ax.set_ylim(-1.3, 1.3)
     ax.set_xlabel("x"); ax.set_ylabel("y")
     ax.set_title("Step 2: normalize -> orthonormal $q_1, q_2$", fontsize=13)
@@ -242,7 +273,7 @@ def fig_l18():
     ax = axes[0]
     A = np.array([[2.0, 1.0], [0.0, 2.0]])
     img = sq @ A.T
-    ax.add_patch(Polygon(sq, closed=True, facecolor="#d9d9d9", edgecolor=GRAY,
+    ax.add_patch(Polygon(sq, closed=True, facecolor="#2A2A2A", edgecolor=GRAY,
                          ls="--", lw=1.6, label="unit square, area 1"))
     ax.add_patch(Polygon(img, closed=True, facecolor=BLUE, alpha=0.35,
                          edgecolor=BLUE, lw=2.0, label="image, area |det A| = 4"))
@@ -261,7 +292,7 @@ def fig_l18():
     ax = axes[1]
     B = np.array([[1.0, 1.0], [2.0, 2.0]])
     img = sq @ B.T
-    ax.add_patch(Polygon(sq, closed=True, facecolor="#d9d9d9", edgecolor=GRAY,
+    ax.add_patch(Polygon(sq, closed=True, facecolor="#2A2A2A", edgecolor=GRAY,
                          ls="--", lw=1.6))
     ax.plot(img[:, 0], img[:, 1], color=RED, lw=4, solid_capstyle="round")
     ax.scatter(img[:, 0], img[:, 1], color=RED, s=30, zorder=4)
@@ -404,8 +435,8 @@ def fig_l12():
         ax.text(mx + nx * off, my + ny * off, name, color=col, fontsize=12,
                 ha="center", va="center", fontweight="bold", zorder=5)
     for n, (x, y) in pos.items():
-        ax.add_patch(plt.Circle((x, y), 0.17, facecolor="white",
-                                edgecolor="#333333", lw=1.8, zorder=4))
+        ax.add_patch(plt.Circle((x, y), 0.17, facecolor=PANEL,
+                                edgecolor=INK, lw=1.8, zorder=4))
         ax.text(x, y, str(n), fontsize=13, ha="center", va="center", zorder=5)
     ax.set_xlim(-0.6, 2.5)
     ax.set_ylim(-0.9, 1.65)
@@ -416,12 +447,12 @@ def fig_l12():
 
     A = np.array([[-1, 1, 0, 0], [0, -1, 1, 0], [-1, 0, 1, 0],
                   [-1, 0, 0, 1], [0, 0, -1, 1]])
-    cmap = {-1: "#f7c6c2", 1: "#c8e6c9", 0: "#ffffff"}
+    cmap = {-1: "#5A2430", 1: "#1E3A2A", 0: PANEL}
     for i in range(5):
         for j in range(4):
             v = int(A[i, j])
             ax2.add_patch(plt.Rectangle((j, 4 - i), 1, 1, facecolor=cmap[v],
-                                        edgecolor="#999999", lw=1.2))
+                                        edgecolor=GRID, lw=1.2))
             ax2.text(j + 0.5, 4 - i + 0.5, f"{v:+d}" if v else "0",
                      ha="center", va="center", fontsize=14,
                      color=RED if v < 0 else (GREEN if v > 0 else GRAY))
@@ -433,7 +464,7 @@ def fig_l12():
     ax2.text(2.0, 5.75, "Incidence matrix  $A$  (5 x 4)", fontsize=13,
              ha="center", fontweight="bold")
     ax2.text(2.0, -0.35, "$-1$ = tail, $+1$ = head", fontsize=11.5,
-             ha="center", color="#444444")
+             ha="center", color=MUTED)
     ax2.set_xlim(-0.85, 4.2)
     ax2.set_ylim(-0.65, 6.05)
     ax2.set_aspect("equal")
@@ -446,6 +477,7 @@ def fig_l12():
 def fig_l13():
     fig = plt.figure(figsize=(12.6, 5.6))
     ax = fig.add_subplot(1, 2, 1, projection="3d")
+    dark3d(ax)
     u1 = np.array([1.0, 0.0, 0.30])
     u2 = np.array([0.0, 1.0, 0.45])
     s = np.linspace(-1.2, 1.2, 2)
@@ -471,7 +503,7 @@ def fig_l13():
     ax.quiver(0, 0, 0, *b, color=GREEN, lw=2.6, arrow_length_ratio=0.09)
     ax.quiver(*p, *e, color=ORANGE, lw=2.6, arrow_length_ratio=0.12)
     ax.scatter(*p, color=BLUE, s=35, zorder=5)
-    ax.scatter(0, 0, 0, color="#333333", s=25, zorder=5)
+    ax.scatter(0, 0, 0, color=INK, s=25, zorder=5)
 
     a = 0.16
     ph = p / np.linalg.norm(p)
@@ -480,7 +512,7 @@ def fig_l13():
     c2 = p - a * ph - a * eh
     c3 = p - a * eh
     ax.plot([c1[0], c2[0], c3[0]], [c1[1], c2[1], c3[1]],
-            [c1[2], c2[2], c3[2]], color="#333333", lw=1.3)
+            [c1[2], c2[2], c3[2]], color=INK, lw=1.3)
 
     ax.text(*(p + np.array([0.02, 0.02, -0.22])), "$p$", color=BLUE, fontsize=14)
     ax.text(*(b + np.array([0.06, 0.06, 0.08])), "$b$", color=GREEN, fontsize=14)
@@ -495,7 +527,7 @@ def fig_l13():
     ax.view_init(elev=20, azim=-58)
     ax.set_title("Every $b$ splits into $p \in V$ plus $e \perp V$", fontsize=12)
     ax.text2D(0.5, 0.02, "dim $V$ + dim $V^{\perp}$ = dim $\mathbb{R}^3$",
-              transform=ax.transAxes, ha="center", fontsize=11.5, color="#444444")
+              transform=ax.transAxes, ha="center", fontsize=11.5, color=MUTED)
 
     ax2 = fig.add_subplot(1, 2, 2)
     O = np.array([0.0, 0.0])
@@ -509,7 +541,7 @@ def fig_l13():
                                                      lw=2.6, mutation_scale=17))
     ax2.annotate("", xy=B, xytext=O, arrowprops=dict(arrowstyle="-|>", color=GREEN,
                                                      lw=2.6, mutation_scale=17))
-    ax2.plot([1.5, 1.36, 1.36], [0, 0, 0.14], color="#333333", lw=1.4)
+    ax2.plot([1.5, 1.36, 1.36], [0, 0, 0.14], color=INK, lw=1.4)
     ax2.text(0.72, -0.17, "$p$", color=BLUE, fontsize=15, ha="center")
     ax2.text(1.62, 0.55, "$e$", color=ORANGE, fontsize=15, va="center")
     ax2.text(0.66, 0.62, "$b$", color=GREEN, fontsize=15, ha="center")
@@ -542,7 +574,7 @@ def fig_l14_ls():
         ax.scatter([ti], [yf], color=BLUE, s=28, zorder=4)
         off = 0.07 if yi > yf else -0.07
         ax.text(ti + 0.06, (yi + yf) / 2 + off, f"$e_{i+1}$", color=ORANGE, fontsize=13)
-    ax.text(1.45, 0.72, r"$E=\sum_i (C+Dt_i-y_i)^2$", fontsize=13, color="#333333")
+    ax.text(1.45, 0.72, r"$E=\sum_i (C+Dt_i-y_i)^2$", fontsize=13, color=INK)
     ax.set_xlabel("$t$")
     ax.set_ylabel("$y$")
     ax.set_xlim(0.5, 3.5)
@@ -562,7 +594,7 @@ def fig_l14_ls():
                 edgecolor="white", linewidth=1.2)
     ax2.annotate("solution\n$(C,D)=(2/3,\\,1/2)$", xy=(C, D), xytext=(-0.08, 0.95),
                  fontsize=11, ha="left",
-                 bbox=dict(boxstyle="round,pad=0.25", fc="white", ec="none", alpha=0.9),
+                 bbox=dict(boxstyle="round,pad=0.25", fc=PAPER, ec="none", alpha=0.9),
                  arrowprops=dict(arrowstyle="-|>", color=RED, lw=1.4))
     ax2.set_xlabel("$C$ (intercept)")
     ax2.set_ylabel("$D$ (slope)")
@@ -595,9 +627,9 @@ def fig_l20_pca():
         ax.annotate("", xy=vec, xytext=(0, 0),
                     arrowprops=dict(arrowstyle="-|>", color=col, lw=2.8, mutation_scale=18))
         ax.text(*(vec * 1.10), name, color=col, fontsize=15, ha="center", va="center")
-    ax.scatter([0], [0], marker="x", s=70, color="#333333", zorder=5)
-    ax.text(0.12, 0.42, "mean", fontsize=10, color="#333333",
-            bbox=dict(boxstyle="round,pad=0.2", fc="white", ec="none", alpha=0.85))
+    ax.scatter([0], [0], marker="x", s=70, color=INK, zorder=5)
+    ax.text(0.12, 0.42, "mean", fontsize=10, color=INK,
+            bbox=dict(boxstyle="round,pad=0.2", fc=PAPER, ec="none", alpha=0.85))
     ax.set_aspect("equal")
     ax.set_xlabel("$x_1$")
     ax.set_ylabel("$x_2$")
@@ -616,7 +648,7 @@ def fig_l20_pca():
     ax3.legend(loc="upper left", fontsize=10, frameon=False)
     ax3.set_title("Spread along each axis = eigenvalue", fontsize=12)
     ax3.text(0.02, 0.62, "$C u = \\lambda u$", transform=ax3.transAxes,
-             fontsize=14, color="#333333")
+             fontsize=14, color=INK)
     clean(ax3, equal=False)
     fig.tight_layout()
     fig.savefig(f"{OUT}/L20_pca_principal_axes.png", dpi=200, bbox_inches="tight")
@@ -650,20 +682,20 @@ def fig_l16_det():
         n2 = np.array([v2[1], -v2[0]]) / np.linalg.norm(v2) * 0.30 + v2 / np.linalg.norm(v2) * 0.12
         ax.text(*(v1 + n1), "$A e_1$", color=RED, fontsize=12,
                 ha="center", va="center",
-                bbox=dict(boxstyle="round,pad=0.15", fc="white", ec="none", alpha=0.85))
+                bbox=dict(boxstyle="round,pad=0.15", fc=PAPER, ec="none", alpha=0.85))
         ax.text(*(v2 + n2), "$A e_2$", color=BLUE, fontsize=12,
                 ha="center", va="center",
-                bbox=dict(boxstyle="round,pad=0.15", fc="white", ec="none", alpha=0.85))
+                bbox=dict(boxstyle="round,pad=0.15", fc=PAPER, ec="none", alpha=0.85))
         ax.text(0.52, 0.46, "unit square", fontsize=9.5, color=GRAY, ha="center",
-                bbox=dict(boxstyle="round,pad=0.15", fc="white", ec="none", alpha=0.8))
-        ax.scatter([0], [0], color="#333333", s=24, zorder=6)
+                bbox=dict(boxstyle="round,pad=0.15", fc=PAPER, ec="none", alpha=0.8))
+        ax.scatter([0], [0], color=INK, s=24, zorder=6)
         ax.set_xlim(-0.55, 3.45)
         ax.set_ylim(-0.60, 1.55)
         ax.set_aspect("equal")
         ax.axis("off")
         ax.set_title(res, fontsize=12, pad=10)
         ax.text(0.5, -0.17, note, transform=ax.transAxes, ha="center",
-                va="top", fontsize=9.5, color="#444444")
+                va="top", fontsize=9.5, color=MUTED)
     fig.suptitle("Determinant = area scale factor, sign = orientation", fontsize=14)
     fig.tight_layout(rect=[0, 0.03, 1, 0.93])
     fig.savefig(f"{OUT}/L16_determinant_properties.png", dpi=200, bbox_inches="tight")
@@ -697,8 +729,8 @@ def fig_l21():
         ax.scatter(*u0, color=BLUE, s=14, zorder=5)
     ax.plot([-2.4, 2.4], [-1.2, 1.2], color=RED, lw=2.0)
     ax.plot([-2.0, 2.0], [2.0, -2.0], color=GREEN, lw=1.8, ls="--")
-    ax.scatter([1.0], [0.0], color="#222222", s=34, zorder=6)
-    ax.text(1.08, -0.18, "$u(0)=(1,0)$", fontsize=9.5, color="#222222")
+    ax.scatter([1.0], [0.0], color=INK, s=34, zorder=6)
+    ax.text(1.08, -0.18, "$u(0)=(1,0)$", fontsize=9.5, color=INK)
     ax.text(1.95, 1.15, "steady direction\n$(2,1)^T$", color=RED, fontsize=10,
             ha="right", va="bottom")
     ax.text(-1.85, 1.82, "fast decay\n$(1,-1)^T$", color=GREEN, fontsize=10,
@@ -729,8 +761,8 @@ def fig_l21():
             color=GREEN, ha="left", va="bottom")
     ax.text(0.35, 0.90, "|$\\lambda$|=1", fontsize=9.0, color=GREEN,
             ha="left", va="bottom")
-    ax.axhline(0, color="#444444", lw=1.0)
-    ax.axvline(0, color="#444444", lw=1.0)
+    ax.axhline(0, color=MUTED, lw=1.0)
+    ax.axvline(0, color=MUTED, lw=1.0)
     ax.text(-4.0, 3.2, "Re $\\lambda<0$", color=BLUE, fontsize=11)
     ax.text(0.12, 3.2, "Re $\\lambda>0$", color=RED, fontsize=11)
     handles = [Patch(facecolor=BLUE, alpha=0.18, label="continuous: Re $\\lambda<0$"),
@@ -780,11 +812,11 @@ def fig_l12_adj():
     for k, (M, title) in enumerate([(A, "Adjacency matrix $A$\n(original labels)"),
                                     (B, "$P^T AP$\n(SCC order)")]):
         ax = fig.add_subplot(gs[0, k + 1])
-        ax.imshow(M, cmap="Blues", vmin=0, vmax=1.0)
+        ax.imshow(M, cmap=LinearSegmentedColormap.from_list("darkblue", [PANEL, BLUE]), vmin=0, vmax=1.0)
         for i in range(4):
             for j in range(4):
                 ax.text(j, i, int(M[i, j]), ha="center", va="center",
-                        fontsize=11, color="white" if M[i, j] > 0.5 else "#333333")
+                        fontsize=11, color=PAPER if M[i, j] > 0.5 else MUTED)
         ax.set_xticks(range(4)); ax.set_yticks(range(4))
         ax.set_xticklabels(["1", "3", "2", "4"] if k == 1 else ["1", "2", "3", "4"])
         ax.set_yticklabels(["1", "3", "2", "4"] if k == 1 else ["1", "2", "3", "4"])
@@ -812,7 +844,7 @@ def fig_markov_chain():
     A = np.array([0.0, 0.0]); B = np.array([2.2, 0.0]); r = 0.30
 
     for c, name in [(A, "A"), (B, "B")]:
-        ax.add_patch(Circle(c, r, facecolor="white", edgecolor="#333333",
+        ax.add_patch(Circle(c, r, facecolor=PANEL, edgecolor=INK,
                             lw=2.0, zorder=4))
         ax.text(c[0], c[1], name, ha="center", va="center", fontsize=16, zorder=5)
 
@@ -833,7 +865,7 @@ def fig_markov_chain():
                                  color=GREEN, lw=2.4, zorder=3))
     ax.text(1.10, 0.40, "0.4", ha="center", fontsize=12, color=ORANGE)
     ax.text(1.10, -0.46, "0.2", ha="center", fontsize=12, color=GREEN)
-    ax.text(1.10, -0.98, "P = [[0.6, 0.2], [0.4, 0.8]]", ha="center", fontsize=11, color="#333333")
+    ax.text(1.10, -0.98, "P = [[0.6, 0.2], [0.4, 0.8]]", ha="center", fontsize=11, color=INK)
     ax.set_xlim(-1.0, 3.4); ax.set_ylim(-1.5, 1.5)
     ax.set_aspect("equal"); ax.axis("off")
     ax.set_title("A 2-state Markov chain:\neach column of $P$ sums to 1", fontsize=12)
@@ -878,14 +910,14 @@ def fig_linear_programming():
     ax.plot(x, wood, color=BLUE, lw=2.2, label=r"$x+2y\leq40$  (wood)")
     ax.plot(x, labor, color=GREEN, lw=2.2, label=r"$3x+2y\leq60$  (labor)")
     for (xi, yi), lab, col in [
-            ((0, 0), "(0, 0)   z = 0", "#333333"),
-            ((20, 0), "(20, 0)   z = 800", "#333333"),
-            ((0, 20), "(0, 20)   z = 1200", "#333333"),
+            ((0, 0), "(0, 0)   z = 0", INK),
+            ((20, 0), "(20, 0)   z = 800", INK),
+            ((0, 20), "(0, 20)   z = 1200", INK),
             ((10, 15), "(10, 15)   z = 1300", RED)]:
         ax.scatter([xi], [yi], color=col, s=55, zorder=6)
         dy = 1.6 if yi > 12 else -1.8
         ax.text(xi, yi + dy, lab, ha="center", fontsize=10.5, color=col,
-                bbox=dict(boxstyle="round,pad=0.2", fc="white", ec="none", alpha=0.85))
+                bbox=dict(boxstyle="round,pad=0.2", fc=PAPER, ec="none", alpha=0.85))
     ax.scatter([10], [15], marker="*", s=340, color=RED, zorder=7,
                edgecolor="white", lw=1.0)
     obj = 1300 / 60 - (2 / 3) * x
@@ -934,7 +966,7 @@ def fig_linear_programming():
 
 # ---------------------------------------------------------------- shared helpers
 BLUE_L, GREEN_L, ORANGE_L, RED_L, GRAY_L = (
-    "#d6e6f5", "#d9f0d3", "#fde3cd", "#f6d5d3", "#ececec")
+    "#16324A", "#173A24", "#3A2A16", "#3A1E1E", "#242424")
 
 
 def draw_grid(ax, M, x0, y0, cell=0.5, title="", face=None, highlight=None,
@@ -945,14 +977,14 @@ def draw_grid(ax, M, x0, y0, cell=0.5, title="", face=None, highlight=None,
     for i in range(n):
         for j in range(m):
             y = y0 + (n - 1 - i) * cell
-            fc = "white" if face is None else face[i][j]
+            fc = PANEL if face is None else face[i][j]
             ax.add_patch(Rectangle((x0 + j * cell, y), cell, cell,
-                                   facecolor=fc, edgecolor="#888888", lw=1.0))
+                                   facecolor=fc, edgecolor="#4A4A5A", lw=1.0))
             v = M[i, j]
             if show_zero or v != 0:
                 ax.text(x0 + (j + 0.5) * cell, y + cell / 2, f"{v:g}",
                         ha="center", va="center", fontsize=fontsize,
-                        color="#222222")
+                        color=INK)
     if highlight:
         for (i, j, col) in highlight:
             ax.add_patch(Rectangle((x0 + j * cell, y0 + (n - 1 - i) * cell),
@@ -973,7 +1005,7 @@ def fig_l2():
     ax.plot(x, (11 - 3 * x) / 4, color=RED, lw=2.2, ls="--",
             label="row 2: $3x+4y=11$")
     ax.plot(x, 2 * np.ones_like(x), color=GREEN, lw=2.4, label="after: $y=2$")
-    ax.scatter([1], [2], color="black", s=65, zorder=6)
+    ax.scatter([1], [2], color=INK, s=65, zorder=6)
     ax.annotate("solution $(1,2)$\nunchanged", (1, 2), xytext=(1.55, 2.55),
                 fontsize=11, arrowprops=dict(arrowstyle="-", color=GRAY, lw=1.0))
     ax.text(2.05, 1.80, "$E_{21}$: row2 $-\\ 3\\cdot$ row1",
@@ -1054,7 +1086,7 @@ def fig_l3():
              fontsize=11)
     ax2.text(1.05, -1.85, "$A x=0$: a nonzero vector\nis crushed to the origin",
              color=PURPLE, fontsize=10.5)
-    ax2.scatter([0], [0], color="black", s=28, zorder=6)
+    ax2.scatter([0], [0], color=INK, s=28, zorder=6)
     ax2.set_xlim(-1.4, 4.5); ax2.set_ylim(-2.4, 8.4)
     ax2.set_xlabel("x"); ax2.set_ylabel("y")
     ax2.set_title("Collinear columns: the plane collapses to a line",
@@ -1154,9 +1186,9 @@ def fig_l5():
     ax.plot(xx, xx, color=GREEN, lw=2.0)
     ax.plot(xx, -0.6 * xx, color=ORANGE, lw=2.0)
     ax.plot(xx, xx + 1.8, color=RED, lw=2.0, ls="--")
-    ax.scatter([0], [0], color="black", s=32, zorder=6)
+    ax.scatter([0], [0], color=INK, s=32, zorder=6)
     ax.text(-2.75, 2.35, "all of $\\mathbb{R}^2$", fontsize=10.5,
-            color="#08519c")
+            color=BLUE)
     ax.text(1.65, -2.25, "lines\nthrough 0", fontsize=10.5, color=GREEN)
     ax.text(0.12, -2.65, "$\\{0\\}$", fontsize=10.5)
     ax.text(-2.85, -2.55, "offset line:\nnot a subspace", fontsize=10.5,
@@ -1168,13 +1200,14 @@ def fig_l5():
 
     # (c) column space in R^3
     ax = fig.add_subplot(gs[0, 2], projection="3d")
+    dark3d(ax)
     c1 = np.array([1.0, 2.0, 4.0]); c2 = np.array([3.0, 3.0, 1.0])
     s, t = np.meshgrid(np.linspace(-0.70, 0.80, 2),
                        np.linspace(-0.70, 0.80, 2))
     X = s * c1[0] + t * c2[0]
     Y = s * c1[1] + t * c2[1]
     Z = s * c1[2] + t * c2[2]
-    ax.plot_surface(X, Y, Z, color="#9ecae1", alpha=0.38, linewidth=0)
+    ax.plot_surface(X, Y, Z, color=BLUE, alpha=0.38, linewidth=0)
     for vec, col, lab in [(c1, BLUE, "$c_1$"), (c2, GREEN, "$c_2$")]:
         ax.quiver(0, 0, 0, *vec, color=col, lw=2.4, arrow_length_ratio=0.10)
     b = 0.35 * c1 + 0.45 * c2
@@ -1184,7 +1217,7 @@ def fig_l5():
     ax.quiver(0, 0, 0, *bout, color=PURPLE, lw=2.2, arrow_length_ratio=0.10)
     ax.plot([b[0], bout[0]], [b[1], bout[1]], [b[2], bout[2]],
             color=PURPLE, ls="--", lw=1.2, alpha=0.8)
-    ax.text2D(0.03, 0.12, "$C(A)$: plane through 0", color="#08519c",
+    ax.text2D(0.03, 0.12, "$C(A)$: plane through 0", color=BLUE,
               fontsize=10, transform=ax.transAxes)
     ax.text2D(0.54, 0.70, "$b\\in C(A)$\n$Ax=b$ solvable", color=RED,
               fontsize=10, transform=ax.transAxes)
@@ -1227,7 +1260,7 @@ def fig_l5_transpose():
                 (Av, GREEN, "--", "$Av$", (0.08, 0.10))])
     ax.plot([x[0], v[0]], [x[1], v[1]], color=GRAY, ls=":", lw=1.1)
     ax.plot([Ax[0], Av[0]], [Ax[1], Av[1]], color=GRAY, ls=":", lw=1.1)
-    ax.text(0.05, 2.62, "$x\\cdot v = 2$", color="#333333", fontsize=12)
+    ax.text(0.05, 2.62, "$x\\cdot v = 2$", color=INK, fontsize=12)
     ax.text(1.45, 2.55, "$(Ax)\\cdot(Av) = 6$", color=RED, fontsize=12)
     ax.text(0.02, -0.62, "a shear changes lengths and angles",
             color=GRAY, fontsize=10.5)
@@ -1244,7 +1277,7 @@ def fig_l5_transpose():
                 (v_back, GREEN, "-", "$v=A^{T}\\bar v$", (0.10, 0.06)),
                 (Ax, BLUE, "--", "$Ax$", (0.08, -0.28)),
                 (vbar, ORANGE, "--", "$\\bar v$", (0.08, 0.08))])
-    ax.text(0.05, 2.62, "input: $x\\cdot v = 2$", color="#333333",
+    ax.text(0.05, 2.62, "input: $x\\cdot v = 2$", color=INK,
             fontsize=11.5)
     ax.text(1.35, 2.62, "output: $Ax\\cdot\\bar v = 2$", color=RED,
             fontsize=11.5)
@@ -1318,7 +1351,7 @@ def fig_l22_markov():
                                   gridspec_kw={"width_ratios": [1.0, 1.12]})
     A = np.array([0.0, 0.0]); B = np.array([2.5, 0.0]); r = 0.38
     for c, name in [(A, "CA"), (B, "MA")]:
-        ax.add_patch(Circle(c, r, facecolor="white", edgecolor="#333333",
+        ax.add_patch(Circle(c, r, facecolor=PANEL, edgecolor=INK,
                             lw=2.0, zorder=4))
         ax.text(c[0], c[1], name, ha="center", va="center", fontsize=14,
                 zorder=5)
@@ -1430,7 +1463,7 @@ def fig_l23():
         ax.text(p[0], p[1], f"$\\lambda={lam:g}$", color=col, fontsize=11,
                 ha="left" if p[0] > 0 else "right",
                 va="bottom" if p[1] > 0 else "top")
-    ax.scatter([0], [0], color="black", s=25, zorder=6)
+    ax.scatter([0], [0], color=INK, s=25, zorder=6)
     ax.set_xlim(-4.7, 4.7); ax.set_ylim(-4.7, 4.7)
     ax.set_xlabel("x"); ax.set_ylabel("y")
     ax.set_title("Symmetric $A$: orthogonal axes,\nreal stretches",
@@ -1443,7 +1476,7 @@ def fig_l23():
     p2 = (x @ q2) * q2
     Ax = 4 * p1 + 2 * p2
     for vec, col, lw, lab, off in [
-            (x, "black", 2.4, "$x$", (0.10, 0.10)),
+            (x, INK, 2.4, "$x$", (0.10, 0.10)),
             (p1, RED, 1.6, "$p_1$", (-0.34, 0.08)),
             (p2, GREEN, 1.6, "$p_2$", (0.08, -0.30)),
             (4 * p1, RED, 2.6, "$4p_1$", (0.12, 0.10)),
@@ -1457,7 +1490,7 @@ def fig_l23():
              lw=1.1)
     ax2.plot([2 * p2[0], Ax[0]], [2 * p2[1], Ax[1]], color=GRAY, ls="--",
              lw=1.1)
-    ax2.scatter([0], [0], color="black", s=25, zorder=6)
+    ax2.scatter([0], [0], color=INK, s=25, zorder=6)
     ax2.set_xlim(-1.0, 6.2); ax2.set_ylim(-2.6, 5.2)
     ax2.set_xlabel("x1"); ax2.set_ylabel("x2")
     ax2.set_title("Project on orthogonal axes,\nstretch by $\\lambda_i$, add",
@@ -1486,7 +1519,7 @@ def fig_l24():
                 fontsize=11, ha="center", va="center")
     ax.text(0, 0, "$W=e^{2\\pi i/n}$", fontsize=10.5, ha="center",
             va="center",
-            bbox=dict(facecolor="white", edgecolor="none", pad=1.5))
+            bbox=dict(facecolor=PANEL, edgecolor="none", pad=1.5))
     ax.set_xlim(-1.38, 1.38); ax.set_ylim(-1.38, 1.38)
     ax.set_xlabel("Re"); ax.set_ylabel("Im")
     ax.set_title("Eighth roots of unity: columns of $F_8$",
@@ -1515,11 +1548,396 @@ def fig_l24():
     plt.close(fig)
 
 
+
+def cell_grid(ax, M, x0, y0, cell=0.55, face=None, fs=12, fmt="{:.0f}"):
+    M = np.asarray(M)
+    n, m = M.shape
+    for i in range(n):
+        for j in range(m):
+            y = y0 + (n - 1 - i) * cell
+            fc = PANEL if face is None else face[i][j]
+            ax.add_patch(Rectangle((x0 + j * cell, y), cell, cell,
+                                   facecolor=fc, edgecolor="#4A4A5A", lw=1.1))
+            lab = fmt(M[i, j]) if callable(fmt) else fmt.format(M[i, j])
+            ax.text(x0 + (j + 0.5) * cell, y + cell / 2, lab,
+                    ha="center", va="center", color=INK, fontsize=fs)
+
+
+# ---------------------------------------------------------------- L7
+def fig_l7():
+    fig, (ax, ax2) = plt.subplots(1, 2, figsize=(12.4, 4.8),
+                                  gridspec_kw={"width_ratios": [1.45, 1]})
+    U = np.array([[1, 2, 0, -2], [0, 0, 1, 2], [0, 0, 0, 0]])
+    face = [[PANEL] * 4 for _ in range(3)]
+    for i, j in [(0, 0), (1, 2)]:
+        face[i][j] = BLUE_L
+    for i in range(3):
+        for j in (1, 3):
+            if face[i][j] == PANEL:
+                face[i][j] = ORANGE_L
+    ax.set_xlim(0, 5.1); ax.set_ylim(0, 4.4); ax.axis("off")
+    cell_grid(ax, U, 0.55, 0.85, cell=0.72, face=face, fs=15)
+    for j in range(4):
+        ax.text(0.55 + (j + 0.5) * 0.72, 3.45, f"$x_{j+1}$",
+                ha="center", va="center", fontsize=13)
+    ax.text(0.30, 1.21, "$U$", ha="right", va="center", fontsize=15)
+    ax.text(2.25, 3.82, "pivot columns 1, 3:  $r=2$", color=BLUE, ha="center", fontsize=12)
+    ax.text(2.25, 0.30, "free columns 2, 4:  $n-r=2$", color=ORANGE, ha="center", fontsize=12)
+    ax.text(0.55, 4.12, "Elimination keeps $N(A)$ unchanged", fontsize=12)
+
+    s = np.array([[-2, 2], [1, 0], [0, -2], [0, 1]])
+    face2 = [[PANEL] * 2 for _ in range(4)]
+    ax2.set_xlim(0, 3.1); ax2.set_ylim(0, 4.4); ax2.axis("off")
+    cell_grid(ax2, s, 0.55, 0.85, cell=0.62, face=face2, fs=13)
+    ax2.text(0.55 + 0.31, 3.35, "$s_1$", ha="center", fontsize=13, color=BLUE)
+    ax2.text(0.55 + 0.93, 3.35, "$s_2$", ha="center", fontsize=13, color=BLUE)
+    ax2.text(1.55, 0.35, "$N(A)=\\mathrm{span}\\{s_1,s_2\\}$,  $\\dim N=n-r=2$",
+             ha="center", fontsize=12)
+    ax2.text(1.55, 3.88, "free variables set to 1 in turn", ha="center",
+             fontsize=10.5, color=MUTED)
+    fig.tight_layout()
+    fig.savefig(f"{OUT}/L7_pivots_nullspace.png", dpi=200, bbox_inches="tight")
+    plt.close(fig)
+
+
+# ---------------------------------------------------------------- L8
+def fig_l8():
+    fig, (ax, ax2) = plt.subplots(1, 2, figsize=(12.4, 4.9),
+                                  gridspec_kw={"width_ratios": [1.1, 1]})
+    t = np.linspace(-2.2, 2.8, 200)
+    ax.plot(t, t, color=BLUE, lw=2.2, label="$N(A)$: through the origin")
+    ax.plot(t, t + 1.4, color=ORANGE, lw=2.2, ls="--",
+            label="$x_p+N(A)$: the solution set")
+    ax.scatter([0], [0], color=BLUE, s=55, zorder=5)
+    ax.scatter([0.4], [1.8], color=ORANGE, s=70, zorder=5)
+    ax.annotate("$x_p$", (0.4, 1.8), xytext=(0.55, 2.35), fontsize=13,
+                color=ORANGE, arrowprops=dict(arrowstyle="-", color=ORANGE, lw=1.0))
+    ax.annotate("$0$", (0, 0), xytext=(-0.28, -0.28), fontsize=12, color=BLUE)
+    ax.annotate("", xy=(1.65, 3.05), xytext=(0.4, 1.8),
+                arrowprops=dict(arrowstyle="-|>", color=GREEN, lw=2.2))
+    ax.text(1.75, 3.12, "$+\\,x_n$", color=GREEN, fontsize=13)
+    ax.set_xlim(-2.2, 3.0); ax.set_ylim(-1.8, 3.6)
+    ax.set_xlabel("$x_1$"); ax.set_ylabel("$x_2$")
+    ax.set_title("Solutions are $x_p$ plus the nullspace:\na parallel copy of $N(A)$",
+                 fontsize=12.5)
+    ax.legend(frameon=False, loc="lower right", fontsize=10)
+    clean(ax)
+
+    xp = np.array([[-2], [0], [1.5], [0]])
+    s = np.array([[-2, 2], [1, 0], [0, -2], [0, 1]])
+    M = np.hstack([xp, s])
+    face = [[ORANGE_L, BLUE_L, BLUE_L] for _ in range(4)]
+    ax2.set_xlim(0, 3.4); ax2.set_ylim(0, 4.4); ax2.axis("off")
+    cell_grid(ax2, M, 0.45, 0.85, cell=0.62, face=face, fs=12,
+              fmt=lambda v: f"{v:g}")
+    ax2.text(0.45 + 0.31, 3.35, "$x_p$", ha="center", fontsize=13, color=ORANGE)
+    ax2.text(0.45 + 0.93, 3.35, "$s_1$", ha="center", fontsize=13, color=BLUE)
+    ax2.text(0.45 + 1.55, 3.35, "$s_2$", ha="center", fontsize=13, color=BLUE)
+    ax2.text(1.55, 0.35, "$x=x_p+c_1s_1+c_2s_2$", ha="center", fontsize=13)
+    ax2.text(0.45, 4.08, "Read $x_p$ and $N(A)$ off one RREF", fontsize=12)
+    fig.tight_layout()
+    fig.savefig(f"{OUT}/L8_affine_solution_set.png", dpi=200, bbox_inches="tight")
+    plt.close(fig)
+
+
+# ---------------------------------------------------------------- L9
+def fig_l9():
+    fig, (ax, ax2) = plt.subplots(1, 2, figsize=(12.4, 4.9))
+    u = np.array([1.4, 1.0]); v = np.array([1.0, -1.2])
+
+    def arrow(ax, p, color, label, off=(0.08, 0.08), ls="-"):
+        ax.add_patch(FancyArrowPatch((0, 0), p, arrowstyle="-|>", mutation_scale=18,
+                                     color=color, lw=2.4, linestyle=ls))
+        ax.text(p[0] + off[0], p[1] + off[1], label, color=color, fontsize=12)
+
+    # (a) two independent directions fill the plane
+    for c in np.linspace(-3, 3, 13):
+        p0 = c * u
+        ax.plot([p0[0] - 3 * v[0], p0[0] + 3 * v[0]],
+                [p0[1] - 3 * v[1], p0[1] + 3 * v[1]],
+                color=BLUE, alpha=0.16, lw=0.8, zorder=1)
+        p1 = c * v
+        ax.plot([p1[0] - 3 * u[0], p1[0] + 3 * u[0]],
+                [p1[1] - 3 * u[1], p1[1] + 3 * u[1]],
+                color=BLUE, alpha=0.16, lw=0.8, zorder=1)
+    arrow(ax, u, BLUE, "$u$")
+    arrow(ax, v, GREEN, "$v$")
+    ax.set_title("Independent: $u,v$ reach every point of the plane", fontsize=12)
+    ax.set_xlim(-2.6, 2.6); ax.set_ylim(-2.6, 2.6)
+    ax.set_xlabel("$x$"); ax.set_ylabel("$y$"); clean(ax)
+
+    # (b) dependent: c = a + b
+    a = np.array([1.4, 1.0]); b = np.array([1.0, -1.2]); c = a + b
+    arrow(ax2, a, BLUE, "$a$")
+    arrow(ax2, b, GREEN, "$b$")
+    arrow(ax2, c, ORANGE, "$c=a+b$", off=(0.06, 0.12), ls="--")
+    ax2.plot([a[0], c[0]], [a[1], c[1]], ls=":", color=GRAY, lw=1.2)
+    ax2.plot([b[0], c[0]], [b[1], c[1]], ls=":", color=GRAY, lw=1.2)
+    ax2.set_title("Dependent: the third vector adds no direction", fontsize=12)
+    ax2.set_xlim(-0.6, 3.0); ax2.set_ylim(-1.8, 2.4)
+    ax2.set_xlabel("$x$"); ax2.set_ylabel("$y$"); clean(ax2)
+    fig.tight_layout()
+    fig.savefig(f"{OUT}/L9_span_basis.png", dpi=200, bbox_inches="tight")
+    plt.close(fig)
+
+
+# ---------------------------------------------------------------- L11
+def fig_l11():
+    fig, ax = plt.subplots(figsize=(13.0, 4.6))
+    u = np.array([[1], [2], [3]])
+    v = np.array([[1, 4, 5]])
+    A = u @ v
+    ax.set_xlim(0, 8.0); ax.set_ylim(0, 3.5); ax.axis("off")
+    cell_grid(ax, u, 0.35, 0.75, cell=0.6, face=[[BLUE_L]] * 3, fs=14)
+    cell_grid(ax, v, 1.9, 1.35, cell=0.6, face=[[BLUE_L] * 3], fs=14)
+    cell_grid(ax, A, 4.5, 0.75, cell=0.6,
+              face=[[BLUE_L] * 3 for _ in range(3)], fs=13)
+    ax.text(0.95, 2.95, "$u$", ha="center", fontsize=15, color=BLUE)
+    ax.text(2.8, 2.95, "$v^{\\mathrm{T}}$", ha="center", fontsize=15, color=BLUE)
+    ax.text(5.4, 2.95, "$A=uv^{\\mathrm{T}}$  (rank 1)",
+            ha="center", fontsize=14, color=BLUE)
+    ax.text(1.5, 1.62, "$\\times$", ha="center", va="center", fontsize=26, color=MUTED)
+    ax.text(4.15, 1.62, "$=$", ha="center", va="center", fontsize=26, color=MUTED)
+    ax.text(5.4, 0.35, "each column of $A$ is a multiple of $u$",
+            ha="center", fontsize=11.5, color=MUTED)
+    ax.text(5.4, 3.30, "Every rank-$r$ matrix is a sum of $r$ rank-1 pieces",
+            ha="center", fontsize=12.5, color=INK)
+    fig.tight_layout()
+    fig.savefig(f"{OUT}/L11_rank_one_outer_product.png", dpi=200, bbox_inches="tight")
+    plt.close(fig)
+
+
+# ---------------------------------------------------------------- L17
+def fig_l17():
+    fig, ax = plt.subplots(figsize=(11.8, 4.6))
+    ax.axis("off")
+    V = np.array([["$a_{11}$", "$a_{12}$", "$a_{13}$", "$a_{11}$", "$a_{12}$"],
+                  ["$a_{21}$", "$a_{22}$", "$a_{23}$", "$a_{21}$", "$a_{22}$"],
+                  ["$a_{31}$", "$a_{32}$", "$a_{33}$", "$a_{31}$", "$a_{32}$"]],
+                 dtype=object)
+    cell = 0.9
+    for i in range(3):
+        for j in range(5):
+            fc = PANEL if j < 3 else "#1A1A1A"
+            ax.add_patch(Rectangle((j * cell, (2 - i) * cell), cell, cell,
+                                   facecolor=fc, edgecolor="#4A4A5A", lw=1.1))
+            ax.text((j + 0.5) * cell, (2 - i) * cell + cell / 2, V[i, j],
+                    ha="center", va="center", fontsize=13)
+    pos = [(0, 0, 1, 1, 2, 2), (0, 1, 1, 2, 2, 3), (0, 2, 1, 3, 2, 4)]
+    neg = [(0, 2, 1, 1, 2, 0), (0, 3, 1, 2, 2, 1), (0, 4, 1, 3, 2, 2)]
+    for (r0, c0, r1, c1, r2, c2) in pos:
+        ax.plot([(c0 + .5) * cell, (c1 + .5) * cell, (c2 + .5) * cell],
+                [(2 - r0 + .5) * cell, (2 - r1 + .5) * cell, (2 - r2 + .5) * cell],
+                color=BLUE, lw=2.4, alpha=0.85)
+    for (r0, c0, r1, c1, r2, c2) in neg:
+        ax.plot([(c0 + .5) * cell, (c1 + .5) * cell, (c2 + .5) * cell],
+                [(2 - r0 + .5) * cell, (2 - r1 + .5) * cell, (2 - r2 + .5) * cell],
+                color=RED, lw=2.4, ls="--", alpha=0.85)
+    ax.set_xlim(-0.3, 5.4); ax.set_ylim(-0.9, 3.3)
+    ax.text(2.25, 3.10, "Sarrus: 3 forward diagonals (blue) minus 3 backward (red)",
+            ha="center", fontsize=12.5, color=INK)
+    ax.text(2.25, -0.55, "$+\;a_{11}a_{22}a_{33}+a_{12}a_{23}a_{31}+a_{13}a_{21}a_{32}"
+            "\;-\;(a_{13}a_{22}a_{31}+a_{11}a_{23}a_{32}+a_{12}a_{21}a_{33})$",
+            ha="center", fontsize=11.5, color=INK)
+    ax.text(5.15, 1.35, "6 terms", fontsize=12, color=MUTED, ha="left")
+    fig.tight_layout()
+    fig.savefig(f"{OUT}/L17_sarrus_rule.png", dpi=200, bbox_inches="tight")
+    plt.close(fig)
+
+
+
+DARK_CMAP = LinearSegmentedColormap.from_list(
+    "darkpurple", ["#3A3568", "#6D5BD0", "#C4B5FD"])
+DIV_CMAP = LinearSegmentedColormap.from_list("darkdiv", [BLUE, PANEL, RED])
+
+
+def fig_l25_pd_vs_saddle():
+    fig = plt.figure(figsize=(12.8, 5.6))
+    X, Y = np.meshgrid(np.linspace(-2, 2, 60), np.linspace(-2, 2, 60))
+    cases = [((2, 6, 20), "Positive definite: upward bowl (minimum at origin)"),
+             ((2, 6, 7), "Indefinite: saddle point (saddle at origin)")]
+    for k, ((a, b, c), title) in enumerate(cases):
+        ax = fig.add_subplot(1, 2, k + 1, projection="3d")
+        dark3d(ax)
+        Z = a * X ** 2 + 2 * b * X * Y + c * Y ** 2
+        ax.plot_surface(X, Y, Z, cmap=DARK_CMAP, linewidth=0,
+                        antialiased=True, rstride=1, cstride=1, shade=False)
+        ax.contour(X, Y, Z, zdir="z", offset=Z.min() - 0.18 * (Z.max() - Z.min()),
+                   levels=8, colors=[BLUE, GREEN, ORANGE, PURPLE, RED,
+                                     MUTED, BLUE, GREEN], linewidths=1.0)
+        ax.scatter([0], [0], [0], color=ORANGE, s=35, depthshade=False)
+        ax.set_xlabel("x"); ax.set_ylabel("y"); ax.set_zlabel("f(x, y)")
+        ax.set_title(title, fontsize=12)
+        ax.view_init(elev=26, azim=-60)
+    fig.tight_layout()
+    fig.savefig(f"{OUT}/L25_positive_definite_vs_saddle.png", dpi=200,
+                bbox_inches="tight")
+    plt.close(fig)
+
+
+def fig_l25_energy():
+    fig, ax = plt.subplots(figsize=(9.8, 5.3))
+    t = np.linspace(-1.6, 1.6, 400)
+    ax.axhline(0, color=MUTED, lw=0.9)
+    ax.plot(t, (7 - 18) * t ** 2, color=RED, lw=2.6,
+            label="c = 7  (indefinite)")
+    ax.plot(t, np.zeros_like(t), color=ORANGE, lw=2.8, ls="--",
+            label="c = 18  (positive semidefinite)")
+    ax.plot(t, (20 - 18) * t ** 2, color=GREEN, lw=2.6,
+            label="c = 20  (positive definite)")
+    ax.set_xlabel("t along d = (3, -1)")
+    ax.set_ylabel("$d^{\\mathrm{T}}Ad\\cdot t^2$")
+    ax.set_title("Energy along the critical direction", fontsize=13)
+    ax.set_ylim(-30, 6)
+    ax.legend(frameon=False, loc="lower center")
+    clean(ax, equal=False)
+    fig.tight_layout()
+    fig.savefig(f"{OUT}/L25_energy_along_critical_direction.png", dpi=200,
+                bbox_inches="tight")
+    plt.close(fig)
+
+
+def fig_l25_levels():
+    fig, axes = plt.subplots(1, 2, figsize=(12.6, 5.3))
+    gl = np.linspace(-5.5, 5.5, 800)
+    GLX, GLY = np.meshgrid(gl, gl)
+    g = np.linspace(-2.6, 2.6, 500)
+    GX, GY = np.meshgrid(g, g)
+
+    ax = axes[0]
+    A = np.array([[2.0, 6.0], [6.0, 20.0]])
+    Z = A[0, 0] * GLX ** 2 + 2 * A[0, 1] * GLX * GLY + A[1, 1] * GLY ** 2
+    lv = [0.4, 0.8, 1.5, 2.5, 4.5]
+    ax.contour(GLX, GLY, Z, levels=lv,
+               colors=[BLUE, GREEN, ORANGE, PURPLE, RED],
+               linewidths=1.6)
+    w, V = np.linalg.eigh(A)
+    for lam, vec, col, lab in zip(w, V.T, [RED, BLUE],
+                                  ["v1 (small eigenvalue)", "v2 (large eigenvalue)"]):
+        L = 1 / np.sqrt(lam)
+        ax.annotate("", xy=vec * L, xytext=(0, 0),
+                    arrowprops=dict(arrowstyle="-|>", color=col, lw=2.4))
+        ax.plot([], [], color=col, lw=2.4, label=lab)
+    ax.scatter([0], [0], color=INK, s=28, zorder=5)
+    ax.set_xlabel("x"); ax.set_ylabel("y")
+    ax.set_title("Positive definite: level sets are ellipses", fontsize=12.5)
+    ax.legend(frameon=False, loc="lower right")
+    ax.set_xlim(-5.5, 5.5); ax.set_ylim(-5.5, 5.5)
+    clean(ax)
+
+    ax = axes[1]
+    A = np.array([[2.0, 6.0], [6.0, 7.0]])
+    Z = A[0, 0] * GX ** 2 + 2 * A[0, 1] * GX * GY + A[1, 1] * GY ** 2
+    ax.contour(GX, GY, Z, levels=[-16, -9, -4, -1, 1, 4, 9, 16],
+               cmap=DIV_CMAP, linewidths=1.6)
+    ax.contour(GX, GY, Z, levels=[0], colors=[MUTED], linestyles="--",
+               linewidths=1.3)
+    w, V = np.linalg.eigh(A)
+    for lam, vec in zip(w, V.T):
+        ax.plot([-2.4 * vec[0], 2.4 * vec[0]],
+                [-2.4 * vec[1], 2.4 * vec[1]],
+                color=GRAY, ls=":", lw=1.3)
+    ax.scatter([0], [0], color=RED, s=45, zorder=5)
+    ax.text(0.10, 0.10, "saddle", color=RED, fontsize=11)
+    ax.set_xlabel("x"); ax.set_ylabel("y")
+    ax.set_title("Indefinite: level sets are hyperbolas", fontsize=12.5)
+    ax.set_xlim(-2.6, 2.6); ax.set_ylim(-2.6, 2.6)
+    clean(ax)
+    fig.tight_layout()
+    fig.savefig(f"{OUT}/L25_level_sets_and_principal_axes.png", dpi=200,
+                bbox_inches="tight")
+    plt.close(fig)
+
+
+def fig_l14_probability():
+    fig, (ax, ax2) = plt.subplots(1, 2, figsize=(12.8, 5.4))
+
+    w0, w1 = 0.75, 0.485
+    x = np.linspace(0.5, 3.5, 200)
+    ax.plot(x, w0 + w1 * x, color=BLUE, lw=2.4, label="$y = w^{\\mathrm{T}}x$")
+    xo = np.array([1.0, 2.0, 3.0])
+    yo = w0 + w1 * xo + np.array([0.12, -0.35, 0.28])
+    ax.scatter(xo, yo, color=RED, s=70, zorder=5, label="observations")
+    for xi, yi in zip(xo, yo):
+        ax.plot([xi, xi], [w0 + w1 * xi, yi], color=ORANGE, ls="--", lw=1.6)
+    ax.set_xlim(0.5, 3.5); ax.set_ylim(0.5, 2.6)
+    ax.set_xlabel("x"); ax.set_ylabel("y")
+    ax.set_title("Noise model: $\\varepsilon\\sim\\mathcal{N}(0,\\sigma^2)$",
+                 fontsize=12.5)
+    ax.legend(frameon=False, loc="upper left")
+    clean(ax, equal=False)
+
+    ins = ax.inset_axes([0.58, 0.09, 0.37, 0.30])
+    e = np.linspace(-3.5, 3.5, 200)
+    p = np.exp(-e ** 2 / 2)
+    ins.plot(e, p, color=PURPLE, lw=1.8)
+    ins.fill_between(e, p, color=PURPLE, alpha=0.25)
+    ins.axvline(0.8, color=ORANGE, ls="--", lw=1.2)
+    ins.set_title("$p(e)\\propto e^{-e^2/2\\sigma^2}$", fontsize=9.5)
+    ins.set_xticks([-3, 0, 3]); ins.set_yticks([])
+    ins.set_facecolor(PAPER)
+    for sp in ("top", "right"):
+        ins.spines[sp].set_visible(False)
+    ins.tick_params(labelsize=8, colors=MUTED)
+
+    Q = np.array([[0.22, 0.08], [0.08, 0.30]])
+    c = np.array([2.5, 1.6])
+    gx = np.linspace(-2.4, 3.2, 500); gy = np.linspace(-2.1, 2.4, 500)
+    GX, GY = np.meshgrid(gx, gy)
+    D = np.stack([GX - c[0], GY - c[1]], axis=-1)
+    R = np.einsum("...i,ij,...j->...", D, Q, D)
+    lv = [0.3, 0.7, 1.2, 2.0, 3.0, 4.5]
+    ax2.contour(GX, GY, R, levels=lv, colors=[GRID] * len(lv), linewidths=1.1)
+
+    th = np.linspace(0, 2 * np.pi, 400)
+    ax2.plot(np.cos(th), np.sin(th), color=BLUE, lw=2.2, label="$L_2$: $||w||=1$")
+    dia = np.array([[1, 0], [0, 1], [-1, 0], [0, -1], [1, 0]])
+    ax2.plot(dia[:, 0], dia[:, 1], color=ORANGE, lw=2.2,
+             label="$L_1$: $|w_1|+|w_2|=1$")
+
+    verts = np.array([[1.0, 0.0], [0.0, 1.0], [-1.0, 0.0], [0.0, -1.0]])
+    Rv = np.einsum("...i,ij,...j->...", verts - c, Q, verts - c)
+    wl1 = verts[np.argmin(Rv)]
+    lev1 = Rv.min()
+
+    circ = np.stack([np.cos(th), np.sin(th)], axis=1)
+    Rc = np.einsum("...i,ij,...j->...", circ - c, Q, circ - c)
+    wl2 = circ[np.argmin(Rc)]
+    lev2 = Rc.min()
+
+    ax2.contour(GX, GY, R, levels=[lev1], colors=[INK], linewidths=1.8)
+    ax2.contour(GX, GY, R, levels=[lev2], colors=[INK], linewidths=1.8,
+                linestyles="--")
+
+    ax2.scatter(*c, marker="*", s=190, color=GREEN, zorder=6)
+    ax2.text(c[0] + 0.10, c[1] + 0.08, "OLS", color=GREEN, fontsize=11)
+    ax2.scatter(*wl1, color=ORANGE, s=70, zorder=6)
+    ax2.text(wl1[0] + 0.12, wl1[1] - 0.18, "$w_{L1}$", color=ORANGE, fontsize=11)
+    ax2.scatter(*wl2, color=BLUE, s=70, zorder=6)
+    ax2.text(wl2[0] + 0.10, wl2[1] + 0.14, "$w_{L2}$", color=BLUE, fontsize=11)
+    ax2.set_xlim(-2.4, 3.2); ax2.set_ylim(-2.1, 2.4)
+    ax2.set_xlabel("$w_1$"); ax2.set_ylabel("$w_2$")
+    ax2.set_title("Regularization geometry:\nequal RSS contours, different constraints",
+                  fontsize=12)
+    ax2.legend(frameon=False, loc="upper right")
+    ax2.text(-2.3, -2.0, "L1 prefers a vertex: one weight becomes 0\n"
+             "L2 shrinks both weights, none exactly 0",
+             fontsize=10, color=MUTED, va="bottom")
+    clean(ax2)
+    fig.tight_layout()
+    fig.savefig(f"{OUT}/L14_probability_regularization.png", dpi=200,
+                bbox_inches="tight")
+    plt.close(fig)
+
+
 if __name__ == "__main__":
     for fn in (fig_l1, fig_l10, fig_l14, fig_l15, fig_l18, fig_l19, fig_l20,
                fig_l12, fig_l13, fig_l14_ls, fig_l20_pca, fig_l16_det,
                fig_l21, fig_l12_adj, fig_markov_chain, fig_linear_programming,
                fig_l2, fig_l3, fig_l4, fig_l5, fig_l5_transpose,
-               fig_l22_markov, fig_l22_fourier, fig_l23, fig_l24):
+               fig_l22_markov, fig_l22_fourier, fig_l23, fig_l24,
+               fig_l7, fig_l8, fig_l9, fig_l11, fig_l17,
+               fig_l25_pd_vs_saddle, fig_l25_energy, fig_l25_levels,
+               fig_l14_probability):
         fn()
         print("ok", fn.__name__)

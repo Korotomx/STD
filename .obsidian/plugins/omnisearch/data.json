@@ -8,7 +8,7 @@
   "indexedFileTypes": [],
   "indexFilesWithoutExtension": false,
   "displayTitle": "",
-  "PDFIndexing": false,
+  "PDFIndexing": true,
   "officeIndexing": false,
   "imagesIndexing": false,
   "aiImageIndexing": false,

@@ -11,7 +11,7 @@
       "revertView": true,
       "openWhenEmpty": false,
       "openOnNewTab": false,
-      "refreshDataview": true,
+      "refreshDataview": false,
       "autoCreate": false,
       "autoScroll": false,
       "pin": false,
