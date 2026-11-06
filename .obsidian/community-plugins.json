@@ -4,5 +4,9 @@
   "obsidian-latex-suite",
   "omnisearch",
   "pdf-plus",
-  "table-editor-obsidian"
+  "table-editor-obsidian",
+  "card-workspace",
+  "dataview",
+  "obsidian-excalidraw-plugin",
+  "templater-obsidian"
 ]
