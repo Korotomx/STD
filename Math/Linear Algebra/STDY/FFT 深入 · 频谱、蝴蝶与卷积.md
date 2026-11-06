@@ -216,15 +216,19 @@ DC 与 Nyquist 不乘 $2$。
 - **直流分量**：$k=0$，频率为 $0$，不振荡。$X[0]=\sum_n x[n]$，所以 $X[0]/N$ 是记录内平均值 / 恒定偏置。
 - **为什么 $N/2$ 是最高**：采样后 $f$ 与 $f+f_s$ 给出同一串样本，唯一频带是 $[-f_s/2,\ f_s/2)$；$k=N/2$ 对应 $f_s/2$，是边界。$k>N/2$ 应读作负频率。实信号还有 $X[N-k]=\overline{X[k]}$，$0,\ldots,N/2$ 已含全部信息。
 
-## 下次从这里继续
+### 确认题（2026-11-06）
 
-> [!question] $f_s=8000$ Hz，$N=1024$ 点 DFT，峰值在 $k=64$。对应多少 Hz？
-> - $64$ Hz
+> [!question] $f_s=8000$ Hz，$N=1024$ 点 DFT，峰值在 $k=32$。对应多少 Hz？
+> - $250$ Hz
+> - $32$ Hz
 > - $500$ Hz
-> - $125$ Hz
 > - 不知道
 
-下次从这道题开始；答完进入节点 3（偶奇分治）。
+> [!failure] ✗ 选了 500 Hz —— 正确答案是 250 Hz
+> 500 Hz 是上一个例子 $k=64$ 的答案。$k$ 减半（$64\to32$），频率也减半：$500/2=250$ Hz，或直接算 $32\times7.8125=250$ Hz。先把「$k$ 与 Hz 成正比」钉住，再用乘法核对。
+
+> [!success] ✓ 正确 —— $1000$ Hz
+> $128\times7.8125=1000$ Hz，也等于 $2\times500$：$k$ 翻倍，Hz 翻倍。比例关系落地。
 
 ### 多项式视角
 
@@ -243,3 +247,99 @@ $$
 也就是说，**做一次 DFT = 把多项式在 $N$ 个单位根上同时求值**。这个视角下一步会把「求值」拆成两半，这就是 FFT 的入口。
 
 > 连接：这一步只用到你已经稳的单位根 $W_N^{kn}$；「为什么是加权求和」来自相关性/投影，而「步长是 $k$」正是你之前混淆的地方。下一节点把它翻译成频率。
+
+## 节点 3 · 偶奇分治：把求值拆成两半
+
+### 动机
+
+直接算 DFT 要 $N^2$ 次乘法：$N=1024$ 约 $105$ 万次，$N=2048$ 就到 $419$ 万次。翻倍的数据量让计算量翻四倍，但数据本身没变复杂——问题是同一批数被反复相乘。能不能复用？
+
+节点 1 的多项式视角给了入口：DFT 是在 $N$ 个单位根上同时求 $P(z)$ 的值。求值可以按系数拆开。
+
+### 建立
+
+把系数按奇偶分开：
+
+$$
+\begin{aligned}
+P(z)&=(x_0+x_2z^2+x_4z^4+\cdots)+z\,(x_1+x_3z^2+x_5z^4+\cdots)\\
+&=P_e(z^2)+z\,P_o(z^2).
+\end{aligned}
+$$
+
+$P_e$ 和 $P_o$ 都只有 $N/2$ 个系数。现在代入 $z=W_N^k$，用探针里已经稳的两条事实：
+
+$$
+W_N^2=W_{N/2},\qquad (W_N^k)^2=W_{N/2}^k ;
+$$
+
+$$
+W_N^{k+N/2}=-W_N^k .
+$$
+
+于是
+
+$$
+E[k]=P_e(W_{N/2}^k),\qquad O[k]=P_o(W_{N/2}^k)
+$$
+
+正好是两组 $N/2$ 点 DFT 的第 $k$ 项，而 $k+N/2$ 只用把同一个 $E[k],O[k]$ 取负：
+
+$$
+\boxed{
+\begin{aligned}
+X[k]&=E[k]+W_N^k\,O[k],\\
+X[k+N/2]&=E[k]-W_N^k\,O[k],
+\end{aligned}}
+\qquad k=0,\ldots,\tfrac N2-1 .
+$$
+
+一个 $N$ 点 DFT 变成两个 $N/2$ 点 DFT，外加 $N/2$ 次乘法和 $N$ 次加减。递推
+
+$$
+T(N)=2T(N/2)+O(N)\;\Longrightarrow\;T(N)=O(N\log N).
+$$
+
+这一对「相加 / 相减」就是蝶形（butterfly）。
+
+```mermaid
+%%{init: {'theme':'base','themeCSS':'.nodeLabel{color:#E5E7EB!important;fill:#E5E7EB!important}.edgeLabel p{background-color:#131312!important}.edgeLabel{color:#E5E7EB!important}svg{background:transparent!important}','themeVariables':{'primaryColor':'#1E1E2E','primaryTextColor':'#E5E7EB','primaryBorderColor':'#A78BFA','lineColor':'#9CA3AF','mainBkg':'#1E1E2E','nodeBorder':'#A78BFA','clusterBkg':'#131312','edgeLabelBackground':'#131312','fontFamily':'Noto Sans CJK SC, sans-serif'}}}%%
+flowchart LR
+    E["E[k]"] --> S["X[k] = E + W·O"]
+    O["O[k]"] --> W["W_N^k · O[k]"]
+    W --> S
+    E --> D["X[k+N/2] = E − W·O"]
+    W --> D
+classDef default fill:#1E1E2E,stroke:#A78BFA,stroke-width:1.5px,color:#E5E7EB
+linkStyle default stroke:#9CA3AF
+```
+
+### 数字例子
+
+用节点 1 的同一组数据：$N=4$，$x=(1,2,3,4)$，当时暴力算出
+
+$$
+X=(10,\,-2+2i,\,-2,\,-2-2i).
+$$
+
+现在分治。偶数样本 $(1,3)$，奇数样本 $(2,4)$：
+
+$$
+E=\mathrm{DFT}_2(1,3)=(4,-2),\qquad
+O=\mathrm{DFT}_2(2,4)=(6,-2).
+$$
+
+$W_4^0=1$，$W_4^1=-i$。逐项：
+
+$$
+\begin{aligned}
+k=0:&\quad X[0]=4+1\cdot6=10, &&X[2]=4-6=-2,\\
+k=1:&\quad X[1]=-2+(-i)(-2)=-2+2i, &&X[3]=-2-(-i)(-2)=-2-2i.
+\end{aligned}
+$$
+
+四个数与暴力计算逐个吻合，但只做了两次 2 点 DFT。
+
+### 连接
+
+用到的三样东西都已就位：DFT 定义（节点 1）、$W_N^2=W_{N/2}$（探针稳）、$W^{k+N/2}=-W^k$（探针稳）。分治没有引入新事实，只是把「在 $N$ 个根上求值」重新分组。
