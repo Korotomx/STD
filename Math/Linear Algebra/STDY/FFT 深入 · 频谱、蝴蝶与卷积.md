@@ -164,7 +164,7 @@ f_k=\frac{k f_s}{N},
 \qquad
 \Delta f=\frac{f_s}{N}=\frac1T .
 $$
-jiu'j
+
 - $k=0$：$0$ Hz，直流分量。
 - $k=N/2$（$N$ 为偶数）：$f_s/2$，**Nyquist 频率**，是可表示的最高频率。
 - $k>N/2$：应解释为负频率 $f_k=(k-N)f_s/N$。因为 $e^{-2\pi ikn/N}$ 对 $k$ 以 $N$ 为周期，$k$ 与 $k+N$ 是同一个测试信号。
