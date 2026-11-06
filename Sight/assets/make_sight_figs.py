@@ -2263,6 +2263,197 @@ def fig_markov_chain():
     plt.close(fig)
 
 
+# ---------------------------------------------------------------- AI learning
+def fig_learning_edge():
+    """An optimum lesson sits on the learner's edge; probing binary-searches it."""
+    fig, axes = plt.subplots(1, 2, figsize=(12.8, 4.5),
+                             gridspec_kw={"width_ratios": [1.12, 1.0]})
+
+    ax = axes[0]
+    ax.set_xlim(0, 10)
+    ax.set_ylim(0, 6)
+    ax.axis("off")
+    ax.add_patch(plt.Rectangle((0.4, 3.0), 3.5, 0.95, facecolor=GRAY,
+                               alpha=0.18, edgecolor=GRAY, lw=1.0))
+    ax.add_patch(plt.Rectangle((3.9, 3.0), 1.7, 0.95, facecolor=BLUE,
+                               alpha=0.22, edgecolor=BLUE, lw=1.6))
+    ax.add_patch(plt.Rectangle((5.6, 3.0), 3.9, 0.95, facecolor=GRAY,
+                               alpha=0.18, edgecolor=GRAY, lw=1.0))
+    ax.text(2.15, 3.47, "already held", ha="center", va="center",
+            fontsize=9.5, color=GRAY)
+    ax.text(4.75, 3.47, "the edge", ha="center", va="center",
+            fontsize=9.5, color=BLUE)
+    ax.text(7.55, 3.47, "not reachable yet", ha="center", va="center",
+            fontsize=9.5, color=GRAY)
+    ax.annotate("teaching here\nis redundant", xy=(1.7, 3.95),
+                xytext=(1.5, 4.95), ha="center", fontsize=9.3, color=GRAY,
+                arrowprops=dict(arrowstyle="->", color=GRAY, lw=1.1))
+    ax.annotate("no foothold\nhere yet", xy=(7.4, 3.95),
+                xytext=(7.9, 4.95), ha="center", fontsize=9.3, color=GRAY,
+                arrowprops=dict(arrowstyle="->", color=GRAY, lw=1.1))
+    ax.annotate("one reasoning step\nabove what you hold", xy=(4.75, 3.95),
+                xytext=(4.75, 5.35), ha="center", fontsize=9.6, color=BLUE,
+                arrowprops=dict(arrowstyle="->", color=BLUE, lw=1.2))
+    ax.annotate("", xy=(9.5, 2.4), xytext=(0.4, 2.4),
+                arrowprops=dict(arrowstyle="-|>", color="black", lw=1.2))
+    ax.text(5.0, 1.85, "from current understanding to the goal",
+            ha="center", fontsize=9.2, color="black")
+    ax.text(5.0, 0.7, "a course written for many people\n"
+            "must pick one edge for everybody", ha="center",
+            fontsize=9.6, color=RED)
+    ax.set_title("(a) Optimal teaching lives on the edge of understanding",
+                 fontsize=11.5)
+
+    ax = axes[1]
+    edge = 0.62
+    lo, hi = 0.0, 1.0
+    los, his, pts, ok = [], [], [], []
+    qs = [0.5, 0.75, 0.625, 0.6875, 0.65625, 0.640625, 0.6328125]
+    for q in qs:
+        los.append(lo)
+        his.append(hi)
+        pts.append(q)
+        if q <= edge:
+            ok.append(True)
+            lo = q
+        else:
+            ok.append(False)
+            hi = q
+    los.append(lo)
+    his.append(hi)
+    ax.fill_between(np.arange(len(los)), los, his, step="post",
+                    color=BLUE, alpha=0.18)
+    for i, (q, good) in enumerate(zip(pts, ok)):
+        ax.scatter([i], [q], color=GREEN if good else RED, s=55, zorder=6)
+    ax.axhline(edge, color=ORANGE, ls="--", lw=1.3)
+    ax.text(7.45, edge, "true edge\n0.62", ha="left", va="center",
+            fontsize=9.3, color=ORANGE,
+            bbox=dict(facecolor="white", edgecolor="none", alpha=0.9))
+    ax.text(0.1, 0.93, "green: answered correctly\nred: not yet",
+            fontsize=9.0, color=GRAY, va="top")
+    ax.set_xlim(-0.5, 8.6)
+    ax.set_ylim(0, 1.05)
+    ax.set_xlabel("question number", fontsize=9.6)
+    ax.set_ylabel("position on one strand", fontsize=9.6)
+    ax.set_title("(b) Probe: each question halves the interval", fontsize=11.5)
+    clean(ax, equal=False)
+
+    fig.tight_layout()
+    fig.savefig(f"{OUT}/S17_learning_edge.png", dpi=200,
+                bbox_inches="tight")
+    plt.close(fig)
+
+
+def fig_covector():
+    """A covector counts level lines; alpha = 3dx - 2dy on v = (2, 5)."""
+    fig, axes = plt.subplots(1, 2, figsize=(12.8, 5.1))
+    v = np.array([2.0, 5.0])
+
+    ax = axes[0]
+    xs = np.linspace(-1.0, 4.0, 2)
+    for c in range(-6, 7):
+        y = (3 * xs - c) / 2
+        crossed = c in (-1, -2, -3, -4)
+        ax.plot(xs, y, color=ORANGE if crossed else GRAY,
+                lw=1.9 if crossed else 0.9, alpha=0.95 if crossed else 0.5)
+    ax.annotate("", xy=(v[0], v[1]), xytext=(0, 0),
+                arrowprops=dict(arrowstyle="-|>", color=RED, lw=2.6,
+                                mutation_scale=18))
+    ax.scatter([0], [0], color=BLUE, s=50, zorder=6)
+    ax.text(0.12, -0.5, "$c=0$", color=BLUE, fontsize=10, ha="left")
+    ax.text(3.0, -1.55, "highlighted level lines: $c=-1,-2,-3,-4$",
+            ha="center", fontsize=9.2, color=ORANGE)
+    ax.text(3.05, 1.2, "$\\alpha(v)=-4$:\nfour level lines,\n"
+            "counted with a minus sign", color=RED, fontsize=9.4,
+            ha="center")
+    ax.set_xlim(-0.9, 4.2)
+    ax.set_ylim(-2.6, 6.6)
+    ax.set_xlabel("$x$", fontsize=10)
+    ax.set_ylabel("$y$", fontsize=10)
+    ax.set_title("(a) One covector = one family of level lines",
+                 fontsize=11.5)
+    clean(ax)
+    ax.grid(False)
+
+    ax = axes[1]
+    for xv in range(0, 4):
+        ax.plot([xv, xv], [-0.6, 6.0], color=BLUE, lw=0.9, alpha=0.35)
+    for yh in range(0, 6):
+        ax.plot([-0.6, 4.0], [yh, yh], color=ORANGE, lw=0.9, alpha=0.35)
+    for xv in (1, 2):
+        ax.plot([xv, xv], [-0.6, 6.0], color=BLUE, lw=2.0)
+    for yh in range(1, 6):
+        ax.plot([-0.6, 4.0], [yh, yh], color=ORANGE, lw=1.8)
+    ax.annotate("", xy=(v[0], v[1]), xytext=(0, 0),
+                arrowprops=dict(arrowstyle="-|>", color=RED, lw=2.6,
+                                mutation_scale=18))
+    ax.scatter([v[0]], [0], color=BLUE, s=35, zorder=6)
+    ax.scatter([0], [v[1]], color=ORANGE, s=35, zorder=6)
+    ax.plot([v[0], v[0]], [0, v[1]], color=GRAY, ls=":", lw=1.0)
+    ax.plot([0, v[0]], [v[1], v[1]], color=GRAY, ls=":", lw=1.0)
+    ax.text(1.0, -0.38, "$dx(v)=2$", color=BLUE, fontsize=10, ha="center",
+            bbox=dict(facecolor="white", edgecolor="none", alpha=0.9))
+    ax.text(3.9, 0.55, "$dx$: 2 vertical lines\n$dy$: 5 horizontal lines",
+            color=GRAY, fontsize=9.2, ha="right", va="center",
+            bbox=dict(facecolor="white", edgecolor="none", alpha=0.85))
+    ax.text(3.7, 5.6, "$\\alpha(v)=3\\cdot 2-2\\cdot 5=-4$",
+            color=RED, fontsize=11.5, ha="right")
+    ax.set_xlim(-0.7, 4.0)
+    ax.set_ylim(-0.7, 6.0)
+    ax.set_xlabel("$x$", fontsize=10)
+    ax.set_ylabel("$y$", fontsize=10)
+    ax.set_title("(b) $dx$ and $dy$ count crossings; $\\alpha$ weighs them",
+                 fontsize=11.5)
+    clean(ax)
+    ax.grid(False)
+
+    fig.tight_layout()
+    fig.savefig(f"{OUT}/S17_covector.png", dpi=200, bbox_inches="tight")
+    plt.close(fig)
+
+
+def fig_wedge():
+    """Wedge product: signed area, antisymmetric, zero on parallel inputs."""
+    fig, axes = plt.subplots(1, 3, figsize=(12.9, 4.5))
+
+    def panel(ax, u, w, color, value, title, note):
+        quad = np.array([[0, 0], u, np.array(u) + np.array(w), w])
+        ax.fill(quad[:, 0], quad[:, 1], color=color, alpha=0.22)
+        ax.annotate("", xy=u, xytext=(0, 0),
+                    arrowprops=dict(arrowstyle="-|>", color=BLUE, lw=2.2,
+                                    mutation_scale=16))
+        ax.annotate("", xy=w, xytext=(0, 0),
+                    arrowprops=dict(arrowstyle="-|>", color=PURPLE, lw=2.2,
+                                    mutation_scale=16))
+        ax.text(u[0] * 0.55 - 0.05, u[1] * 0.55 - 0.32, "$u$",
+                color=BLUE, fontsize=10.5)
+        ax.text(w[0] * 0.55 + 0.10, w[1] * 0.55 + 0.10, "$w$",
+                color=PURPLE, fontsize=10.5)
+        ax.set_xlim(-0.55, 3.9)
+        ax.set_ylim(-0.75, 2.9)
+        ax.set_aspect("equal")
+        ax.axis("off")
+        ax.set_title(title, fontsize=11)
+        ax.text(0.5, 0.06, value, transform=ax.transAxes, ha="center",
+                fontsize=11.5, color=color)
+        ax.text(0.5, -0.08, note, transform=ax.transAxes, ha="center",
+                fontsize=9.4, color=GRAY)
+
+    panel(axes[0], (1, 0), (0, 1), GREEN, "$dx\\wedge dy\\,(u,w)=+1$",
+          "(a) $u$ then $w$", "counter-clockwise: area +1")
+    panel(axes[1], (0, 1), (1, 0), ORANGE, "$dx\\wedge dy\\,(w,u)=-1$",
+          "(b) the two inputs swapped", "clockwise: the sign flips")
+    panel(axes[2], (2, 0.4), (3, 0.6), RED, "$dx\\wedge dy\\,(u,w)=0$",
+          "(c) $w$ parallel to $u$", "no area, so the machine returns 0")
+
+    fig.suptitle("A wedge product is bilinear and antisymmetric: "
+                 "subtracting the two orderings kills the symmetric part",
+                 fontsize=11.8, y=1.02)
+    fig.tight_layout()
+    fig.savefig(f"{OUT}/S17_wedge.png", dpi=200, bbox_inches="tight")
+    plt.close(fig)
+
+
 if __name__ == "__main__":
     fig_reflection()
     fig_phase()
@@ -2308,4 +2499,7 @@ if __name__ == "__main__":
     fig_ai_brain_rot()
     fig_km_twoflux()
     fig_markov_chain()
+    fig_learning_edge()
+    fig_covector()
+    fig_wedge()
     print("done")
