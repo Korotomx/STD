@@ -2331,7 +2331,7 @@ def fig_learning_edge():
             bbox=dict(facecolor="white", edgecolor="none", alpha=0.9))
     ax.text(0.1, 0.93, "green: answered correctly\nred: not yet",
             fontsize=9.0, color=GRAY, va="top")
-    ax.set_xlim(-0.5, 8.6)
+    ax.set_xlim(-0.5, 9.3)
     ax.set_ylim(0, 1.05)
     ax.set_xlabel("question number", fontsize=9.6)
     ax.set_ylabel("position on one strand", fontsize=9.6)
@@ -2414,23 +2414,27 @@ def fig_covector():
 
 def fig_wedge():
     """Wedge product: signed area, antisymmetric, zero on parallel inputs."""
-    fig, axes = plt.subplots(1, 3, figsize=(12.9, 4.5))
+    fig, axes = plt.subplots(1, 3, figsize=(12.9, 3.5))
 
-    def panel(ax, u, w, color, value, title, note):
-        quad = np.array([[0, 0], u, np.array(u) + np.array(w), w])
-        ax.fill(quad[:, 0], quad[:, 1], color=color, alpha=0.22)
-        ax.annotate("", xy=u, xytext=(0, 0),
-                    arrowprops=dict(arrowstyle="-|>", color=BLUE, lw=2.2,
-                                    mutation_scale=16))
+    def panel(ax, u, w, color, value, title, note, parallel=False):
+        if not parallel:
+            quad = np.array([[0, 0], u, np.array(u) + np.array(w), w])
+            ax.fill(quad[:, 0], quad[:, 1], color=color, alpha=0.22)
+        # draw w first so that a parallel u stays visible on top of it
         ax.annotate("", xy=w, xytext=(0, 0),
                     arrowprops=dict(arrowstyle="-|>", color=PURPLE, lw=2.2,
                                     mutation_scale=16))
-        ax.text(u[0] * 0.55 - 0.05, u[1] * 0.55 - 0.32, "$u$",
-                color=BLUE, fontsize=10.5)
-        ax.text(w[0] * 0.55 + 0.10, w[1] * 0.55 + 0.10, "$w$",
-                color=PURPLE, fontsize=10.5)
-        ax.set_xlim(-0.55, 3.9)
-        ax.set_ylim(-0.75, 2.9)
+        ax.annotate("", xy=u, xytext=(0, 0),
+                    arrowprops=dict(arrowstyle="-|>", color=BLUE, lw=2.2,
+                                    mutation_scale=16))
+        ax.text(u[0] * 0.3 - 0.05, u[1] * 0.3 - 0.22, "$u$",
+                color=BLUE, fontsize=10.5, ha="right",
+                bbox=dict(facecolor="white", edgecolor="none", alpha=0.75))
+        ax.text(w[0] * 0.62 + 0.10, w[1] * 0.62 + 0.14, "$w$",
+                color=PURPLE, fontsize=10.5, ha="left",
+                bbox=dict(facecolor="white", edgecolor="none", alpha=0.75))
+        ax.set_xlim(-0.45, 3.5)
+        ax.set_ylim(-0.45, 1.5)
         ax.set_aspect("equal")
         ax.axis("off")
         ax.set_title(title, fontsize=11)
@@ -2443,8 +2447,9 @@ def fig_wedge():
           "(a) $u$ then $w$", "counter-clockwise: area +1")
     panel(axes[1], (0, 1), (1, 0), ORANGE, "$dx\\wedge dy\\,(w,u)=-1$",
           "(b) the two inputs swapped", "clockwise: the sign flips")
-    panel(axes[2], (2, 0.4), (3, 0.6), RED, "$dx\\wedge dy\\,(u,w)=0$",
-          "(c) $w$ parallel to $u$", "no area, so the machine returns 0")
+    panel(axes[2], (1.2, 0.3), (2.0, 0.5), RED, "$dx\\wedge dy\\,(u,w)=0$",
+          "(c) $w$ parallel to $u$", "no area, so the machine returns 0",
+          parallel=True)
 
     fig.suptitle("A wedge product is bilinear and antisymmetric: "
                  "subtracting the two orderings kills the symmetric part",
