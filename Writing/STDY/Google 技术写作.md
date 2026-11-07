@@ -156,6 +156,22 @@ linkStyle default stroke:#9CA3AF
 > 2. Running the process configures permissions and generates a user ID. This lets users authenticate to the app.
 > 3. Be careful when using Frambus or Carambola with HoobyScooby or BoiseFram because a bug in their core may cause accidental mass unfriending.
 
+> [!success] ✓ 第 1 句 · 方向正确
+> 你已经建立了 `Protocol Buffers → protobufs` 的映射，后面也统一用了 `protobufs`，主要问题解决了。再收紧一步：写成 `Protocol Buffers (or protobufs for short)`，并补一个空格。括号里只有 `protobufs` 时，读者仍可能犹豫这是简称、别名还是另一个东西；`for short` 把约定说死。
+
+> [!failure] ✗ 第 2 句 · 换成了一个没有指代对象的模糊名词
+> `All these methods` 在前一句里找不到先行词——前一句只有「运行过程」「权限」「user ID」，没有 methods。你把一个歧义代词换成了另一个歧义名词，读者仍然要猜。
+> 正确做法是点名真正的指代对象：
+> - 如果起作用的是 user ID：`This user ID lets users authenticate to the app.`
+> - 如果起作用的是整个流程：`Running the process lets users authenticate to the app.`
+> 规则不是「禁止代词」，而是「指针必须能唯一解析」。如果你想把两个动作都算进去，`These two operations` 也比 `methods` 清楚，但最好还是点名 user ID 或整个流程。
+
+> [!failure] ✗ 第 3 句 · 把决定指代的责任推给了读者
+> 你抓对了问题：`their` 指谁不清楚。但括号里的 `(explicitly quote what the core exactly are)` 是写给作者自己的备注，不是给读者的改写。文档不能要求读者替你决定指代；作者必须选一个：
+> - 如果 bug 在 Frambus 的 core：`because a bug in the core of Frambus may cause...`
+> - 如果四者都可能有：`because bugs in the cores of these products may cause...`
+> 另外，`core` 本身如果是读者不熟悉的术语，应该单独定义或进 glossary；这和代词指代是两个问题。语法上写 `what the core exactly is`（单数）或 `what the cores exactly are`（复数），`explicitly` 拼写。
+
 ### 模板
 
 ```markdown
@@ -169,7 +185,7 @@ linkStyle default stroke:#9CA3AF
 > 改后
 
 > [!question] 小测
-> 题目
+> 题目zan
 
 > [!success] ✓ 正确
 > 为什么对。
