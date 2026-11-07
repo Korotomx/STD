@@ -125,9 +125,9 @@
         <line x1="10.20" y1="-2.2" x2="55.80" y2="9.2"/>
       </g>
       <!-- original unit square in M-coordinates: M*(0,0),(1,0),(1,1),(0,1) -->
-      <polygon points="0,0 1,0 5,1 4,1" fill="none" stroke="#6B7280" stroke-width="2" stroke-dasharray="5 4" vector-effect="non-scaling-stroke"/>
+      <polygon points="0,0 1,0 5,1 4,1" fill="#9CA3AF" fill-opacity="0.07" stroke="#9CA3AF" stroke-width="2.5" stroke-dasharray="6 5" vector-effect="non-scaling-stroke"/>
       <!-- B applied to that square -->
-      <polygon points="0,0 2,1 11,7 9,6" fill="#A78BFA" fill-opacity="0.32" stroke="#A78BFA" stroke-width="3.5" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+      <polygon points="0,0 2,1 11,7 9,6" fill="#A78BFA" fill-opacity="0.45" stroke="#A78BFA" stroke-width="3.5" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
     </g>
 
     <!-- basis vectors m1, m2 -->
@@ -135,6 +135,12 @@
     <line x1="1154.5" y1="379" x2="1278.5" y2="348" stroke="#A78BFA" stroke-width="2.5" marker-end="url(#arrowAccent)"/>
     <text x="1196" y="400" font-size="18" fill="#A78BFA" stroke="#0B0B0F" stroke-width="3" paint-order="stroke" stroke-linejoin="round">m₁</text>
     <text x="1291" y="336" font-size="18" fill="#A78BFA" stroke="#0B0B0F" stroke-width="3" paint-order="stroke" stroke-linejoin="round">m₂</text>
+
+    <!-- panel 3 legend -->
+    <line x1="1082" y1="80" x2="1112" y2="80" stroke="#9CA3AF" stroke-width="2.5" stroke-dasharray="5 4"/>
+    <text x="1120" y="86" font-size="15" fill="#9CA3AF">M-坐标单位格</text>
+    <line x1="1246" y1="80" x2="1276" y2="80" stroke="#A78BFA" stroke-width="4"/>
+    <text x="1284" y="86" font-size="15" fill="#A78BFA">A(单位格)</text>
 
     <!-- matrix M -->
     <g font-size="20" fill="#E5E7EB" text-anchor="middle">
@@ -160,5 +166,5 @@
   </g>
 
   <!-- caption -->
-  <text x="800" y="592" text-anchor="middle" font-size="22" fill="#9CA3AF">同一个线性变换，三套坐标；<tspan fill="#E5E7EB">换基只换坐标，</tspan><tspan fill="#A78BFA">不换几何。</tspan></text>
+  <text x="800" y="592" text-anchor="middle" font-size="22" fill="#9CA3AF">同一个线性变换，三套坐标；<tspan fill="#E5E7EB">换基只换矩阵，</tspan><tspan fill="#A78BFA">不换变换本身。</tspan></text>
 </svg>
