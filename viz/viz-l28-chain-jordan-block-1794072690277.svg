@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="700" viewBox="0 0 1400 700">
+  <defs>
+    <marker id="arrPurple" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="9" markerHeight="9" orient="auto">
+      <path d="M1,1 L11,6 L1,11 z" fill="#A78BFA"/>
+    </marker>
+    <marker id="arrMuted" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="9" markerHeight="9" orient="auto">
+      <path d="M1,1 L11,6 L1,11 z" fill="#9CA3AF"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1400" height="700" fill="#0B0B0F"/>
+
+  <!-- ============ LEFT: generalized eigenvector chain ============ -->
+  <g font-family="Noto Sans CJK SC, sans-serif">
+
+    <!-- chain arrows (right to left) -->
+    <line x1="596" y1="265" x2="520" y2="265" stroke="#A78BFA" stroke-width="2.5" marker-end="url(#arrPurple)"/>
+    <line x1="430" y1="265" x2="354" y2="265" stroke="#A78BFA" stroke-width="2.5" marker-end="url(#arrPurple)"/>
+    <line x1="264" y1="265" x2="188" y2="265" stroke="#A78BFA" stroke-width="2.5" marker-end="url(#arrPurple)"/>
+
+    <!-- N labels above arrows -->
+    <text x="557" y="240" text-anchor="middle" font-size="24" font-style="italic" fill="#A78BFA">N</text>
+    <text x="391" y="240" text-anchor="middle" font-size="24" font-style="italic" fill="#A78BFA">N</text>
+    <text x="225" y="240" text-anchor="middle" font-size="24" font-style="italic" fill="#A78BFA">N</text>
+
+    <!-- nodes -->
+    <circle cx="640" cy="265" r="42" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <circle cx="474" cy="265" r="42" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <circle cx="308" cy="265" r="42" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <circle cx="142" cy="265" r="42" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+
+    <text x="640" y="275" text-anchor="middle" font-size="32" fill="#E5E7EB">e<tspan dy="8" font-size="20">3</tspan></text>
+    <text x="474" y="275" text-anchor="middle" font-size="32" fill="#E5E7EB">e<tspan dy="8" font-size="20">2</tspan></text>
+    <text x="308" y="275" text-anchor="middle" font-size="32" fill="#E5E7EB">e<tspan dy="8" font-size="20">1</tspan></text>
+    <text x="142" y="277" text-anchor="middle" font-size="34" fill="#E5E7EB">0</text>
+
+    <!-- death times -->
+    <text x="640" y="348" text-anchor="middle" font-size="20" fill="#9CA3AF">3 步</text>
+    <text x="474" y="348" text-anchor="middle" font-size="20" fill="#9CA3AF">2 步</text>
+    <text x="308" y="348" text-anchor="middle" font-size="20" fill="#9CA3AF">1 步</text>
+    <text x="142" y="348" text-anchor="middle" font-size="20" fill="#9CA3AF">0 步</text>
+
+    <!-- conveyor belt -->
+    <line x1="660" y1="405" x2="126" y2="405" stroke="#9CA3AF" stroke-width="2" stroke-dasharray="10 8" marker-end="url(#arrMuted)"/>
+    <text x="390" y="448" text-anchor="middle" font-size="21" fill="#9CA3AF">N 每作用一次，往左走一格</text>
+  </g>
+
+  <!-- ============ transfer arrow ============ -->
+  <g font-family="Noto Sans CJK SC, sans-serif">
+    <line x1="706" y1="295" x2="928" y2="295" stroke="#A78BFA" stroke-width="2.5" marker-end="url(#arrPurple)"/>
+    <text x="817" y="270" text-anchor="middle" font-size="21" fill="#9CA3AF">换到链基</text>
+  </g>
+
+  <!-- ============ RIGHT: Jordan block ============ -->
+  <g font-family="Noto Sans CJK SC, sans-serif">
+    <text x="1055" y="150" text-anchor="middle" font-size="22" fill="#E5E7EB">链基下的矩阵 = J<tspan dy="6" font-size="15">3</tspan><tspan dy="-6">(λ)</tspan></text>
+
+    <!-- brackets -->
+    <path d="M 974,196 L 956,196 L 956,394 L 974,394" fill="none" stroke="#E5E7EB" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 1136,196 L 1154,196 L 1154,394 L 1136,394" fill="none" stroke="#E5E7EB" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- row 1 -->
+    <text x="1000" y="242" text-anchor="middle" font-size="34" fill="#E5E7EB">λ</text>
+    <text x="1060" y="242" text-anchor="middle" font-size="34" fill="#A78BFA">1</text>
+    <text x="1120" y="242" text-anchor="middle" font-size="34" fill="#6B7280">0</text>
+    <!-- row 2 -->
+    <text x="1000" y="307" text-anchor="middle" font-size="34" fill="#6B7280">0</text>
+    <text x="1060" y="307" text-anchor="middle" font-size="34" fill="#E5E7EB">λ</text>
+    <text x="1120" y="307" text-anchor="middle" font-size="34" fill="#A78BFA">1</text>
+    <!-- row 3 -->
+    <text x="1000" y="372" text-anchor="middle" font-size="34" fill="#6B7280">0</text>
+    <text x="1060" y="372" text-anchor="middle" font-size="34" fill="#6B7280">0</text>
+    <text x="1120" y="372" text-anchor="middle" font-size="34" fill="#E5E7EB">λ</text>
+  </g>
+
+  <!-- ============ caption ============ -->
+  <g font-family="Noto Sans CJK SC, sans-serif">
+    <line x1="130" y1="565" x2="1270" y2="565" stroke="#2E2E2E" stroke-width="1" stroke-dasharray="4 6"/>
+    <text x="700" y="615" text-anchor="middle" font-size="23" fill="#E5E7EB">一条长度 3 的链 ↔ 一个 3×3 Jordan 块；走到 0 的步数就是链长</text>
+  </g>
+</svg>
