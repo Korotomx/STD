@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="620" viewBox="0 0 1600 620" font-family="'Noto Sans CJK SC', 'Noto Sans CJK JP', sans-serif">
+  <defs>
+    <marker id="arrowAxis" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9CA3AF"/>
+    </marker>
+    <marker id="arrowAccent" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#A78BFA"/>
+    </marker>
+    <clipPath id="clip3" clipPathUnits="userSpaceOnUse">
+      <rect x="-2.2" y="-2.2" width="15.4" height="11.4"/>
+    </clipPath>
+  </defs>
+
+  <rect x="0" y="0" width="1600" height="620" fill="#0B0B0F"/>
+
+  <!-- panel dividers -->
+  <line x1="536.5" y1="66" x2="536.5" y2="556" stroke="#1E1E28" stroke-width="1"/>
+  <line x1="1062.5" y1="66" x2="1062.5" y2="556" stroke="#1E1E28" stroke-width="1"/>
+
+  <!-- ================= PANEL 1 : standard basis ================= -->
+  <g>
+    <text x="273" y="46" text-anchor="middle" font-size="24" font-weight="600" fill="#E5E7EB">标准基：A 把方格剪斜</text>
+
+    <g transform="translate(234 327) scale(52 -52)">
+      <!-- grid -->
+      <g stroke="#2A2A3A" stroke-width="0.01923">
+        <line x1="-2" y1="-2.6" x2="-2" y2="4.6"/>
+        <line x1="-1" y1="-2.6" x2="-1" y2="4.6"/>
+        <line x1="1" y1="-2.6" x2="1" y2="4.6"/>
+        <line x1="2" y1="-2.6" x2="2" y2="4.6"/>
+        <line x1="3" y1="-2.6" x2="3" y2="4.6"/>
+        <line x1="4" y1="-2.6" x2="4" y2="4.6"/>
+        <line x1="-2.5" y1="-2" x2="4.4" y2="-2"/>
+        <line x1="-2.5" y1="-1" x2="4.4" y2="-1"/>
+        <line x1="-2.5" y1="1" x2="4.4" y2="1"/>
+        <line x1="-2.5" y1="2" x2="4.4" y2="2"/>
+        <line x1="-2.5" y1="3" x2="4.4" y2="3"/>
+        <line x1="-2.5" y1="4" x2="4.4" y2="4"/>
+      </g>
+      <!-- original unit square -->
+      <polygon points="0,0 1,0 1,1 0,1" fill="none" stroke="#6B7280" stroke-width="2" stroke-dasharray="5 4" vector-effect="non-scaling-stroke"/>
+      <!-- A applied to the unit square -->
+      <polygon points="0,0 2,1 3,3 1,2" fill="#A78BFA" fill-opacity="0.18" stroke="#A78BFA" stroke-width="2.5" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    </g>
+
+    <!-- axes -->
+    <line x1="104" y1="327" x2="462" y2="327" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arrowAxis)"/>
+    <line x1="234" y1="457" x2="234" y2="87" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arrowAxis)"/>
+    <text x="470" y="333" font-size="16" fill="#9CA3AF">x</text>
+    <text x="243" y="84" font-size="16" fill="#9CA3AF">y</text>
+
+    <!-- eigenvectors -->
+    <line x1="234" y1="327" x2="286" y2="275" stroke="#A78BFA" stroke-width="2.5" marker-end="url(#arrowAccent)"/>
+    <line x1="234" y1="327" x2="286" y2="379" stroke="#A78BFA" stroke-width="2.5" marker-end="url(#arrowAccent)"/>
+    <text x="294" y="258" font-size="19" fill="#A78BFA" stroke="#0B0B0F" stroke-width="3" paint-order="stroke" stroke-linejoin="round">λ = 3</text>
+    <text x="296" y="401" font-size="19" fill="#A78BFA" stroke="#0B0B0F" stroke-width="3" paint-order="stroke" stroke-linejoin="round">λ = 1</text>
+
+    <!-- matrix A -->
+    <g font-size="20" fill="#E5E7EB" text-anchor="middle">
+      <text x="246" y="529" text-anchor="end">A =</text>
+      <path d="M272 500 L267 500 L267 544 L272 544" fill="none" stroke="#9CA3AF" stroke-width="1.5"/>
+      <path d="M334 500 L339 500 L339 544 L334 544" fill="none" stroke="#9CA3AF" stroke-width="1.5"/>
+      <text x="282" y="516">2</text>
+      <text x="324" y="516">1</text>
+      <text x="282" y="538">1</text>
+      <text x="324" y="538">2</text>
+    </g>
+  </g>
+
+  <!-- ================= PANEL 2 : eigenbasis ================= -->
+  <g>
+    <text x="799" y="46" text-anchor="middle" font-size="24" font-weight="600" fill="#E5E7EB">特征基：只剩拉伸</text>
+
+    <g transform="translate(655 320) scale(90 -90)">
+      <!-- grid -->
+      <g stroke="#2A2A3A" stroke-width="0.011111">
+        <line x1="1" y1="-1.2" x2="1" y2="2.4"/>
+        <line x1="2" y1="-1.2" x2="2" y2="2.4"/>
+        <line x1="3" y1="-1.2" x2="3" y2="2.4"/>
+        <line x1="-0.8" y1="1" x2="4.2" y2="1"/>
+        <line x1="-0.8" y1="2" x2="4.2" y2="2"/>
+        <line x1="-0.8" y1="-1" x2="4.2" y2="-1"/>
+      </g>
+      <!-- original unit square in eigen-coordinates -->
+      <polygon points="0,0 1,0 1,1 0,1" fill="none" stroke="#6B7280" stroke-width="2" stroke-dasharray="5 4" vector-effect="non-scaling-stroke"/>
+      <!-- stretched rectangle 3 x 1 -->
+      <polygon points="0,0 3,0 3,1 0,1" fill="#A78BFA" fill-opacity="0.18" stroke="#A78BFA" stroke-width="2.5" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    </g>
+
+    <!-- axes -->
+    <line x1="583" y1="320" x2="1033" y2="320" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arrowAxis)"/>
+    <line x1="655" y1="428" x2="655" y2="104" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arrowAxis)"/>
+
+    <!-- eigen axis labels -->
+    <text x="1004" y="352" text-anchor="middle" font-size="18" fill="#A78BFA">e₁ (λ=3)</text>
+    <text x="670" y="120" font-size="18" fill="#A78BFA">e₂ (λ=1)</text>
+
+    <!-- dimension ticks -->
+    <text x="790" y="345" text-anchor="middle" font-size="16" fill="#9CA3AF">3</text>
+    <text x="642" y="278" text-anchor="end" font-size="16" fill="#9CA3AF">1</text>
+
+    <!-- matrix Lambda -->
+    <text x="799" y="528" text-anchor="middle" font-size="20" fill="#E5E7EB">Λ = diag(3, 1)</text>
+  </g>
+
+  <!-- ================= PANEL 3 : arbitrary basis ================= -->
+  <g>
+    <text x="1325" y="46" text-anchor="middle" font-size="24" font-weight="600" fill="#E5E7EB">任意基：坐标变丑</text>
+
+    <g transform="translate(1154.5 379) scale(31 -31)">
+      <!-- coarse skewed lattice generated by M -->
+      <g clip-path="url(#clip3)" stroke="#2A2A3A" stroke-width="0.03226">
+        <line x1="-2.2" y1="-2" x2="13.2" y2="-2"/>
+        <line x1="-2.2" y1="0" x2="13.2" y2="0"/>
+        <line x1="-2.2" y1="2" x2="13.2" y2="2"/>
+        <line x1="-2.2" y1="4" x2="13.2" y2="4"/>
+        <line x1="-2.2" y1="6" x2="13.2" y2="6"/>
+        <line x1="-2.2" y1="8" x2="13.2" y2="8"/>
+        <!-- lines x - 4y = c, parallel to m2 -->
+        <line x1="-44.80" y1="-2.2" x2="0.80" y2="9.2"/>
+        <line x1="-33.80" y1="-2.2" x2="11.80" y2="9.2"/>
+        <line x1="-22.80" y1="-2.2" x2="22.80" y2="9.2"/>
+        <line x1="-11.80" y1="-2.2" x2="33.80" y2="9.2"/>
+        <line x1="-0.80" y1="-2.2" x2="44.80" y2="9.2"/>
+        <line x1="10.20" y1="-2.2" x2="55.80" y2="9.2"/>
+      </g>
+      <!-- original unit square in M-coordinates: M*(0,0),(1,0),(1,1),(0,1) -->
+      <polygon points="0,0 1,0 5,1 4,1" fill="none" stroke="#6B7280" stroke-width="2" stroke-dasharray="5 4" vector-effect="non-scaling-stroke"/>
+      <!-- B applied to that square -->
+      <polygon points="0,0 2,1 11,7 9,6" fill="#A78BFA" fill-opacity="0.32" stroke="#A78BFA" stroke-width="3.5" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    </g>
+
+    <!-- basis vectors m1, m2 -->
+    <line x1="1154.5" y1="379" x2="1185.5" y2="379" stroke="#A78BFA" stroke-width="2.5" marker-end="url(#arrowAccent)"/>
+    <line x1="1154.5" y1="379" x2="1278.5" y2="348" stroke="#A78BFA" stroke-width="2.5" marker-end="url(#arrowAccent)"/>
+    <text x="1196" y="400" font-size="18" fill="#A78BFA" stroke="#0B0B0F" stroke-width="3" paint-order="stroke" stroke-linejoin="round">m₁</text>
+    <text x="1291" y="336" font-size="18" fill="#A78BFA" stroke="#0B0B0F" stroke-width="3" paint-order="stroke" stroke-linejoin="round">m₂</text>
+
+    <!-- matrix M -->
+    <g font-size="20" fill="#E5E7EB" text-anchor="middle">
+      <text x="1300" y="487" text-anchor="end">M =</text>
+      <path d="M1318 458 L1313 458 L1313 498 L1318 498" fill="none" stroke="#9CA3AF" stroke-width="1.5"/>
+      <path d="M1382 458 L1387 458 L1387 498 L1382 498" fill="none" stroke="#9CA3AF" stroke-width="1.5"/>
+      <text x="1330" y="474">1</text>
+      <text x="1370" y="474">4</text>
+      <text x="1330" y="494">0</text>
+      <text x="1370" y="494">1</text>
+    </g>
+
+    <!-- matrix B -->
+    <g font-size="20" fill="#E5E7EB" text-anchor="middle">
+      <text x="1303" y="532" text-anchor="end" font-size="18">B = M⁻¹AM =</text>
+      <path d="M1321 503 L1316 503 L1316 543 L1321 543" fill="none" stroke="#9CA3AF" stroke-width="1.5"/>
+      <path d="M1386 503 L1391 503 L1391 543 L1386 543" fill="none" stroke="#9CA3AF" stroke-width="1.5"/>
+      <text x="1333" y="519">-2</text>
+      <text x="1375" y="519">-15</text>
+      <text x="1333" y="539">1</text>
+      <text x="1375" y="539">6</text>
+    </g>
+  </g>
+
+  <!-- caption -->
+  <text x="800" y="592" text-anchor="middle" font-size="22" fill="#9CA3AF">同一个线性变换，三套坐标；<tspan fill="#E5E7EB">换基只换坐标，</tspan><tspan fill="#A78BFA">不换几何。</tspan></text>
+</svg>

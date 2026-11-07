@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700">
+  <rect width="1200" height="700" fill="#0B0B0F"/>
+
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">
+
+    <!-- title -->
+    <text x="60" y="48" font-size="22" fill="#E5E7EB">n_k = dim ker(N^k)</text>
+
+    <!-- grid -->
+    <g stroke="#2A2A3A" stroke-width="1">
+      <line x1="370" y1="80" x2="370" y2="560"/>
+      <line x1="490" y1="80" x2="490" y2="560"/>
+      <line x1="610" y1="80" x2="610" y2="560"/>
+      <line x1="730" y1="80" x2="730" y2="560"/>
+      <line x1="250" y1="440" x2="730" y2="440"/>
+      <line x1="250" y1="320" x2="730" y2="320"/>
+      <line x1="250" y1="200" x2="730" y2="200"/>
+      <line x1="250" y1="80"  x2="730" y2="80"/>
+    </g>
+
+    <!-- axes -->
+    <line x1="250" y1="560" x2="770" y2="560" stroke="#9CA3AF" stroke-width="2"/>
+    <line x1="250" y1="580" x2="250" y2="60"  stroke="#9CA3AF" stroke-width="2"/>
+
+    <!-- k tick labels -->
+    <g font-size="20" fill="#9CA3AF" text-anchor="middle">
+      <text x="250" y="592">0</text>
+      <text x="370" y="592">1</text>
+      <text x="490" y="592">2</text>
+      <text x="610" y="592">3</text>
+      <text x="730" y="592">4</text>
+    </g>
+
+    <!-- n_k tick labels -->
+    <g font-size="20" fill="#9CA3AF" text-anchor="end">
+      <text x="232" y="567">0</text>
+      <text x="232" y="447">1</text>
+      <text x="232" y="327">2</text>
+      <text x="232" y="207">3</text>
+      <text x="232" y="87">4</text>
+    </g>
+
+    <!-- axis names -->
+    <text x="798" y="592" font-size="22" fill="#E5E7EB" text-anchor="middle">k</text>
+    <text transform="translate(198,315) rotate(-90)" font-size="22" fill="#E5E7EB" text-anchor="middle">n_k</text>
+
+    <!-- k = 2 guide -->
+    <line x1="490" y1="560" x2="490" y2="80" stroke="#F59E0B" stroke-opacity="0.45"
+          stroke-width="1.5" stroke-dasharray="5 7"/>
+
+    <!-- J: n = (0,2,4,4,4) -->
+    <path d="M250,560 L370,560 L370,320 L490,320 L490,80 L730,80"
+          fill="none" stroke="#A78BFA" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
+
+    <!-- K: n = (0,2,3,4,4) -->
+    <path d="M250,560 L370,560 L370,320 L490,320 L490,200 L610,200 L610,80 L730,80"
+          fill="none" stroke="#22D3EE" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"
+          stroke-dasharray="12 7"/>
+
+    <!-- J markers (solid dots) -->
+    <g fill="#A78BFA">
+      <circle cx="250" cy="560" r="5.5"/>
+      <circle cx="370" cy="320" r="5.5"/>
+      <circle cx="490" cy="80"  r="5.5"/>
+      <circle cx="610" cy="80"  r="5.5"/>
+      <circle cx="730" cy="80"  r="5.5"/>
+    </g>
+
+    <!-- K markers (hollow rings) -->
+    <g fill="none" stroke="#22D3EE" stroke-width="2.5">
+      <circle cx="250" cy="560" r="8.5"/>
+      <circle cx="370" cy="320" r="8.5"/>
+      <circle cx="490" cy="200" r="8.5"/>
+      <circle cx="610" cy="80"  r="8.5"/>
+      <circle cx="730" cy="80"  r="8.5"/>
+    </g>
+
+    <!-- highlight of the gap at k = 2 -->
+    <ellipse cx="490" cy="140" rx="24" ry="74" fill="none" stroke="#F59E0B" stroke-width="2" stroke-opacity="0.9"/>
+
+    <!-- annotation -->
+    <line x1="522" y1="242" x2="503" y2="210" stroke="#F59E0B" stroke-width="1.5" stroke-opacity="0.75"/>
+    <text x="525" y="258" font-size="22" font-weight="600" fill="#F59E0B">k=2: 4 vs 3</text>
+    <text x="525" y="292" font-size="20" fill="#F59E0B">← 分水岭</text>
+
+    <!-- legend -->
+    <rect x="800" y="85" width="350" height="130" rx="10" fill="#12121A" stroke="#2A2A3A" stroke-width="1.5"/>
+    <line x1="825" y1="128" x2="875" y2="128" stroke="#A78BFA" stroke-width="3.5" stroke-linecap="round"/>
+    <circle cx="850" cy="128" r="5.5" fill="#A78BFA"/>
+    <text x="892" y="136" font-size="24" font-weight="600" fill="#A78BFA">2+2 块</text>
+
+    <line x1="825" y1="178" x2="875" y2="178" stroke="#22D3EE" stroke-width="3.5"
+          stroke-linecap="round" stroke-dasharray="9 6"/>
+    <circle cx="850" cy="178" r="8.5" fill="none" stroke="#22D3EE" stroke-width="2.5"/>
+    <text x="892" y="186" font-size="24" font-weight="600" fill="#22D3EE">3+1 块</text>
+
+    <!-- caption -->
+    <text x="600" y="645" font-size="20" fill="#9CA3AF" text-anchor="middle">n_k 是「死亡时间 ≤ k」的向量数；2+2 在 k=2 就收满，3+1 要到 k=3。</text>
+
+  </g>
+</svg>
