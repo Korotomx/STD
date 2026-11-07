@@ -10,6 +10,7 @@
 - **ROS 2**：机器人通信、节点组织与工程结构；课程项目已完结，按需复习。
 - **Python**：补齐 C 之外的 Python 特性与 NumPy。
 - **英语**：积累 CS 词汇，按天归档。
+- **技术写作**：Google Technical Writing One/Two，练 README、设计文档、错误信息与代码注释。
 - **阅读**：Sight 收技术文章与长文，保留原文出处。
 
 ## 怎么组织
@@ -20,4 +21,4 @@
 
 ## 入口
 
-[[Math/Overview|数学]] · [[Artificial_Intelligence/Overview|AI]] · [[ROS2/Overview|ROS 2]] · [[English/Overview|英语]]
+[[Math/Overview|数学]] · [[Artificial_Intelligence/Overview|AI]] · [[ROS2/Overview|ROS 2]] · [[English/Overview|英语]] · [[Writing/Overview|技术写作]]
