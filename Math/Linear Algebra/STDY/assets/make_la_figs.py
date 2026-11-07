@@ -1930,6 +1930,391 @@ def fig_l14_probability():
     plt.close(fig)
 
 
+# ---------------------------------------------------------------- FFT note
+def _wound_com(g, t, f, T):
+    """Average of g(t) exp(-2*pi*i*f*t): the center of mass of the wound graph."""
+    return np.trapezoid(g * np.exp(-2j * np.pi * f * t), t) / T
+
+
+def fig_fft_winding():
+    fig, axes = plt.subplots(2, 2, figsize=(12.8, 9.6))
+    T = 3.0
+    t = np.linspace(0, T, 2400)
+    g = 1 + np.cos(2 * np.pi * 3 * t)
+
+    ax = axes[0, 0]
+    ax.plot(t, g, color=BLUE, lw=2.0)
+    ax.axhline(1.0, color=MUTED, lw=0.8, ls=":")
+    ax.text(2.05, 1.07, "equilibrium", color=MUTED, fontsize=9.5,
+            bbox=dict(facecolor=PAPER, edgecolor="none", pad=1.0))
+    ax.set_xlim(0, T); ax.set_ylim(-0.15, 2.25)
+    ax.set_xlabel("time (s)"); ax.set_ylabel("intensity")
+    ax.set_title("Step 1: a 3 Hz tone, shifted up", fontsize=12)
+    ax.text(0.08, 2.06, "3 beats per second", color=INK, fontsize=10.5)
+    clean(ax, equal=False)
+
+    for ax, fw, col, title, note in [
+        (axes[0, 1], 3.0, PURPLE, "Step 2: wind at 3 turns/s",
+         "peaks on the right, valleys on the left"),
+        (axes[1, 0], 2.0, GRAY, "Winding at 2 turns/s",
+         "peaks and valleys spread out"),
+    ]:
+        z = g * np.exp(-2j * np.pi * fw * t)
+        com = _wound_com(g, t, fw, T)
+        ax.plot(z.real, z.imag, color=col, lw=1.35, alpha=0.9)
+        ax.scatter([0], [0], color=MUTED, s=18, zorder=4)
+        ax.scatter([com.real], [com.imag], marker="*", s=300, color=GREEN,
+                   zorder=6, edgecolor=PAPER, linewidth=0.8)
+        ax.annotate(f"center of mass\n({com.real:.2f}, {com.imag:.2f})",
+                    (com.real, com.imag), xytext=(14, -40),
+                    textcoords="offset points", fontsize=9.5, color=GREEN,
+                    arrowprops=dict(arrowstyle="-", color=GREEN, lw=0.7,
+                                    alpha=0.7))
+        ax.set_xlim(-2.35, 2.35); ax.set_ylim(-2.0, 2.0)
+        ax.set_xlabel("Re"); ax.set_ylabel("Im")
+        ax.set_title(title, fontsize=12)
+        ax.text(-2.28, -1.86, note, fontsize=9.5, color=MUTED,
+                bbox=dict(facecolor=PAPER, edgecolor="none", pad=1.0))
+        clean(ax)
+
+    ax = axes[1, 1]
+    fgrid = np.arange(0.0, 6.001, 0.01)
+    zz = g[None, :] * np.exp(-2j * np.pi * fgrid[:, None] * t[None, :])
+    com = np.trapezoid(zz, t, axis=1) / T
+    ax.plot(fgrid, com.real, color=RED, lw=2.0)
+    ax.axhline(0, color=MUTED, lw=0.8)
+    ax.scatter([0, 3], [1.0, 0.5], color=GREEN, s=45, zorder=6)
+    ax.annotate("DC: only the vertical shift", (0, 1.0), xytext=(0.35, 0.84),
+                fontsize=9.5, color=GREEN,
+                arrowprops=dict(arrowstyle="->", color=GREEN, lw=0.8))
+    ax.annotate("signal frequency", (3, 0.5), xytext=(3.35, 0.64),
+                fontsize=9.5, color=GREEN,
+                arrowprops=dict(arrowstyle="->", color=GREEN, lw=0.8))
+    ax.set_xlim(0, 6); ax.set_ylim(-0.08, 1.12)
+    ax.set_xlabel("winding frequency $f$ (turns/s)")
+    ax.set_ylabel("Re(center of mass)")
+    ax.set_title("Step 3: the almost Fourier transform", fontsize=12)
+    clean(ax, equal=False)
+
+    fig.tight_layout()
+    fig.savefig(f"{OUT}/FFT_winding_machine.png", dpi=200, bbox_inches="tight")
+    plt.close(fig)
+
+
+def fig_fft_dft_com():
+    fig, (ax, ax2) = plt.subplots(1, 2, figsize=(12.8, 5.2))
+    N = 8
+    n = np.arange(N)
+    x = 1 + np.cos(2 * np.pi * n / N)
+    k = 1
+    z = x * np.exp(-2j * np.pi * k * n / N)
+    com = z.mean()
+
+    ax.axhline(0, color=GRID, lw=0.8)
+    ax.axvline(0, color=GRID, lw=0.8)
+    ax.add_patch(Circle((0, 0), 0.5, fill=False, ec=GREEN, ls=":", lw=1.3))
+    for i in range(N):
+        if i != 4:
+            ax.annotate("", xy=(z[i].real, z[i].imag), xytext=(0, 0),
+                        arrowprops=dict(arrowstyle="-|>", color=BLUE, lw=1.0,
+                                        alpha=0.5, mutation_scale=9))
+        ax.scatter([z[i].real], [z[i].imag], color=BLUE, s=42, zorder=5)
+    ax.scatter([com.real], [com.imag], marker="*", s=320, color=GREEN,
+               zorder=7, edgecolor=PAPER, linewidth=0.8)
+    ax.text(com.real + 0.10, com.imag + 0.16, "COM = 0.5", color=GREEN,
+            fontsize=11)
+    ax.text(1.0, -1.42, "$z_n=x[n]\\,e^{-2\\pi i n/8}$", fontsize=11)
+    ax.text(1.92, 0.10, "$n=0$", fontsize=8.5, color=MUTED)
+    ax.text(1.30, 1.27, "$n=1$", fontsize=8.5, color=MUTED)
+    ax.text(1.30, -1.27, "$n=7$", fontsize=8.5, color=MUTED)
+    ax.set_xlim(-1.4, 2.5); ax.set_ylim(-1.6, 1.6)
+    ax.set_xlabel("Re"); ax.set_ylabel("Im")
+    ax.set_title("Winding $x[n]=1+\\cos(2\\pi n/8)$ at $k=1$", fontsize=12)
+    clean(ax)
+
+    X = np.fft.fft(x) / N
+    ks = np.arange(N)
+    counts = np.real(X)
+    cols = [ORANGE if kk in (1, 7) else BLUE for kk in ks]
+    ax2.vlines(ks, 0, counts, color=cols, lw=2.4)
+    ax2.scatter(ks, counts, color=cols, s=40, zorder=5)
+    ax2.axhline(0, color=MUTED, lw=0.8)
+    ax2.text(0.0, 1.04, "1.0", ha="center", fontsize=9.5)
+    ax2.text(1.0, 0.55, "0.5", ha="center", fontsize=9.5, color=ORANGE)
+    ax2.text(7.0, 0.55, "0.5", ha="center", fontsize=9.5, color=ORANGE)
+    ax2.set_xticks(ks)
+    ax2.set_xlim(-0.6, 7.6); ax2.set_ylim(-0.05, 1.2)
+    ax2.set_xlabel("bin index $k$"); ax2.set_ylabel("$X[k]/N$")
+    ax2.set_title("The DFT divided by $N$ is the center of mass", fontsize=12)
+    ax2.annotate("conjugate pair\n(negative frequency)", xy=(7, 0.5),
+                 xytext=(4.6, 0.82), fontsize=9, color=ORANGE,
+                 arrowprops=dict(arrowstyle="->", color=ORANGE, lw=0.8))
+    clean(ax2, equal=False)
+
+    fig.tight_layout()
+    fig.subplots_adjust(wspace=0.28)
+    fig.savefig(f"{OUT}/FFT_dft_as_com.png", dpi=200, bbox_inches="tight")
+    plt.close(fig)
+
+
+def fig_fft_test_waveforms():
+    fig, axes = plt.subplots(1, 4, figsize=(13.2, 4.1))
+    N = 4
+    titles = ["$k=0$: no rotation", "$k=1$: one turn",
+              "$k=2$: two turns", "$k=3$: one turn backwards"]
+    steps = ["step $=0^\\circ$", "step $=-90^\\circ$",
+             "step $=180^\\circ$", "step $=+90^\\circ$"]
+    for kk, ax in enumerate(axes):
+        ax.add_patch(Circle((0, 0), 1, fill=False, ec=GRID, lw=1.3))
+        ax.axhline(0, color=GRID, lw=0.6, alpha=0.6)
+        ax.axvline(0, color=GRID, lw=0.6, alpha=0.6)
+        pts = np.exp(-2j * np.pi * kk * np.arange(N) / N)
+        groups = {}
+        for j, p in enumerate(pts):
+            key = (round(p.real, 3), round(p.imag, 3))
+            groups.setdefault(key, []).append(j)
+        for (rx, ry), js in groups.items():
+            p = complex(rx, ry)
+            if abs(p) > 1e-9:
+                ax.annotate("", xy=(p.real, p.imag), xytext=(0, 0),
+                            arrowprops=dict(arrowstyle="-|>", color=BLUE, lw=1.0,
+                                            alpha=0.55, mutation_scale=9))
+            ax.scatter([p.real], [p.imag], color=BLUE, s=55, zorder=5)
+            lab = "n=0..3" if len(js) > 2 else "n=" + ",".join(str(j) for j in js)
+            tx, ty = 1.14 * p.real, 1.14 * p.imag
+            if p.real > 0.9:
+                ha, va = "left", "center"
+            elif p.real < -0.9:
+                ha, va = "right", "center"
+            elif p.imag > 0:
+                ha, va = "center", "bottom"
+            elif p.imag < 0:
+                ha, va = "center", "top"
+            else:
+                ha, va = "left", "bottom"
+            ax.text(tx, ty, lab, fontsize=8.5, ha=ha, va=va, color=INK)
+        ax.set_xlim(-1.75, 1.75); ax.set_ylim(-1.55, 1.55)
+        ax.set_aspect("equal")
+        ax.set_xticks([]); ax.set_yticks([])
+        ax.set_title(titles[kk], fontsize=11)
+        ax.set_xlabel(steps[kk], fontsize=9.5, color=MUTED)
+        for s in ("top", "right", "bottom", "left"):
+            ax.spines[s].set_visible(False)
+    fig.tight_layout()
+    fig.savefig(f"{OUT}/FFT_test_waveforms.png", dpi=200, bbox_inches="tight")
+    plt.close(fig)
+
+
+def fig_fft_alignment():
+    fig, axes = plt.subplots(1, 2, figsize=(12.8, 4.6), sharey=True)
+    N = 8
+    n = np.arange(N)
+    x = (-1.0) ** n
+    for a, kk, title in [(axes[0], 1, "$k=1$: test phasor steps $45^\\circ$"),
+                         (axes[1], 4, "$k=4$: test phasor flips every sample")]:
+        prod = x * np.exp(-2j * np.pi * kk * n / N)
+        vals = prod.real
+        cols = [GREEN if v > 1e-9 else (RED if v < -1e-9 else GRAY)
+                for v in vals]
+        a.bar(n, vals, color=cols, width=0.62)
+        a.axhline(0, color=MUTED, lw=0.9)
+        a.set_xticks(n)
+        a.set_xlabel("sample $n$")
+        a.set_title(title, fontsize=12)
+        a.set_ylim(-1.2, 1.2)
+        a.text(0.05, 1.02, f"sum $= {vals.sum():.2f}$", fontsize=10.5)
+        clean(a, equal=False)
+    axes[0].set_ylabel("Re$(x[n]\\,W_8^{kn})$")
+    axes[0].text(0.05, -1.08, "$X[1]=0$: products cancel", fontsize=9.5,
+                 color=RED)
+    axes[1].text(0.05, -1.08, "$X[4]=8$: every product is $+1$",
+                 fontsize=9.5, color=GREEN)
+    fig.tight_layout()
+    fig.savefig(f"{OUT}/FFT_alignment_bars.png", dpi=200, bbox_inches="tight")
+    plt.close(fig)
+
+
+def fig_fft_bins():
+    fig, ax = plt.subplots(figsize=(12.4, 3.9))
+    fs, N = 8000, 8
+    ks = np.arange(N)
+    freqs = np.where(ks <= N / 2, ks * fs / N, (ks - N) * fs / N)
+    ax.axvline(fs / 2, color=GREEN, ls="--", lw=1.2, zorder=0, alpha=0.8)
+    for k, f in zip(ks, freqs):
+        c = BLUE if k <= N / 2 else ORANGE
+        ax.vlines(f, 0, 1, color=c, lw=2.2, zorder=2)
+        ax.scatter([f], [1], color=c, s=45, zorder=5)
+        if k == N / 2:
+            ax.text(f - 70, 1.14, f"$k={k}$", ha="right", fontsize=10, color=c)
+        else:
+            ax.text(f, 1.14, f"$k={k}$", ha="center", fontsize=10, color=c)
+    ax.axhline(0, color=MUTED, lw=1)
+    ax.text(fs / 2 + 90, 0.74, "Nyquist\n$f_s/2$", color=GREEN, fontsize=10)
+    ax.text(-3900, 0.16, "k = N/2+1 ... N-1:\nread as negative", color=ORANGE,
+            fontsize=9.5)
+    ax.set_xlim(-4200, 4200); ax.set_ylim(-0.05, 1.48)
+    ax.set_yticks([])
+    ax.set_xlabel("frequency (Hz)")
+    ax.set_title("$N=8$ bins at $f_s=8$ kHz: index $k$ on the frequency axis",
+                 fontsize=12)
+    clean(ax, equal=False)
+    fig.tight_layout()
+    fig.savefig(f"{OUT}/FFT_bins_axis.png", dpi=200, bbox_inches="tight")
+    plt.close(fig)
+
+
+def fig_fft_butterfly():
+    N = 8
+    fig, ax = plt.subplots(figsize=(13.0, 6.8))
+    ax.axis("off")
+    xs = [0.0, 1.55, 3.10, 4.65]
+    ypos = np.arange(N)[::-1].astype(float)
+    inp = [0, 4, 2, 6, 1, 5, 3, 7]
+
+    for i in range(N):
+        ax.plot([xs[0], xs[-1]], [ypos[i], ypos[i]], color="#4A4A5A",
+                lw=0.9, zorder=1)
+
+    for s in range(3):
+        ln = 2 ** (s + 1)
+        half = ln // 2
+        for start in range(0, N, ln):
+            for j in range(half):
+                top, bot = start + j, start + j + half
+                yt, yb = ypos[top], ypos[bot]
+                ax.plot([xs[s], xs[s + 1]], [yt, yt], color=BLUE, lw=1.2,
+                        alpha=0.85, zorder=2)
+                ax.plot([xs[s], xs[s + 1]], [yb, yt], color=BLUE, lw=1.2,
+                        alpha=0.85, zorder=2)
+                ax.plot([xs[s], xs[s + 1]], [yt, yb], color=RED, lw=1.2,
+                        alpha=0.85, zorder=2)
+                ax.plot([xs[s], xs[s + 1]], [yb, yb], color=RED, lw=1.2,
+                        alpha=0.85, zorder=2)
+                if j != 0:
+                    ax.text(xs[s] + 0.30, yb - 0.27, f"$W_{{{ln}}}^{{{j}}}$",
+                            fontsize=7.8, color=ORANGE, ha="left")
+
+    for x in xs:
+        for y in ypos:
+            ax.scatter([x], [y], s=11, color=INK, zorder=5)
+
+    for i in range(N):
+        ax.text(-0.14, ypos[i], f"$x[{inp[i]}]$", ha="right", va="center",
+                fontsize=10.5, color=BLUE)
+        ax.text(xs[-1] + 0.14, ypos[i], f"$X[{i}]$", ha="left", va="center",
+                fontsize=10.5, color=GREEN)
+
+    for s, lab in enumerate(["stage 1\n$\\mathrm{len}=2$",
+                             "stage 2\n$\\mathrm{len}=4$",
+                             "stage 3\n$\\mathrm{len}=8$"]):
+        ax.text(xs[s + 1] - 0.5, 8.0, lab, ha="center", va="center",
+                fontsize=9.5, color=MUTED)
+    ax.text(-0.14, 8.0, "bit-reversed\ninput", ha="right", va="center",
+            fontsize=9.5, color=MUTED)
+    ax.text(xs[-1] + 0.14, 8.0, "natural\norder", ha="left", va="center",
+            fontsize=9.5, color=MUTED)
+    ax.text(0.0, -1.05,
+            "each butterfly:  $(u,\\,v)\\ \\to\\ (u+Wv,\\ u-Wv)$      "
+            "blue: sum output, red: difference output",
+            fontsize=10.5, color=INK)
+    ax.set_xlim(-0.95, 5.55)
+    ax.set_ylim(-1.35, 8.5)
+    fig.tight_layout()
+    fig.savefig(f"{OUT}/FFT_butterfly_N8.png", dpi=200, bbox_inches="tight")
+    plt.close(fig)
+
+
+def fig_fft_conv():
+    fig, axes = plt.subplots(1, 3, figsize=(13.2, 4.2))
+    ax = axes[0]
+    ax.bar([0, 1, 2], [1, 3, 2], color=[BLUE, BLUE, ORANGE], width=0.6)
+    ax.annotate("", xy=(0.32, 3.42), xytext=(2.0, 3.42),
+                arrowprops=dict(arrowstyle="->", color=ORANGE, lw=1.3,
+                                connectionstyle="arc3,rad=-0.28"))
+    ax.text(1.15, 3.9, "index 2 folds\ninto index 0", color=ORANGE,
+            fontsize=9.5, ha="center")
+    ax.set_title("Linear convolution\n$(1,3,2)$", fontsize=11.5)
+    ax.set_xlabel("index"); ax.set_ylabel("value")
+    ax.set_xticks([0, 1, 2]); ax.set_ylim(0, 4.3)
+
+    ax = axes[1]
+    ax.bar([0, 1], [1, 1], color=BLUE, width=0.55, label="$a_0b$")
+    ax.bar([0, 1], [2, 2], bottom=[1, 1], color=ORANGE, width=0.55,
+           label="$a_1b$ (wrapped)")
+    ax.set_title("Circular convolution $N=2$\n$(3,3)$", fontsize=11.5)
+    ax.set_xlabel("index"); ax.set_xticks([0, 1]); ax.set_ylim(0, 4.3)
+    ax.legend(frameon=False, fontsize=9, loc="upper right")
+
+    ax = axes[2]
+    ax.bar([0, 1, 2, 3], [1, 3, 2, 0], color=[BLUE, BLUE, BLUE, GRAY],
+           width=0.6)
+    ax.set_title("Zero-padded to $L=4$\n$(1,3,2,0)$", fontsize=11.5)
+    ax.set_xlabel("index"); ax.set_xticks([0, 1, 2, 3]); ax.set_ylim(0, 4.3)
+
+    for ax in axes:
+        ax.axhline(0, color=MUTED, lw=0.8)
+        clean(ax, equal=False)
+    fig.tight_layout()
+    fig.savefig(f"{OUT}/FFT_convolution_wrap.png", dpi=200, bbox_inches="tight")
+    plt.close(fig)
+
+
+def fig_fft_zeropad():
+    fs, N, L = 8000, 1024, 4096
+    f0 = 500.0
+    fig, (ax, ax2) = plt.subplots(1, 2, figsize=(13.0, 4.9))
+
+    f = np.linspace(470, 530, 2000)
+
+    def lobe(fq, n):
+        num = np.sin(np.pi * n * (fq - f0) / fs)
+        den = np.sin(np.pi * (fq - f0) / fs)
+        safe = np.where(np.abs(den) < 1e-12, 1e-12, den)
+        return np.abs(np.where(np.abs(den) < 1e-12, n, num / safe)) / n
+
+    ax.plot(f, lobe(f, N), color=BLUE, lw=1.1, alpha=0.45,
+            label="underlying DTFT")
+    kk = np.arange(N)
+    fk = kk * fs / N
+    sel = (fk >= 470) & (fk <= 530)
+    ax.vlines(fk[sel], 0, lobe(fk[sel], N), color=BLUE, lw=1.2)
+    ax.scatter(fk[sel], lobe(fk[sel], N), color=BLUE, s=32, zorder=5,
+               label="$N=1024$ samples")
+    fl = np.arange(L) * fs / L
+    sel2 = (fl >= 470) & (fl <= 530)
+    ax.vlines(fl[sel2], 0, lobe(fl[sel2], N), color=ORANGE, lw=0.8, alpha=0.9)
+    ax.scatter(fl[sel2], lobe(fl[sel2], N), color=ORANGE, s=16, zorder=5,
+               label="zero-padded to $L=4096$")
+    ax.set_xlim(470, 530); ax.set_ylim(0, 1.08)
+    ax.set_xlabel("frequency (Hz)"); ax.set_ylabel("normalized magnitude")
+    ax.set_title("Zero-padding: same lobe, denser samples", fontsize=12)
+    ax.legend(frameon=False, fontsize=9, loc="upper right")
+    clean(ax, equal=False)
+
+    f1, f2 = 1000.0, 1004.0
+    fg = np.linspace(990, 1014, 600)
+
+    def spec(n):
+        nn = np.arange(n)
+        s = np.exp(2j * np.pi * f1 * nn / fs) + np.exp(2j * np.pi * f2 * nn / fs)
+        return np.abs(np.exp(-2j * np.pi * np.outer(fg, nn) / fs) @ s) / n
+
+    for n, c, lab in [(1024, BLUE, "$T=0.128$ s, $\\Delta f\\approx7.8$ Hz"),
+                      (4096, ORANGE, "$T=0.512$ s, $\\Delta f\\approx2$ Hz")]:
+        s = spec(n)
+        ax2.plot(fg, s / s.max(), color=c, lw=1.8, label=lab)
+    ax2.set_xlim(990, 1014); ax2.set_ylim(0, 1.08)
+    ax2.set_xlabel("frequency (Hz)")
+    ax2.set_title("Two tones 4 Hz apart: resolution needs time", fontsize=12)
+    ax2.legend(frameon=False, fontsize=9, loc="upper right")
+    clean(ax2, equal=False)
+
+    fig.tight_layout()
+    fig.savefig(f"{OUT}/FFT_zeropad_resolution.png", dpi=200,
+                bbox_inches="tight")
+    plt.close(fig)
+
+
 if __name__ == "__main__":
     for fn in (fig_l1, fig_l10, fig_l14, fig_l15, fig_l18, fig_l19, fig_l20,
                fig_l12, fig_l13, fig_l14_ls, fig_l20_pca, fig_l16_det,
@@ -1938,6 +2323,8 @@ if __name__ == "__main__":
                fig_l22_markov, fig_l22_fourier, fig_l23, fig_l24,
                fig_l7, fig_l8, fig_l9, fig_l11, fig_l17,
                fig_l25_pd_vs_saddle, fig_l25_energy, fig_l25_levels,
-               fig_l14_probability):
+               fig_l14_probability, fig_fft_winding, fig_fft_dft_com,
+               fig_fft_test_waveforms, fig_fft_alignment, fig_fft_bins,
+               fig_fft_butterfly, fig_fft_conv, fig_fft_zeropad):
         fn()
         print("ok", fn.__name__)
