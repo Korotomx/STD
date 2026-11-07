@@ -95,3 +95,4 @@
 - [[How Markov Chain Monte Carlo Finds the Impossible]] — Metropolis–Hastings、细致平衡、多峰陷阱；用于 [[L22 马尔可夫矩阵与傅里叶级数]] 的延伸一节
 - [[Simplex Algorithm Visually Explained]] — 线性规划三要素、可行域与顶点、单纯形法、凸性与影子价格；用于 [[线性规划与单纯形法]]
 - [[The Matrix Transpose Visual Intuition]] — 点积保持、正交矩阵、SVD、转置 vs 逆；用于 [[L5 转置·置换·向量空间]] 的几何一节
+- [[But what is the Fourier Transform  A visual introduction]] — 绕圈、质心、almost FT 与 DFT 公式的直觉；用于 [[FFT 深入 · 频谱、蝴蝶与卷积]] 的节点 0

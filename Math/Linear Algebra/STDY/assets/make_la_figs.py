@@ -1961,20 +1961,24 @@ def fig_fft_winding():
     ]:
         z = g * np.exp(-2j * np.pi * fw * t)
         com = _wound_com(g, t, fw, T)
+        cr = 0.0 if abs(com.real) < 5e-3 else com.real
+        ci = 0.0 if abs(com.imag) < 5e-3 else com.imag
         ax.plot(z.real, z.imag, color=col, lw=1.35, alpha=0.9)
         ax.scatter([0], [0], color=MUTED, s=18, zorder=4)
-        ax.scatter([com.real], [com.imag], marker="*", s=300, color=GREEN,
+        ax.scatter([cr], [ci], marker="*", s=300, color=GREEN,
                    zorder=6, edgecolor=PAPER, linewidth=0.8)
-        ax.annotate(f"center of mass\n({com.real:.2f}, {com.imag:.2f})",
-                    (com.real, com.imag), xytext=(14, -40),
+        ax.annotate(f"center of mass\n({cr:.2f}, {ci:.2f})",
+                    (cr, ci), xytext=(14, -40),
                     textcoords="offset points", fontsize=9.5, color=GREEN,
+                    bbox=dict(facecolor=PAPER, edgecolor="none", pad=1.5),
                     arrowprops=dict(arrowstyle="-", color=GREEN, lw=0.7,
                                     alpha=0.7))
         ax.set_xlim(-2.35, 2.35); ax.set_ylim(-2.0, 2.0)
         ax.set_xlabel("Re"); ax.set_ylabel("Im")
         ax.set_title(title, fontsize=12)
-        ax.text(-2.28, -1.86, note, fontsize=9.5, color=MUTED,
-                bbox=dict(facecolor=PAPER, edgecolor="none", pad=1.0))
+        if fw > 2.5:
+            ax.text(-2.28, -1.86, note, fontsize=9.5, color=MUTED,
+                    bbox=dict(facecolor=PAPER, edgecolor="none", pad=1.0))
         clean(ax)
 
     ax = axes[1, 1]
@@ -2044,7 +2048,7 @@ def fig_fft_dft_com():
     ax2.text(7.0, 0.55, "0.5", ha="center", fontsize=9.5, color=ORANGE)
     ax2.set_xticks(ks)
     ax2.set_xlim(-0.6, 7.6); ax2.set_ylim(-0.05, 1.2)
-    ax2.set_xlabel("bin index $k$"); ax2.set_ylabel("$X[k]/N$")
+    ax2.set_xlabel("bin index $k$")
     ax2.set_title("The DFT divided by $N$ is the center of mass", fontsize=12)
     ax2.annotate("conjugate pair\n(negative frequency)", xy=(7, 0.5),
                  xytext=(4.6, 0.82), fontsize=9, color=ORANGE,
@@ -2228,9 +2232,9 @@ def fig_fft_conv():
     fig, axes = plt.subplots(1, 3, figsize=(13.2, 4.2))
     ax = axes[0]
     ax.bar([0, 1, 2], [1, 3, 2], color=[BLUE, BLUE, ORANGE], width=0.6)
-    ax.annotate("", xy=(0.32, 3.42), xytext=(2.0, 3.42),
+    ax.annotate("", xy=(0.32, 3.62), xytext=(2.0, 3.62),
                 arrowprops=dict(arrowstyle="->", color=ORANGE, lw=1.3,
-                                connectionstyle="arc3,rad=-0.28"))
+                                connectionstyle="arc3,rad=-0.18"))
     ax.text(1.15, 3.9, "index 2 folds\ninto index 0", color=ORANGE,
             fontsize=9.5, ha="center")
     ax.set_title("Linear convolution\n$(1,3,2)$", fontsize=11.5)
