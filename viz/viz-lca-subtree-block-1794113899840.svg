@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="900" viewBox="0 0 1500 900">
+  <rect x="0" y="0" width="1500" height="900" fill="#0B0B0F"/>
+
+  <!-- title -->
+  <text x="750" y="62" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="30" font-weight="600" fill="#E5E7EB">Why the interval cannot escape the subtree block</text>
+  <text x="750" y="96" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="19" fill="#9CA3AF">Euler tour of the tree (root A) — every subtree occupies one contiguous block</text>
+
+  <!-- ===== tree ===== -->
+  <g stroke="#9CA3AF" stroke-width="2" stroke-linecap="round">
+    <line x1="750" y1="148" x2="555" y2="236"/>
+    <line x1="750" y1="148" x2="945" y2="236"/>
+    <line x1="555" y1="236" x2="450" y2="324"/>
+    <line x1="555" y1="236" x2="660" y2="324"/>
+    <line x1="660" y1="324" x2="660" y2="412"/>
+    <line x1="945" y1="236" x2="945" y2="324"/>
+  </g>
+
+  <!-- neutral root -->
+  <circle cx="750" cy="148" r="24" fill="#1E293B" stroke="#E5E7EB" stroke-width="2.5"/>
+  <text x="750" y="156" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="22" font-weight="600" fill="#E5E7EB">A</text>
+
+  <!-- subtree B -->
+  <circle cx="555" cy="236" r="24" fill="#0B0B0F"/>
+  <circle cx="555" cy="236" r="24" fill="#A78BFA" fill-opacity="0.20" stroke="#A78BFA" stroke-width="2.5"/>
+  <text x="555" y="244" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="22" font-weight="600" fill="#E5E7EB">B</text>
+  <circle cx="450" cy="324" r="24" fill="#0B0B0F"/>
+  <circle cx="450" cy="324" r="24" fill="#A78BFA" fill-opacity="0.20" stroke="#A78BFA" stroke-width="2.5"/>
+  <text x="450" y="332" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="22" font-weight="600" fill="#E5E7EB">D</text>
+  <circle cx="660" cy="324" r="24" fill="#0B0B0F"/>
+  <circle cx="660" cy="324" r="24" fill="#A78BFA" fill-opacity="0.20" stroke="#A78BFA" stroke-width="2.5"/>
+  <text x="660" y="332" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="22" font-weight="600" fill="#E5E7EB">E</text>
+  <circle cx="660" cy="412" r="24" fill="#0B0B0F"/>
+  <circle cx="660" cy="412" r="24" fill="#A78BFA" fill-opacity="0.20" stroke="#A78BFA" stroke-width="2.5"/>
+  <text x="660" y="420" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="22" font-weight="600" fill="#E5E7EB">G</text>
+
+  <!-- subtree C -->
+  <circle cx="945" cy="236" r="24" fill="#0B0B0F"/>
+  <circle cx="945" cy="236" r="24" fill="#22D3EE" fill-opacity="0.16" stroke="#22D3EE" stroke-width="2.5"/>
+  <text x="945" y="244" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="22" font-weight="600" fill="#E5E7EB">C</text>
+  <circle cx="945" cy="324" r="24" fill="#0B0B0F"/>
+  <circle cx="945" cy="324" r="24" fill="#22D3EE" fill-opacity="0.16" stroke="#22D3EE" stroke-width="2.5"/>
+  <text x="945" y="332" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="22" font-weight="600" fill="#E5E7EB">F</text>
+
+  <!-- ===== query D-G : bracket above ===== -->
+  <text x="560" y="486" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="22" fill="#E5E7EB">query D–G: stays inside subtree(B) → min = B</text>
+  <g stroke="#E5E7EB" stroke-width="2.5" stroke-linecap="round" fill="none">
+    <line x1="425" y1="516" x2="695" y2="516"/>
+    <line x1="425" y1="516" x2="425" y2="527"/>
+    <line x1="695" y1="516" x2="695" y2="527"/>
+  </g>
+
+  <!-- ===== array blocks ===== -->
+  <rect x="290" y="566" width="630" height="114" rx="6" fill="#A78BFA" fill-opacity="0.14" stroke="#A78BFA" stroke-opacity="0.55" stroke-width="1.5"/>
+  <rect x="1010" y="566" width="270" height="114" rx="6" fill="#22D3EE" fill-opacity="0.13" stroke="#22D3EE" stroke-opacity="0.55" stroke-width="1.5"/>
+
+  <!-- grid -->
+  <g stroke="#2E2E2E" stroke-width="1">
+    <line x1="200" y1="572" x2="1370" y2="572"/>
+    <line x1="200" y1="626" x2="1370" y2="626"/>
+    <line x1="200" y1="674" x2="1370" y2="674"/>
+    <line x1="200" y1="572" x2="200" y2="674"/>
+    <line x1="290" y1="572" x2="290" y2="674"/>
+    <line x1="380" y1="572" x2="380" y2="674"/>
+    <line x1="470" y1="572" x2="470" y2="674"/>
+    <line x1="560" y1="572" x2="560" y2="674"/>
+    <line x1="650" y1="572" x2="650" y2="674"/>
+    <line x1="740" y1="572" x2="740" y2="674"/>
+    <line x1="830" y1="572" x2="830" y2="674"/>
+    <line x1="920" y1="572" x2="920" y2="674"/>
+    <line x1="1010" y1="572" x2="1010" y2="674"/>
+    <line x1="1100" y1="572" x2="1100" y2="674"/>
+    <line x1="1190" y1="572" x2="1190" y2="674"/>
+    <line x1="1280" y1="572" x2="1280" y2="674"/>
+    <line x1="1370" y1="572" x2="1370" y2="674"/>
+  </g>
+
+  <!-- index labels -->
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="18" fill="#9CA3AF" text-anchor="middle">
+    <text x="245" y="556">0</text>
+    <text x="335" y="556">1</text>
+    <text x="425" y="556">2</text>
+    <text x="515" y="556">3</text>
+    <text x="605" y="556">4</text>
+    <text x="695" y="556">5</text>
+    <text x="785" y="556">6</text>
+    <text x="875" y="556">7</text>
+    <text x="965" y="556">8</text>
+    <text x="1055" y="556">9</text>
+    <text x="1145" y="556">10</text>
+    <text x="1235" y="556">11</text>
+    <text x="1325" y="556">12</text>
+  </g>
+
+  <!-- row labels -->
+  <text x="180" y="605" text-anchor="end" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="21" fill="#E5E7EB">E</text>
+  <text x="180" y="659" text-anchor="end" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="21" fill="#9CA3AF">depth</text>
+
+  <!-- E row -->
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="22" fill="#E5E7EB" text-anchor="middle">
+    <text x="245" y="604">A</text>
+    <text x="335" y="604">B</text>
+    <text x="425" y="604">D</text>
+    <text x="515" y="604">B</text>
+    <text x="605" y="604">E</text>
+    <text x="695" y="604">G</text>
+    <text x="785" y="604">E</text>
+    <text x="875" y="604">B</text>
+    <text x="965" y="604">A</text>
+    <text x="1055" y="604">C</text>
+    <text x="1145" y="604">F</text>
+    <text x="1235" y="604">C</text>
+    <text x="1325" y="604">A</text>
+  </g>
+
+  <!-- depth row -->
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="21" fill="#9CA3AF" text-anchor="middle">
+    <text x="245" y="658">0</text>
+    <text x="335" y="658">1</text>
+    <text x="425" y="658">2</text>
+    <text x="515" y="658">1</text>
+    <text x="605" y="658">2</text>
+    <text x="695" y="658">3</text>
+    <text x="785" y="658">2</text>
+    <text x="875" y="658">1</text>
+    <text x="965" y="658">0</text>
+    <text x="1055" y="658">1</text>
+    <text x="1145" y="658">2</text>
+    <text x="1235" y="658">1</text>
+    <text x="1325" y="658">0</text>
+  </g>
+
+  <!-- min markers -->
+  <circle cx="515" cy="596" r="23" fill="none" stroke="#F59E0B" stroke-width="3"/>
+  <circle cx="965" cy="596" r="23" fill="none" stroke="#F59E0B" stroke-width="3"/>
+
+  <!-- block labels -->
+  <text x="605" y="710" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="20" fill="#A78BFA">subtree(B) [1..7]</text>
+  <text x="1145" y="710" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="20" fill="#22D3EE">subtree(C) [9..11]</text>
+
+  <!-- ===== query D-F : bracket below ===== -->
+  <g stroke="#E5E7EB" stroke-width="2.5" stroke-linecap="round" fill="none">
+    <line x1="425" y1="744" x2="1145" y2="744"/>
+    <line x1="425" y1="744" x2="425" y2="733"/>
+    <line x1="1145" y1="744" x2="1145" y2="733"/>
+  </g>
+  <text x="785" y="784" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="22" fill="#E5E7EB">query D–F: crosses out via A → min = A</text>
+</svg>
