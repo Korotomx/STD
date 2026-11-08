@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="560" viewBox="0 0 1100 560">
+<defs>
+  <marker id="arrP" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="11" refY="6" orient="auto">
+    <path d="M 1 1 L 11 6 L 1 11 Z" fill="#A78BFA"/>
+  </marker>
+  <marker id="arrC" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+    <path d="M 1 1 L 9 5 L 1 9 Z" fill="#22D3EE"/>
+  </marker>
+  <marker id="arrM" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+    <path d="M 1 1 L 7 4 L 1 7 Z" fill="#9CA3AF"/>
+  </marker>
+  <clipPath id="clipL"><rect x="66.0" y="100.0" width="468.0" height="360.0"/></clipPath>
+  <clipPath id="clipR"><rect x="596.0" y="100.0" width="468.0" height="360.0"/></clipPath>
+</defs>
+<rect x="0" y="0" width="1100" height="560" fill="#0B0B0F"/>
+<g clip-path="url(#clipL)">
+<line x1="144.0" y1="100.0" x2="144.0" y2="460.0" stroke="#374151" stroke-width="1" opacity="0.22"/>
+<line x1="66.0" y1="436.0" x2="534.0" y2="436.0" stroke="#374151" stroke-width="1" opacity="0.22"/>
+<line x1="222.0" y1="100.0" x2="222.0" y2="460.0" stroke="#374151" stroke-width="1" opacity="0.22"/>
+<line x1="66.0" y1="358.0" x2="534.0" y2="358.0" stroke="#374151" stroke-width="1" opacity="0.22"/>
+<line x1="300.0" y1="100.0" x2="300.0" y2="460.0" stroke="#374151" stroke-width="1" opacity="0.22"/>
+<line x1="66.0" y1="280.0" x2="534.0" y2="280.0" stroke="#374151" stroke-width="1" opacity="0.22"/>
+<line x1="378.0" y1="100.0" x2="378.0" y2="460.0" stroke="#374151" stroke-width="1" opacity="0.22"/>
+<line x1="66.0" y1="202.0" x2="534.0" y2="202.0" stroke="#374151" stroke-width="1" opacity="0.22"/>
+<line x1="456.0" y1="100.0" x2="456.0" y2="460.0" stroke="#374151" stroke-width="1" opacity="0.22"/>
+<line x1="66.0" y1="124.0" x2="534.0" y2="124.0" stroke="#374151" stroke-width="1" opacity="0.22"/>
+<line x1="66.0" y1="280.0" x2="534.0" y2="280.0" stroke="#374151" stroke-width="1.6" opacity="0.9"/>
+<line x1="300.0" y1="100.0" x2="300.0" y2="460.0" stroke="#374151" stroke-width="1.6" opacity="0.9"/>
+</g>
+<g clip-path="url(#clipR)">
+<line x1="674.0" y1="100.0" x2="674.0" y2="460.0" stroke="#374151" stroke-width="1" opacity="0.22"/>
+<line x1="596.0" y1="436.0" x2="1064.0" y2="436.0" stroke="#374151" stroke-width="1" opacity="0.22"/>
+<line x1="752.0" y1="100.0" x2="752.0" y2="460.0" stroke="#374151" stroke-width="1" opacity="0.22"/>
+<line x1="596.0" y1="358.0" x2="1064.0" y2="358.0" stroke="#374151" stroke-width="1" opacity="0.22"/>
+<line x1="830.0" y1="100.0" x2="830.0" y2="460.0" stroke="#374151" stroke-width="1" opacity="0.22"/>
+<line x1="596.0" y1="280.0" x2="1064.0" y2="280.0" stroke="#374151" stroke-width="1" opacity="0.22"/>
+<line x1="908.0" y1="100.0" x2="908.0" y2="460.0" stroke="#374151" stroke-width="1" opacity="0.22"/>
+<line x1="596.0" y1="202.0" x2="1064.0" y2="202.0" stroke="#374151" stroke-width="1" opacity="0.22"/>
+<line x1="986.0" y1="100.0" x2="986.0" y2="460.0" stroke="#374151" stroke-width="1" opacity="0.22"/>
+<line x1="596.0" y1="124.0" x2="1064.0" y2="124.0" stroke="#374151" stroke-width="1" opacity="0.22"/>
+<line x1="596.0" y1="280.0" x2="1064.0" y2="280.0" stroke="#374151" stroke-width="1.6" opacity="0.9"/>
+<line x1="830.0" y1="100.0" x2="830.0" y2="460.0" stroke="#374151" stroke-width="1.6" opacity="0.9"/>
+</g>
+<text x="522.0" y="270.0" fill="#9CA3AF" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="14" text-anchor="end">x₁</text>
+<text x="310.0" y="120.0" fill="#9CA3AF" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="14">x₂</text>
+<text x="1052.0" y="270.0" fill="#9CA3AF" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="14" text-anchor="end">x₁</text>
+<text x="840.0" y="120.0" fill="#9CA3AF" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="14">x₂</text>
+<text x="300.0" y="46" fill="#E5E7EB" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="22" font-weight="600" text-anchor="middle">原始数据（已中心化）</text>
+<text x="300.0" y="76" fill="#9CA3AF" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="16" text-anchor="middle">沿 v₁ 方向散得最开</text>
+<text x="830.0" y="46" fill="#E5E7EB" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="22" font-weight="600" text-anchor="middle">降到 1 维：只保留 v₁</text>
+<text x="830.0" y="76" fill="#9CA3AF" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="16" text-anchor="middle">丢掉 v₂ 后，点都落到这条线上</text>
+<line x1="565" y1="108" x2="565" y2="456" stroke="#374151" stroke-width="1" stroke-dasharray="4 6" opacity="0.55"/>
+<line x1="287.6" y1="349.6" x2="260.6" y2="302.8" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="3 4" opacity="0.45"/>
+<line x1="297.6" y1="221.8" x2="323.4" y2="266.5" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="3 4" opacity="0.45"/>
+<line x1="428.0" y1="259.5" x2="404.9" y2="219.4" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="3 4" opacity="0.45"/>
+<line x1="316.8" y1="318.7" x2="295.8" y2="282.4" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="3 4" opacity="0.45"/>
+<line x1="361.0" y1="283.2" x2="344.4" y2="254.4" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="3 4" opacity="0.45"/>
+<line x1="349.1" y1="217.4" x2="363.9" y2="243.1" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="3 4" opacity="0.45"/>
+<line x1="144.2" y1="341.8" x2="156.4" y2="362.9" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="3 4" opacity="0.45"/>
+<line x1="83.8" y1="404.8" x2="516.2" y2="155.2" stroke="#A78BFA" stroke-width="2.4" marker-start="url(#arrP)" marker-end="url(#arrP)"/>
+<line x1="346.8" y1="361.1" x2="253.2" y2="198.9" stroke="#22D3EE" stroke-width="1.8" marker-start="url(#arrC)" marker-end="url(#arrC)"/>
+<circle cx="152.4" cy="375.2" r="3.2" fill="#E5E7EB" opacity="0.78"/>
+<circle cx="144.2" cy="341.8" r="3.2" fill="#E5E7EB" opacity="0.78"/>
+<circle cx="229.1" cy="313.3" r="3.2" fill="#E5E7EB" opacity="0.78"/>
+<circle cx="265.8" cy="315.2" r="3.2" fill="#E5E7EB" opacity="0.78"/>
+<circle cx="287.6" cy="349.6" r="3.2" fill="#E5E7EB" opacity="0.78"/>
+<circle cx="274.9" cy="304.4" r="3.2" fill="#E5E7EB" opacity="0.78"/>
+<circle cx="288.4" cy="313.2" r="3.2" fill="#E5E7EB" opacity="0.78"/>
+<circle cx="287.2" cy="294.2" r="3.2" fill="#E5E7EB" opacity="0.78"/>
+<circle cx="299.7" cy="306.6" r="3.2" fill="#E5E7EB" opacity="0.78"/>
+<circle cx="279.3" cy="268.8" r="3.2" fill="#E5E7EB" opacity="0.78"/>
+<circle cx="303.1" cy="302.4" r="3.2" fill="#E5E7EB" opacity="0.78"/>
+<circle cx="316.8" cy="318.7" r="3.2" fill="#E5E7EB" opacity="0.78"/>
+<circle cx="297.6" cy="221.8" r="3.2" fill="#E5E7EB" opacity="0.78"/>
+<circle cx="328.2" cy="245.9" r="3.2" fill="#E5E7EB" opacity="0.78"/>
+<circle cx="361.0" cy="283.2" r="3.2" fill="#E5E7EB" opacity="0.78"/>
+<circle cx="347.3" cy="239.9" r="3.2" fill="#E5E7EB" opacity="0.78"/>
+<circle cx="357.3" cy="245.3" r="3.2" fill="#E5E7EB" opacity="0.78"/>
+<circle cx="349.1" cy="217.4" r="3.2" fill="#E5E7EB" opacity="0.78"/>
+<circle cx="428.0" cy="259.5" r="3.2" fill="#E5E7EB" opacity="0.78"/>
+<circle cx="424.7" cy="214.8" r="3.2" fill="#E5E7EB" opacity="0.78"/>
+<circle cx="445.9" cy="189.5" r="3.2" fill="#E5E7EB" opacity="0.78"/>
+<text x="92" y="429" fill="#A78BFA" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="17">v₁ 第一主成分</text>
+<text x="92" y="451" fill="#A78BFA" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="16" opacity="0.8">（方差最大）</text>
+<text x="246" y="178" fill="#22D3EE" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="17" text-anchor="end">v₂ 第二主成分</text>
+<line x1="613.8" y1="404.8" x2="1046.2" y2="155.2" stroke="#A78BFA" stroke-width="2.4" marker-start="url(#arrP)" marker-end="url(#arrP)"/>
+<text x="1032.2" y="139.2" fill="#A78BFA" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="18" text-anchor="end">v₁</text>
+<line x1="682.4" y1="375.2" x2="678.0" y2="367.7" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="3 4" opacity="0.38"/>
+<line x1="674.2" y1="341.8" x2="686.4" y2="362.9" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="3 4" opacity="0.38"/>
+<line x1="759.1" y1="313.3" x2="762.4" y2="319.1" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="3 4" opacity="0.38"/>
+<line x1="795.8" y1="315.2" x2="789.1" y2="303.6" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="3 4" opacity="0.38"/>
+<line x1="817.6" y1="349.6" x2="790.6" y2="302.8" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="3 4" opacity="0.38"/>
+<line x1="804.9" y1="304.4" x2="800.6" y2="297.0" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="3 4" opacity="0.38"/>
+<line x1="818.4" y1="313.2" x2="806.9" y2="293.3" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="3 4" opacity="0.38"/>
+<line x1="817.2" y1="294.2" x2="814.3" y2="289.1" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="3 4" opacity="0.38"/>
+<line x1="829.7" y1="306.6" x2="818.2" y2="286.8" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="3 4" opacity="0.38"/>
+<line x1="809.3" y1="268.8" x2="819.3" y2="286.2" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="3 4" opacity="0.38"/>
+<line x1="833.1" y1="302.4" x2="822.6" y2="284.3" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="3 4" opacity="0.38"/>
+<line x1="846.8" y1="318.7" x2="825.8" y2="282.4" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="3 4" opacity="0.38"/>
+<line x1="827.6" y1="221.8" x2="853.4" y2="266.5" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="3 4" opacity="0.38"/>
+<line x1="858.2" y1="245.9" x2="865.9" y2="259.3" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="3 4" opacity="0.38"/>
+<line x1="891.0" y1="283.2" x2="874.4" y2="254.4" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="3 4" opacity="0.38"/>
+<line x1="877.3" y1="239.9" x2="882.8" y2="249.5" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="3 4" opacity="0.38"/>
+<line x1="887.3" y1="245.3" x2="888.0" y2="246.5" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="3 4" opacity="0.38"/>
+<line x1="879.1" y1="217.4" x2="893.9" y2="243.1" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="3 4" opacity="0.38"/>
+<line x1="954.7" y1="214.8" x2="951.7" y2="209.7" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="3 4" opacity="0.38"/>
+<line x1="975.9" y1="189.5" x2="978.6" y2="194.2" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="3 4" opacity="0.38"/>
+<circle cx="682.4" cy="375.2" r="2.9" fill="none" stroke="#6B7280" stroke-width="1.2" opacity="0.75"/>
+<circle cx="674.2" cy="341.8" r="2.9" fill="none" stroke="#6B7280" stroke-width="1.2" opacity="0.75"/>
+<circle cx="759.1" cy="313.3" r="2.9" fill="none" stroke="#6B7280" stroke-width="1.2" opacity="0.75"/>
+<circle cx="795.8" cy="315.2" r="2.9" fill="none" stroke="#6B7280" stroke-width="1.2" opacity="0.75"/>
+<circle cx="817.6" cy="349.6" r="2.9" fill="none" stroke="#6B7280" stroke-width="1.2" opacity="0.75"/>
+<circle cx="804.9" cy="304.4" r="2.9" fill="none" stroke="#6B7280" stroke-width="1.2" opacity="0.75"/>
+<circle cx="818.4" cy="313.2" r="2.9" fill="none" stroke="#6B7280" stroke-width="1.2" opacity="0.75"/>
+<circle cx="817.2" cy="294.2" r="2.9" fill="none" stroke="#6B7280" stroke-width="1.2" opacity="0.75"/>
+<circle cx="829.7" cy="306.6" r="2.9" fill="none" stroke="#6B7280" stroke-width="1.2" opacity="0.75"/>
+<circle cx="809.3" cy="268.8" r="2.9" fill="none" stroke="#6B7280" stroke-width="1.2" opacity="0.75"/>
+<circle cx="833.1" cy="302.4" r="2.9" fill="none" stroke="#6B7280" stroke-width="1.2" opacity="0.75"/>
+<circle cx="846.8" cy="318.7" r="2.9" fill="none" stroke="#6B7280" stroke-width="1.2" opacity="0.75"/>
+<circle cx="827.6" cy="221.8" r="2.9" fill="none" stroke="#6B7280" stroke-width="1.2" opacity="0.75"/>
+<circle cx="858.2" cy="245.9" r="2.9" fill="none" stroke="#6B7280" stroke-width="1.2" opacity="0.75"/>
+<circle cx="891.0" cy="283.2" r="2.9" fill="none" stroke="#6B7280" stroke-width="1.2" opacity="0.75"/>
+<circle cx="877.3" cy="239.9" r="2.9" fill="none" stroke="#6B7280" stroke-width="1.2" opacity="0.75"/>
+<circle cx="887.3" cy="245.3" r="2.9" fill="none" stroke="#6B7280" stroke-width="1.2" opacity="0.75"/>
+<circle cx="879.1" cy="217.4" r="2.9" fill="none" stroke="#6B7280" stroke-width="1.2" opacity="0.75"/>
+<circle cx="958.0" cy="259.5" r="2.9" fill="none" stroke="#6B7280" stroke-width="1.2" opacity="0.75"/>
+<circle cx="954.7" cy="214.8" r="2.9" fill="none" stroke="#6B7280" stroke-width="1.2" opacity="0.75"/>
+<circle cx="975.9" cy="189.5" r="2.9" fill="none" stroke="#6B7280" stroke-width="1.2" opacity="0.75"/>
+<circle cx="678.0" cy="367.7" r="3.6" fill="#A78BFA" opacity="0.95"/>
+<circle cx="686.4" cy="362.9" r="3.6" fill="#A78BFA" opacity="0.95"/>
+<circle cx="762.4" cy="319.1" r="3.6" fill="#A78BFA" opacity="0.95"/>
+<circle cx="789.1" cy="303.6" r="3.6" fill="#A78BFA" opacity="0.95"/>
+<circle cx="790.6" cy="302.8" r="3.6" fill="#A78BFA" opacity="0.95"/>
+<circle cx="800.6" cy="297.0" r="3.6" fill="#A78BFA" opacity="0.95"/>
+<circle cx="806.9" cy="293.3" r="3.6" fill="#A78BFA" opacity="0.95"/>
+<circle cx="814.3" cy="289.1" r="3.6" fill="#A78BFA" opacity="0.95"/>
+<circle cx="818.2" cy="286.8" r="3.6" fill="#A78BFA" opacity="0.95"/>
+<circle cx="819.3" cy="286.2" r="3.6" fill="#A78BFA" opacity="0.95"/>
+<circle cx="822.6" cy="284.3" r="3.6" fill="#A78BFA" opacity="0.95"/>
+<circle cx="825.8" cy="282.4" r="3.6" fill="#A78BFA" opacity="0.95"/>
+<circle cx="853.4" cy="266.5" r="3.6" fill="#A78BFA" opacity="0.95"/>
+<circle cx="865.9" cy="259.3" r="3.6" fill="#A78BFA" opacity="0.95"/>
+<circle cx="874.4" cy="254.4" r="3.6" fill="#A78BFA" opacity="0.95"/>
+<circle cx="882.8" cy="249.5" r="3.6" fill="#A78BFA" opacity="0.95"/>
+<circle cx="888.0" cy="246.5" r="3.6" fill="#A78BFA" opacity="0.95"/>
+<circle cx="893.9" cy="243.1" r="3.6" fill="#A78BFA" opacity="0.95"/>
+<circle cx="934.9" cy="219.4" r="3.6" fill="#A78BFA" opacity="0.95"/>
+<circle cx="951.7" cy="209.7" r="3.6" fill="#A78BFA" opacity="0.95"/>
+<circle cx="978.6" cy="194.2" r="3.6" fill="#A78BFA" opacity="0.95"/>
+<line x1="934.9" y1="219.4" x2="958.0" y2="259.5" stroke="#9CA3AF" stroke-width="1.5" marker-start="url(#arrM)" marker-end="url(#arrM)"/>
+<line x1="936.0" y1="286.0" x2="950.4" y2="247.5" stroke="#9CA3AF" stroke-width="1" opacity="0.6"/>
+<text x="940.0" y="300.0" fill="#9CA3AF" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="16">重建误差</text>
+<text x="940.0" y="321.0" fill="#9CA3AF" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="16">= 沿 v₂ 的残差</text>
+<line x1="60" y1="482" x2="1040" y2="482" stroke="#374151" stroke-width="1" opacity="0.7"/>
+<text x="170" y="522" fill="#E5E7EB" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="17" text-anchor="middle">X = UΣVᵀ</text>
+<text x="460" y="522" fill="#E5E7EB" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="17" text-anchor="middle">主成分方向 = <tspan fill="#A78BFA">V</tspan> 的列</text>
+<text x="730" y="522" fill="#E5E7EB" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="17" text-anchor="middle">方差 = <tspan fill="#A78BFA">σᵢ²</tspan>/(m−1)</text>
+<text x="940" y="522" fill="#E5E7EB" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="17" text-anchor="middle">保留前 k 个 = 低秩近似</text>
+<line x1="310" y1="505" x2="310" y2="527" stroke="#374151" stroke-width="1" opacity="0.7"/>
+<line x1="620" y1="505" x2="620" y2="527" stroke="#374151" stroke-width="1" opacity="0.7"/>
+<line x1="840" y1="505" x2="840" y2="527" stroke="#374151" stroke-width="1" opacity="0.7"/>
+</svg>
