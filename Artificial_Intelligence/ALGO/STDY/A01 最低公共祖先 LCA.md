@@ -331,7 +331,7 @@ $$
 P[j]=\min\big(A[jC],\dots,A[(j+1)C-1]\big),\qquad p=\left\lceil \frac{n}{C}\right\rceil .
 $$
 
-$P$ 扫一遍原数组就能建好，$O(n)$。
+$P$ 扫一遍原数组就能建好，$O(n)$。实现上 $P[j]$ 存的是该最小值的**下标**而不是数值（比较时读 $D$ 的值），这样中间整块查到的是位置，能直接映射回 $E$；下面的数值例子为了直观仍写数值。
 
 查询 $[l,r]$ 分两种情况：
 
@@ -378,4 +378,129 @@ $$
 
 > [!question] 查询跨多个块时，「中间整块」这部分用什么来回答？
 
-> [!question] 答案待补
+> [!success]- ✓ 正确
+> 父数组 $P$ 上的一次 RMQ。$P[j]$ 已经是 chunk $j$ 的最小值，中间若干整块的最小值就是 $P$ 对应区间的最小值；只有左右不满一块的残块才回到原数组块内查。
+
+## 8. $\pm1$ 块类：让大量块共享同一张表
+
+**为什么现在需要这个节点？** 第 7 节已经把父数组压到 $O(n)$，剩下的 $n\log\log n$ 全部来自「每个块各建一张稀疏表」。要消掉它，必须让块与块之间**共享**预处理结果。
+
+**关键的观察：块不是随机的。** 深度数组来自欧拉游走，相邻两项永远只差 $\pm1$。所以一个长度为 $C$ 的块，除了起始深度，形状完全由 $C-1$ 个符号决定：
+
+$$
+\underbrace{[d_0,\ d_0+s_1,\ d_0+s_1+s_2,\ \dots]}_{C\text{ 个深度}},\qquad s_i\in\{+1,-1\}.
+$$
+
+块内 RMQ 问的是「区间内哪个位置最浅」。把所有深度同时加上一个常数 $d_0$，**不会改变谁最浅**，只会改变深度数值。所以：
+
+> 块内 RMQ 的答案（最小值的**位置**）只取决于符号串 $(s_1,\dots,s_{C-1})$，与起始深度无关。
+
+形状相同的块，可以共用同一张「区间 → 最小位置」的表。
+
+```mermaid
+%%{init: {'theme':'base','themeCSS':'.nodeLabel{color:#E5E7EB!important;fill:#E5E7EB!important}.edgeLabel p{background-color:#131312!important}.edgeLabel{color:#E5E7EB!important}svg{background:transparent!important}','themeVariables':{'primaryColor':'#1E1E2E','primaryTextColor':'#E5E7EB','primaryBorderColor':'#A78BFA','lineColor':'#9CA3AF','mainBkg':'#1E1E2E','nodeBorder':'#A78BFA','clusterBkg':'#131312','edgeLabelBackground':'#131312','fontFamily':'Noto Sans CJK SC, sans-serif'}}}%%
+flowchart LR
+    C1["block X<br/>[2,3,2]<br/>signs +,−"] --> TA["class +,−<br/>shared argmin table"]
+    C2["block Y<br/>[5,6,5]<br/>signs +,−"] --> TA
+    C3["block Z<br/>[1,2,1]<br/>signs +,−"] --> TA
+    C4["block W<br/>[3,2,1]<br/>signs −,−"] --> TB["class −,−<br/>shared argmin table"]
+classDef default fill:#1E1E2E,stroke:#A78BFA,stroke-width:1.5px,color:#E5E7EB
+linkStyle default stroke:#9CA3AF
+```
+
+起始深度不同的 `[2,3,2]`、`[5,6,5]`、`[1,2,1]` 形状相同，块内任意区间的「最小位置」完全一致，所以三块指向同一张表；`[3,2,1]` 的符号是 `−,−`，走另一张表。
+
+**建表成本。** 每个块类需要的是一张长度为 $C$ 的「相对深度」数组上的全部区间答案。用稀疏表建：$C\log C$。块类总数是 $2^{C-1}$（首元素深度不参与分类，只有 $C-1$ 个符号），所以所有类表的总成本：
+
+$$
+2^{C-1}\cdot C\log C.
+$$
+
+**再选块长。** 第 7 节取 $C=\log n$ 是为了让父数组那层的 $\log$ 抵消；现在这个选择在块类这层会爆炸：$2^{\log n}=n$，总成本变成 $n\log n\log\log n$，比稀疏表还差。
+
+把 $C$ 缩小一半：
+
+$$
+C=\frac12\log n\quad\Longrightarrow\quad 2^{C-1}=\frac{\sqrt n}{2},\qquad C\log C=O(\log n\log\log n).
+$$
+
+于是类表总成本：
+
+$$
+O\!\left(\sqrt n\,\log n\,\log\log n\right)=o(n).
+$$
+
+父数组那层只变大一个常数倍：$p=n/C=2n/\log n$，$p\log p=O(n)$。三层加起来：
+
+| 层 | 规模 | 预处理 |
+|---|---|---|
+| 父数组 $P$ 的稀疏表 | $2n/\log n$ | $O(n)$ |
+| 块类表（共享） | $\sqrt n$ 类 | $o(n)$ |
+| 每个块指向自己的类表 | $n/C$ 个指针 | $O(n)$ |
+| **总计** | | $\mathbf{O(n)}$ |
+
+**连接。** 到此，预处理线性、查询常数、空间线性。四个图拼在一起就是完整算法：树 → 欧拉数组 → 分块 → 父数组稀疏表 + $\pm1$ 块类共享表。
+
+> [!question] 块类总数为什么是 $2^{C-1}$，而不是 $2^C$？
+
+> [!success]- ✓ 正确
+> 分类只看形状，形状由 $C-1$ 个相邻符号（$+1/-1$）决定。首元素深度 $d_0$ 只是给整个块加一个常数，不改变任何区间的「最小位置」，所以不参与分类。
+
+> [!question] 为什么 $C$ 从 $\log n$ 减半到 $\tfrac12\log n$，类表总成本就从 $n$ 级降到 $\sqrt n$ 级？
+
+> [!success]- ✓ 正确
+> 类数 $2^{C-1}$ 从 $n$ 级降到 $\sqrt n$ 级；每张表的成本只多了一个 $\log\log n$ 因子，仍是 $o(n)$。父数组只是从 $n/\log n$ 变成 $2n/\log n$，仍为 $O(n)$。
+
+## 9. 把四块拼起来
+
+**为什么现在需要这个节点？** 前面每一块都单独成立了，但真正的算法是它们的**组合**；组合时的接口和常数决定了它能不能落地。
+
+**流水线。**
+
+```mermaid
+%%{init: {'theme':'base','themeCSS':'.nodeLabel{color:#E5E7EB!important;fill:#E5E7EB!important}.edgeLabel p{background-color:#131312!important}.edgeLabel{color:#E5E7EB!important}svg{background:transparent!important}','themeVariables':{'primaryColor':'#1E1E2E','primaryTextColor':'#E5E7EB','primaryBorderColor':'#A78BFA','lineColor':'#9CA3AF','mainBkg':'#1E1E2E','nodeBorder':'#A78BFA','clusterBkg':'#131312','edgeLabelBackground':'#131312','fontFamily':'Noto Sans CJK SC, sans-serif'}}}%%
+flowchart LR
+    T["树"] --> E["欧拉游走<br/>E 与深度 D<br/>O(n)"]
+    E --> CH["分块<br/>C = ½ log n"]
+    CH --> P["父数组 P<br/>+ 稀疏表 O(n)"]
+    CH --> CL["块类表 2^(C−1) 张<br/>总 o(n)"]
+    P --> Q["单次查询 O(1)"]
+    CL --> Q
+classDef default fill:#1E1E2E,stroke:#A78BFA,stroke-width:1.5px,color:#E5E7EB
+linkStyle default stroke:#9CA3AF
+```
+
+**预处理（全部线性）。**
+
+1. DFS 欧拉游走，得到 $E$、$D$，以及每个节点的 `first`。$O(n)$。
+2. 按 $C=\tfrac12\log n$ 分块，算每块的 min，建父数组 $P$。$O(n)$。
+3. 对 $P$ 建稀疏表（存 argmin 下标）。$p\log p=O(n)$。
+4. 枚举全部 $2^{C-1}$ 种 $\pm1$ 形状，每种建一张块内 argmin 表。总 $o(n)$。
+5. 为每个块记下它属于哪个类（一个 $O(1)$ 的类编号），查询时直接索引。$O(n)$。
+
+**单次查询。**
+
+1. 取 $l=\min(\text{first}[u],\text{first}[v])$、$r=\max(\dots)$。
+2. 若 $l,r$ 同块：用该块的类表直接得到块内 argmin，映射回 $E$ 的下标。$O(1)$。
+3. 否则拆三段：左残块、中间整块、右残块。
+   - 左、右残块：各自的类表，$O(1)$；
+   - 中间整块：父数组 $P$ 上的稀疏表，$O(1)$；
+   - 三者比较取最小。
+4. 把得到的位置代回 $E$，得到 LCA 节点。
+
+**三个技巧各自的适用条件。** 这张表比结论本身更值得记：
+
+| 技巧 | 在本算法中的角色 | 成立的前提 |
+|---|---|---|
+| 归约 | 树 → 欧拉数组，LCA → RMQ | 变换要保结构：DFS 的**子树连续块**保证区间不越界 |
+| 稀疏表 | 静态 RMQ，$O(n\log n)$ | 运算必须**幂等**（`min`/`max`/`gcd`/按位与或），重叠才安全 |
+| 间接寻址 | 分块 + 父数组，把两层解耦 | 子问题要**可共享**：$\pm1$ 形状只有 $2^{C-1}$ 种 |
+
+**值不值得。** 视频结尾自己也承认这是 overkill：实务里倍增表（$O(n\log n)$ 预处理、$O(\log n)$ 查询）或欧拉游走 + 稀疏表（$O(n\log n)$ 预处理、$O(1)$ 查询）通常就够了。$O(n)$ 构造的价值在于：它把「归约」「幂等」「间接寻址 + 共享子问题」三件通用工具串成了一个可复用的思维模板。
+
+> [!question] 这套算法里，哪一步直接依赖「`min` 是幂等的」？
+
+> [!success]- ✓ 正确
+> 稀疏表的重叠块。查询区间被两个长度 $2^k$ 的块覆盖，重叠部分会被 `min` 算两次；因为 `min` 幂等，结果不变。欧拉归约依赖的是 DFS 的子树连续块，分块依赖的是子问题可共享，都不直接依赖幂等。
+
+一句话串起来：**归约把树变成数组，幂等让稀疏表能用重叠块，间接寻址把 $\log$ 降成 $\sqrt n$ 级，最后 $\pm1$ 让子问题只有 $\sqrt n$ 种形状。** 四个想法单独看都是常见工具，组合起来才把「不可能的 $O(n)$」变成现实。
