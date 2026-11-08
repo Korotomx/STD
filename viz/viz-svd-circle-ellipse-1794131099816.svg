@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="900" viewBox="0 0 1500 900">
+  <defs>
+    <marker id="arrPurple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#A78BFA"/>
+    </marker>
+    <marker id="arrCyan" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#22D3EE"/>
+    </marker>
+    <marker id="arrAmber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#F59E0B"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1500" height="900" fill="#0B0B0F"/>
+
+  <!-- Title and subtitle -->
+  <text x="70" y="66" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="40" fill="#E5E7EB">单位圆 → 椭圆：奇异值是半轴长</text>
+  <text x="72" y="104" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="22" fill="#9CA3AF">A = [[4,4],[-3,3]]，σ₁=√32≈5.66，σ₂=√18≈4.24</text>
+
+  <!-- Panel labels -->
+  <text x="70" y="190" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="20" fill="#9CA3AF">输入空间：单位圆</text>
+  <text x="990" y="190" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="20" fill="#9CA3AF">输出空间：椭圆</text>
+
+  <!-- ============ LEFT: input space ============ -->
+  <!-- light dashed coordinate cross -->
+  <line x1="160" y1="440" x2="500" y2="440" stroke="#3F3F46" stroke-width="1" stroke-dasharray="6 6"/>
+  <line x1="330" y1="270" x2="330" y2="610" stroke="#3F3F46" stroke-width="1" stroke-dasharray="6 6"/>
+
+  <!-- unit circle -->
+  <circle cx="330" cy="440" r="140" fill="none" stroke="#E5E7EB" stroke-width="2.5"/>
+
+  <!-- v1 arrow: up-right 45deg -->
+  <line x1="330" y1="440" x2="429" y2="341" stroke="#A78BFA" stroke-width="3" stroke-linecap="round" marker-end="url(#arrPurple)"/>
+  <!-- v2 arrow: down-right 45deg -->
+  <line x1="330" y1="440" x2="429" y2="539" stroke="#22D3EE" stroke-width="3" stroke-linecap="round" marker-end="url(#arrCyan)"/>
+
+  <!-- right angle marker between v1 and v2 -->
+  <path d="M 345.6 424.4 L 361.1 440 L 345.6 455.6" fill="none" stroke="#9CA3AF" stroke-width="1.5"/>
+
+  <!-- labels -->
+  <text x="450" y="326" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="20" fill="#A78BFA">v₁=(1,1)/√2</text>
+  <text x="444" y="556" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="20" fill="#22D3EE">v₂=(1,−1)/√2</text>
+
+  <!-- ============ MIDDLE: the map A ============ -->
+  <line x1="640" y1="440" x2="858" y2="440" stroke="#F59E0B" stroke-width="4" stroke-linecap="round" marker-end="url(#arrAmber)"/>
+  <text x="749" y="414" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="36" fill="#F59E0B">A</text>
+  <text x="749" y="492" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="22" fill="#E5E7EB">A v₁ = σ₁u₁</text>
+  <text x="749" y="528" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="22" fill="#E5E7EB">A v₂ = σ₂u₂</text>
+
+  <!-- ============ RIGHT: output space ============ -->
+  <!-- ellipse: semi-axes 240 x 180, ratio 4:3 -->
+  <ellipse cx="1120" cy="440" rx="240" ry="180" fill="#A78BFA" fill-opacity="0.06" stroke="#A78BFA" stroke-width="2"/>
+
+  <!-- sigma1 u1: along +x, touches ellipse at (1360,440) -->
+  <line x1="1120" y1="440" x2="1358" y2="440" stroke="#A78BFA" stroke-width="3" stroke-linecap="round" marker-end="url(#arrPurple)"/>
+  <!-- sigma2 u2: along -y (downward), touches ellipse at (1120,620) -->
+  <line x1="1120" y1="440" x2="1120" y2="618" stroke="#22D3EE" stroke-width="3" stroke-linecap="round" marker-end="url(#arrCyan)"/>
+
+  <!-- right angle marker -->
+  <path d="M 1142 440 L 1142 462 L 1120 462" fill="none" stroke="#9CA3AF" stroke-width="1.5"/>
+
+  <!-- labels -->
+  <text x="1240" y="412" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="20" fill="#A78BFA">σ₁u₁，σ₁=√32≈5.66</text>
+  <text x="1142" y="522" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="19" fill="#22D3EE">σ₂u₂，σ₂=√18≈4.24</text>
+  <text x="1142" y="550" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="19" fill="#22D3EE">（u₂=(0,−1)）</text>
+
+  <!-- ============ BOTTOM STRIP ============ -->
+  <circle cx="78" cy="784" r="4" fill="#A78BFA"/>
+  <text x="96" y="792" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="22" fill="#9CA3AF">椭圆半轴 = 奇异值 σᵢ = √λᵢ(AᵀA)</text>
+
+  <circle cx="78" cy="816" r="4" fill="#A78BFA"/>
+  <text x="96" y="824" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="22" fill="#9CA3AF">vᵢ 是 AᵀA 的特征向量，λᵢ = ‖Avᵢ‖²</text>
+
+  <circle cx="78" cy="848" r="4" fill="#A78BFA"/>
+  <text x="96" y="856" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="22" fill="#E5E7EB">A = UΣVᵀ 的三步：Vᵀ 旋转 → Σ 拉伸 → U 旋转</text>
+</svg>
