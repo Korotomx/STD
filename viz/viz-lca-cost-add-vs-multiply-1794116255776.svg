@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="860" viewBox="0 0 1500 860">
+  <defs>
+    <marker id="arw-purple" viewBox="0 0 8 8" refX="8" refY="4"
+            markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto">
+      <path d="M0,0.5 L8,4 L0,7.5 z" fill="#A78BFA"/>
+    </marker>
+    <marker id="arw-amber" viewBox="0 0 8 8" refX="8" refY="4"
+            markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto">
+      <path d="M0,0.5 L8,4 L0,7.5 z" fill="#F59E0B"/>
+    </marker>
+    <marker id="arw-muted" viewBox="0 0 8 8" refX="8" refY="4"
+            markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto">
+      <path d="M0,0.5 L8,4 L0,7.5 z" fill="#9CA3AF"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1500" height="860" fill="#0B0B0F"/>
+
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">
+
+    <!-- ===== header ===== -->
+    <text x="750" y="46" text-anchor="middle" font-size="32" font-weight="600" fill="#E5E7EB">Add or multiply? How to read the preprocessing cost</text>
+    <text x="750" y="78" text-anchor="middle" font-size="16" fill="#9CA3AF">n = tree nodes,  N = 2n−1 = Euler array length</text>
+
+    <!-- ===== LEFT PANEL ===== -->
+    <rect x="36" y="96" width="894" height="656" rx="14" fill="#101016" stroke="#26262E" stroke-width="1"/>
+    <rect x="60" y="118" width="4" height="26" rx="2" fill="#22D3EE"/>
+    <text x="74" y="138" font-size="23" font-weight="600" fill="#E5E7EB">Sequential stages → ADD</text>
+
+    <!-- stage boxes -->
+    <g stroke="#A78BFA" stroke-width="1.8">
+      <rect x="60"  y="195" width="142" height="190" rx="10" fill="#16161D"/>
+      <rect x="236" y="195" width="142" height="190" rx="10" fill="#16161D"/>
+      <rect x="412" y="195" width="142" height="190" rx="10" fill="#16161D"/>
+      <rect x="588" y="195" width="142" height="190" rx="10" fill="#16161D"/>
+      <rect x="764" y="195" width="142" height="190" rx="10" fill="#16161D"/>
+    </g>
+
+    <!-- stage labels -->
+    <g text-anchor="middle" font-size="18" fill="#E5E7EB">
+      <text x="131" y="260">Euler tour</text>
+      <text x="307" y="260">chunk minima</text>
+      <text x="483" y="246">parent sparse</text>
+      <text x="483" y="272">table</text>
+      <text x="659" y="260">class tables</text>
+      <text x="835" y="260">class pointers</text>
+    </g>
+
+    <!-- stage costs -->
+    <g text-anchor="middle" font-size="17" fill="#22D3EE">
+      <text x="131" y="330">O(N)</text>
+      <text x="307" y="330">O(N)</text>
+      <text x="483" y="330">O(p log p)</text>
+      <text x="483" y="356">= O(N)</text>
+      <text x="659" y="330" font-size="15">2^(C−1)·C log C</text>
+      <text x="659" y="356" font-size="15">= o(N)</text>
+      <text x="835" y="330">O(p) = O(N)</text>
+    </g>
+
+    <!-- pipeline arrows -->
+    <g stroke="#A78BFA" stroke-width="2.2" fill="none">
+      <path d="M204 290 L230 290" marker-end="url(#arw-purple)"/>
+      <path d="M380 290 L406 290" marker-end="url(#arw-purple)"/>
+      <path d="M556 290 L582 290" marker-end="url(#arw-purple)"/>
+      <path d="M732 290 L758 290" marker-end="url(#arw-purple)"/>
+    </g>
+
+    <!-- input scales under boxes -->
+    <g text-anchor="middle" font-size="15" fill="#9CA3AF">
+      <text x="131" y="418">tree</text>
+      <text x="307" y="418">array N</text>
+      <text x="483" y="418">p entries</text>
+      <text x="659" y="418">C-length patterns</text>
+      <text x="835" y="418">p chunks</text>
+    </g>
+
+    <!-- equation block -->
+    <rect x="78" y="470" width="810" height="210" rx="12" fill="#12121A" stroke="#3B3557" stroke-width="1.2"/>
+    <text x="483" y="540" text-anchor="middle" font-size="27" fill="#E5E7EB"><tspan fill="#9CA3AF">T =</tspan><tspan dx="10">O(N) + O(N) + O(N) +</tspan><tspan dx="10" fill="#9CA3AF">o(N)</tspan><tspan dx="10">+ O(N) =</tspan><tspan dx="10" fill="#22D3EE" font-weight="600">O(N)</tspan></text>
+    <text x="483" y="600" text-anchor="middle" font-size="16" fill="#9CA3AF">each stage consumes the previous stage's output;</text>
+    <text x="483" y="628" text-anchor="middle" font-size="16" fill="#9CA3AF">run them one after another, so the costs add.</text>
+
+    <!-- ===== RIGHT PANEL ===== -->
+    <rect x="954" y="96" width="510" height="656" rx="14" fill="#101016" stroke="#26262E" stroke-width="1"/>
+    <rect x="978" y="118" width="4" height="26" rx="2" fill="#F59E0B"/>
+    <text x="992" y="138" font-size="23" font-weight="600" fill="#E5E7EB">Nested repetition → MULTIPLY</text>
+
+    <!-- outer loop box -->
+    <rect x="982" y="180" width="454" height="280" rx="12" fill="#171410" stroke="#F59E0B" stroke-width="1.8"/>
+    <text x="1209" y="218" text-anchor="middle" font-size="21" fill="#F59E0B">for each of n² pairs</text>
+
+    <!-- inner box -->
+    <rect x="1040" y="285" width="338" height="100" rx="10" fill="#16161D" stroke="#A78BFA" stroke-width="1.8"/>
+    <path d="M1118 318 C 1127.39 318, 1135 325.61, 1135 335 C 1135 344.39, 1127.39 352, 1118 352 C 1108.61 352, 1101 344.39, 1101 335 C 1101 331.0, 1102.41 327.13, 1104.98 324.07" fill="none" stroke="#F59E0B" stroke-width="2" marker-end="url(#arw-amber)"/>
+    <text x="1252" y="343" text-anchor="middle" font-size="20" fill="#E5E7EB">climb O(n)</text>
+
+    <!-- equation 1 -->
+    <text x="1209" y="512" text-anchor="middle" font-size="25" fill="#E5E7EB"><tspan>n² pairs</tspan><tspan dx="10" fill="#F59E0B" font-weight="600">×</tspan><tspan dx="10">O(n) each</tspan><tspan dx="10" fill="#9CA3AF">=</tspan><tspan dx="10" fill="#A78BFA" font-weight="600">O(n³)</tspan></text>
+    <text x="1209" y="542" text-anchor="middle" font-size="15" fill="#9CA3AF">this is the all-pairs table from section 2</text>
+
+    <!-- second example -->
+    <rect x="976" y="580" width="180" height="74" rx="10" fill="#16161D" stroke="#A78BFA" stroke-width="1.8"/>
+    <text x="1066" y="608" text-anchor="middle" font-size="15" fill="#E5E7EB">for each of</text>
+    <text x="1066" y="630" text-anchor="middle" font-size="15" fill="#F59E0B">2^(C−1) classes</text>
+
+    <path d="M1162 617 L1194 617" fill="none" stroke="#9CA3AF" stroke-width="2" marker-end="url(#arw-muted)"/>
+
+    <rect x="1200" y="580" width="236" height="74" rx="10" fill="#16161D" stroke="#A78BFA" stroke-width="1.8"/>
+    <text x="1318" y="608" text-anchor="middle" font-size="15" fill="#E5E7EB">build</text>
+    <text x="1318" y="630" text-anchor="middle" font-size="15" fill="#22D3EE">C log C table</text>
+
+    <!-- equation 2 -->
+    <text x="1209" y="706" text-anchor="middle" font-size="23" fill="#E5E7EB"><tspan>2^(C−1)</tspan><tspan dx="10" fill="#F59E0B" font-weight="600">×</tspan><tspan dx="10" fill="#A78BFA" font-weight="600">C log C</tspan></text>
+
+    <!-- ===== BANNER ===== -->
+    <rect x="36" y="770" width="1428" height="72" rx="12" fill="#15151C" stroke="#2E2E2E" stroke-width="1"/>
+    <text x="750" y="800" text-anchor="middle" font-size="19" fill="#E5E7EB">Independence means you may analyze stages separately — it does not mean multiply them.</text>
+    <text x="750" y="828" text-anchor="middle" font-size="19" fill="#E5E7EB">Multiplication appears only when work is repeated inside another set.</text>
+
+  </g>
+</svg>

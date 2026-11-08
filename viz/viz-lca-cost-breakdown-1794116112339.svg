@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="900" viewBox="0 0 1500 900" font-family="'Noto Sans CJK SC','Noto Sans CJK JP',sans-serif">
+  <rect width="1500" height="900" fill="#0B0B0F"/>
+
+  <!-- title -->
+  <text x="60" y="62" font-size="32" font-weight="600" fill="#E5E7EB">Where the O(n) time goes (n = 2<tspan dy="-10" font-size="22">20</tspan><tspan dy="10" font-size="32">)</tspan></text>
+  <text x="60" y="100" font-size="19" fill="#9CA3AF">N = 2n−1 ≈ 2.1M,   C = ½ log₂N ≈ 10,   p = N/C ≈ 210k</text>
+
+  <!-- plot grid -->
+  <g stroke="#2A2A3A" stroke-width="1">
+    <line x1="680" y1="200" x2="680" y2="615"/>
+    <line x1="913.33" y1="200" x2="913.33" y2="615"/>
+    <line x1="1146.67" y1="200" x2="1146.67" y2="615"/>
+    <line x1="1380" y1="200" x2="1380" y2="615"/>
+    <line x1="680" y1="240" x2="1380" y2="240"/>
+    <line x1="680" y1="320" x2="1380" y2="320"/>
+    <line x1="680" y1="400" x2="1380" y2="400"/>
+    <line x1="680" y1="480" x2="1380" y2="480"/>
+    <line x1="680" y1="560" x2="1380" y2="560"/>
+  </g>
+
+  <!-- x axis baseline -->
+  <line x1="680" y1="615" x2="1380" y2="615" stroke="#3A3A4E" stroke-width="1.5"/>
+
+  <!-- x axis label -->
+  <text x="680" y="180" font-size="16" fill="#9CA3AF">operations (log scale)</text>
+
+  <!-- x tick labels -->
+  <text x="680" y="650" font-size="19" fill="#9CA3AF" text-anchor="middle">10<tspan dy="-8" font-size="14">4</tspan></text>
+  <text x="913.33" y="650" font-size="19" fill="#9CA3AF" text-anchor="middle">10<tspan dy="-8" font-size="14">5</tspan></text>
+  <text x="1146.67" y="650" font-size="19" fill="#9CA3AF" text-anchor="middle">10<tspan dy="-8" font-size="14">6</tspan></text>
+  <text x="1380" y="650" font-size="19" fill="#9CA3AF" text-anchor="middle">10<tspan dy="-8" font-size="14">7</tspan></text>
+
+  <!-- N reference line -->
+  <line x1="1221.85" y1="200" x2="1221.85" y2="615" stroke="#9CA3AF" stroke-width="1.5" stroke-dasharray="6 6" opacity="0.55"/>
+  <text x="1221.85" y="192" font-size="16" fill="#9CA3AF" text-anchor="middle">N</text>
+
+  <!-- stage names and formulas (left column) -->
+  <text x="60" y="236" font-size="22" font-weight="500" fill="#E5E7EB">Euler tour</text>
+  <text x="60" y="262" font-size="18" fill="#9CA3AF">O(N)</text>
+
+  <text x="60" y="316" font-size="22" font-weight="500" fill="#E5E7EB">chunk minima</text>
+  <text x="60" y="342" font-size="18" fill="#9CA3AF">O(N)</text>
+
+  <text x="60" y="396" font-size="22" font-weight="500" fill="#E5E7EB">parent sparse table</text>
+  <text x="60" y="422" font-size="18" fill="#9CA3AF">p log₂p = O(N)</text>
+
+  <text x="60" y="476" font-size="22" font-weight="500" fill="#E5E7EB">class tables</text>
+  <text x="60" y="502" font-size="18" fill="#9CA3AF">2<tspan dy="-6" font-size="12">C−1</tspan><tspan dy="6" font-size="18"> · C log C = o(N)</tspan></text>
+
+  <text x="60" y="556" font-size="22" font-weight="500" fill="#E5E7EB">class pointers</text>
+  <text x="60" y="582" font-size="18" fill="#9CA3AF">O(p) = O(N)</text>
+
+  <!-- dots -->
+  <circle cx="1221.85" cy="240" r="6" fill="#9085e9" stroke="#0B0B0F" stroke-width="2"/>
+  <circle cx="1221.85" cy="320" r="6" fill="#9085e9" stroke="#0B0B0F" stroke-width="2"/>
+  <circle cx="1279.25" cy="400" r="6" fill="#9085e9" stroke="#0B0B0F" stroke-width="2"/>
+  <circle cx="733.77" cy="480" r="6" fill="#9085e9" stroke="#0B0B0F" stroke-width="2"/>
+  <circle cx="988.52" cy="560" r="6" fill="#9085e9" stroke="#0B0B0F" stroke-width="2"/>
+
+  <!-- value labels -->
+  <text x="1237.85" y="247" font-size="19" fill="#E5E7EB">≈2.1M</text>
+  <text x="1237.85" y="327" font-size="19" fill="#E5E7EB">≈2.1M</text>
+  <text x="1295.25" y="407" font-size="19" fill="#E5E7EB">≈3.7M</text>
+  <text x="749.77" y="487" font-size="19" fill="#E5E7EB">≈17k — o(N), ~0.2% of total</text>
+  <text x="1004.52" y="567" font-size="19" fill="#E5E7EB">≈210k</text>
+
+  <!-- bottom rule -->
+  <line x1="60" y1="690" x2="1440" y2="690" stroke="#2A2A3A" stroke-width="1"/>
+
+  <!-- total -->
+  <text x="750" y="762" font-size="36" font-weight="600" fill="#E5E7EB" text-anchor="middle">total ≈ 8.1M = Θ(N) = Θ(n)</text>
+  <text x="750" y="806" font-size="19" fill="#9CA3AF" text-anchor="middle">five sequential passes: add, do not multiply</text>
+</svg>
