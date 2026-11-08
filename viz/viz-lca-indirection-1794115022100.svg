@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="900" viewBox="0 0 1500 900">
+  <defs>
+    <marker id="arrow-amber" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#F59E0B"/>
+    </marker>
+    <marker id="arrow-purple" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#A78BFA"/>
+    </marker>
+    <marker id="arrow-cyan" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#22D3EE"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L9,4.5 L0,9 Z" fill="#34D399"/>
+    </marker>
+  </defs>
+
+  <rect width="1500" height="900" fill="#0B0B0F"/>
+
+  <text x="70" y="66" fill="#E5E7EB" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="40" font-weight="650">Indirection: split the query into three parts</text>
+  <text x="72" y="104" fill="#9CA3AF" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="22">left partial + full chunks via parent array + right partial</text>
+
+  <!-- Array A: four chunk containers -->
+  <g>
+    <rect x="80" y="216" width="222" height="126" rx="12" fill="#FFFFFF" fill-opacity="0.025" stroke="#2E2E2E" stroke-width="1.5"/>
+    <rect x="312" y="216" width="222" height="126" rx="12" fill="#FFFFFF" fill-opacity="0.025" stroke="#2E2E2E" stroke-width="1.5"/>
+    <rect x="544" y="216" width="222" height="126" rx="12" fill="#FFFFFF" fill-opacity="0.025" stroke="#2E2E2E" stroke-width="1.5"/>
+    <rect x="776" y="216" width="222" height="126" rx="12" fill="#FFFFFF" fill-opacity="0.025" stroke="#2E2E2E" stroke-width="1.5"/>
+  </g>
+
+  <!-- Query-span tinted bands -->
+  <rect x="184" y="220" width="118" height="116" rx="10" fill="#F59E0B" fill-opacity="0.08" stroke="#F59E0B" stroke-opacity="0.40" stroke-width="1.5"/>
+  <rect x="312" y="220" width="454" height="116" rx="10" fill="#A78BFA" fill-opacity="0.10" stroke="#A78BFA" stroke-opacity="0.55" stroke-width="2"/>
+  <rect x="776" y="220" width="118" height="116" rx="10" fill="#22D3EE" fill-opacity="0.08" stroke="#22D3EE" stroke-opacity="0.40" stroke-width="1.5"/>
+
+  <!-- Query interval bracket -->
+  <path d="M244 168 L244 156 L834 156 L834 168" fill="none" stroke="#E5E7EB" stroke-width="2" stroke-opacity="0.8"/>
+  <text x="539" y="143" fill="#E5E7EB" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="20" text-anchor="middle">query [1..6]</text>
+
+  <text x="48" y="198" fill="#9CA3AF" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="20">array A</text>
+
+  <!-- Index labels for A -->
+  <g fill="#9CA3AF" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="21" text-anchor="middle">
+    <text x="138" y="208">0</text>
+    <text x="244" y="208" fill="#F59E0B">1</text>
+    <text x="370" y="208" fill="#A78BFA">2</text>
+    <text x="476" y="208" fill="#A78BFA">3</text>
+    <text x="602" y="208" fill="#A78BFA">4</text>
+    <text x="708" y="208" fill="#A78BFA">5</text>
+    <text x="834" y="208" fill="#22D3EE">6</text>
+    <text x="940" y="208">7</text>
+  </g>
+
+  <!-- Array A cells -->
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" text-anchor="middle">
+    <!-- chunk 0 -->
+    <rect x="90" y="228" width="96" height="100" rx="8" fill="#17171C" stroke="#3A3A42" stroke-width="2"/>
+    <rect x="196" y="228" width="96" height="100" rx="8" fill="#F59E0B" fill-opacity="0.18" stroke="#F59E0B" stroke-width="2.5"/>
+    <text x="138" y="292" fill="#E5E7EB" font-size="40">3</text>
+    <text x="244" y="292" fill="#F8FAFC" font-size="40" font-weight="650">1</text>
+
+    <!-- chunk 1 -->
+    <rect x="322" y="228" width="96" height="100" rx="8" fill="#A78BFA" fill-opacity="0.16" stroke="#A78BFA" stroke-width="2"/>
+    <rect x="428" y="228" width="96" height="100" rx="8" fill="#A78BFA" fill-opacity="0.16" stroke="#A78BFA" stroke-width="2"/>
+    <text x="370" y="292" fill="#E5E7EB" font-size="40">4</text>
+    <text x="476" y="292" fill="#E5E7EB" font-size="40">1</text>
+
+    <!-- chunk 2 -->
+    <rect x="554" y="228" width="96" height="100" rx="8" fill="#A78BFA" fill-opacity="0.16" stroke="#A78BFA" stroke-width="2"/>
+    <rect x="660" y="228" width="96" height="100" rx="8" fill="#A78BFA" fill-opacity="0.16" stroke="#A78BFA" stroke-width="2"/>
+    <text x="602" y="292" fill="#E5E7EB" font-size="40">5</text>
+    <text x="708" y="292" fill="#E5E7EB" font-size="40">9</text>
+
+    <!-- chunk 3 -->
+    <rect x="786" y="228" width="96" height="100" rx="8" fill="#22D3EE" fill-opacity="0.18" stroke="#22D3EE" stroke-width="2.5"/>
+    <rect x="892" y="228" width="96" height="100" rx="8" fill="#17171C" stroke="#3A3A42" stroke-width="2"/>
+    <text x="834" y="292" fill="#F8FAFC" font-size="40" font-weight="650">2</text>
+    <text x="940" y="292" fill="#E5E7EB" font-size="40">6</text>
+  </g>
+
+  <!-- Chunk labels -->
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="20" text-anchor="middle">
+    <text x="191" y="372" fill="#9CA3AF">chunk 0</text>
+    <text x="423" y="372" fill="#A78BFA">chunk 1</text>
+    <text x="655" y="372" fill="#A78BFA">chunk 2</text>
+    <text x="887" y="372" fill="#9CA3AF">chunk 3</text>
+  </g>
+
+  <!-- Leads from the two full chunks down to their parent minima -->
+  <g stroke="#A78BFA" stroke-width="2.2" fill="none">
+    <path d="M423 388 L423 472" marker-end="url(#arrow-purple)"/>
+    <path d="M655 388 L655 472" marker-end="url(#arrow-purple)"/>
+  </g>
+
+  <!-- Parent array P -->
+  <text x="30" y="526" fill="#9CA3AF" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="20">parent P</text>
+
+  <g fill="#9CA3AF" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="21">
+    <text x="139" y="466">0</text>
+    <text x="371" y="466" fill="#A78BFA">1</text>
+    <text x="603" y="466" fill="#A78BFA">2</text>
+    <text x="835" y="466">3</text>
+  </g>
+
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" text-anchor="middle">
+    <rect x="121" y="478" width="140" height="84" rx="9" fill="#17171C" stroke="#3A3A42" stroke-width="2"/>
+    <rect x="353" y="478" width="140" height="84" rx="9" fill="#A78BFA" fill-opacity="0.18" stroke="#A78BFA" stroke-width="2.5"/>
+    <rect x="585" y="478" width="140" height="84" rx="9" fill="#A78BFA" fill-opacity="0.18" stroke="#A78BFA" stroke-width="2.5"/>
+    <rect x="817" y="478" width="140" height="84" rx="9" fill="#17171C" stroke="#3A3A42" stroke-width="2"/>
+    <text x="191" y="534" fill="#E5E7EB" font-size="38">1</text>
+    <text x="423" y="534" fill="#F8FAFC" font-size="38" font-weight="650">1</text>
+    <text x="655" y="534" fill="#F8FAFC" font-size="38" font-weight="650">5</text>
+    <text x="887" y="534" fill="#E5E7EB" font-size="38">2</text>
+  </g>
+
+  <!-- Bracket combining P[1] and P[2] -->
+  <path d="M353 574 L353 588 L725 588 L725 574" fill="none" stroke="#A78BFA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="539" y="622" fill="#E5E7EB" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="22" text-anchor="middle">min(P[1], P[2]) = min(1, 5) = <tspan fill="#A78BFA" font-weight="650">1</tspan></text>
+
+  <!-- Three partial results feeding the answer -->
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" text-anchor="middle">
+    <rect x="160" y="660" width="180" height="64" rx="12" fill="#F59E0B" fill-opacity="0.10" stroke="#F59E0B" stroke-opacity="0.75" stroke-width="2"/>
+    <text x="250" y="681" fill="#F59E0B" font-size="20">left partial</text>
+    <text x="250" y="712" fill="#F8FAFC" font-size="30" font-weight="650">1</text>
+
+    <rect x="520" y="660" width="240" height="64" rx="12" fill="#A78BFA" fill-opacity="0.10" stroke="#A78BFA" stroke-opacity="0.85" stroke-width="2"/>
+    <text x="640" y="681" fill="#A78BFA" font-size="20">middle via parent</text>
+    <text x="640" y="712" fill="#F8FAFC" font-size="30" font-weight="650">1</text>
+
+    <rect x="930" y="660" width="200" height="64" rx="12" fill="#22D3EE" fill-opacity="0.10" stroke="#22D3EE" stroke-opacity="0.75" stroke-width="2"/>
+    <text x="1030" y="681" fill="#22D3EE" font-size="20">right partial</text>
+    <text x="1030" y="712" fill="#F8FAFC" font-size="30" font-weight="650">2</text>
+  </g>
+
+  <!-- Colored arrows into the answer -->
+  <g fill="none" stroke-width="2.5">
+    <path d="M250 724 L600 786" stroke="#F59E0B" marker-end="url(#arrow-amber)"/>
+    <path d="M640 724 L745 786" stroke="#A78BFA" marker-end="url(#arrow-purple)"/>
+    <path d="M1030 724 L890 786" stroke="#22D3EE" marker-end="url(#arrow-cyan)"/>
+  </g>
+
+  <!-- Answer node -->
+  <rect x="510" y="790" width="470" height="84" rx="14" fill="#34D399" fill-opacity="0.10" stroke="#34D399" stroke-width="2.5"/>
+  <text x="745" y="842" fill="#E5E7EB" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="27" text-anchor="middle">answer = min(1, 1, 2) = <tspan fill="#34D399" font-weight="650">1</tspan></text>
+</svg>
