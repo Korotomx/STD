@@ -2,9 +2,9 @@
 
 ## 课程材料
 
-- [[Linear Algebra/STDY/STDY|STDY]] — L1~L25 知识点 + 专题笔记 [[马尔可夫链]]、[[线性规划与单纯形法]]
-- [[Linear Algebra/Ref/Ref|Ref · 原始材料索引]] — 18.06 字幕（lecture 1~27）、18.06SC 习题课、3b1b 系列、数学不难、专题视频，按类目列出
-- 当前主线材料：lecture 23 [[23. Differential Equations and exp(At)]] 与习题课 [[Differential Equations and exp (At)]]；lecture 24 [[24. Markov Matrices; Fourier Series]] 与习题课 [[Markov Matrices]]；lecture 25 [[25. Symmetric Matrices and Positive Definiteness]] 与习题课 [[Symmetric Matrices and Positive Definiteness]]；lecture 26 [[26. Complex Matrices; Fast Fourier Transform]] 与习题课 [[Complex Matrices]]；lecture 27 [[27. Positive Definite Matrices and Minima]] 与习题课 [[Positive Definite Matrices and Minima]]
+- [[Linear Algebra/STDY/STDY|STDY]] — L1~L29 知识点 + 专题笔记 [[马尔可夫链]]、[[线性规划与单纯形法]]
+- [[Linear Algebra/Ref/Ref|Ref · 原始材料索引]] — 18.06 字幕（lecture 1~29）、18.06SC 习题课、3b1b 系列、数学不难、专题视频，按类目列出
+- 当前主线材料：lecture 23 [[23. Differential Equations and exp(At)]] 与习题课 [[Differential Equations and exp (At)]]；lecture 24 [[24. Markov Matrices; Fourier Series]] 与习题课 [[Markov Matrices]]；lecture 25 [[25. Symmetric Matrices and Positive Definiteness]] 与习题课 [[Symmetric Matrices and Positive Definiteness]]；lecture 26 [[26. Complex Matrices; Fast Fourier Transform]] 与习题课 [[Complex Matrices]]；lecture 27 [[27. Positive Definite Matrices and Minima]] 与习题课 [[Positive Definite Matrices and Minima]]；lecture 29 [[29. Singular Value Decomposition]] 与习题课 [[Computing the Singular Value Decomposition]]
 - [[Linear Algebra/Assignments/Assignments|Assignments]] — 题目类内容
 - [[Linear Algebra/Exam|Exam]] — PDF 讲义知识点清单与未覆盖项；[[Linear Algebra/Concentrated|Concentrated]] — 已学定理与性质分类汇编
 
@@ -23,6 +23,8 @@
 - [[Markov Matrices]] — 18.06SC 习题课，两状态粒子、$A^n$ 与平稳分布；已并入 [[L22 马尔可夫矩阵与傅里叶级数]]
 - [[The Matrix Transpose Visual Intuition]] — 点积保持、正交矩阵、SVD、转置 vs 逆；已用于 [[L5 转置·置换·向量空间]] 的「转置的几何意义」一节
 - [[How Markov Chain Monte Carlo Finds the Impossible]] — Metropolis–Hastings 与细致平衡；已作为 L22 的延伸一节
+- [[29. Singular Value Decomposition]] — lecture 29 字幕；已整理为 [[L29 奇异值分解]]
+- [[Computing the Singular Value Decomposition]] — 18.06SC 习题课，SVD 的计算流程；已并入 [[L29 奇异值分解]] 的「五步算例」
 
 ## 笔记链接
 
@@ -51,6 +53,8 @@
 - [[L23 对称矩阵与正定矩阵]] — 实特征值与正交特征基、谱定理 $A=Q\Lambda Q^{\mathsf T}$、投影叠加/主轴定理、主元符号=特征值符号、正定四判据、$A^{\mathsf T}A$ 与列满秩、习题课四证。
 - [[L24 复矩阵与快速傅里叶变换]] — 共轭转置与复内积、Hermitian/酉矩阵、傅里叶矩阵的列正交与逆、FFT 偶奇分治 $O(n\log n)$、循环矩阵与卷积。
 - [[L25 正定矩阵与极小值]] — 四种判别法（能量/特征值/主元/顺序主子式）、配方=消元、碗与马鞍、椭圆主轴、Hessian 与极小值、三对角与参数 $c$ 数例。
+- [[L28 相似矩阵与若尔当形]] — 相似不变量、不可对角化时的 Jordan 形、基向量的「死亡时间」与 $\ker N^k$。
+- [[L29 奇异值分解]] — 从 $A^{\mathsf T}A$ 的谱定理推出 $A=U\Sigma V^{\mathsf T}$、四个基本子空间、低秩近似（Eckart–Young）、伪逆与最小二乘、PCA、五步算例。
 - [[马尔可夫链]] — 链的随机过程视角：无记忆性、转移矩阵=马尔可夫矩阵、平稳分布、MCMC/PageRank/LLM 三个应用；与 L22 互补。
 - [[线性规划与单纯形法]] — LP 三要素、可行域与顶点、单纯形法角到角、凸性保证全局最优、影子价格与对偶。
 
@@ -113,6 +117,12 @@
 - LP = 线性目标 + 线性约束；最优解在可行域顶点上。[[线性规划与单纯形法]]
 - 单纯形法沿边从角到角，靠 reduced cost 判方向；凸可行域 + 线性目标 ⇒ 无改善边 = 全局最优。[[线性规划与单纯形法]]
 - 约束影子价格 = 对偶变量：多一单位资源目标能改善多少。[[线性规划与单纯形法]]
+- 任意矩阵都有 SVD $A=U\Sigma V^{\mathsf T}$：$v_i$ 是 $A^{\mathsf T}A$ 的正交特征向量，$\sigma_i=\sqrt{\lambda_i}$，$u_i=Av_i/\sigma_i$。[[L29 奇异值分解]]
+- SVD 是「两组正交基下的对角化」：$v_1,\dots,v_r$ 张成行空间，$u_1,\dots,u_r$ 张成列空间；零空间与左零空间只贡献 $\sigma=0$。[[L29 奇异值分解]]
+- $\|A\|_2=\sigma_1$、$\|A\|_F=\sqrt{\sum\sigma_i^2}$、可逆时 $\kappa=\sigma_1/\sigma_r$。[[L29 奇异值分解]]
+- 秩 $k$ 最优近似 $A_k=\sum_{i\le k}\sigma_iu_iv_i^{\mathsf T}$；误差 $\|A-A_k\|_2=\sigma_{k+1}$，$\|A-A_k\|_F=\sqrt{\sum_{i>k}\sigma_i^2}$。[[L29 奇异值分解]]
+- 伪逆 $A^{+}=\sum_{i\le r}\sigma_i^{-1}v_iu_i^{\mathsf T}$：非零奇异值取倒数、零保持零；无解时给最小二乘解，多解时给最小范数解。[[L29 奇异值分解]]
+- 对中心化数据矩阵 $X$ 做 SVD：主成分方向 = $V$ 的列，第 $i$ 个主成分方差 $=\sigma_i^2/(m-1)$，保留前 $k$ 个 = 对 $X$ 做秩 $k$ 近似。[[L29 奇异值分解]]
 
 ## 依赖图
 
@@ -134,12 +144,17 @@ flowchart LR
     L23 --> L25["L25 正定矩阵与极小值"]
     L20 --> L25
     L2 --> L25
+    L20 --> L28["L28 相似矩阵与若尔当形"]
+    L23 --> L29["L29 奇异值分解"]
+    L14 --> L29
+    L10 --> L29
 classDef default fill:#1E1E2E,stroke:#A78BFA,stroke-width:1.5px,color:#E5E7EB
 linkStyle default stroke:#9CA3AF
 ```
 
 ## 当前进度
 
+- 2026-11-08：L29 奇异值分解完成（lecture 29 + 18.06SC 习题课）：从 $A^{\mathsf T}A$ 谱定理推出 $A=U\Sigma V^{\mathsf T}$、四个基本子空间、低秩近似与 Eckart–Young、伪逆与最小二乘、PCA、五步算例；配四张几何图（四子空间基、圆→椭圆、$A^{\mathsf T}A$ 往返、伪逆投影）与一张奇异值谱图。同步补 L28 相似矩阵与若尔当形笔记。
 - 2026-11-05：L24 复矩阵与快速傅里叶变换补写完成（lecture 26 + 18.06SC 习题课）：共轭转置与复内积、Hermitian/酉矩阵、傅里叶矩阵列正交与逆、FFT 偶奇分治与 $O(n\log n)$、循环矩阵与卷积；新增 L24 单位根/代价对比图。Quiz 2 Review 与 Exam 2 Problem Solving 提炼进 Concentrated，不单独成篇。
 - 2026-11-04：新建专题笔记 [[马尔可夫链]]（链的随机过程视角 + MCMC/PageRank/LLM）与 [[线性规划与单纯形法]]（Simplex 视频转写），同步 STDY、Ref、Inbox、Concentrated。
 - 2026-11-03：L23 对称矩阵与正定矩阵补写完成（lecture 25 + 18.06SC 习题课）：实特征值与正交特征基、谱定理 $A=Q\Lambda Q^{\mathsf T}$、投影叠加/主轴定理、主元符号=特征值符号、正定四判据与两个 $2\times2$ 例子、$A^{\mathsf T}A$ 与列满秩。
@@ -147,7 +162,7 @@ linkStyle default stroke:#9CA3AF
 - 2026-11-02：L21 微分方程与矩阵指数补写完成（lecture 23 + 18.06SC 习题课）；新增相图/稳定区图和邻接矩阵/SCC 块结构图，L12 增补「矩阵即图」一节（强连通分量、置换相似、Frobenius 标准形）。
 - 当前：L25 正定矩阵与极小值笔记完成（2026-11-01），lecture 27 与习题课已整理；配三张英文标注彩色图（碗/马鞍、椭圆与主轴、临界方向能量）。同期给 L1、L10、L12、L13、L14、L15、L18、L19、L20 各补一张彩色示意图，另补 L14 最小二乘拟合、L14 概率/正则化、L16 行列式性质三联图、L20 PCA 主方向；绘图脚本归档在 `STDY/assets/make_la_figs.py`。
 - 2026-11-01：整理 [[Linear Algebra/Exam|Exam]]（15 份中文讲义的逐讲知识点、✅/◐/○ 覆盖标记、未学清单、Threshold test I 备考建议）与 [[Linear Algebra/Concentrated|Concentrated]]（已学定理与性质按主题汇编）；建立 [[Linear Algebra/Ref/Ref|Ref 索引]]；Overview 命题并入主页「命题速查」后改为跳转。
-- 讲次安排：L22（马尔可夫与傅里叶，lecture 24）、L23（对称矩阵与正定，lecture 25）已于 2026-11-03 补写；L24（复矩阵与 FFT，lecture 26）已于 2026-11-05 补齐；主线按实际进度走到 L25。
+- 讲次安排：L22（马尔可夫与傅里叶，lecture 24）、L23（对称矩阵与正定，lecture 25）已于 2026-11-03 补写；L24（复矩阵与 FFT，lecture 26）已于 2026-11-05 补齐；L28、L29（SVD，lecture 29）已于 2026-11-08 补齐；主线按实际进度走到 L29。
 
 ## 掌握度
 
@@ -169,6 +184,8 @@ linkStyle default stroke:#9CA3AF
 | L23 对称矩阵与正定矩阵 | 完成 | 待自测 | 0 |
 | L24 复矩阵与快速傅里叶变换 | 完成 | 待自测 | 0 |
 | L25 正定矩阵与极小值 | 完成 | 待自测 | 0 |
+| L28 相似矩阵与若尔当形 | 完成 | 待自测 | 1 |
+| L29 奇异值分解 | 完成 | 待自测 | 1 |
 | 马尔可夫链（专题） | 完成 | 待自测 | 0 |
 | 线性规划与单纯形法（专题） | 完成 | 待自测 | 0 |
 
