@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="900" viewBox="0 0 1500 900">
+  <defs>
+    <marker id="arrAmber" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#F59E0B"/>
+    </marker>
+    <marker id="arrGray" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#9CA3AF"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1500" height="900" fill="#0B0B0F"/>
+
+  <!-- Title -->
+  <text x="70" y="66" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="40" fill="#E5E7EB">AᵀA 与 AAᵀ：两次方向相反的往返</text>
+  <text x="72" y="104" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="22" fill="#9CA3AF">同一条拉伸 σᵢ，从输入侧看和从输出侧看</text>
+
+  <!-- ================= Panel 1 : A^T A ================= -->
+  <rect x="60" y="150" width="970" height="320" rx="16" fill="#131319" stroke="#26262F" stroke-width="1.5"/>
+
+  <rect x="140" y="185" width="190" height="110" rx="12" fill="#A78BFA" fill-opacity="0.08" stroke="#A78BFA" stroke-width="2"/>
+  <text x="235" y="247" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="24" fill="#E5E7EB" text-anchor="middle">输入空间 ℝⁿ</text>
+
+  <rect x="820" y="185" width="190" height="110" rx="12" fill="#22D3EE" fill-opacity="0.08" stroke="#22D3EE" stroke-width="2"/>
+  <text x="915" y="247" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="24" fill="#E5E7EB" text-anchor="middle">输出空间 ℝᵐ</text>
+
+  <line x1="352" y1="213" x2="800" y2="213" stroke="#F59E0B" stroke-width="3" marker-end="url(#arrAmber)"/>
+  <text x="575" y="200" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="34" fill="#F59E0B" text-anchor="middle">A</text>
+
+  <line x1="800" y1="267" x2="352" y2="267" stroke="#9CA3AF" stroke-width="3" marker-end="url(#arrGray)"/>
+  <text x="575" y="302" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="30" fill="#9CA3AF" text-anchor="middle">Aᵀ</text>
+
+  <line x1="235" y1="295" x2="235" y2="330" stroke="#2E2E3A" stroke-width="1.5"/>
+  <line x1="915" y1="295" x2="915" y2="330" stroke="#2E2E3A" stroke-width="1.5"/>
+  <line x1="235" y1="330" x2="915" y2="330" stroke="#2E2E3A" stroke-width="1.5"/>
+  <line x1="575" y1="330" x2="575" y2="344" stroke="#2E2E3A" stroke-width="1.5"/>
+
+  <rect x="340" y="344" width="470" height="44" rx="22" fill="#A78BFA" fill-opacity="0.10" stroke="#A78BFA" stroke-width="1.5"/>
+  <text x="575" y="372" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="24" fill="#A78BFA" text-anchor="middle" xml:space="preserve">AᵀA : ℝⁿ → ℝⁿ    (n×n)</text>
+
+  <text x="575" y="424" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="24" fill="#E5E7EB" text-anchor="middle">AᵀA vᵢ = σᵢ² vᵢ</text>
+
+  <text x="575" y="456" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="20" fill="#9CA3AF" text-anchor="middle">从输入出发，走一圈回来：哪些输入方向原样回来？</text>
+
+  <!-- ================= Panel 2 : A A^T ================= -->
+  <rect x="60" y="500" width="970" height="320" rx="16" fill="#131319" stroke="#26262F" stroke-width="1.5"/>
+
+  <rect x="140" y="540" width="190" height="110" rx="12" fill="#A78BFA" fill-opacity="0.08" stroke="#A78BFA" stroke-width="2"/>
+  <text x="235" y="602" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="24" fill="#E5E7EB" text-anchor="middle">输入空间 ℝⁿ</text>
+
+  <rect x="820" y="540" width="190" height="110" rx="12" fill="#22D3EE" fill-opacity="0.08" stroke="#22D3EE" stroke-width="2"/>
+  <text x="915" y="602" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="24" fill="#E5E7EB" text-anchor="middle">输出空间 ℝᵐ</text>
+
+  <line x1="800" y1="568" x2="352" y2="568" stroke="#9CA3AF" stroke-width="3" marker-end="url(#arrGray)"/>
+  <text x="575" y="556" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="30" fill="#9CA3AF" text-anchor="middle">Aᵀ</text>
+
+  <line x1="352" y1="622" x2="800" y2="622" stroke="#F59E0B" stroke-width="3" marker-end="url(#arrAmber)"/>
+  <text x="575" y="657" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="34" fill="#F59E0B" text-anchor="middle">A</text>
+
+  <line x1="235" y1="650" x2="235" y2="680" stroke="#2E2E3A" stroke-width="1.5"/>
+  <line x1="915" y1="650" x2="915" y2="680" stroke="#2E2E3A" stroke-width="1.5"/>
+  <line x1="235" y1="680" x2="915" y2="680" stroke="#2E2E3A" stroke-width="1.5"/>
+  <line x1="575" y1="680" x2="575" y2="694" stroke="#2E2E3A" stroke-width="1.5"/>
+
+  <rect x="340" y="694" width="470" height="44" rx="22" fill="#22D3EE" fill-opacity="0.10" stroke="#22D3EE" stroke-width="1.5"/>
+  <text x="575" y="722" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="24" fill="#22D3EE" text-anchor="middle" xml:space="preserve">AAᵀ : ℝᵐ → ℝᵐ    (m×m)</text>
+
+  <text x="575" y="774" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="24" fill="#E5E7EB" text-anchor="middle">AAᵀ uᵢ = σᵢ² uᵢ</text>
+
+  <text x="575" y="806" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="20" fill="#9CA3AF" text-anchor="middle">从输出出发，走一圈回来：哪些输出方向原样回来？</text>
+
+  <!-- ================= Right comparison panel ================= -->
+  <rect x="1070" y="150" width="370" height="670" rx="16" fill="#131319" stroke="#2E2E3A" stroke-width="1.5"/>
+  <text x="1100" y="198" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="26" fill="#E5E7EB">对比</text>
+  <line x1="1100" y1="222" x2="1410" y2="222" stroke="#2E2E3A" stroke-width="1.5"/>
+
+  <rect x="1097" y="248" width="4" height="26" rx="2" fill="#A78BFA"/>
+  <text x="1114" y="270" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="25" fill="#A78BFA">AᵀA</text>
+  <text x="1100" y="306" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="20" fill="#E5E7EB">n×n 矩阵</text>
+  <text x="1100" y="340" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="20" fill="#E5E7EB">特征向量 vᵢ ∈ ℝⁿ</text>
+  <text x="1100" y="374" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="20" fill="#E5E7EB">零特征值 n−r 个：零空间</text>
+  <text x="1100" y="408" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="20" fill="#E5E7EB">非零特征值 σ₁²…σᵣ²</text>
+
+  <line x1="1100" y1="436" x2="1410" y2="436" stroke="#26262F" stroke-width="1.5"/>
+
+  <rect x="1097" y="462" width="4" height="26" rx="2" fill="#22D3EE"/>
+  <text x="1114" y="484" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="25" fill="#22D3EE">AAᵀ</text>
+  <text x="1100" y="520" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="20" fill="#E5E7EB">m×m 矩阵</text>
+  <text x="1100" y="554" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="20" fill="#E5E7EB">特征向量 uᵢ ∈ ℝᵐ</text>
+  <text x="1100" y="588" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="20" fill="#E5E7EB">零特征值 m−r 个：左零空间</text>
+  <text x="1100" y="622" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="20" fill="#E5E7EB">非零特征值 σ₁²…σᵣ²</text>
+
+  <line x1="1100" y1="654" x2="1410" y2="654" stroke="#26262F" stroke-width="1.5"/>
+
+  <rect x="1092" y="678" width="326" height="42" rx="10" fill="#A78BFA" fill-opacity="0.10" stroke="#A78BFA" stroke-width="1.5"/>
+  <text x="1255" y="706" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="22" fill="#E5E7EB" text-anchor="middle">两者共享非零谱</text>
+
+  <text x="1255" y="758" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="23" fill="#A78BFA" text-anchor="middle">uᵢ = A vᵢ / σᵢ</text>
+</svg>
