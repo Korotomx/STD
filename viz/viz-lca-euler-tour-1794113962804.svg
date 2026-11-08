@@ -1,0 +1,193 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="820" viewBox="0 0 1400 820">
+  <rect x="0" y="0" width="1400" height="820" fill="#0B0B0F"/>
+
+  <!-- ================= title ================= -->
+  <text x="700" y="48" text-anchor="middle"
+        font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+        font-size="30" font-weight="600" fill="#E5E7EB">Euler tour: tree → array, depth as the key</text>
+
+  <!-- ================= tree edges ================= -->
+  <g stroke="#55566B" stroke-width="2.5" stroke-linecap="round">
+    <line x1="710" y1="120" x2="541" y2="216"/>
+    <line x1="710" y1="120" x2="880" y2="216"/>
+    <line x1="541" y1="216" x2="441" y2="314"/>
+    <line x1="541" y1="216" x2="641" y2="314"/>
+    <line x1="641" y1="314" x2="641" y2="410"/>
+    <line x1="880" y1="216" x2="880" y2="314"/>
+  </g>
+
+  <!-- B highlighted: this node is the answer -->
+  <circle cx="541" cy="216" r="35" fill="none" stroke="#F59E0B" stroke-width="2.5"/>
+
+  <!-- ================= tree nodes ================= -->
+  <g fill="#171726" stroke="#A78BFA" stroke-width="2.5">
+    <circle cx="710" cy="120" r="27"/>
+    <circle cx="541" cy="216" r="27"/>
+    <circle cx="880" cy="216" r="27"/>
+    <circle cx="441" cy="314" r="27"/>
+    <circle cx="641" cy="314" r="27"/>
+    <circle cx="880" cy="314" r="27"/>
+    <circle cx="641" cy="410" r="27"/>
+  </g>
+
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+     font-size="24" font-weight="700" fill="#E5E7EB" text-anchor="middle">
+    <text x="710" y="128">A</text>
+    <text x="541" y="224">B</text>
+    <text x="880" y="224">C</text>
+    <text x="441" y="322">D</text>
+    <text x="641" y="322">E</text>
+    <text x="880" y="322">F</text>
+    <text x="641" y="418">G</text>
+  </g>
+
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+     font-size="16" fill="#9CA3AF">
+    <text x="750" y="125">d=0</text>
+    <text x="584" y="221">d=1</text>
+    <text x="923" y="221">d=1</text>
+    <text x="484" y="319">d=2</text>
+    <text x="684" y="319">d=2</text>
+    <text x="923" y="319">d=2</text>
+    <text x="684" y="415">d=3</text>
+  </g>
+
+  <!-- ================= amber leader: E[3] = B ================= -->
+  <line x1="541" y1="480" x2="541" y2="266" stroke="#F59E0B" stroke-width="2"
+        stroke-dasharray="6 5" opacity="0.9"/>
+  <path d="M541,250 L534,266 L548,266 Z" fill="#F59E0B"/>
+  <text x="520" y="430" text-anchor="end"
+        font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+        font-size="17" fill="#F59E0B">E[3] = B</text>
+
+  <!-- ================= row titles ================= -->
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="22" fill="#E5E7EB">
+    <text x="80" y="519">E (Euler tour)</text>
+    <text x="80" y="578">D (depth)</text>
+  </g>
+
+  <!-- ================= index row ================= -->
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+     font-size="17" fill="#6F7280" text-anchor="middle"
+     paint-order="stroke" stroke="#0B0B0F" stroke-width="7" stroke-linejoin="round">
+    <text x="289" y="472">0</text>
+    <text x="373" y="472">1</text>
+    <text x="457" y="472">2</text>
+    <text x="541" y="472" fill="#F59E0B" font-weight="700">3</text>
+    <text x="625" y="472">4</text>
+    <text x="709" y="472">5</text>
+    <text x="793" y="472">6</text>
+    <text x="877" y="472">7</text>
+    <text x="961" y="472">8</text>
+    <text x="1045" y="472">9</text>
+    <text x="1129" y="472">10</text>
+    <text x="1213" y="472">11</text>
+    <text x="1297" y="472">12</text>
+  </g>
+
+  <!-- ================= E row cells ================= -->
+  <g stroke="#2A2A38" stroke-width="1.5">
+    <rect x="251" y="484" width="76" height="52" rx="8" fill="#15151E"/>
+    <rect x="335" y="484" width="76" height="52" rx="8" fill="#15151E"/>
+    <rect x="419" y="484" width="76" height="52" rx="8" fill="#241B3E" stroke="#6D55B8"/>
+    <rect x="503" y="484" width="76" height="52" rx="8" fill="#241B3E" stroke="#6D55B8"/>
+    <rect x="587" y="484" width="76" height="52" rx="8" fill="#241B3E" stroke="#6D55B8"/>
+    <rect x="671" y="484" width="76" height="52" rx="8" fill="#241B3E" stroke="#6D55B8"/>
+    <rect x="755" y="484" width="76" height="52" rx="8" fill="#15151E"/>
+    <rect x="839" y="484" width="76" height="52" rx="8" fill="#15151E"/>
+    <rect x="923" y="484" width="76" height="52" rx="8" fill="#15151E"/>
+    <rect x="1007" y="484" width="76" height="52" rx="8" fill="#15151E"/>
+    <rect x="1091" y="484" width="76" height="52" rx="8" fill="#15151E"/>
+    <rect x="1175" y="484" width="76" height="52" rx="8" fill="#15151E"/>
+    <rect x="1259" y="484" width="76" height="52" rx="8" fill="#15151E"/>
+  </g>
+
+  <!-- ================= D row cells ================= -->
+  <g stroke="#2A2A38" stroke-width="1.5">
+    <rect x="251" y="544" width="76" height="52" rx="8" fill="#15151E"/>
+    <rect x="335" y="544" width="76" height="52" rx="8" fill="#15151E"/>
+    <rect x="419" y="544" width="76" height="52" rx="8" fill="#241B3E" stroke="#6D55B8"/>
+    <rect x="503" y="544" width="76" height="52" rx="8" fill="#241B3E" stroke="#6D55B8"/>
+    <rect x="587" y="544" width="76" height="52" rx="8" fill="#241B3E" stroke="#6D55B8"/>
+    <rect x="671" y="544" width="76" height="52" rx="8" fill="#241B3E" stroke="#6D55B8"/>
+    <rect x="755" y="544" width="76" height="52" rx="8" fill="#15151E"/>
+    <rect x="839" y="544" width="76" height="52" rx="8" fill="#15151E"/>
+    <rect x="923" y="544" width="76" height="52" rx="8" fill="#15151E"/>
+    <rect x="1007" y="544" width="76" height="52" rx="8" fill="#15151E"/>
+    <rect x="1091" y="544" width="76" height="52" rx="8" fill="#15151E"/>
+    <rect x="1175" y="544" width="76" height="52" rx="8" fill="#15151E"/>
+    <rect x="1259" y="544" width="76" height="52" rx="8" fill="#15151E"/>
+  </g>
+
+  <!-- ================= E values ================= -->
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+     font-size="26" font-weight="700" fill="#E5E7EB" text-anchor="middle">
+    <text x="289" y="519">A</text>
+    <text x="373" y="519">B</text>
+    <text x="457" y="519">D</text>
+    <text x="541" y="519">B</text>
+    <text x="625" y="519">E</text>
+    <text x="709" y="519">G</text>
+    <text x="793" y="519">E</text>
+    <text x="877" y="519">B</text>
+    <text x="961" y="519">A</text>
+    <text x="1045" y="519">C</text>
+    <text x="1129" y="519">F</text>
+    <text x="1213" y="519">C</text>
+    <text x="1297" y="519">A</text>
+  </g>
+
+  <!-- ================= D values ================= -->
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+     font-size="22" font-weight="600" fill="#22D3EE" text-anchor="middle">
+    <text x="289" y="578">0</text>
+    <text x="373" y="578">1</text>
+    <text x="457" y="578">2</text>
+    <text x="541" y="578" fill="#F59E0B" font-weight="700" font-size="24">1</text>
+    <text x="625" y="578">2</text>
+    <text x="709" y="578">3</text>
+    <text x="793" y="578">2</text>
+    <text x="877" y="578">1</text>
+    <text x="961" y="578">0</text>
+    <text x="1045" y="578">1</text>
+    <text x="1129" y="578">2</text>
+    <text x="1213" y="578">1</text>
+    <text x="1297" y="578">0</text>
+  </g>
+
+  <!-- ================= amber highlights ================= -->
+  <!-- ring around the minimum depth value -->
+  <circle cx="541" cy="570" r="20" fill="none" stroke="#F59E0B" stroke-width="2.5"/>
+  <!-- ring around E[3] -->
+  <rect x="499" y="480" width="84" height="60" rx="10" fill="none" stroke="#F59E0B" stroke-width="2.5"/>
+
+  <!-- ================= first-occurrence markers ================= -->
+  <g stroke-width="1.4" stroke-dasharray="4 4" opacity="0.85">
+    <line x1="457" y1="598" x2="457" y2="612" stroke="#A78BFA"/>
+    <line x1="625" y1="598" x2="625" y2="612" stroke="#9CA3AF"/>
+    <line x1="709" y1="598" x2="709" y2="638" stroke="#A78BFA"/>
+    <line x1="1129" y1="598" x2="1129" y2="612" stroke="#9CA3AF"/>
+  </g>
+  <g fill="#9CA3AF">
+    <circle cx="289" cy="604" r="3.2"/>
+    <circle cx="373" cy="604" r="3.2"/>
+    <circle cx="1045" cy="604" r="3.2"/>
+  </g>
+
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+     font-size="19" fill="#9CA3AF" text-anchor="middle">
+    <text x="457" y="628" fill="#A78BFA">first[D] = 2</text>
+    <text x="625" y="628">first[E] = 4</text>
+    <text x="1129" y="628">first[F] = 10</text>
+    <text x="709" y="656" fill="#A78BFA">first[G] = 5</text>
+  </g>
+
+  <!-- ================= query bracket ================= -->
+  <path d="M418,684 L418,675 M418,684 L748,684 L748,675"
+        fill="none" stroke="#A78BFA" stroke-width="2"/>
+
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" text-anchor="middle">
+    <text x="583" y="714" font-size="19" fill="#9CA3AF">min depth over columns 2..5 = 1 at index 3</text>
+    <text x="583" y="746" font-size="21" font-weight="600" fill="#F59E0B">E[3] = B → LCA(D, G) = B</text>
+  </g>
+</svg>

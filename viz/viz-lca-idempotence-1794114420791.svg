@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="820" viewBox="0 0 1400 820" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">
+  <rect width="1400" height="820" fill="#0B0B0F"/>
+
+  <g transform="translate(0,26)">
+  <!-- Main title -->
+  <text x="700" y="52" text-anchor="middle" font-size="32" font-weight="700" fill="#E5E7EB">Idempotence: <tspan fill="#A78BFA">min(x,x)=x</tspan>, but <tspan fill="#F59E0B">x+x≠x</tspan></text>
+  <text x="700" y="92" text-anchor="middle" font-size="20" fill="#9CA3AF">A = [3, 1, 4, 1, 5, 9, 2, 6] &#183; query [1..6]</text>
+
+  <!-- ================= PANEL 1 : min ================= -->
+  <text x="80" y="132" font-size="26" font-weight="700" fill="#E5E7EB"><tspan fill="#A78BFA">min</tspan>: duplicates do not matter</text>
+  <text x="483" y="168" text-anchor="middle" font-size="18" font-weight="600" fill="#F59E0B">overlap &#215;2</text>
+
+  <!-- indices -->
+  <g font-size="20" fill="#9CA3AF" text-anchor="middle">
+    <text x="126" y="202">0</text>
+    <text x="228" y="202">1</text>
+    <text x="330" y="202">2</text>
+    <text x="432" y="202">3</text>
+    <text x="534" y="202">4</text>
+    <text x="636" y="202">5</text>
+    <text x="738" y="202">6</text>
+    <text x="840" y="202">7</text>
+  </g>
+
+  <!-- cell fills -->
+  <g fill="#17171F">
+    <rect x="80"  y="216" width="92" height="80" rx="6"/>
+    <rect x="182" y="216" width="92" height="80" rx="6"/>
+    <rect x="284" y="216" width="92" height="80" rx="6"/>
+    <rect x="386" y="216" width="92" height="80" rx="6"/>
+    <rect x="488" y="216" width="92" height="80" rx="6"/>
+    <rect x="590" y="216" width="92" height="80" rx="6"/>
+    <rect x="692" y="216" width="92" height="80" rx="6"/>
+    <rect x="794" y="216" width="92" height="80" rx="6"/>
+  </g>
+
+  <!-- translucent blocks -->
+  <rect x="182" y="216" width="398" height="80" rx="6" fill="#A78BFA" fill-opacity="0.22" stroke="#A78BFA" stroke-opacity="0.9" stroke-width="1.5"/>
+  <rect x="386" y="216" width="398" height="80" rx="6" fill="#22D3EE" fill-opacity="0.18" stroke="#22D3EE" stroke-opacity="0.9" stroke-width="1.5"/>
+
+  <!-- cell borders -->
+  <g fill="none" stroke="#3A3A46" stroke-width="1.5">
+    <rect x="80"  y="216" width="92" height="80" rx="6"/>
+    <rect x="182" y="216" width="92" height="80" rx="6"/>
+    <rect x="284" y="216" width="92" height="80" rx="6"/>
+    <rect x="386" y="216" width="92" height="80" rx="6"/>
+    <rect x="488" y="216" width="92" height="80" rx="6"/>
+    <rect x="590" y="216" width="92" height="80" rx="6"/>
+    <rect x="692" y="216" width="92" height="80" rx="6"/>
+    <rect x="794" y="216" width="92" height="80" rx="6"/>
+  </g>
+
+  <!-- values -->
+  <g font-size="30" font-weight="600" fill="#E5E7EB" text-anchor="middle">
+    <text x="126" y="266">3</text>
+    <text x="228" y="266">1</text>
+    <text x="330" y="266">4</text>
+    <text x="432" y="266">1</text>
+    <text x="534" y="266">5</text>
+    <text x="636" y="266">9</text>
+    <text x="738" y="266">2</text>
+    <text x="840" y="266">6</text>
+  </g>
+
+  <!-- overlap emphasis -->
+  <rect x="386" y="216" width="194" height="80" rx="6" fill="none" stroke="#F59E0B" stroke-width="2.5"/>
+  <text x="483" y="318" text-anchor="middle" font-size="16" fill="#F59E0B">seen twice</text>
+
+  <!-- block results -->
+  <text x="381" y="350" text-anchor="middle" font-size="23" font-weight="600" fill="#A78BFA">min(L) = 1</text>
+  <text x="585" y="350" text-anchor="middle" font-size="23" font-weight="600" fill="#22D3EE">min(R) = 1</text>
+
+  <!-- right-side reasoning -->
+  <text x="950" y="244" font-size="30" fill="#E5E7EB">min(1, 1) = 1 <tspan fill="#A78BFA">&#10003;</tspan></text>
+  <text x="950" y="292" font-size="22" fill="#9CA3AF">true min over [1..6] = 1</text>
+
+  <!-- divider -->
+  <line x1="70" y1="424" x2="1330" y2="424" stroke="#2E2E2E" stroke-width="1" stroke-dasharray="6 8"/>
+
+  <!-- ================= PANEL 2 : sum ================= -->
+  <text x="80" y="486" font-size="26" font-weight="700" fill="#E5E7EB"><tspan fill="#F59E0B">sum</tspan>: the overlap is counted twice</text>
+  <text x="483" y="522" text-anchor="middle" font-size="18" font-weight="600" fill="#F59E0B">overlap &#215;2</text>
+
+  <!-- indices -->
+  <g font-size="20" fill="#9CA3AF" text-anchor="middle">
+    <text x="126" y="556">0</text>
+    <text x="228" y="556">1</text>
+    <text x="330" y="556">2</text>
+    <text x="432" y="556">3</text>
+    <text x="534" y="556">4</text>
+    <text x="636" y="556">5</text>
+    <text x="738" y="556">6</text>
+    <text x="840" y="556">7</text>
+  </g>
+
+  <!-- cell fills -->
+  <g fill="#17171F">
+    <rect x="80"  y="570" width="92" height="80" rx="6"/>
+    <rect x="182" y="570" width="92" height="80" rx="6"/>
+    <rect x="284" y="570" width="92" height="80" rx="6"/>
+    <rect x="386" y="570" width="92" height="80" rx="6"/>
+    <rect x="488" y="570" width="92" height="80" rx="6"/>
+    <rect x="590" y="570" width="92" height="80" rx="6"/>
+    <rect x="692" y="570" width="92" height="80" rx="6"/>
+    <rect x="794" y="570" width="92" height="80" rx="6"/>
+  </g>
+
+  <!-- translucent blocks -->
+  <rect x="182" y="570" width="398" height="80" rx="6" fill="#A78BFA" fill-opacity="0.22" stroke="#A78BFA" stroke-opacity="0.9" stroke-width="1.5"/>
+  <rect x="386" y="570" width="398" height="80" rx="6" fill="#22D3EE" fill-opacity="0.18" stroke="#22D3EE" stroke-opacity="0.9" stroke-width="1.5"/>
+
+  <!-- cell borders -->
+  <g fill="none" stroke="#3A3A46" stroke-width="1.5">
+    <rect x="80"  y="570" width="92" height="80" rx="6"/>
+    <rect x="182" y="570" width="92" height="80" rx="6"/>
+    <rect x="284" y="570" width="92" height="80" rx="6"/>
+    <rect x="386" y="570" width="92" height="80" rx="6"/>
+    <rect x="488" y="570" width="92" height="80" rx="6"/>
+    <rect x="590" y="570" width="92" height="80" rx="6"/>
+    <rect x="692" y="570" width="92" height="80" rx="6"/>
+    <rect x="794" y="570" width="92" height="80" rx="6"/>
+  </g>
+
+  <!-- values -->
+  <g font-size="30" font-weight="600" fill="#E5E7EB" text-anchor="middle">
+    <text x="126" y="620">3</text>
+    <text x="228" y="620">1</text>
+    <text x="330" y="620">4</text>
+    <text x="432" y="620">1</text>
+    <text x="534" y="620">5</text>
+    <text x="636" y="620">9</text>
+    <text x="738" y="620">2</text>
+    <text x="840" y="620">6</text>
+  </g>
+
+  <!-- overlap emphasis -->
+  <rect x="386" y="570" width="194" height="80" rx="6" fill="none" stroke="#F59E0B" stroke-width="2.5"/>
+
+  <!-- block results -->
+  <text x="381" y="704" text-anchor="middle" font-size="23" font-weight="600" fill="#A78BFA">sum(L) = 11</text>
+  <text x="585" y="704" text-anchor="middle" font-size="23" font-weight="600" fill="#22D3EE">sum(R) = 17</text>
+
+  <!-- right-side reasoning -->
+  <text x="950" y="598" font-size="32" font-weight="700" fill="#F59E0B">11 + 17 = 28 &#8800; 22</text>
+  <text x="950" y="642" font-size="22" fill="#9CA3AF">true sum = 22</text>
+  <text x="950" y="674" font-size="20" fill="#F59E0B">overlap 1+5 counted twice</text>
+  </g>
+</svg>
