@@ -1,0 +1,217 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="920" viewBox="0 0 1500 920"
+     font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-variant-numeric="tabular-nums">
+  <defs>
+    <marker id="arw-purple" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse"
+            markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#A78BFA"/>
+    </marker>
+    <marker id="arw-cyan" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse"
+            markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#22D3EE"/>
+    </marker>
+    <marker id="arw-amber" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse"
+            markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#F59E0B"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1500" height="920" fill="#0B0B0F"/>
+
+  <text x="750" y="60" text-anchor="middle" font-size="40" font-weight="650" fill="#E5E7EB">±1 block classes: same shape, shared table</text>
+  <text x="750" y="98" text-anchor="middle" font-size="22" fill="#9CA3AF">Subtract the base depth; only the sign string remains</text>
+
+  <!-- ============ Block X ============ -->
+  <g>
+    <rect x="250" y="150" width="312" height="152" rx="12" fill="#FFFFFF" fill-opacity="0.025" stroke="#2E2E2E" stroke-width="1.5"/>
+    <text x="270" y="182" font-size="21"><tspan fill="#E5E7EB" font-weight="600">block X</tspan><tspan fill="#9CA3AF"> · base 2</tspan></text>
+    <rect x="270" y="196" width="56" height="56" rx="5" fill="#A78BFA" fill-opacity="0.07" stroke="#A78BFA" stroke-opacity="0.5" stroke-width="1.5"/>
+    <rect x="342" y="196" width="56" height="56" rx="5" fill="#A78BFA" fill-opacity="0.07" stroke="#A78BFA" stroke-opacity="0.5" stroke-width="1.5"/>
+    <rect x="414" y="196" width="56" height="56" rx="5" fill="#A78BFA" fill-opacity="0.07" stroke="#A78BFA" stroke-opacity="0.5" stroke-width="1.5"/>
+    <rect x="486" y="196" width="56" height="56" rx="5" fill="#A78BFA" fill-opacity="0.07" stroke="#A78BFA" stroke-opacity="0.5" stroke-width="1.5"/>
+    <text x="298" y="235" text-anchor="middle" font-size="30" font-weight="600" fill="#E5E7EB">2</text>
+    <text x="370" y="235" text-anchor="middle" font-size="30" font-weight="600" fill="#E5E7EB">3</text>
+    <text x="442" y="235" text-anchor="middle" font-size="30" font-weight="600" fill="#E5E7EB">2</text>
+    <text x="514" y="235" text-anchor="middle" font-size="30" font-weight="600" fill="#E5E7EB">3</text>
+    <text x="334" y="230" text-anchor="middle" font-size="18" fill="#A78BFA">+</text>
+    <text x="406" y="230" text-anchor="middle" font-size="18" fill="#A78BFA">−</text>
+    <text x="478" y="230" text-anchor="middle" font-size="18" fill="#A78BFA">+</text>
+    <text x="298" y="278" text-anchor="middle" font-size="16" fill="#9CA3AF">0</text>
+    <text x="370" y="278" text-anchor="middle" font-size="16" fill="#9CA3AF">1</text>
+    <text x="442" y="278" text-anchor="middle" font-size="16" fill="#9CA3AF">2</text>
+    <text x="514" y="278" text-anchor="middle" font-size="16" fill="#9CA3AF">3</text>
+  </g>
+
+  <!-- ============ Block Y ============ -->
+  <g>
+    <rect x="594" y="150" width="312" height="152" rx="12" fill="#FFFFFF" fill-opacity="0.025" stroke="#2E2E2E" stroke-width="1.5"/>
+    <text x="614" y="182" font-size="21"><tspan fill="#E5E7EB" font-weight="600">block Y</tspan><tspan fill="#9CA3AF"> · base 4</tspan></text>
+    <rect x="614" y="196" width="56" height="56" rx="5" fill="#A78BFA" fill-opacity="0.07" stroke="#A78BFA" stroke-opacity="0.5" stroke-width="1.5"/>
+    <rect x="686" y="196" width="56" height="56" rx="5" fill="#A78BFA" fill-opacity="0.07" stroke="#A78BFA" stroke-opacity="0.5" stroke-width="1.5"/>
+    <rect x="758" y="196" width="56" height="56" rx="5" fill="#A78BFA" fill-opacity="0.07" stroke="#A78BFA" stroke-opacity="0.5" stroke-width="1.5"/>
+    <rect x="830" y="196" width="56" height="56" rx="5" fill="#A78BFA" fill-opacity="0.07" stroke="#A78BFA" stroke-opacity="0.5" stroke-width="1.5"/>
+    <text x="642" y="235" text-anchor="middle" font-size="30" font-weight="600" fill="#E5E7EB">4</text>
+    <text x="714" y="235" text-anchor="middle" font-size="30" font-weight="600" fill="#E5E7EB">5</text>
+    <text x="786" y="235" text-anchor="middle" font-size="30" font-weight="600" fill="#E5E7EB">4</text>
+    <text x="858" y="235" text-anchor="middle" font-size="30" font-weight="600" fill="#E5E7EB">5</text>
+    <text x="678" y="230" text-anchor="middle" font-size="18" fill="#A78BFA">+</text>
+    <text x="750" y="230" text-anchor="middle" font-size="18" fill="#A78BFA">−</text>
+    <text x="822" y="230" text-anchor="middle" font-size="18" fill="#A78BFA">+</text>
+    <text x="642" y="278" text-anchor="middle" font-size="16" fill="#9CA3AF">4</text>
+    <text x="714" y="278" text-anchor="middle" font-size="16" fill="#9CA3AF">5</text>
+    <text x="786" y="278" text-anchor="middle" font-size="16" fill="#9CA3AF">6</text>
+    <text x="858" y="278" text-anchor="middle" font-size="16" fill="#9CA3AF">7</text>
+  </g>
+
+  <!-- ============ Block Z ============ -->
+  <g>
+    <rect x="938" y="150" width="312" height="152" rx="12" fill="#FFFFFF" fill-opacity="0.025" stroke="#2E2E2E" stroke-width="1.5"/>
+    <text x="958" y="182" font-size="21"><tspan fill="#E5E7EB" font-weight="600">block Z</tspan><tspan fill="#9CA3AF"> · base 1</tspan></text>
+    <rect x="958" y="196" width="56" height="56" rx="5" fill="#A78BFA" fill-opacity="0.07" stroke="#A78BFA" stroke-opacity="0.5" stroke-width="1.5"/>
+    <rect x="1030" y="196" width="56" height="56" rx="5" fill="#A78BFA" fill-opacity="0.07" stroke="#A78BFA" stroke-opacity="0.5" stroke-width="1.5"/>
+    <rect x="1102" y="196" width="56" height="56" rx="5" fill="#A78BFA" fill-opacity="0.07" stroke="#A78BFA" stroke-opacity="0.5" stroke-width="1.5"/>
+    <rect x="1174" y="196" width="56" height="56" rx="5" fill="#A78BFA" fill-opacity="0.07" stroke="#A78BFA" stroke-opacity="0.5" stroke-width="1.5"/>
+    <text x="986" y="235" text-anchor="middle" font-size="30" font-weight="600" fill="#E5E7EB">1</text>
+    <text x="1058" y="235" text-anchor="middle" font-size="30" font-weight="600" fill="#E5E7EB">2</text>
+    <text x="1130" y="235" text-anchor="middle" font-size="30" font-weight="600" fill="#E5E7EB">1</text>
+    <text x="1202" y="235" text-anchor="middle" font-size="30" font-weight="600" fill="#E5E7EB">2</text>
+    <text x="1022" y="230" text-anchor="middle" font-size="18" fill="#A78BFA">+</text>
+    <text x="1094" y="230" text-anchor="middle" font-size="18" fill="#A78BFA">−</text>
+    <text x="1166" y="230" text-anchor="middle" font-size="18" fill="#A78BFA">+</text>
+    <text x="986" y="278" text-anchor="middle" font-size="16" fill="#9CA3AF">8</text>
+    <text x="1058" y="278" text-anchor="middle" font-size="16" fill="#9CA3AF">9</text>
+    <text x="1130" y="278" text-anchor="middle" font-size="16" fill="#9CA3AF">10</text>
+    <text x="1202" y="278" text-anchor="middle" font-size="16" fill="#9CA3AF">11</text>
+  </g>
+
+  <!-- ============ convergence arrows + subtract labels ============ -->
+  <g stroke="#A78BFA" stroke-opacity="0.85" stroke-width="2" fill="none">
+    <path d="M406,302 L648,350" marker-end="url(#arw-purple)"/>
+    <path d="M750,302 L750,350" marker-end="url(#arw-purple)"/>
+    <path d="M1094,302 L852,350" marker-end="url(#arw-purple)"/>
+  </g>
+  <text x="406" y="324" text-anchor="middle" font-size="19" fill="#9CA3AF">−2</text>
+  <text x="762" y="324" text-anchor="start" font-size="19" fill="#9CA3AF">−4</text>
+  <text x="1094" y="324" text-anchor="middle" font-size="19" fill="#9CA3AF">−1</text>
+
+  <!-- ============ canonical class box ============ -->
+  <g>
+    <rect x="560" y="350" width="380" height="128" rx="12" fill="#A78BFA" fill-opacity="0.06" stroke="#A78BFA" stroke-width="1.6"/>
+    <text x="750" y="376" text-anchor="middle" font-size="17" fill="#9CA3AF">subtract base</text>
+    <text x="750" y="404" text-anchor="middle" font-size="21" font-weight="600" fill="#E5E7EB">class (+, −, +) · shape only</text>
+    <rect x="647" y="418" width="44" height="44" rx="4" fill="#A78BFA" fill-opacity="0.10" stroke="#A78BFA" stroke-opacity="0.6" stroke-width="1.5"/>
+    <rect x="701" y="418" width="44" height="44" rx="4" fill="#A78BFA" fill-opacity="0.10" stroke="#A78BFA" stroke-opacity="0.6" stroke-width="1.5"/>
+    <rect x="755" y="418" width="44" height="44" rx="4" fill="#A78BFA" fill-opacity="0.10" stroke="#A78BFA" stroke-opacity="0.6" stroke-width="1.5"/>
+    <rect x="809" y="418" width="44" height="44" rx="4" fill="#A78BFA" fill-opacity="0.10" stroke="#A78BFA" stroke-opacity="0.6" stroke-width="1.5"/>
+    <text x="669" y="449" text-anchor="middle" font-size="24" font-weight="600" fill="#E5E7EB">0</text>
+    <text x="723" y="449" text-anchor="middle" font-size="24" font-weight="600" fill="#E5E7EB">1</text>
+    <text x="777" y="449" text-anchor="middle" font-size="24" font-weight="600" fill="#E5E7EB">0</text>
+    <text x="831" y="449" text-anchor="middle" font-size="24" font-weight="600" fill="#E5E7EB">1</text>
+  </g>
+
+  <!-- ============ bottom left: shared table ============ -->
+  <text x="92" y="540" font-size="24" font-weight="600" fill="#E5E7EB">shared table: interval → local argmin</text>
+  <rect x="72" y="556" width="336" height="336" rx="12" fill="#FFFFFF" fill-opacity="0.02" stroke="#2E2E2E" stroke-width="1.5"/>
+
+  <!-- table header -->
+  <rect x="92" y="566" width="44" height="38" fill="#FFFFFF" fill-opacity="0.03" stroke="#2E2E2E" stroke-width="1"/>
+  <text x="114" y="590" text-anchor="middle" font-size="15" fill="#9CA3AF">i \ j</text>
+  <rect x="136" y="566" width="62" height="38" fill="#FFFFFF" fill-opacity="0.03" stroke="#2E2E2E" stroke-width="1"/>
+  <rect x="198" y="566" width="62" height="38" fill="#FFFFFF" fill-opacity="0.03" stroke="#2E2E2E" stroke-width="1"/>
+  <rect x="260" y="566" width="62" height="38" fill="#FFFFFF" fill-opacity="0.03" stroke="#2E2E2E" stroke-width="1"/>
+  <rect x="322" y="566" width="62" height="38" fill="#FFFFFF" fill-opacity="0.03" stroke="#2E2E2E" stroke-width="1"/>
+  <text x="167" y="590" text-anchor="middle" font-size="18" fill="#9CA3AF">0</text>
+  <text x="229" y="590" text-anchor="middle" font-size="18" fill="#9CA3AF">1</text>
+  <text x="291" y="590" text-anchor="middle" font-size="18" fill="#9CA3AF">2</text>
+  <text x="353" y="590" text-anchor="middle" font-size="18" fill="#9CA3AF">3</text>
+
+  <!-- row headers -->
+  <rect x="92" y="604" width="44" height="52" fill="#FFFFFF" fill-opacity="0.03" stroke="#2E2E2E" stroke-width="1"/>
+  <rect x="92" y="656" width="44" height="52" fill="#FFFFFF" fill-opacity="0.03" stroke="#2E2E2E" stroke-width="1"/>
+  <rect x="92" y="708" width="44" height="52" fill="#FFFFFF" fill-opacity="0.03" stroke="#2E2E2E" stroke-width="1"/>
+  <rect x="92" y="760" width="44" height="52" fill="#FFFFFF" fill-opacity="0.03" stroke="#2E2E2E" stroke-width="1"/>
+  <text x="114" y="637" text-anchor="middle" font-size="18" fill="#9CA3AF">0</text>
+  <text x="114" y="689" text-anchor="middle" font-size="18" fill="#9CA3AF">1</text>
+  <text x="114" y="741" text-anchor="middle" font-size="18" fill="#9CA3AF">2</text>
+  <text x="114" y="793" text-anchor="middle" font-size="18" fill="#9CA3AF">3</text>
+
+  <!-- upper-triangle cells -->
+  <g fill="#A78BFA" fill-opacity="0.07" stroke="#2E2E2E" stroke-width="1">
+    <rect x="136" y="604" width="62" height="52"/>
+    <rect x="198" y="604" width="62" height="52"/>
+    <rect x="260" y="604" width="62" height="52"/>
+    <rect x="322" y="604" width="62" height="52"/>
+    <rect x="198" y="656" width="62" height="52"/>
+    <rect x="260" y="656" width="62" height="52"/>
+    <rect x="322" y="656" width="62" height="52"/>
+    <rect x="260" y="708" width="62" height="52"/>
+    <rect x="322" y="708" width="62" height="52"/>
+    <rect x="322" y="760" width="62" height="52"/>
+  </g>
+  <!-- lower-triangle empty cells -->
+  <g fill="#0B0B0F" stroke="#2E2E2E" stroke-width="1">
+    <rect x="136" y="656" width="62" height="52"/>
+    <rect x="136" y="708" width="62" height="52"/>
+    <rect x="198" y="708" width="62" height="52"/>
+    <rect x="136" y="760" width="62" height="52"/>
+    <rect x="198" y="760" width="62" height="52"/>
+    <rect x="260" y="760" width="62" height="52"/>
+  </g>
+
+  <!-- highlight i=1, j=2 -->
+  <rect x="260" y="656" width="62" height="52" rx="3" fill="#A78BFA" fill-opacity="0.24" stroke="#A78BFA" stroke-width="2.5"/>
+
+  <!-- upper-triangle values -->
+  <g text-anchor="middle" font-size="22" fill="#E5E7EB">
+    <text x="167" y="637">0</text>
+    <text x="229" y="637">0</text>
+    <text x="291" y="637">0</text>
+    <text x="353" y="637">0</text>
+    <text x="229" y="689">1</text>
+    <text x="353" y="689">2</text>
+    <text x="291" y="741">2</text>
+    <text x="353" y="741">2</text>
+    <text x="353" y="793">3</text>
+  </g>
+  <text x="291" y="689" text-anchor="middle" font-size="22" font-weight="700" fill="#FFFFFF">2</text>
+
+  <!-- query chip -->
+  <rect x="92" y="834" width="292" height="42" rx="10" fill="#FFFFFF" fill-opacity="0.025" stroke="#2E2E2E" stroke-width="1.2"/>
+  <text x="238" y="861" text-anchor="middle" font-size="19"><tspan fill="#9CA3AF">query [1..2]</tspan><tspan fill="#22D3EE" dx="6">→</tspan><tspan fill="#E5E7EB" dx="6">local 2</tspan></text>
+
+  <text x="424" y="862" font-size="16" fill="#9CA3AF">rows = start i · cols = end j</text>
+
+  <!-- ============ bottom right: mapping back ============ -->
+  <!-- wire from highlighted cell to fan origin -->
+  <path d="M322,656 H460" fill="none" stroke="#22D3EE" stroke-width="2" stroke-opacity="0.9"/>
+  <circle cx="322" cy="656" r="3.5" fill="#22D3EE"/>
+
+  <g stroke="#22D3EE" stroke-width="2" fill="none">
+    <path d="M460,656 L620,580" marker-end="url(#arw-cyan)"/>
+    <path d="M460,656 H620" marker-end="url(#arw-cyan)"/>
+    <path d="M460,656 L620,740" marker-end="url(#arw-cyan)"/>
+  </g>
+
+  <g>
+    <rect x="620" y="556" width="270" height="48" rx="10" fill="#FFFFFF" fill-opacity="0.025" stroke="#22D3EE" stroke-opacity="0.45" stroke-width="1.5"/>
+    <text x="755" y="587" text-anchor="middle" font-size="20"><tspan fill="#E5E7EB" font-weight="600">block X</tspan><tspan fill="#22D3EE" dx="6">→</tspan><tspan fill="#9CA3AF" dx="6">index 2</tspan></text>
+  </g>
+  <g>
+    <rect x="620" y="636" width="270" height="48" rx="10" fill="#FFFFFF" fill-opacity="0.025" stroke="#22D3EE" stroke-opacity="0.45" stroke-width="1.5"/>
+    <text x="755" y="667" text-anchor="middle" font-size="20"><tspan fill="#E5E7EB" font-weight="600">block Y</tspan><tspan fill="#22D3EE" dx="6">→</tspan><tspan fill="#9CA3AF" dx="6">index 6</tspan></text>
+  </g>
+  <g>
+    <rect x="620" y="716" width="270" height="48" rx="10" fill="#FFFFFF" fill-opacity="0.025" stroke="#22D3EE" stroke-opacity="0.45" stroke-width="1.5"/>
+    <text x="755" y="747" text-anchor="middle" font-size="20"><tspan fill="#E5E7EB" font-weight="600">block Z</tspan><tspan fill="#22D3EE" dx="6">→</tspan><tspan fill="#9CA3AF" dx="6">index 10</tspan></text>
+  </g>
+
+  <text x="620" y="786" font-size="19" fill="#9CA3AF">same local answer, different absolute position</text>
+
+  <!-- ============ inset: the other class ============ -->
+  <rect x="980" y="806" width="470" height="82" rx="10" fill="#FFFFFF" fill-opacity="0.02" stroke="#2E2E2E" stroke-width="1.2"/>
+  <text x="1000" y="840" font-size="19" fill="#E5E7EB">block W [3,2,1]</text>
+  <text x="1000" y="864" font-size="16" fill="#9CA3AF">signs −,−</text>
+  <path d="M1176,848 H1242" stroke="#F59E0B" stroke-width="2" fill="none" marker-end="url(#arw-amber)"/>
+  <text x="1260" y="840" font-size="19" font-weight="600" fill="#F59E0B">class (−,−)</text>
+  <text x="1260" y="864" font-size="16" fill="#9CA3AF">different table</text>
+
+</svg>
