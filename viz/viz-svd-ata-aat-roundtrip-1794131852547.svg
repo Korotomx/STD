@@ -23,16 +23,22 @@
   <rect x="820" y="185" width="190" height="110" rx="12" fill="#22D3EE" fill-opacity="0.08" stroke="#22D3EE" stroke-width="2"/>
   <text x="915" y="247" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="24" fill="#E5E7EB" text-anchor="middle">输出空间 ℝᵐ</text>
 
+  <text x="235" y="318" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="20" fill="#9CA3AF" text-anchor="middle">x 所在</text>
+  <text x="915" y="318" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="20" fill="#9CA3AF" text-anchor="middle">Ax 所在</text>
+
   <line x1="352" y1="213" x2="800" y2="213" stroke="#F59E0B" stroke-width="3" marker-end="url(#arrAmber)"/>
   <text x="575" y="200" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="34" fill="#F59E0B" text-anchor="middle">A</text>
 
   <line x1="800" y1="267" x2="352" y2="267" stroke="#9CA3AF" stroke-width="3" marker-end="url(#arrGray)"/>
   <text x="575" y="302" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="30" fill="#9CA3AF" text-anchor="middle">Aᵀ</text>
 
-  <line x1="235" y1="295" x2="235" y2="330" stroke="#2E2E3A" stroke-width="1.5"/>
-  <line x1="915" y1="295" x2="915" y2="330" stroke="#2E2E3A" stroke-width="1.5"/>
-  <line x1="235" y1="330" x2="915" y2="330" stroke="#2E2E3A" stroke-width="1.5"/>
+  <line x1="300" y1="295" x2="300" y2="330" stroke="#2E2E3A" stroke-width="1.5"/>
+  <line x1="850" y1="295" x2="850" y2="330" stroke="#2E2E3A" stroke-width="1.5"/>
+  <line x1="300" y1="330" x2="850" y2="330" stroke="#2E2E3A" stroke-width="1.5"/>
   <line x1="575" y1="330" x2="575" y2="344" stroke="#2E2E3A" stroke-width="1.5"/>
+
+  <circle cx="140" cy="240" r="6" fill="#34D399"/>
+  <text x="124" y="246" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="18" fill="#34D399" text-anchor="end">起点</text>
 
   <rect x="340" y="344" width="470" height="44" rx="22" fill="#A78BFA" fill-opacity="0.10" stroke="#A78BFA" stroke-width="1.5"/>
   <text x="575" y="372" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="24" fill="#A78BFA" text-anchor="middle" xml:space="preserve">AᵀA : ℝⁿ → ℝⁿ    (n×n)</text>
@@ -50,19 +56,25 @@
   <rect x="820" y="540" width="190" height="110" rx="12" fill="#22D3EE" fill-opacity="0.08" stroke="#22D3EE" stroke-width="2"/>
   <text x="915" y="602" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="24" fill="#E5E7EB" text-anchor="middle">输出空间 ℝᵐ</text>
 
+  <text x="235" y="673" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="20" fill="#9CA3AF" text-anchor="middle">x 所在</text>
+  <text x="915" y="673" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="20" fill="#9CA3AF" text-anchor="middle">Ax 所在</text>
+
   <line x1="800" y1="568" x2="352" y2="568" stroke="#9CA3AF" stroke-width="3" marker-end="url(#arrGray)"/>
   <text x="575" y="556" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="30" fill="#9CA3AF" text-anchor="middle">Aᵀ</text>
 
   <line x1="352" y1="622" x2="800" y2="622" stroke="#F59E0B" stroke-width="3" marker-end="url(#arrAmber)"/>
   <text x="575" y="657" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="34" fill="#F59E0B" text-anchor="middle">A</text>
 
-  <line x1="235" y1="650" x2="235" y2="680" stroke="#2E2E3A" stroke-width="1.5"/>
-  <line x1="915" y1="650" x2="915" y2="680" stroke="#2E2E3A" stroke-width="1.5"/>
-  <line x1="235" y1="680" x2="915" y2="680" stroke="#2E2E3A" stroke-width="1.5"/>
-  <line x1="575" y1="680" x2="575" y2="694" stroke="#2E2E3A" stroke-width="1.5"/>
+  <line x1="300" y1="650" x2="300" y2="684" stroke="#2E2E3A" stroke-width="1.5"/>
+  <line x1="850" y1="650" x2="850" y2="684" stroke="#2E2E3A" stroke-width="1.5"/>
+  <line x1="300" y1="684" x2="850" y2="684" stroke="#2E2E3A" stroke-width="1.5"/>
+  <line x1="575" y1="684" x2="575" y2="698" stroke="#2E2E3A" stroke-width="1.5"/>
 
-  <rect x="340" y="694" width="470" height="44" rx="22" fill="#22D3EE" fill-opacity="0.10" stroke="#22D3EE" stroke-width="1.5"/>
-  <text x="575" y="722" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="24" fill="#22D3EE" text-anchor="middle" xml:space="preserve">AAᵀ : ℝᵐ → ℝᵐ    (m×m)</text>
+  <circle cx="820" cy="595" r="6" fill="#34D399"/>
+  <text x="804" y="601" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="18" fill="#34D399" text-anchor="end">起点</text>
+
+  <rect x="340" y="698" width="470" height="44" rx="22" fill="#22D3EE" fill-opacity="0.10" stroke="#22D3EE" stroke-width="1.5"/>
+  <text x="575" y="726" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="24" fill="#22D3EE" text-anchor="middle" xml:space="preserve">AAᵀ : ℝᵐ → ℝᵐ    (m×m)</text>
 
   <text x="575" y="774" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="24" fill="#E5E7EB" text-anchor="middle">AAᵀ uᵢ = σᵢ² uᵢ</text>
 
