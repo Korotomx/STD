@@ -333,4 +333,70 @@ NIKKE 日常中会变的信息几乎全是数字与文本：体力 `120/120`、�
 
 M0：在 `C:\Project\nikke-auto` 搭设备抽象 + ADB 截图/点击 + 录屏 + `FakeDevice` 回放 + 模板匹配调试器。需要 MuMu 以 720×1280 运行。
 
-关联：[[learning-plans]]、[[teaching-style]]
+## 附录：ADR-0001 第一版设备平台
+
+状态：accepted（2026-11-09）
+
+### 上下文
+
+- 单人、业余 8–12 周；目标是学习 + 可用，不是产品化。
+- PC 官方客户端已安装，但带 AntiCheatExpert（ACE），输入注入/捕获更复杂。
+- MuMu 已安装，ADB 可用，可锁定 720×1280；NIKKE 竖屏，逻辑分辨率统一。
+- 自动化违反 ToS，存在封号风险；只在小号、本地运行。
+- 第一版不需要多账号——这是范围约束，不是平台约束。
+
+### 备选
+
+- A. MuMu + ADB 720×1280
+- B. PC 客户端 + SendInput/DXGI
+- C. MaaFramework + Win32 控制器
+
+### 决定
+
+选 A。设备层抽象为 `Device` 协议，业务层只看见 720×1280 逻辑坐标；PC 后端保留为未来实现。
+
+### 后果
+
+- 好处：截图/点击确定，迭代快；分辨率固定，模板与 ROI 稳定；不经过 Windows 进程的 ACE，调试风险较低。
+- 代价：模拟器性能/稳定性不如 PC，长时间挂机需监控；仍有 ToS/封号风险；需要维护 device 抽象层，PC 迁移不是零成本。
+
+### 复审
+
+- M0 结束：若截图帧率 <2fps、点击延迟 >300ms，或 ADB 连接不稳定，重开 ADR。
+- M3 结束：若 24h soak 失败率 >5%，或封号风险不可接受，考虑 PC 或 MaaFramework。
+- 若未来必须支持多账号，先写新 ADR，不直接改本条。
+
+## 附录：ADR-0002 架构风格
+
+状态：accepted（2026-11-09）
+
+### 上下文
+
+- 项目首要目标是学习大型工程，其次才是尽快可用；单人、业余 8–12 周。
+- MaaFramework 生态已有 NIKKE 资源（MaaNikke/MDA），证明声明式 pipeline 可行；开发快、调试器现成。
+- 但 MaaFramework 不是通用状态机：没有变量、循环、数值运算；复杂逻辑要写 Agent；执行循环是秒/百毫秒级；JSON + Agent 双调试面。
+- 自写骨架前期慢，但完全可控，便于接入 DL、定制调度与统计。
+- 许可证：MaaFramework LGPL-3.0、MaaNikke GPL-3.0、MDA AGPL-3.0。
+
+### 备选
+
+- A. 纯自写分层骨架（device / perceive / ui / tasks / app）
+- B. 纯 MaaFramework + Python Agent
+- C. 混合：MaaFramework 做菜单/日常，Python 做策略/调度
+
+### 决定
+
+选 A 作为第一版；用一天 spike 跑 MaaDebugger + MaaNikke 校准预期；M1 结束若导航成功率 <80% 或开发速度明显不可接受，切换到 C。不直接选 B，因为学习目标优先，且 B 的表达力上限会限制后续 DL/调度。
+
+### 后果
+
+- 好处：完全控制识别、调度、异常与 DL 接口；无框架许可证约束；架构能力是项目的主要学习产出。
+- 代价：前 1–2 周产出慢；调度、卡死/连点检测、错误现场、回放测试都要自己写；容易重复造轮子；需要自律，避免过度设计。
+
+### 复审
+
+- M1 结束：随机 100 次导航成功率 <80%，或同一功能开发时间超过 MaaFramework spike 的 3 倍 → 重开 ADR，考虑 C。
+- 若目标从「学习」转为「尽快可用」→ 重开 ADR，考虑 B。
+- 若 MaaFramework 后续提供通用状态机/变量 → 重新评估 C。
+
+关联：[[learning-plans]]、[[teaching-style]]、[[架构决策方法 · 以 NIKKE 项目为例]]
