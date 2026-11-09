@@ -22,7 +22,7 @@
 - **转置性质**：$(A^{\mathsf T})^{\mathsf T}=A$、$(A+B)^{\mathsf T}=A^{\mathsf T}+B^{\mathsf T}$、$(AB)^{\mathsf T}=B^{\mathsf T}A^{\mathsf T}$。[[L5 转置·置换·向量空间]]
 - **转置的几何作用**：$x\cdot(A^{\mathsf T}\bar v)=(Ax)\cdot\bar v$；把 $\bar v$ 从输出空间搬回输入空间，使点积守恒。[[L5 转置·置换·向量空间]]
 - **何时两边同时变换也保点积**：$(Av)\cdot(Ax)=v^{\mathsf T}A^{\mathsf T}Ax$；$A^{\mathsf T}A=I$（正交矩阵）时不变。只变换 $x$ 时另一侧用 $(A^{-1})^{\mathsf T}$。[[L5 转置·置换·向量空间]]
-- **SVD 与转置**：$A=R_1\Sigma R_2^{\mathsf T}$ → $A^{\mathsf T}=R_2\Sigma R_1^{\mathsf T}$；转置反向两个旋转、缩放不变，逆还须 $\Sigma\to\Sigma^{-1}$。[[L5 转置·置换·向量空间]]
+- **SVD 与转置**：$A=R_1\Sigma R_2^{\mathsf T}$ → $A^{\mathsf T}=R_2\Sigma R_1^{\mathsf T}$；转置反向两个旋转、缩放不变，逆还须 $\Sigma\to\Sigma^{-1}$。[[L5 转置·置换·向量空间]] [[L29 奇异值分解]]
 - **转置 vs 逆**：转置永远存在（非方阵维度互换）；逆只对满秩方阵存在。[[L5 转置·置换·向量空间]]
 - **置换矩阵**：每行每列恰有一个 $1$；$P^{-1}=P^{\mathsf T}$，$\det P=\pm1$。[[L5 转置·置换·向量空间]]
 
@@ -84,6 +84,14 @@
 - **实对称矩阵**：特征值全实，特征向量可选为标准正交；$A=Q\Lambda Q^{\mathsf T}$，$Q^{\mathsf T}=Q^{-1}$。[[L23 对称矩阵与正定矩阵]]
 - **谱分解**：$A=\sum_i\lambda_iq_iq_i^{\mathsf T}$；对称矩阵 = 沿正交轴的投影叠加（主轴定理）。[[L23 对称矩阵与正定矩阵]]
 - **主元与特征值同号**：对称矩阵的正主元个数 = 正特征值个数；$\prod p_i=\prod\lambda_i=\det A$。[[L23 对称矩阵与正定矩阵]]
+- **SVD 存在性**：任意 $m\times n$ 矩阵 $A=U\Sigma V^{\mathsf T}$，$U,V$ 正交，$\sigma_1\ge\cdots\ge\sigma_r>0$；$V$ 的列是右奇异向量，$U$ 的列是左奇异向量。[[L29 奇异值分解]]
+- **从 $A^{\mathsf T}A$ 构造**：$A^{\mathsf T}A=V\Sigma^{\mathsf T}\Sigma V^{\mathsf T}$，$\lambda_i=\sigma_i^2$；$v_i$ 是 $A^{\mathsf T}A$ 的特征向量，$u_i=Av_i/\sigma_i$；$AA^{\mathsf T}=U\Sigma\Sigma^{\mathsf T}U^{\mathsf T}$。[[L29 奇异值分解]]
+- **四个子空间**：$v_1,\dots,v_r$ 张成行空间、$v_{r+1},\dots,v_n$ 张成零空间；$u_1,\dots,u_r$ 张成列空间、其余张成左零空间。[[L29 奇异值分解]]
+- **几何**：$x\mapsto V^{\mathsf T}x$（向量→坐标）→ $\Sigma$（逐坐标伸缩）→ $U$（坐标→向量）；单位球映成半轴 $\sigma_i$、方向 $u_i$ 的椭球。[[L29 奇异值分解]]
+- **谱、秩与范数**：$\operatorname{rank}A$ = 非零 $\sigma_i$ 个数；$\|A\|_2=\sigma_1$，$\|A\|_F=\sqrt{\sum\sigma_i^2}$，$\kappa=\sigma_1/\sigma_r$，$|\det A|=\prod\sigma_i$；接近零的 $\sigma_i$ 比严格的秩更能反映病态。[[L29 奇异值分解]]
+- **低秩近似（Eckart–Young）**：$A_k=\sum_{i\le k}\sigma_i u_iv_i^{\mathsf T}$ 是秩 $\le k$ 的最优近似；$\|A-A_k\|_2=\sigma_{k+1}$，$\|A-A_k\|_F=\sqrt{\sum_{i>k}\sigma_i^2}$。[[L29 奇异值分解]]
+- **伪逆与最小二乘**：$A^{+}=\sum_{i\le r}\sigma_i^{-1}v_iu_i^{\mathsf T}$；非零奇异值取倒数、零保持零；无解时给最小二乘解，多解时给最小范数解。[[L29 奇异值分解]]
+- **PCA**：中心化数据 $X=U\Sigma V^{\mathsf T}$；主方向是 $V$ 的列，第 $i$ 主成分方差 $\sigma_i^2/(m-1)$，降维即截断低秩近似。[[L29 奇异值分解]]
 
 ## 马尔可夫矩阵与正交展开
 

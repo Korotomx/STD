@@ -193,4 +193,4 @@ linkStyle default stroke:#9CA3AF
 
 ## 下一步
 
-- L22、L23、L24、L25 按需自测；主线下一讲从 lecture 28 起（等 Ref 材料）。
+- L22、L23、L24、L25、L28、L29 按需自测；主线下一讲从 lecture 30 起（等 Ref 材料）。
