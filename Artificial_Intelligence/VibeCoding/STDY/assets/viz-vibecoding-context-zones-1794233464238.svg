@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="580" viewBox="0 0 1200 580">
+  <rect width="1200" height="580" fill="#0B0B0F"/>
+
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">
+    <text x="60" y="52" font-size="24" fill="#E5E7EB">上下文窗口：约 40% 开始进入「愚蠢区」</text>
+
+    <!-- bar -->
+    <rect x="110" y="110" width="392" height="96" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <rect x="502" y="110" width="588" height="96" fill="#241C33" stroke="#A78BFA" stroke-width="2" stroke-dasharray="8 6"/>
+
+    <text x="306" y="152" font-size="22" fill="#E5E7EB" text-anchor="middle">智能区</text>
+    <text x="306" y="182" font-size="15" fill="#9CA3AF" text-anchor="middle">推理清晰，能吃下全部上下文</text>
+
+    <text x="796" y="152" font-size="22" fill="#E5E7EB" text-anchor="middle">愚蠢区</text>
+    <text x="796" y="182" font-size="15" fill="#9CA3AF" text-anchor="middle">幻觉、遗忘、推理下降</text>
+
+    <!-- 40% divider -->
+    <line x1="502" y1="98" x2="502" y2="222" stroke="#F59E0B" stroke-width="2" stroke-dasharray="6 6"/>
+    <text x="502" y="88" font-size="16" fill="#F59E0B" text-anchor="middle">≈ 40%</text>
+
+    <!-- axis ticks -->
+    <text x="110" y="242" font-size="14" fill="#9CA3AF" text-anchor="middle">0</text>
+    <text x="502" y="242" font-size="14" fill="#F59E0B" text-anchor="middle">40%</text>
+    <text x="1090" y="242" font-size="14" fill="#9CA3AF" text-anchor="middle">100%</text>
+
+    <text x="110" y="286" font-size="16" fill="#9CA3AF">20 万 token 窗口 → 约 8 万 token 处开始警惕</text>
+    <text x="110" y="312" font-size="16" fill="#9CA3AF">窗口扩到 100 万：比例仍是 40%，智能区容量几乎没变，只是愚蠢区能装更多活</text>
+
+    <!-- quadratic curve -->
+    <text x="110" y="366" font-size="16" fill="#A78BFA">关系的二次方增长</text>
+    <line x1="110" y1="520" x2="590" y2="520" stroke="#9CA3AF" stroke-width="1.5"/>
+    <line x1="110" y1="520" x2="110" y2="380" stroke="#9CA3AF" stroke-width="1.5"/>
+    <path d="M110,518 Q400,512 570,388" fill="none" stroke="#A78BFA" stroke-width="3"/>
+    <text x="570" y="540" font-size="13" fill="#9CA3AF" text-anchor="middle">token 数 →</text>
+    <text x="120" y="398" font-size="13" fill="#9CA3AF">关系数</text>
+    <text x="358" y="440" font-size="15" fill="#E5E7EB">100 token ≈ 5000 条关系</text>
+    <text x="358" y="464" font-size="15" fill="#9CA3AF">关系数 ∝ n²</text>
+
+    <!-- takeaways -->
+    <text x="650" y="366" font-size="18" fill="#A78BFA">三条推论</text>
+    <text x="650" y="402" font-size="16" fill="#E5E7EB">· 上下文越满，压力越大、输出越差</text>
+    <text x="650" y="436" font-size="16" fill="#E5E7EB">· 预训练知识像模糊 JPEG，不可靠</text>
+    <text x="650" y="470" font-size="16" fill="#E5E7EB">· 上下文里的原文才可靠——让它读文件</text>
+    <text x="650" y="504" font-size="16" fill="#E5E7EB">· 清空上下文 = 领域知识归零</text>
+  </g>
+</svg>
