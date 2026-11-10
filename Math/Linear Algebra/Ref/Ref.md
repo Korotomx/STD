@@ -29,6 +29,7 @@
 - [[25. Symmetric Matrices and Positive Definiteness]] — [[L23 对称矩阵与正定矩阵]]
 - [[26. Complex Matrices; Fast Fourier Transform]] — [[L24 复矩阵与快速傅里叶变换]]
 - [[27. Positive Definite Matrices and Minima]] — [[L25 正定矩阵与极小值]]
+- [[30. Linear Transformations and Their Matrices]] — [[L30 线性变换与矩阵表示]]
 - [[24b. Quiz 2 Review]] — 复习课，要点并入 [[Linear Algebra/Concentrated|Concentrated]]
 
 ## 18.06SC 习题课与短视频
@@ -59,6 +60,7 @@
 - [[Symmetric Matrices and Positive Definiteness]] — L23 习题课：正定⇒可逆、正定投影只有 $I$、对角正定、$\det>0$ 反例
 - [[Complex Matrices]] — L24 习题课：Hermitian 矩阵的特征值、特征向量与酉对角化
 - [[Positive Definite Matrices and Minima]] — L25
+- [[Linear Transformations]] — L30 习题课：转置 $T(A)=A^T$ 的线性性、两套基下的矩阵（置换矩阵 vs $\operatorname{diag}(1,1,1,-1)$）、特征值与逆
 - [[Exam 1 Problem Solving]] — 第一次考试讲评
 - [[Exam 2 Problem Solving]] — 第二次考试讲评，要点并入 [[Linear Algebra/Concentrated|Concentrated]]
 - [[Rec 1  MIT 18.085 Computational Science and Engineering I, Fall 2008]] — 拓展：工程中的线性代数
