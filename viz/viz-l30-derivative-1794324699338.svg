@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640">
+  <defs>
+    <marker id="arrowM" markerWidth="10" markerHeight="10" refX="8.5" refY="5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M1,1 L9,5 L1,9 Z" fill="#9CA3AF"/>
+    </marker>
+    <marker id="arrowAxis" markerWidth="10" markerHeight="10" refX="8.5" refY="5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M1,1 L9,5 L1,9 Z" fill="#4A4A5A"/>
+    </marker>
+    <clipPath id="plotClip">
+      <rect x="756" y="104" width="360" height="432"/>
+    </clipPath>
+  </defs>
+
+  <rect x="0" y="0" width="1280" height="640" fill="#131312"/>
+
+  <!-- panel divider -->
+  <line x1="628" y1="88" x2="628" y2="558" stroke="#2E2E2E" stroke-width="1"/>
+
+  <!-- panel titles -->
+  <text x="325" y="44" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="22" fill="#E5E7EB">系数向量 → 矩阵 → 系数向量</text>
+  <text x="936" y="44" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="22" fill="#E5E7EB">函数与它的导数</text>
+
+  <!-- ================= LEFT PANEL ================= -->
+
+  <!-- input vector c -->
+  <path d="M303,102 H295 V232 H303" fill="none" stroke="#E5E7EB" stroke-width="2"/>
+  <path d="M347,102 H355 V232 H347" fill="none" stroke="#E5E7EB" stroke-width="2"/>
+  <text x="325" y="130" text-anchor="middle" font-family="Cambria Math, STIX Two Math, Times New Roman, serif" font-style="italic" font-size="24" fill="#E5E7EB">c₁</text>
+  <text x="325" y="175" text-anchor="middle" font-family="Cambria Math, STIX Two Math, Times New Roman, serif" font-style="italic" font-size="24" fill="#E5E7EB">c₂</text>
+  <text x="325" y="220" text-anchor="middle" font-family="Cambria Math, STIX Two Math, Times New Roman, serif" font-style="italic" font-size="24" fill="#E5E7EB">c₃</text>
+  <text x="287" y="176" text-anchor="end" font-family="Cambria Math, STIX Two Math, Times New Roman, serif" font-style="italic" font-size="22" fill="#E5E7EB">c =</text>
+  <text x="373" y="176" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="18" fill="#9CA3AF">基 1, x, x²</text>
+
+  <!-- arrow into matrix -->
+  <line x1="325" y1="238" x2="325" y2="272" stroke="#9CA3AF" stroke-width="2" marker-end="url(#arrowM)"/>
+  <text x="340" y="262" font-family="Cambria Math, STIX Two Math, Times New Roman, serif" font-style="italic" font-size="17" fill="#9CA3AF">× A</text>
+
+  <!-- matrix A -->
+  <path d="M243,276 H235 V376 H243" fill="none" stroke="#A78BFA" stroke-width="2.5"/>
+  <path d="M407,276 H415 V376 H407" fill="none" stroke="#A78BFA" stroke-width="2.5"/>
+  <text x="260" y="310" text-anchor="middle" font-family="Cambria Math, STIX Two Math, Times New Roman, serif" font-size="26" fill="#A78BFA">0</text>
+  <text x="325" y="310" text-anchor="middle" font-family="Cambria Math, STIX Two Math, Times New Roman, serif" font-size="26" fill="#A78BFA">1</text>
+  <text x="390" y="310" text-anchor="middle" font-family="Cambria Math, STIX Two Math, Times New Roman, serif" font-size="26" fill="#A78BFA">0</text>
+  <text x="260" y="360" text-anchor="middle" font-family="Cambria Math, STIX Two Math, Times New Roman, serif" font-size="26" fill="#A78BFA">0</text>
+  <text x="325" y="360" text-anchor="middle" font-family="Cambria Math, STIX Two Math, Times New Roman, serif" font-size="26" fill="#A78BFA">0</text>
+  <text x="390" y="360" text-anchor="middle" font-family="Cambria Math, STIX Two Math, Times New Roman, serif" font-size="26" fill="#A78BFA">2</text>
+  <text x="228" y="334" text-anchor="end" font-family="Cambria Math, STIX Two Math, Times New Roman, serif" font-style="italic" font-size="20" fill="#A78BFA">A =</text>
+
+  <!-- arrow to output -->
+  <line x1="325" y1="382" x2="325" y2="424" stroke="#9CA3AF" stroke-width="2" marker-end="url(#arrowM)"/>
+
+  <!-- output vector -->
+  <path d="M303,432 H295 V512 H303" fill="none" stroke="#E5E7EB" stroke-width="2"/>
+  <path d="M347,432 H355 V512 H347" fill="none" stroke="#E5E7EB" stroke-width="2"/>
+  <text x="325" y="461" text-anchor="middle" font-family="Cambria Math, STIX Two Math, Times New Roman, serif" font-style="italic" font-size="24" fill="#E5E7EB">c₂</text>
+  <text x="325" y="506" text-anchor="middle" font-family="Cambria Math, STIX Two Math, Times New Roman, serif" font-style="italic" font-size="24" fill="#E5E7EB">2c₃</text>
+  <text x="287" y="506" text-anchor="end" font-family="Cambria Math, STIX Two Math, Times New Roman, serif" font-style="italic" font-size="22" fill="#E5E7EB">c′ =</text>
+  <text x="373" y="506" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="18" fill="#9CA3AF">基 1, x</text>
+
+  <!-- ================= RIGHT PANEL ================= -->
+
+  <!-- basis image note -->
+  <text x="756" y="78" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="16" fill="#9CA3AF">基的像：  1 → 0,   x → 1,   x² → 2x</text>
+
+  <!-- grid -->
+  <g stroke="#2E2E2E" stroke-width="1" stroke-dasharray="3 5" opacity="0.55">
+    <line x1="828" y1="104" x2="828" y2="536"/>
+    <line x1="972" y1="104" x2="972" y2="536"/>
+    <line x1="1044" y1="104" x2="1044" y2="536"/>
+    <line x1="1116" y1="104" x2="1116" y2="536"/>
+    <line x1="756" y1="464" x2="1116" y2="464"/>
+    <line x1="756" y1="320" x2="1116" y2="320"/>
+    <line x1="756" y1="248" x2="1116" y2="248"/>
+    <line x1="756" y1="176" x2="1116" y2="176"/>
+  </g>
+
+  <!-- axes -->
+  <line x1="740" y1="392" x2="1132" y2="392" stroke="#4A4A5A" stroke-width="1.5" marker-end="url(#arrowAxis)"/>
+  <line x1="900" y1="552" x2="900" y2="94" stroke="#4A4A5A" stroke-width="1.5" marker-end="url(#arrowAxis)"/>
+  <text x="1140" y="400" font-family="Cambria Math, STIX Two Math, Times New Roman, serif" font-style="italic" font-size="21" fill="#9CA3AF">x</text>
+  <text x="910" y="102" font-family="Cambria Math, STIX Two Math, Times New Roman, serif" font-style="italic" font-size="21" fill="#9CA3AF">y</text>
+
+  <!-- tick labels -->
+  <g font-family="Cambria Math, STIX Two Math, Times New Roman, serif" font-size="15" fill="#9CA3AF" text-anchor="middle">
+    <text x="756" y="414">−2</text>
+    <text x="828" y="414">−1</text>
+    <text x="972" y="414">1</text>
+    <text x="1044" y="414">2</text>
+    <text x="1116" y="414">3</text>
+  </g>
+  <g font-family="Cambria Math, STIX Two Math, Times New Roman, serif" font-size="15" fill="#9CA3AF" text-anchor="end">
+    <text x="886" y="541">−2</text>
+    <text x="886" y="469">−1</text>
+    <text x="886" y="325">1</text>
+    <text x="886" y="253">2</text>
+    <text x="886" y="181">3</text>
+    <text x="886" y="109">4</text>
+  </g>
+
+  <!-- curves -->
+  <g clip-path="url(#plotClip)">
+    <!-- f(x) = 1 - x + 0.5x^2, exact quadratic Bezier -->
+    <path d="M781.51,104 Q948.76,546.6 1116,212" fill="none" stroke="#9CA3AF" stroke-width="3" stroke-linecap="round"/>
+    <!-- f'(x) = x - 1 -->
+    <line x1="756" y1="608" x2="1116" y2="248" stroke="#A78BFA" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <!-- correspondence: vertex -> zero of f' -->
+  <line x1="972" y1="356" x2="972" y2="392" stroke="#A78BFA" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.9"/>
+  <circle cx="972" cy="356" r="4" fill="#E5E7EB"/>
+  <circle cx="972" cy="392" r="4.5" fill="#A78BFA"/>
+  <text x="962" y="384" text-anchor="end" font-family="Cambria Math, STIX Two Math, Times New Roman, serif" font-size="15" fill="#A78BFA">f′(1) = 0</text>
+
+  <!-- curve labels -->
+  <text x="1112" y="188" text-anchor="end" font-family="Cambria Math, STIX Two Math, Times New Roman, serif" font-style="italic" font-size="19" fill="#9CA3AF">f(x) = 1 − x + 0.5x²</text>
+  <text x="990" y="455" font-family="Cambria Math, STIX Two Math, Times New Roman, serif" font-style="italic" font-size="19" fill="#A78BFA">f′(x) = x − 1</text>
+
+  <!-- bottom note -->
+  <text x="640" y="606" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="15" fill="#9CA3AF">D(c₁ + c₂x + c₃x²) = c₂ + 2c₃x；矩阵的两列来自 D(x) = 1、D(x²) = 2x</text>
+</svg>

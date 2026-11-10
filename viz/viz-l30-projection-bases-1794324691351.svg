@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640">
+  <rect width="1280" height="640" fill="#131312"/>
+
+  <defs>
+    <marker id="arrowGray" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12"
+            viewBox="0 0 10 10" refX="10" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#9CA3AF"/>
+    </marker>
+    <marker id="arrowPurple" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12"
+            viewBox="0 0 10 10" refX="10" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#A78BFA"/>
+    </marker>
+  </defs>
+
+  <!-- ================= LEFT PANEL ================= -->
+  <g id="left-panel">
+    <rect x="50" y="100" width="520" height="460" fill="none" stroke="#2E2E2E" stroke-width="1.5"/>
+    <text x="50" y="76" fill="#E5E7EB" font-size="24" font-weight="600"
+          font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">标准基 e₁, e₂</text>
+
+    <!-- axes -->
+    <line x1="50" y1="330" x2="570" y2="330" stroke="#4A4A5A" stroke-width="1.5"/>
+    <line x1="310" y1="100" x2="310" y2="560" stroke="#4A4A5A" stroke-width="1.5"/>
+
+    <!-- line y = x -->
+    <line x1="127.6" y1="512.4" x2="522.8" y2="117.2" stroke="#A78BFA" stroke-width="3.5" stroke-linecap="round"/>
+
+    <!-- dashed projection guides -->
+    <line x1="386" y1="330" x2="348" y2="292" stroke="#9CA3AF" stroke-width="1.3" stroke-dasharray="6 6"/>
+    <line x1="310" y1="254" x2="348" y2="292" stroke="#9CA3AF" stroke-width="1.3" stroke-dasharray="6 6"/>
+    <line x1="462" y1="254" x2="424" y2="216" stroke="#9CA3AF" stroke-width="1.3" stroke-dasharray="6 6"/>
+
+    <!-- purple projections -->
+    <line x1="310" y1="330" x2="348" y2="292" stroke="#A78BFA" stroke-width="3" marker-end="url(#arrowPurple)"/>
+    <line x1="310" y1="330" x2="424" y2="216" stroke="#A78BFA" stroke-width="3" marker-end="url(#arrowPurple)"/>
+
+    <!-- gray basis / input vectors -->
+    <line x1="310" y1="330" x2="386" y2="330" stroke="#9CA3AF" stroke-width="2.5" marker-end="url(#arrowGray)"/>
+    <line x1="310" y1="330" x2="310" y2="254" stroke="#9CA3AF" stroke-width="2.5" marker-end="url(#arrowGray)"/>
+    <line x1="310" y1="330" x2="462" y2="254" stroke="#9CA3AF" stroke-width="2.5" marker-end="url(#arrowGray)"/>
+
+    <!-- projection point -->
+    <circle cx="348" cy="292" r="4.5" fill="#A78BFA"/>
+
+    <!-- vector labels -->
+    <text x="394" y="354" fill="#E5E7EB" font-size="19"
+          font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">e₁</text>
+    <text x="296" y="250" text-anchor="end" fill="#E5E7EB" font-size="19"
+          font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">e₂</text>
+    <text x="472" y="244" fill="#E5E7EB" font-size="19"
+          font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">w</text>
+    <text x="412" y="206" text-anchor="end" fill="#A78BFA" font-size="19"
+          font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">T(w)</text>
+
+    <!-- matrix block -->
+    <text x="70" y="178" fill="#E5E7EB" font-size="22"
+          font-family="Noto Sans Mono CJK SC, monospace">P =</text>
+    <path d="M120,146 L112,146 L112,204 L120,204" fill="none" stroke="#E5E7EB" stroke-width="1.8"/>
+    <path d="M230,146 L238,146 L238,204 L230,204" fill="none" stroke="#E5E7EB" stroke-width="1.8"/>
+    <text x="149" y="173" text-anchor="middle" fill="#E5E7EB" font-size="20"
+          font-family="Noto Sans Mono CJK SC, monospace">½</text>
+    <text x="201" y="173" text-anchor="middle" fill="#E5E7EB" font-size="20"
+          font-family="Noto Sans Mono CJK SC, monospace">½</text>
+    <text x="149" y="199" text-anchor="middle" fill="#E5E7EB" font-size="20"
+          font-family="Noto Sans Mono CJK SC, monospace">½</text>
+    <text x="201" y="199" text-anchor="middle" fill="#E5E7EB" font-size="20"
+          font-family="Noto Sans Mono CJK SC, monospace">½</text>
+    <text x="175" y="236" text-anchor="middle" fill="#9CA3AF" font-size="15"
+          font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">标准基矩阵</text>
+    <text x="70" y="264" fill="#9CA3AF" font-size="14"
+          font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">P(e₁) = P(e₂) = (½, ½)</text>
+  </g>
+
+  <!-- ================= RIGHT PANEL ================= -->
+  <g id="right-panel">
+    <rect x="710" y="100" width="520" height="460" fill="none" stroke="#2E2E2E" stroke-width="1.5"/>
+    <text x="710" y="76" fill="#E5E7EB" font-size="24" font-weight="600"
+          font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">特征基 v₁, v₂</text>
+
+    <!-- axes -->
+    <line x1="710" y1="330" x2="1230" y2="330" stroke="#4A4A5A" stroke-width="1.5"/>
+    <line x1="970" y1="100" x2="970" y2="560" stroke="#4A4A5A" stroke-width="1.5"/>
+
+    <!-- line y = x -->
+    <line x1="787.6" y1="512.4" x2="1182.8" y2="117.2" stroke="#A78BFA" stroke-width="3.5" stroke-linecap="round"/>
+
+    <!-- dashed projection guide for w -->
+    <line x1="1122" y1="254" x2="1084" y2="216" stroke="#9CA3AF" stroke-width="1.3" stroke-dasharray="6 6"/>
+
+    <!-- purple projections: T(w) -->
+    <line x1="970" y1="330" x2="1084" y2="216" stroke="#A78BFA" stroke-width="3" marker-end="url(#arrowPurple)"/>
+
+    <!-- T(v1) = v1: purple underlay, gray arrow on top to show they coincide -->
+    <line x1="970" y1="330" x2="1023.74" y2="276.26" stroke="#A78BFA" stroke-width="7.5" marker-end="url(#arrowPurple)"/>
+    <line x1="970" y1="330" x2="1023.74" y2="276.26" stroke="#9CA3AF" stroke-width="2.5" marker-end="url(#arrowGray)"/>
+
+    <!-- gray vectors v2, w -->
+    <line x1="970" y1="330" x2="1023.74" y2="383.74" stroke="#9CA3AF" stroke-width="2.5" marker-end="url(#arrowGray)"/>
+    <line x1="970" y1="330" x2="1122" y2="254" stroke="#9CA3AF" stroke-width="2.5" marker-end="url(#arrowGray)"/>
+
+    <!-- T(v2) = 0 -->
+    <circle cx="970" cy="330" r="5.5" fill="#A78BFA"/>
+
+    <!-- vector labels -->
+    <text x="1038" y="397" fill="#E5E7EB" font-size="19"
+          font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">v₂</text>
+    <text x="1132" y="244" fill="#E5E7EB" font-size="19"
+          font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">w</text>
+    <text x="1080" y="196" text-anchor="end" fill="#A78BFA" font-size="19"
+          font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">T(w)</text>
+    <text x="985" y="285" transform="rotate(-45 985 285)" fill="#A78BFA" font-size="18"
+          font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">T(v₁) = v₁</text>
+    <text x="955" y="408" text-anchor="middle" fill="#A78BFA" font-size="18"
+          font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">T(v₂) = 0</text>
+
+    <!-- matrix block -->
+    <text x="730" y="178" fill="#E5E7EB" font-size="22"
+          font-family="Noto Sans Mono CJK SC, monospace">D =</text>
+    <path d="M780,146 L772,146 L772,204 L780,204" fill="none" stroke="#E5E7EB" stroke-width="1.8"/>
+    <path d="M890,146 L898,146 L898,204 L890,204" fill="none" stroke="#E5E7EB" stroke-width="1.8"/>
+    <text x="809" y="173" text-anchor="middle" fill="#E5E7EB" font-size="20"
+          font-family="Noto Sans Mono CJK SC, monospace">1</text>
+    <text x="861" y="173" text-anchor="middle" fill="#E5E7EB" font-size="20"
+          font-family="Noto Sans Mono CJK SC, monospace">0</text>
+    <text x="809" y="199" text-anchor="middle" fill="#E5E7EB" font-size="20"
+          font-family="Noto Sans Mono CJK SC, monospace">0</text>
+    <text x="861" y="199" text-anchor="middle" fill="#E5E7EB" font-size="20"
+          font-family="Noto Sans Mono CJK SC, monospace">0</text>
+    <text x="835" y="236" text-anchor="middle" fill="#9CA3AF" font-size="15"
+          font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">特征基矩阵</text>
+    <text x="730" y="264" fill="#9CA3AF" font-size="14"
+          font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">T(v₁) = v₁,  T(v₂) = 0</text>
+  </g>
+
+  <!-- caption -->
+  <text x="640" y="614" text-anchor="middle" fill="#9CA3AF" font-size="15"
+        font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">同一个投影，换一组基，矩阵从稠密变对角；变换本身没有变。</text>
+</svg>
