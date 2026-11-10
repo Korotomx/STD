@@ -64,8 +64,49 @@
 - 这就是状态机的核心约束：下一状态只由 $\delta(\text{当前状态},\ \text{当前输入})$ 决定，过去的影响全部藏在当前状态里。
 - 奇偶例子：前缀 `101` 和 `1` 都含奇数个 1，之后无论接什么，最终奇偶都一致——它们是同一个状态。历史条数无限，状态数只要 2。
 
+历史条数无限，状态只留两种：
+
+```mermaid
+%%{init: {'theme':'base','themeCSS':'.nodeLabel{color:#E5E7EB!important;fill:#E5E7EB!important}.edgeLabel p{background-color:#131312!important}.edgeLabel{color:#E5E7EB!important}svg{background:transparent!important}','themeVariables':{'primaryColor':'#1E1E2E','primaryTextColor':'#E5E7EB','primaryBorderColor':'#A78BFA','lineColor':'#9CA3AF','mainBkg':'#1E1E2E','nodeBorder':'#A78BFA','clusterBkg':'#131312','clusterBorder':'#3A3A4A','edgeLabelBackground':'#131312','noteBkgColor':'#1E1E2E','noteBorderColor':'#A78BFA','stateBkg':'#1E1E2E','stateBorder':'#A78BFA','fontFamily':'Noto Sans CJK SC, sans-serif'}}}%%
+graph LR
+  subgraph H["历史（无限多条）"]
+    h1["0"]
+    h2["11"]
+    h3["101"]
+    h4["1"]
+    h5["10"]
+    h6["111"]
+  end
+  subgraph S["状态（只有两种）"]
+    e(((偶数个 1)))
+    o(((奇数个 1)))
+  end
+  h1 --> e
+  h2 --> e
+  h3 --> e
+  h4 --> o
+  h5 --> o
+  h6 --> o
+classDef default fill:#1E1E2E,stroke:#A78BFA,stroke-width:1.5px,color:#E5E7EB
+linkStyle default stroke:#9CA3AF
+```
+
 > [!success] ✓ 正确
 > 合并的判据只看未来：对任意后续输入，两个历史的接受结果必须完全一致。长度、1 的个数都只是表面特征，不构成合并的理由。
+
+压缩后的机器只有两个状态：
+
+```mermaid
+%%{init: {'theme':'base','themeCSS':'.nodeLabel{color:#E5E7EB!important;fill:#E5E7EB!important}.edgeLabel p{background-color:#131312!important}.edgeLabel{color:#E5E7EB!important}svg{background:transparent!important}','themeVariables':{'primaryColor':'#1E1E2E','primaryTextColor':'#E5E7EB','primaryBorderColor':'#A78BFA','lineColor':'#9CA3AF','mainBkg':'#1E1E2E','nodeBorder':'#A78BFA','clusterBkg':'#131312','clusterBorder':'#3A3A4A','edgeLabelBackground':'#131312','noteBkgColor':'#1E1E2E','noteBorderColor':'#A78BFA','stateBkg':'#1E1E2E','stateBorder':'#A78BFA','fontFamily':'Noto Sans CJK SC, sans-serif'}}}%%
+graph LR
+  start(( )) --> e(((q0 偶数)))
+  e -->|0| e
+  e -->|1| o(((奇数)))
+  o -->|0| o
+  o -->|1| e
+classDef default fill:#1E1E2E,stroke:#A78BFA,stroke-width:1.5px,color:#E5E7EB
+linkStyle default stroke:#9CA3AF
+```
 
 ## 2. 五元组与图表示
 
@@ -82,6 +123,16 @@ $$
 - $F \subseteq Q$：终态集合，可以多个，也可以是空集
 
 图的画法：顶点是状态，边是转移、标签是输入符号；初态用一根没有起点的入箭头标出，终态画双圈。
+
+```mermaid
+%%{init: {'theme':'base','themeCSS':'.nodeLabel{color:#E5E7EB!important;fill:#E5E7EB!important}.edgeLabel p{background-color:#131312!important}.edgeLabel{color:#E5E7EB!important}svg{background:transparent!important}','themeVariables':{'primaryColor':'#1E1E2E','primaryTextColor':'#E5E7EB','primaryBorderColor':'#A78BFA','lineColor':'#9CA3AF','mainBkg':'#1E1E2E','nodeBorder':'#A78BFA','clusterBkg':'#131312','clusterBorder':'#3A3A4A','edgeLabelBackground':'#131312','noteBkgColor':'#1E1E2E','noteBorderColor':'#A78BFA','stateBkg':'#1E1E2E','stateBorder':'#A78BFA','fontFamily':'Noto Sans CJK SC, sans-serif'}}}%%
+graph LR
+  start(( )) --> q0((q0))
+  q0 -->|a| q1(((q1 终)))
+  q1 -->|b| q0
+classDef default fill:#1E1E2E,stroke:#A78BFA,stroke-width:1.5px,color:#E5E7EB
+linkStyle default stroke:#9CA3AF
+```
 
 **接受的定义**：读完整条输入串后，停在 $F$ 里的状态就接受，否则拒绝。注意判据是「读完时的状态」，不是「途中经过过终态」。
 
@@ -217,6 +268,22 @@ linkStyle default stroke:#9CA3AF
 
 术语：**DFA** = deterministic finite automaton，确定有限自动机，就是上面这种「每个格子恰好一个状态」的机器；**NFA** = nondeterministic finite automaton，非确定有限自动机，允许同一状态同一符号有多个目标，或允许 $\varepsilon$ 边（不读输入也能跳）。
 
+```mermaid
+%%{init: {'theme':'base','themeCSS':'.nodeLabel{color:#E5E7EB!important;fill:#E5E7EB!important}.edgeLabel p{background-color:#131312!important}.edgeLabel{color:#E5E7EB!important}svg{background:transparent!important}','themeVariables':{'primaryColor':'#1E1E2E','primaryTextColor':'#E5E7EB','primaryBorderColor':'#A78BFA','lineColor':'#9CA3AF','mainBkg':'#1E1E2E','nodeBorder':'#A78BFA','clusterBkg':'#131312','clusterBorder':'#3A3A4A','edgeLabelBackground':'#131312','noteBkgColor':'#1E1E2E','noteBorderColor':'#A78BFA','stateBkg':'#1E1E2E','stateBorder':'#A78BFA','fontFamily':'Noto Sans CJK SC, sans-serif'}}}%%
+graph LR
+  subgraph D["DFA：每个格子一个目标"]
+    d0((q0)) -->|A| d1((q1))
+    d0 -->|B| d2((q2))
+  end
+  subgraph N["NFA：同一格两个目标"]
+    n0((q0)) -->|A| n1((q1))
+    n0 -->|A| n2((q2))
+  end
+  d0 ~~~ n0
+classDef default fill:#1E1E2E,stroke:#A78BFA,stroke-width:1.5px,color:#E5E7EB
+linkStyle default stroke:#9CA3AF
+```
+
 > [!question] 一台机器的 `q0` 有两条 `A` 出边，分别指向 `q1` 和 `q2`。它是 DFA 吗？
 > - A：是，状态数仍然有限
 > - B：是，只要一个目标能到终态
@@ -251,6 +318,26 @@ linkStyle default stroke:#9CA3AF
 | $s_2$ | $s_0$ | $s_3$ |
 | $s_3$ | $s_2$ | $s_4$ |
 | $s_4$（终） | $s_2$ | $s_1$ |
+
+同一张表的图形版：
+
+```mermaid
+%%{init: {'theme':'base','themeCSS':'.nodeLabel{color:#E5E7EB!important;fill:#E5E7EB!important}.edgeLabel p{background-color:#131312!important}.edgeLabel{color:#E5E7EB!important}svg{background:transparent!important}','themeVariables':{'primaryColor':'#1E1E2E','primaryTextColor':'#E5E7EB','primaryBorderColor':'#A78BFA','lineColor':'#9CA3AF','mainBkg':'#1E1E2E','nodeBorder':'#A78BFA','clusterBkg':'#131312','clusterBorder':'#3A3A4A','edgeLabelBackground':'#131312','noteBkgColor':'#1E1E2E','noteBorderColor':'#A78BFA','stateBkg':'#1E1E2E','stateBorder':'#A78BFA','fontFamily':'Noto Sans CJK SC, sans-serif'}}}%%
+graph LR
+  start(( )) --> s0((s0))
+  s0 -->|0| s0
+  s0 -->|1| s1((s1))
+  s1 -->|0| s2((s2))
+  s1 -->|1| s1
+  s2 -->|0| s0
+  s2 -->|1| s3((s3))
+  s3 -->|0| s2
+  s3 -->|1| s4(((s4 终)))
+  s4 -->|0| s2
+  s4 -->|1| s1
+classDef default fill:#1E1E2E,stroke:#A78BFA,stroke-width:1.5px,color:#E5E7EB
+linkStyle default stroke:#9CA3AF
+```
 
 关键一行：$s_3 \xrightarrow{0} s_2$。读到 `1010` 时，末尾的 `10` 仍然是模式的合法开头，所以回 $s_2$ 而不是起点——**失配不等于清零**。
 
@@ -305,10 +392,40 @@ linkStyle default stroke:#9CA3AF
 
 ## 9. 和熵、压缩的关系
 
-和 [[信息论 熵与压缩]] 是同一套想法的两个方向：一个把**历史**压成状态，一个把**消息**压成比特。
+和 [[信息论 熵与压缩]] 是同一套想法的两个方向：一个把**历史**压成状态，一个把**消息**压成比特。两条流水线做的是同一个动作：
+
+```mermaid
+%%{init: {'theme':'base','themeCSS':'.nodeLabel{color:#E5E7EB!important;fill:#E5E7EB!important}.edgeLabel p{background-color:#131312!important}.edgeLabel{color:#E5E7EB!important}svg{background:transparent!important}','themeVariables':{'primaryColor':'#1E1E2E','primaryTextColor':'#E5E7EB','primaryBorderColor':'#A78BFA','lineColor':'#9CA3AF','mainBkg':'#1E1E2E','nodeBorder':'#A78BFA','clusterBkg':'#131312','clusterBorder':'#3A3A4A','edgeLabelBackground':'#131312','noteBkgColor':'#1E1E2E','noteBorderColor':'#A78BFA','stateBkg':'#1E1E2E','stateBorder':'#A78BFA','fontFamily':'Noto Sans CJK SC, sans-serif'}}}%%
+graph LR
+  subgraph A["状态机：压历史"]
+    a1["无限条历史"] --> a2["有限个状态"] --> a3["未来的接受/拒绝"]
+  end
+  subgraph B["压缩：压消息"]
+    b1["一条消息"] --> b2["前缀码"] --> b3["比特流"]
+  end
+  a1 ~~~ b1
+classDef default fill:#1E1E2E,stroke:#A78BFA,stroke-width:1.5px,color:#E5E7EB
+linkStyle default stroke:#9CA3AF
+```
 
 - **状态 = 充分统计量**。最小 DFA 合并「对未来没有区别」的历史；熵那边问「平均要多少 bit 描述一个随机结果」，这边问「要记住多少种历史才能不丢未来」。两者都只保留对后续有影响的部分。
 - **前缀码解码器就是有限状态机**。码树的内节点是状态，读一位走一条边，到叶子输出符号并回到根；「没有码字是另一个码字的前缀」等价于「码字都在叶子上」，所以解码不回溯。熵笔记里「长度 $L$ 的码字占 $2^{-L}$ 的概率空间」和 Kraft 不等式，说的就是这棵树的叶子预算。
+
+  月球机器人的码树（`up=0`、`down=10`、`left=110`、`right=111`）：
+
+```mermaid
+%%{init: {'theme':'base','themeCSS':'.nodeLabel{color:#E5E7EB!important;fill:#E5E7EB!important}.edgeLabel p{background-color:#131312!important}.edgeLabel{color:#E5E7EB!important}svg{background:transparent!important}','themeVariables':{'primaryColor':'#1E1E2E','primaryTextColor':'#E5E7EB','primaryBorderColor':'#A78BFA','lineColor':'#9CA3AF','mainBkg':'#1E1E2E','nodeBorder':'#A78BFA','clusterBkg':'#131312','clusterBorder':'#3A3A4A','edgeLabelBackground':'#131312','noteBkgColor':'#1E1E2E','noteBorderColor':'#A78BFA','stateBkg':'#1E1E2E','stateBorder':'#A78BFA','fontFamily':'Noto Sans CJK SC, sans-serif'}}}%%
+graph LR
+  root((根)) -->|0| up(((up)))
+  root -->|1| n1(( ))
+  n1 -->|0| down(((down)))
+  n1 -->|1| n2(( ))
+  n2 -->|0| left(((left)))
+  n2 -->|1| right(((right)))
+classDef default fill:#1E1E2E,stroke:#A78BFA,stroke-width:1.5px,color:#E5E7EB
+linkStyle default stroke:#9CA3AF
+```
+
 - **熵率需要状态**。语言有强上下文依赖，n-gram 模型的状态就是「最近 $n-1$ 个字符」；给状态配上转移概率，熵率 $H=\sum_s \pi(s)\,H(\text{next}\mid s)$ 就是每符号的平均信息量。LLM 的上下文是同一个角色的超大状态。
 - **不要直接等起来**。Shannon 熵是**分布**的平均不确定性；最小 DFA 的状态数是**语言**的结构复杂度，本身不带概率。给机器配上输入分布后，状态才成为随机变量，$\log_2 n$ 是它的上界（状态均匀时取等）。单条串的压缩对应的是 Kolmogorov 复杂度，不是 Shannon 熵。
 
