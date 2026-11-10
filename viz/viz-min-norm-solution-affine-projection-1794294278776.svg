@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="880" viewBox="0 0 1200 880">
+  <rect width="1200" height="880" fill="#0B0B0F"/>
+
+  <defs>
+    <marker id="arrowPurpleLight" viewBox="0 0 10 10" refX="9" refY="5"
+            markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#C4B5FD"/>
+    </marker>
+    <marker id="arrowPurple" viewBox="0 0 10 10" refX="9" refY="5"
+            markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#A78BFA"/>
+    </marker>
+  </defs>
+
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">
+
+    <!-- main title -->
+    <text x="600" y="52" text-anchor="middle" font-size="26" font-weight="600" fill="#E5E7EB">最小范数解：原点到仿射解集的垂足</text>
+
+    <!-- panel separators -->
+    <line x1="396" y1="100" x2="396" y2="700" stroke="#232329" stroke-width="1"/>
+    <line x1="786" y1="100" x2="786" y2="700" stroke="#232329" stroke-width="1"/>
+
+    <!-- ================= PANEL 1 ================= -->
+    <text x="200" y="112" text-anchor="middle" font-size="21.5" font-weight="600" fill="#E5E7EB">0 个自由参数　p = n</text>
+    <text x="200" y="140" text-anchor="middle" font-size="15.5" fill="#9CA3AF">解集退化为一个点 · 方差峰值</text>
+
+    <!-- axes -->
+    <line x1="100" y1="470" x2="305" y2="470" stroke="#2E2E2E" stroke-width="1.2" stroke-dasharray="5 5"/>
+    <line x1="190" y1="355" x2="190" y2="585" stroke="#2E2E2E" stroke-width="1.2" stroke-dasharray="5 5"/>
+
+    <!-- vector O -> w* -->
+    <line x1="190" y1="470" x2="282" y2="398" stroke="#A78BFA" stroke-width="2.6" stroke-linecap="round"/>
+    <circle cx="282" cy="398" r="7" fill="#A78BFA"/>
+    <circle cx="190" cy="470" r="6" fill="#22D3EE"/>
+    <text x="174" y="493" text-anchor="middle" font-size="17" fill="#22D3EE">O</text>
+    <text x="298" y="390" font-size="20" fill="#A78BFA">w*</text>
+
+    <!-- notes -->
+    <text x="200" y="632" text-anchor="middle" font-size="16" fill="#9CA3AF">唯一解：没有选择余地</text>
+    <text x="200" y="660" text-anchor="middle" font-size="16" fill="#9CA3AF">噪声被迫进入 w（方差峰值）</text>
+
+    <!-- ================= PANEL 2 ================= -->
+    <text x="590" y="112" text-anchor="middle" font-size="21.5" font-weight="600" fill="#E5E7EB">1 个自由参数　p = n + 1</text>
+    <text x="590" y="140" text-anchor="middle" font-size="15.5" fill="#9CA3AF">解集 = 一条不过原点的仿射线</text>
+
+    <!-- affine line: through F(605,385), direction (120,140); perpendicular from O(465,505) -->
+    <line x1="491.1" y1="252.1" x2="718.9" y2="517.9" stroke="#A78BFA" stroke-width="3" stroke-linecap="round"/>
+
+    <!-- solution dots at t = -145, -70, -30 -->
+    <circle cx="510.6" cy="274.9" r="4.6" fill="#A78BFA" opacity="0.9"/>
+    <circle cx="559.4" cy="331.8" r="4.6" fill="#A78BFA" opacity="0.9"/>
+    <circle cx="585.5" cy="362.2" r="4.6" fill="#A78BFA" opacity="0.9"/>
+
+    <!-- visible null-space direction arrow along the line -->
+    <line x1="634.3" y1="419.2" x2="679.8" y2="472.3" stroke="#C4B5FD" stroke-width="3" stroke-linecap="round" marker-end="url(#arrowPurpleLight)"/>
+    <text x="692" y="455" font-size="16" fill="#C4B5FD">N(X)</text>
+
+    <!-- perpendicular from O to the line -->
+    <line x1="465" y1="505" x2="605" y2="385" stroke="#22D3EE" stroke-width="2.6" stroke-linecap="round"/>
+
+    <!-- right angle mark at foot F -->
+    <path d="M591.33,396.71 L603.04,410.38 L616.71,398.67" fill="none" stroke="#22D3EE" stroke-width="2"/>
+
+    <!-- origin, foot, particular solution -->
+    <circle cx="465" cy="505" r="6.5" fill="#22D3EE"/>
+    <circle cx="605" cy="385" r="7" fill="#A78BFA"/>
+    <circle cx="536.7" cy="305.3" r="6.2" fill="#0B0B0F" stroke="#A78BFA" stroke-width="2.5"/>
+
+    <text x="447" y="529" text-anchor="middle" font-size="17" fill="#22D3EE">O</text>
+    <text x="626" y="359" font-size="20" fill="#A78BFA">w⁺</text>
+    <text x="626" y="379" font-size="13.5" fill="#9CA3AF">最小范数解</text>
+    <text x="550" y="293" font-size="16" fill="#A78BFA">w<tspan font-size="12" dy="4">p</tspan></text>
+
+    <text x="424" y="228" font-size="15.5" fill="#9CA3AF">所有解：Xw = y 相同</text>
+
+    <!-- notes -->
+    <text x="590" y="632" text-anchor="middle" font-size="16" fill="#9CA3AF">零空间方向 N(X)：沿直线移动不改变训练预测</text>
+    <text x="590" y="660" text-anchor="middle" font-size="16" fill="#9CA3AF">w⁺ = X⁺y：原点到直线的垂足，范数最小</text>
+
+    <!-- ================= PANEL 3 ================= -->
+    <text x="985" y="112" text-anchor="middle" font-size="21.5" font-weight="600" fill="#E5E7EB">2 个自由参数　p = n + 2</text>
+    <text x="985" y="140" text-anchor="middle" font-size="15.5" fill="#9CA3AF">解集 = 一个不过原点的仿射平面</text>
+
+    <!-- affine plane: center P(980,420), u=(120,0), v=(40,52) -->
+    <polygon points="820,368 1060,368 1140,472 900,472" fill="#A78BFA" fill-opacity="0.10" stroke="#A78BFA" stroke-width="2.4" stroke-linejoin="round"/>
+
+    <!-- in-plane basis arrows -->
+    <line x1="1004" y1="420" x2="1076" y2="420" stroke="#C4B5FD" stroke-width="2.8" stroke-linecap="round" marker-end="url(#arrowPurpleLight)"/>
+    <text x="1040" y="406" text-anchor="middle" font-size="15" fill="#C4B5FD">N(X)</text>
+    <line x1="980" y1="420" x2="1016.8" y2="467.8" stroke="#C4B5FD" stroke-width="2.8" stroke-linecap="round" marker-end="url(#arrowPurpleLight)"/>
+    <text x="1028" y="452" font-size="15" fill="#C4B5FD">N(X)</text>
+
+    <!-- perpendicular from O to plane center P -->
+    <line x1="980" y1="185" x2="980" y2="420" stroke="#22D3EE" stroke-width="2.6" stroke-linecap="round"/>
+
+    <!-- right angle mark at P -->
+    <path d="M980,402 L998,402 L998,420" fill="none" stroke="#22D3EE" stroke-width="2"/>
+
+    <!-- origin, foot, particular solution -->
+    <circle cx="980" cy="185" r="6.5" fill="#22D3EE"/>
+    <circle cx="980" cy="420" r="7" fill="#A78BFA"/>
+    <circle cx="908" cy="420" r="6.2" fill="#0B0B0F" stroke="#A78BFA" stroke-width="2.5"/>
+
+    <text x="960" y="190" text-anchor="end" font-size="17" fill="#22D3EE">O</text>
+    <text x="962" y="414" text-anchor="end" font-size="19" fill="#A78BFA">w⁺</text>
+    <text x="908" y="443" text-anchor="middle" font-size="16" fill="#A78BFA">w<tspan font-size="12" dy="4">p</tspan></text>
+
+    <!-- notes -->
+    <text x="985" y="632" text-anchor="middle" font-size="16" fill="#9CA3AF">自由度越多，解集越大</text>
+    <text x="985" y="660" text-anchor="middle" font-size="16" fill="#9CA3AF">最小范数解仍是原点到解集的垂足</text>
+
+    <!-- ================= BOTTOM STRIP ================= -->
+    <rect x="140" y="744" width="920" height="86" rx="14" fill="#121218" stroke="#2A2A33" stroke-width="1.2"/>
+    <line x1="360" y1="766" x2="360" y2="808" stroke="#2A2A33" stroke-width="1"/>
+    <line x1="540" y1="766" x2="540" y2="808" stroke="#2A2A33" stroke-width="1"/>
+
+    <text x="190" y="797" font-size="26" font-weight="600" fill="#A78BFA">w⁺ = X⁺y</text>
+    <text x="398" y="796" font-size="20" fill="#22D3EE">w⁺ ⟂ N(X)</text>
+    <text x="566" y="796" font-size="16.5" fill="#9CA3AF">训练误差都为 0；区别只在 ‖w‖ 和测试表现</text>
+  </g>
+</svg>

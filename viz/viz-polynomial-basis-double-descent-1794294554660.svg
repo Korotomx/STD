@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="640" viewBox="0 0 1000 640">
+  <rect width="1000" height="640" fill="#0B0B0F"/>
+
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">
+    <!-- Title -->
+    <text x="70" y="48" font-size="26" font-weight="700" fill="#E5E7EB">Same 5 points, different basis: different fate</text>
+    <text x="70" y="80" font-size="16.5" fill="#9CA3AF">Legendre basis descends after the threshold; monomial basis does not</text>
+
+    <!-- Legend -->
+    <g font-size="15">
+      <line x1="70" y1="112" x2="110" y2="112" stroke="#A78BFA" stroke-width="3"/>
+      <circle cx="90" cy="112" r="4.5" fill="#A78BFA"/>
+      <text x="120" y="117" fill="#E5E7EB">Legendre basis (min coefficient L2)</text>
+
+      <line x1="430" y1="112" x2="470" y2="112" stroke="#22D3EE" stroke-width="3"/>
+      <circle cx="450" cy="112" r="4.5" fill="#22D3EE"/>
+      <text x="480" y="117" fill="#E5E7EB">Monomial basis (min coefficient L2)</text>
+    </g>
+
+    <!-- Horizontal grid -->
+    <g stroke="#2E2E2E" stroke-width="1" stroke-dasharray="5 7">
+      <line x1="110" y1="227.5" x2="940" y2="227.5"/>
+      <line x1="110" y1="331.7" x2="940" y2="331.7"/>
+      <line x1="110" y1="435.8" x2="940" y2="435.8"/>
+    </g>
+
+    <!-- Axes -->
+    <line x1="110" y1="540" x2="940" y2="540" stroke="#6B7280" stroke-width="2"/>
+    <line x1="110" y1="165" x2="110" y2="540" stroke="#6B7280" stroke-width="2"/>
+
+    <!-- Y ticks and labels -->
+    <g stroke="#6B7280" stroke-width="1.5">
+      <line x1="104" y1="540" x2="110" y2="540"/>
+      <line x1="104" y1="435.8" x2="110" y2="435.8"/>
+      <line x1="104" y1="331.7" x2="110" y2="331.7"/>
+      <line x1="104" y1="227.5" x2="110" y2="227.5"/>
+    </g>
+    <g font-size="15" fill="#9CA3AF" text-anchor="end" dominant-baseline="middle">
+      <text x="96" y="540">0</text>
+      <text x="96" y="435.8">0.1</text>
+      <text x="96" y="331.7">0.2</text>
+      <text x="96" y="227.5">0.3</text>
+    </g>
+
+    <!-- X ticks and labels -->
+    <g stroke="#6B7280" stroke-width="1.5">
+      <line x1="125" y1="540" x2="125" y2="546"/>
+      <line x1="214.4" y1="540" x2="214.4" y2="546"/>
+      <line x1="303.9" y1="540" x2="303.9" y2="546"/>
+      <line x1="393.3" y1="540" x2="393.3" y2="546"/>
+      <line x1="482.8" y1="540" x2="482.8" y2="546"/>
+      <line x1="572.2" y1="540" x2="572.2" y2="546"/>
+      <line x1="661.7" y1="540" x2="661.7" y2="546"/>
+      <line x1="751.1" y1="540" x2="751.1" y2="546"/>
+      <line x1="840.6" y1="540" x2="840.6" y2="546"/>
+      <line x1="930" y1="540" x2="930" y2="546"/>
+    </g>
+    <g font-size="15" fill="#9CA3AF" text-anchor="middle">
+      <text x="125" y="568">1</text>
+      <text x="214.4" y="568">2</text>
+      <text x="303.9" y="568">3</text>
+      <text x="393.3" y="568">4</text>
+      <text x="482.8" y="568">5</text>
+      <text x="572.2" y="568">6</text>
+      <text x="661.7" y="568">7</text>
+      <text x="751.1" y="568">8</text>
+      <text x="840.6" y="568">9</text>
+      <text x="930" y="568">10</text>
+    </g>
+
+    <!-- Axis titles -->
+    <text x="525" y="606" font-size="16" fill="#9CA3AF" text-anchor="middle">Polynomial degree d</text>
+    <text x="42" y="352" font-size="16" fill="#9CA3AF" text-anchor="middle" transform="rotate(-90 42 352)">Test MSE</text>
+
+    <!-- Threshold line -->
+    <line x1="393.3" y1="165" x2="393.3" y2="540" stroke="#6B7280" stroke-width="1.5" stroke-dasharray="7 6"/>
+    <text x="406" y="188" font-size="15.5" fill="#9CA3AF">Interpolation threshold p = n = 5</text>
+
+    <!-- Shared segment d=1..4: purple solid with cyan dashed overlay -->
+    <path d="M 125,398 L 214.4,519.6 L 303.9,500.9 L 393.3,359.5"
+          fill="none" stroke="#A78BFA" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M 125,398 L 214.4,519.6 L 303.9,500.9 L 393.3,359.5"
+          fill="none" stroke="#22D3EE" stroke-width="3" stroke-dasharray="7 8" stroke-linejoin="round" stroke-linecap="round"/>
+
+    <!-- Monomial d=4..10 -->
+    <path d="M 393.3,359.5 L 482.8,357.1 L 572.2,302.2 L 661.7,299.7 L 751.1,244.0 L 840.6,241.7 L 930,189.1"
+          fill="none" stroke="#22D3EE" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+
+    <!-- Legendre d=4..10 -->
+    <path d="M 393.3,359.5 L 482.8,360.3 L 572.2,422.7 L 661.7,425.5 L 751.1,429.1 L 840.6,432.6 L 930,438.8"
+          fill="none" stroke="#A78BFA" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+
+    <!-- Monomial markers d=5..10 -->
+    <g fill="#22D3EE">
+      <circle cx="482.8" cy="357.1" r="4.5"/>
+      <circle cx="572.2" cy="302.2" r="4.5"/>
+      <circle cx="661.7" cy="299.7" r="4.5"/>
+      <circle cx="751.1" cy="244.0" r="4.5"/>
+      <circle cx="840.6" cy="241.7" r="4.5"/>
+      <circle cx="930" cy="189.1" r="4.5"/>
+    </g>
+
+    <!-- Legendre markers d=5..10 -->
+    <g fill="#A78BFA">
+      <circle cx="482.8" cy="360.3" r="4.5"/>
+      <circle cx="572.2" cy="422.7" r="4.5"/>
+      <circle cx="661.7" cy="425.5" r="4.5"/>
+      <circle cx="751.1" cy="429.1" r="4.5"/>
+      <circle cx="840.6" cy="432.6" r="4.5"/>
+      <circle cx="930" cy="438.8" r="4.5"/>
+    </g>
+
+    <!-- Shared markers d=1..4 -->
+    <g fill="#A78BFA" stroke="#22D3EE" stroke-width="2">
+      <circle cx="125" cy="398" r="5"/>
+      <circle cx="214.4" cy="519.6" r="5"/>
+      <circle cx="303.9" cy="500.9" r="5"/>
+      <circle cx="393.3" cy="359.5" r="6"/>
+    </g>
+
+    <!-- End value labels -->
+    <text x="922" y="176" font-size="13" fill="#22D3EE" text-anchor="end">0.3369</text>
+    <text x="922" y="456" font-size="13" fill="#A78BFA" text-anchor="end">0.0972</text>
+
+    <!-- Annotations -->
+    <text x="130" y="196" font-size="15.5" fill="#9CA3AF">d ≤ 4: bases equivalent</text>
+    <text x="130" y="220" font-size="15.5" fill="#9CA3AF">(unique solution)</text>
+    <text x="585" y="490" font-size="15.5" fill="#9CA3AF">d &gt; 4: non-unique solutions;</text>
+    <text x="585" y="514" font-size="15.5" fill="#9CA3AF">basis decides which one</text>
+  </g>
+</svg>
