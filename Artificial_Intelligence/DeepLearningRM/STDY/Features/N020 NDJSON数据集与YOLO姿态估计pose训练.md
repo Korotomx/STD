@@ -1,5 +1,7 @@
 Ultralytics 的 `model.train()` 只写想改的参数，其余全从 `default.yaml` 继承；真正的坑不在默认值，而在参数耦合（auto 优化器忽略 lr0、batch 触发梯度累积、pose 的翻转被自动关闭）。这篇先讲 NDJSON 数据集和 pose 训练，再把训练参数按组过一遍。
 
+> 材料：[[安装 Ultralytics  Ultralytics 文档]]、[[YOLO Python 用法  Ultralytics 文档]]
+
 ## NDJSON 数据集
 
 `groundzero/traffic-signs.ndjson` 是「交通标志朝向」数据集（左/右/上/下箭头 + 停 + 限速），每行一个 JSON，两种 `type`：

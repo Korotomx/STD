@@ -1,5 +1,7 @@
 有限状态机把「已经收到什么」记成一个状态，用带标签的有向边表示下一个输入如何改变状态。
 
+> 材料：[[Introduction to Finite State Machine Theory]]（视频转录）
+
 ## 探针：正则语义
 
 > [!question] (AB)* 定义的语言是下面哪一个集合？

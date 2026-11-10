@@ -14,7 +14,7 @@ L24 用的是 Strang 的共轭约定 $W=e^{+2\pi i/N}$；两边公式结构相�
 
 ## 另一条入口：从多项式乘法发现 FFT
 
-> 参考：Reducible《The Fast Fourier Transform (FFT) — Most Ingenious Algorithm Ever》（YouTube `h7apO7q16V0`），转录见 [[The Fast Fourier Transform (FFT) Most Ingenious Algorithm Ever 1]]。
+> 参考：Reducible《The Fast Fourier Transform (FFT) — Most Ingenious Algorithm Ever》（YouTube `h7apO7q16V0`），转录见 [[The Fast Fourier Transform (FFT) Most Ingenious Algorithm Ever 1]]；同一个递归的逐步展开见 [[FFT Example Unraveling the Recursion]]。
 
 这条线和本笔记的信号视角是同一件事：$x=(x_0,\ldots,x_{N-1})$ 既是采样，也是多项式
 
