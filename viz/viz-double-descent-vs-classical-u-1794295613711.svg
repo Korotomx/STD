@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="680" viewBox="0 0 1100 680" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">
+  <rect x="0" y="0" width="1100" height="680" fill="#0B0B0F"/>
+
+  <!-- axes -->
+  <g stroke="#9CA3AF" stroke-width="1.8" fill="none" stroke-linecap="round">
+    <line x1="100" y1="560" x2="1032" y2="560"/>
+    <line x1="100" y1="560" x2="100" y2="118"/>
+  </g>
+  <polygon points="1042,560 1026,554 1026,566" fill="#9CA3AF"/>
+  <polygon points="100,108 94,124 106,124" fill="#9CA3AF"/>
+
+  <!-- x ticks -->
+  <g stroke="#6B7280" stroke-width="1.6">
+    <line x1="270" y1="560" x2="270" y2="568"/>
+    <line x1="870" y1="560" x2="870" y2="568"/>
+  </g>
+  <line x1="578" y1="560" x2="578" y2="568" stroke="#22D3EE" stroke-width="1.6" opacity="0.9"/>
+
+  <!-- interpolation threshold guide -->
+  <line x1="578" y1="560" x2="578" y2="161" stroke="#22D3EE" stroke-width="2" stroke-dasharray="6 6" opacity="0.85"/>
+
+  <!-- classical bias-variance U (dashed) -->
+  <path d="M 100.0,184.0 C 110.0,196.0 140.8,233.7 160.0,256.0 C 179.2,278.3 198.0,299.5 215.0,318.0 C 232.0,336.5 246.0,354.3 262.0,367.0 C 278.0,379.7 295.5,389.2 311.0,394.0 C 326.5,398.8 340.2,398.0 355.0,396.0 C 369.8,394.0 382.5,389.3 400.0,382.0 C 417.5,374.7 440.0,363.0 460.0,352.0 C 480.0,341.0 500.3,327.3 520.0,316.0 C 539.7,304.7 556.3,295.0 578.0,284.0 C 599.7,273.0 623.0,260.3 650.0,250.0 C 677.0,239.7 710.0,229.5 740.0,222.0 C 770.0,214.5 800.0,209.7 830.0,205.0 C 860.0,200.3 888.3,197.3 920.0,194.0 C 951.7,190.7 1003.3,186.5 1020.0,185.0"
+        fill="none" stroke="#9CA3AF" stroke-width="2" stroke-dasharray="9 8" stroke-linecap="round" opacity="0.85"/>
+
+  <!-- double descent curve -->
+  <path d="M 100.0,190.0 C 109.2,202.0 136.7,239.5 155.0,262.0 C 173.3,284.5 192.2,306.2 210.0,325.0 C 227.8,343.8 245.2,362.2 262.0,375.0 C 278.8,387.8 295.5,399.5 311.0,402.0 C 326.5,404.5 338.5,398.3 355.0,390.0 C 371.5,381.7 393.3,367.0 410.0,352.0 C 426.7,337.0 440.8,317.0 455.0,300.0 C 469.2,283.0 482.5,264.7 495.0,250.0 C 507.5,235.3 519.8,222.0 530.0,212.0 C 540.2,202.0 549.3,196.7 556.0,190.0 C 562.7,183.3 566.3,177.0 570.0,172.0 C 573.7,167.0 576.7,162.0 578.0,160.0"
+        fill="none" stroke="#A78BFA" stroke-width="3.4" stroke-linecap="round"/>
+  <path d="M 578.0,160.0 C 579.5,164.3 583.3,175.7 587.0,186.0 C 590.7,196.3 593.7,207.7 600.0,222.0 C 606.3,236.3 615.8,257.7 625.0,272.0 C 634.2,286.3 640.8,295.0 655.0,308.0 C 669.2,321.0 690.8,336.7 710.0,350.0 C 729.2,363.3 751.7,377.0 770.0,388.0 C 788.3,399.0 806.0,409.0 820.0,416.0 C 834.0,423.0 839.8,428.7 854.0,430.0 C 868.2,431.3 887.3,427.7 905.0,424.0 C 922.7,420.3 940.8,412.7 960.0,408.0 C 979.2,403.3 1010.0,398.0 1020.0,396.0"
+        fill="none" stroke="#A78BFA" stroke-width="3.4" stroke-linecap="round"/>
+
+  <!-- region labels -->
+  <text x="240" y="80" font-size="19" fill="#9CA3AF" text-anchor="middle">欠拟合 / 偏差主导</text>
+  <text x="578" y="80" font-size="19" fill="#9CA3AF" text-anchor="middle">方差峰值</text>
+  <text x="860" y="80" font-size="19" fill="#9CA3AF" text-anchor="middle">过参数化 / 多解 + 最小范数</text>
+
+  <!-- annotations on the curve -->
+  <line x1="262" y1="470" x2="278" y2="386" stroke="#6B7280" stroke-width="1.2"/>
+  <circle cx="278" cy="386" r="2.5" fill="#E5E7EB"/>
+  <text x="118" y="480" font-size="17" fill="#E5E7EB">第一次下降：偏差降</text>
+
+  <line x1="760" y1="468" x2="790" y2="398" stroke="#6B7280" stroke-width="1.2"/>
+  <circle cx="790" cy="398" r="2.5" fill="#E5E7EB"/>
+  <text x="688" y="480" font-size="17" fill="#E5E7EB">第二次下降：方差回落</text>
+
+  <!-- threshold label -->
+  <text x="556" y="520" font-size="17" fill="#22D3EE" text-anchor="end">插值阈值 p = n</text>
+
+  <!-- curve labels -->
+  <text x="1024" y="148" font-size="17" fill="#9CA3AF" text-anchor="end">经典偏差-方差 U 形</text>
+  <text x="1028" y="448" font-size="17" fill="#A78BFA" text-anchor="end">双下降</text>
+
+  <!-- axis titles -->
+  <text x="560" y="650" font-size="20" fill="#E5E7EB" text-anchor="middle">模型容量（参数数 / 有效复杂度）</text>
+  <text x="52" y="340" font-size="20" fill="#E5E7EB" text-anchor="middle" transform="rotate(-90 52 340)">测试误差</text>
+
+  <!-- tick labels -->
+  <text x="270" y="598" font-size="17" fill="#9CA3AF" text-anchor="middle">p &lt; n</text>
+  <text x="578" y="598" font-size="17" fill="#22D3EE" text-anchor="middle">p = n</text>
+  <text x="870" y="598" font-size="17" fill="#9CA3AF" text-anchor="middle">p &gt; n</text>
+</svg>

@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="600" viewBox="0 0 1000 600">
+  <rect x="0" y="0" width="1000" height="600" fill="#0B0B0F"/>
+
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">
+    <text x="60" y="48" font-size="26" font-weight="600" fill="#E5E7EB">Coefficient norm vs degree</text>
+    <text x="60" y="80" font-size="16" fill="#9CA3AF">Legendre min-norm shrinks after the threshold; monomial stays large</text>
+
+    <!-- horizontal gridlines at log ticks -->
+    <g stroke="#2E2E2E" stroke-width="1">
+      <line x1="100" y1="505.4" x2="950" y2="505.4"/>
+      <line x1="100" y1="409.4" x2="950" y2="409.4"/>
+      <line x1="100" y1="313.5" x2="950" y2="313.5"/>
+      <line x1="100" y1="257.3" x2="950" y2="257.3"/>
+      <line x1="100" y1="186.6" x2="950" y2="186.6"/>
+    </g>
+
+    <!-- axes -->
+    <g stroke="#6B7280" stroke-width="2">
+      <line x1="100" y1="140" x2="100" y2="520"/>
+      <line x1="100" y1="520" x2="950" y2="520"/>
+    </g>
+
+    <!-- y tick labels -->
+    <g font-size="16" fill="#9CA3AF" text-anchor="end">
+      <text x="88" y="511">0.5</text>
+      <text x="88" y="415">1</text>
+      <text x="88" y="319">2</text>
+      <text x="88" y="263">3</text>
+      <text x="88" y="192">5</text>
+    </g>
+
+    <!-- x tick labels -->
+    <g font-size="16" fill="#9CA3AF" text-anchor="middle">
+      <text x="100" y="546">1</text>
+      <text x="194.44" y="546">2</text>
+      <text x="288.89" y="546">3</text>
+      <text x="383.33" y="546">4</text>
+      <text x="477.78" y="546">5</text>
+      <text x="572.22" y="546">6</text>
+      <text x="666.67" y="546">7</text>
+      <text x="761.11" y="546">8</text>
+      <text x="855.56" y="546">9</text>
+      <text x="950" y="546">10</text>
+    </g>
+
+    <text x="525" y="578" font-size="18" fill="#E5E7EB" text-anchor="middle">Polynomial degree d</text>
+    <text x="42" y="330" font-size="18" fill="#E5E7EB" text-anchor="middle" transform="rotate(-90 42 330)">||w||₂ (log scale)</text>
+
+    <!-- threshold line -->
+    <line x1="383.33" y1="140" x2="383.33" y2="520" stroke="#9CA3AF" stroke-width="1.5" stroke-dasharray="6 5"/>
+    <text x="394" y="162" font-size="15" fill="#9CA3AF">Interpolation threshold p = n = 5</text>
+
+    <!-- Legendre series -->
+    <polyline points="100,491.7 194.44,408.5 288.89,403.3 383.33,344.1 477.78,344.1 572.22,399.2 666.67,399.4 761.11,399.5 855.56,400.5 950,405.5"
+              fill="none" stroke="#A78BFA" stroke-width="2.5" stroke-linejoin="round"/>
+    <g fill="#A78BFA">
+      <circle cx="100" cy="491.7" r="5.5"/>
+      <circle cx="194.44" cy="408.5" r="5.5"/>
+      <circle cx="288.89" cy="403.3" r="5.5"/>
+      <circle cx="383.33" cy="344.1" r="5.5"/>
+      <circle cx="477.78" cy="344.1" r="5.5"/>
+      <circle cx="572.22" cy="399.2" r="5.5"/>
+      <circle cx="666.67" cy="399.4" r="5.5"/>
+      <circle cx="761.11" cy="399.5" r="5.5"/>
+      <circle cx="855.56" cy="400.5" r="5.5"/>
+      <circle cx="950" cy="405.5" r="5.5"/>
+    </g>
+
+    <!-- Monomial series -->
+    <polyline points="100,491.7 194.44,358.3 288.89,343.2 383.33,181.9 477.78,182.5 572.22,204.9 666.67,205.2 761.11,213.8 855.56,214.0 950,218.3"
+              fill="none" stroke="#22D3EE" stroke-width="2.5" stroke-linejoin="round"/>
+    <g fill="#22D3EE">
+      <circle cx="100" cy="491.7" r="3.5"/>
+      <circle cx="194.44" cy="358.3" r="4"/>
+      <circle cx="288.89" cy="343.2" r="4"/>
+      <circle cx="383.33" cy="181.9" r="4"/>
+      <circle cx="477.78" cy="182.5" r="4"/>
+      <circle cx="572.22" cy="204.9" r="4"/>
+      <circle cx="666.67" cy="205.2" r="4"/>
+      <circle cx="761.11" cy="213.8" r="4"/>
+      <circle cx="855.56" cy="214.0" r="4"/>
+      <circle cx="950" cy="218.3" r="4"/>
+    </g>
+
+    <!-- legend -->
+    <g>
+      <line x1="100" y1="115" x2="144" y2="115" stroke="#A78BFA" stroke-width="2.5"/>
+      <circle cx="122" cy="115" r="5" fill="#A78BFA"/>
+      <text x="156" y="121" font-size="16" fill="#E5E7EB">Legendre basis</text>
+
+      <line x1="330" y1="115" x2="374" y2="115" stroke="#22D3EE" stroke-width="2.5"/>
+      <circle cx="352" cy="115" r="4" fill="#22D3EE"/>
+      <text x="386" y="121" font-size="16" fill="#E5E7EB">Monomial basis</text>
+    </g>
+  </g>
+</svg>
