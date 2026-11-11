@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="760" viewBox="0 0 1000 760">
+  <rect width="1000" height="760" fill="#0B0B0F"/>
+
+  <!-- Title -->
+  <text x="500" y="48" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="26" font-weight="600" fill="#E5E7EB" text-anchor="middle">8×8 Haar 基：八个正交的「模式」</text>
+  <text x="500" y="80" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="16" fill="#9CA3AF" text-anchor="middle">每个向量只由 +1、−1、0 组成；归一化后逆变换就是转置</text>
+
+  <!-- Vertical grid (cell boundaries) -->
+  <g stroke="#2A2A3A" stroke-width="1" stroke-dasharray="3 5">
+    <line x1="100" y1="106" x2="100" y2="672"/>
+    <line x1="190" y1="106" x2="190" y2="672"/>
+    <line x1="280" y1="106" x2="280" y2="672"/>
+    <line x1="370" y1="106" x2="370" y2="672"/>
+    <line x1="460" y1="106" x2="460" y2="672"/>
+    <line x1="550" y1="106" x2="550" y2="672"/>
+    <line x1="640" y1="106" x2="640" y2="672"/>
+    <line x1="730" y1="106" x2="730" y2="672"/>
+    <line x1="820" y1="106" x2="820" y2="672"/>
+  </g>
+
+  <!-- Column header -->
+  <text x="852" y="116" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="12.5" fill="#9CA3AF">长度 ‖vᵢ‖</text>
+
+  <!-- Row axes -->
+  <g stroke="#9CA3AF" stroke-width="1.1" stroke-opacity="0.85">
+    <line x1="100" y1="140" x2="820" y2="140"/>
+    <line x1="100" y1="211" x2="820" y2="211"/>
+    <line x1="100" y1="282" x2="820" y2="282"/>
+    <line x1="100" y1="353" x2="820" y2="353"/>
+    <line x1="100" y1="424" x2="820" y2="424"/>
+    <line x1="100" y1="495" x2="820" y2="495"/>
+    <line x1="100" y1="566" x2="820" y2="566"/>
+    <line x1="100" y1="637" x2="820" y2="637"/>
+  </g>
+
+  <!-- Bars -->
+  <g fill="#A78BFA">
+    <!-- v1: 8th order, all ones -->
+    <rect x="103" y="110" width="84" height="30" rx="2"/>
+    <rect x="193" y="110" width="84" height="30" rx="2"/>
+    <rect x="283" y="110" width="84" height="30" rx="2"/>
+    <rect x="373" y="110" width="84" height="30" rx="2"/>
+    <rect x="463" y="110" width="84" height="30" rx="2"/>
+    <rect x="553" y="110" width="84" height="30" rx="2"/>
+    <rect x="643" y="110" width="84" height="30" rx="2"/>
+    <rect x="733" y="110" width="84" height="30" rx="2"/>
+    <!-- v2: plus half -->
+    <rect x="103" y="181" width="84" height="30" rx="2"/>
+    <rect x="193" y="181" width="84" height="30" rx="2"/>
+    <rect x="283" y="181" width="84" height="30" rx="2"/>
+    <rect x="373" y="181" width="84" height="30" rx="2"/>
+    <!-- v3: plus quarter -->
+    <rect x="103" y="252" width="84" height="30" rx="2"/>
+    <rect x="193" y="252" width="84" height="30" rx="2"/>
+    <!-- v4: minus quarter (plus part) -->
+    <rect x="463" y="323" width="84" height="30" rx="2"/>
+    <rect x="553" y="323" width="84" height="30" rx="2"/>
+    <!-- v5 -->
+    <rect x="103" y="394" width="84" height="30" rx="2"/>
+    <!-- v6 -->
+    <rect x="283" y="465" width="84" height="30" rx="2"/>
+    <!-- v7 -->
+    <rect x="463" y="536" width="84" height="30" rx="2"/>
+    <!-- v8 -->
+    <rect x="643" y="607" width="84" height="30" rx="2"/>
+  </g>
+
+  <g fill="#F59E0B">
+    <!-- v2: minus half -->
+    <rect x="463" y="211" width="84" height="30" rx="2"/>
+    <rect x="553" y="211" width="84" height="30" rx="2"/>
+    <rect x="643" y="211" width="84" height="30" rx="2"/>
+    <rect x="733" y="211" width="84" height="30" rx="2"/>
+    <!-- v3: minus quarter -->
+    <rect x="283" y="282" width="84" height="30" rx="2"/>
+    <rect x="373" y="282" width="84" height="30" rx="2"/>
+    <!-- v4: minus quarter -->
+    <rect x="643" y="353" width="84" height="30" rx="2"/>
+    <rect x="733" y="353" width="84" height="30" rx="2"/>
+    <!-- v5 -->
+    <rect x="193" y="424" width="84" height="30" rx="2"/>
+    <!-- v6 -->
+    <rect x="373" y="495" width="84" height="30" rx="2"/>
+    <!-- v7 -->
+    <rect x="553" y="566" width="84" height="30" rx="2"/>
+    <!-- v8 -->
+    <rect x="733" y="637" width="84" height="30" rx="2"/>
+  </g>
+
+  <!-- Row labels -->
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="20" fill="#E5E7EB" text-anchor="end">
+    <text x="80" y="147">v₁</text>
+    <text x="80" y="218">v₂</text>
+    <text x="80" y="289">v₃</text>
+    <text x="80" y="360">v₄</text>
+    <text x="80" y="431">v₅</text>
+    <text x="80" y="502">v₆</text>
+    <text x="80" y="573">v₇</text>
+    <text x="80" y="644">v₈</text>
+  </g>
+
+  <!-- Norm labels -->
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="17" fill="#9CA3AF">
+    <text x="852" y="146">√8</text>
+    <text x="852" y="217">√8</text>
+    <text x="852" y="288">2</text>
+    <text x="852" y="359">2</text>
+    <text x="852" y="430">√2</text>
+    <text x="852" y="501">√2</text>
+    <text x="852" y="572">√2</text>
+    <text x="852" y="643">√2</text>
+  </g>
+
+  <!-- Position numbers -->
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="13" fill="#9CA3AF" text-anchor="middle">
+    <text x="145" y="688">1</text>
+    <text x="235" y="688">2</text>
+    <text x="325" y="688">3</text>
+    <text x="415" y="688">4</text>
+    <text x="505" y="688">5</text>
+    <text x="595" y="688">6</text>
+    <text x="685" y="688">7</text>
+    <text x="775" y="688">8</text>
+  </g>
+  <text x="460" y="707" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="12.5" fill="#9CA3AF" text-anchor="middle" opacity="0.8">坐标位置 k</text>
+
+  <!-- Legend -->
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="14" fill="#9CA3AF">
+    <rect x="98" y="724" width="12" height="12" rx="2" fill="#A78BFA"/>
+    <text x="116" y="735">+1</text>
+    <rect x="158" y="724" width="12" height="12" rx="2" fill="#F59E0B"/>
+    <text x="176" y="735">−1</text>
+    <text x="216" y="735">空 = 0（压在轴上）</text>
+    <text x="380" y="735">每一行是一个长度为 8 的向量；八行两两正交</text>
+  </g>
+</svg>
