@@ -30,6 +30,7 @@
 - [[26. Complex Matrices; Fast Fourier Transform]] — [[L24 复矩阵与快速傅里叶变换]]
 - [[27. Positive Definite Matrices and Minima]] — [[L25 正定矩阵与极小值]]
 - [[30. Linear Transformations and Their Matrices]] — [[L30 线性变换与矩阵表示]]
+- [[31. Change of Basis; Image Compression]] — [[L31 换基与图像压缩]]
 - [[24b. Quiz 2 Review]] — 复习课，要点并入 [[Linear Algebra/Concentrated|Concentrated]]
 
 ## 18.06SC 习题课与短视频
@@ -61,6 +62,7 @@
 - [[Complex Matrices]] — L24 习题课：Hermitian 矩阵的特征值、特征向量与酉对角化
 - [[Positive Definite Matrices and Minima]] — L25
 - [[Linear Transformations]] — L30 习题课：转置 $T(A)=A^T$ 的线性性、两套基下的矩阵（置换矩阵 vs $\operatorname{diag}(1,1,1,-1)$）、特征值与逆
+- [[Change of Basis]] — L31 习题课：多项式基 $w_1,w_2,w_3$（在 $-1,0,1$ 处取值）、两个换基矩阵、两套基下的导数矩阵
 - [[Exam 1 Problem Solving]] — 第一次考试讲评
 - [[Exam 2 Problem Solving]] — 第二次考试讲评，要点并入 [[Linear Algebra/Concentrated|Concentrated]]
 - [[Rec 1  MIT 18.085 Computational Science and Engineering I, Fall 2008]] — 拓展：工程中的线性代数
