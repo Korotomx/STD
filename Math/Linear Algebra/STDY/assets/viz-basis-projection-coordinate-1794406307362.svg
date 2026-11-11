@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="500" viewBox="0 0 1000 500"
+     font-family="'Noto Sans CJK SC', 'Noto Sans CJK JP', sans-serif">
+  <defs>
+    <marker id="mInk" markerUnits="userSpaceOnUse" markerWidth="16" markerHeight="16" refX="16" refY="8" orient="auto">
+      <path d="M0,0 L16,8 L0,16 Z" fill="#E5E7EB"/>
+    </marker>
+    <marker id="mInkS" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="12" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#E5E7EB"/>
+    </marker>
+    <marker id="mPurple" markerUnits="userSpaceOnUse" markerWidth="18" markerHeight="18" refX="18" refY="9" orient="auto">
+      <path d="M0,0 L18,9 L0,18 Z" fill="#A78BFA"/>
+    </marker>
+    <marker id="mAxis" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="12" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#9CA3AF"/>
+    </marker>
+    <clipPath id="clipL"><rect x="8" y="70" width="484" height="388"/></clipPath>
+    <clipPath id="clipR"><rect x="508" y="70" width="484" height="388"/></clipPath>
+  </defs>
+
+  <rect x="0" y="0" width="1000" height="500" fill="#0B0B0F"/>
+
+  <!-- ============ LEFT PANEL: orthonormal basis ============ -->
+  <g clip-path="url(#clipL)">
+    <!-- square grid, unit 90, origin (110,400) -->
+    <g stroke="#2A2A3A" stroke-width="1">
+      <line x1="20"  y1="70" x2="20"  y2="458"/>
+      <line x1="110" y1="70" x2="110" y2="458"/>
+      <line x1="200" y1="70" x2="200" y2="458"/>
+      <line x1="290" y1="70" x2="290" y2="458"/>
+      <line x1="380" y1="70" x2="380" y2="458"/>
+      <line x1="470" y1="70" x2="470" y2="458"/>
+      <line x1="8"   y1="40"  x2="492" y2="40"/>
+      <line x1="8"   y1="130" x2="492" y2="130"/>
+      <line x1="8"   y1="220" x2="492" y2="220"/>
+      <line x1="8"   y1="310" x2="492" y2="310"/>
+      <line x1="8"   y1="400" x2="492" y2="400"/>
+      <line x1="8"   y1="490" x2="492" y2="490"/>
+    </g>
+  </g>
+
+  <!-- axes -->
+  <line x1="55"  y1="400" x2="470" y2="400" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#mAxis)"/>
+  <line x1="110" y1="445" x2="110" y2="95"  stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#mAxis)"/>
+
+  <!-- perpendicular projections -->
+  <g stroke="#A78BFA" stroke-width="2" stroke-dasharray="7 6" fill="none">
+    <line x1="380" y1="220" x2="380" y2="400"/>
+    <line x1="380" y1="220" x2="110" y2="220"/>
+  </g>
+  <circle cx="380" cy="400" r="4" fill="#A78BFA"/>
+  <circle cx="110" cy="220" r="4" fill="#A78BFA"/>
+
+  <!-- vector x -->
+  <line x1="110" y1="400" x2="380" y2="220" stroke="#E5E7EB" stroke-width="3.5" marker-end="url(#mInk)"/>
+  <circle cx="380" cy="220" r="4.5" fill="#E5E7EB"/>
+
+  <!-- labels -->
+  <text x="250" y="50" text-anchor="middle" font-size="21" font-weight="600" fill="#E5E7EB">正交基：投影就是坐标</text>
+  <text x="456" y="382" text-anchor="middle" font-size="20" fill="#A78BFA">q1</text>
+  <text x="84"  y="110" text-anchor="end"    font-size="20" fill="#A78BFA">q2</text>
+  <text x="130" y="210" text-anchor="start"  font-size="19" fill="#E5E7EB">c2 = 2</text>
+  <text x="380" y="436" text-anchor="middle" font-size="19" fill="#E5E7EB">c1 = 3</text>
+  <text x="393" y="205" text-anchor="start"  font-size="18" fill="#E5E7EB">x = (3,2)</text>
+
+  <!-- ============ DIVIDER ============ -->
+  <line x1="500" y1="72" x2="500" y2="456" stroke="#2A2A3A" stroke-width="1"/>
+
+  <!-- ============ RIGHT PANEL: oblique basis ============ -->
+  <g clip-path="url(#clipR)">
+    <!-- oblique grid: parallels to v1 (horizontal) and v2 (slope -1), unit 90, origin (590,390) -->
+    <g stroke="#2A2A3A" stroke-width="1">
+      <line x1="508" y1="390" x2="992" y2="390"/>
+      <line x1="508" y1="300" x2="992" y2="300"/>
+      <line x1="508" y1="210" x2="992" y2="210"/>
+      <line x1="508" y1="120" x2="992" y2="120"/>
+      <line x1="508" y1="480" x2="992" y2="480"/>
+
+      <line x1="505" y1="385" x2="990" y2="-100"/>
+      <line x1="505" y1="475" x2="990" y2="-10"/>
+      <line x1="505" y1="565" x2="990" y2="80"/>
+      <line x1="505" y1="655" x2="990" y2="170"/>
+      <line x1="505" y1="745" x2="990" y2="260"/>
+      <line x1="505" y1="835" x2="990" y2="350"/>
+      <line x1="505" y1="295" x2="990" y2="-190"/>
+      <line x1="505" y1="205" x2="990" y2="-280"/>
+      <line x1="505" y1="115" x2="990" y2="-370"/>
+    </g>
+  </g>
+
+  <!-- guide axes -->
+  <line x1="508" y1="390" x2="986" y2="390" stroke="#9CA3AF" stroke-width="1.5"/>
+  <line x1="505" y1="475" x2="990" y2="-10" stroke="#9CA3AF" stroke-width="1.5"/>
+
+  <!-- basis vectors -->
+  <line x1="590" y1="390" x2="680" y2="390" stroke="#A78BFA" stroke-width="5" marker-end="url(#mPurple)"/>
+  <line x1="590" y1="390" x2="680" y2="300" stroke="#A78BFA" stroke-width="5.5" marker-end="url(#mPurple)"/>
+
+  <!-- x drawn on top: x = (1,1) coincides with v2 -->
+  <line x1="590" y1="390" x2="680" y2="300" stroke="#E5E7EB" stroke-width="2.5" marker-end="url(#mInkS)"/>
+  <circle cx="680" cy="300" r="4" fill="#E5E7EB"/>
+
+  <!-- misleading perpendicular projection onto v1 axis -->
+  <line x1="680" y1="300" x2="680" y2="390" stroke="#F59E0B" stroke-width="2" stroke-dasharray="7 6"/>
+  <path d="M 672 390 L 672 382 L 680 382" fill="none" stroke="#F59E0B" stroke-width="1.5"/>
+  <circle cx="680" cy="390" r="5" fill="#F59E0B"/>
+
+  <!-- labels -->
+  <text x="750" y="50" text-anchor="middle" font-size="21" font-weight="600" fill="#E5E7EB">斜基：投影不是坐标</text>
+  <text x="652" y="372" text-anchor="middle" font-size="20" fill="#A78BFA">v1</text>
+  <text x="610" y="342" text-anchor="end"    font-size="20" fill="#A78BFA">v2</text>
+  <text x="656" y="286" text-anchor="middle" font-size="22" font-weight="600" fill="#E5E7EB">x</text>
+  <text x="728" y="360" text-anchor="start"  font-size="18" fill="#E5E7EB">x = 0·v1 + 1·v2</text>
+  <text x="602" y="421" text-anchor="middle" font-size="17" fill="#9CA3AF">c1 = 0</text>
+  <text x="692" y="424" text-anchor="start"  font-size="18" fill="#F59E0B">投影 = 1，但坐标 = 0</text>
+
+  <!-- ============ BOTTOM CAPTION ============ -->
+  <text x="500" y="480" text-anchor="middle" font-size="18" fill="#E5E7EB">正交基：c_i = q_iᵀx；一般基：c = V⁻¹x，Vᵀx 会把坐标混在一起。</text>
+</svg>
