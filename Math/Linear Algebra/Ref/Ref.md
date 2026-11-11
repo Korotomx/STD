@@ -100,3 +100,4 @@
 - [[Simplex Algorithm Visually Explained]] — 线性规划三要素、可行域与顶点、单纯形法、凸性与影子价格；用于 [[线性规划与单纯形法]]
 - [[The Matrix Transpose Visual Intuition]] — 点积保持、正交矩阵、SVD、转置 vs 逆；用于 [[L5 转置·置换·向量空间]] 的几何一节
 - [[But what is the Fourier Transform  A visual introduction]] — 绕圈、质心、almost FT 与 DFT 公式的直觉；用于 [[FFT 深入 · 频谱、蝴蝶与卷积]] 的节点 0
+- [[你真的了解矩阵转置吗？转置与对偶是什么关系？]] — 对偶空间、Riesz 表示、转置 vs 伴随、Dirac 记号；用于 [[L33 转置、对偶与空间变换]]。原文几处简化，L33 已按 Axler 修正：无内积时 $V\cong V^*$ 不典范、伴随只在标准正交基下等于共轭转置、斜基下「行向量」不等于 Riesz 向量。
