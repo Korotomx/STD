@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="650" viewBox="0 0 1200 650">
+  <defs>
+    <marker id="arrowPurple" viewBox="0 0 10 10" refX="9.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#A78BFA"/>
+    </marker>
+    <marker id="arrowMuted" viewBox="0 0 10 10" refX="9.5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9CA3AF"/>
+    </marker>
+    <clipPath id="leftPanel"><rect x="40" y="82" width="540" height="486"/></clipPath>
+    <clipPath id="rightPanel"><rect x="620" y="82" width="540" height="486"/></clipPath>
+  </defs>
+
+  <rect x="0" y="0" width="1200" height="650" fill="#131312"/>
+
+  <!-- ================= LEFT PANEL GRID ================= -->
+  <g clip-path="url(#leftPanel)" stroke="#2E2E2E" stroke-width="1">
+    <line x1="234" y1="82" x2="234" y2="568"/>
+    <line x1="158" y1="82" x2="158" y2="568"/>
+    <line x1="82"  y1="82" x2="82"  y2="568"/>
+    <line x1="386" y1="82" x2="386" y2="568"/>
+    <line x1="462" y1="82" x2="462" y2="568"/>
+    <line x1="538" y1="82" x2="538" y2="568"/>
+    <line x1="40" y1="264" x2="580" y2="264"/>
+    <line x1="40" y1="188" x2="580" y2="188"/>
+    <line x1="40" y1="112" x2="580" y2="112"/>
+    <line x1="40" y1="416" x2="580" y2="416"/>
+    <line x1="40" y1="492" x2="580" y2="492"/>
+    <line x1="40" y1="568" x2="580" y2="568"/>
+  </g>
+  <!-- axes (left) -->
+  <g clip-path="url(#leftPanel)">
+    <line x1="40" y1="340" x2="580" y2="340" stroke="#3A3A3A" stroke-width="1.2"/>
+    <line x1="310" y1="82" x2="310" y2="568" stroke="#3A3A3A" stroke-width="1.2"/>
+  </g>
+
+  <!-- ================= RIGHT PANEL GRID ================= -->
+  <g clip-path="url(#rightPanel)" stroke="#2E2E2E" stroke-width="1">
+    <line x1="790" y1="82" x2="790" y2="568"/>
+    <line x1="830" y1="82" x2="830" y2="568"/>
+    <line x1="910" y1="82" x2="910" y2="568"/>
+    <line x1="950" y1="82" x2="950" y2="568"/>
+    <line x1="990" y1="82" x2="990" y2="568"/>
+    <line x1="1030" y1="82" x2="1030" y2="568"/>
+    <line x1="1070" y1="82" x2="1070" y2="568"/>
+    <line x1="1110" y1="82" x2="1110" y2="568"/>
+    <line x1="620" y1="270" x2="1160" y2="270"/>
+    <line x1="620" y1="310" x2="1160" y2="310"/>
+    <line x1="620" y1="390" x2="1160" y2="390"/>
+    <line x1="620" y1="430" x2="1160" y2="430"/>
+    <line x1="620" y1="470" x2="1160" y2="470"/>
+    <line x1="620" y1="510" x2="1160" y2="510"/>
+    <line x1="620" y1="550" x2="1160" y2="550"/>
+    <line x1="620" y1="230" x2="1160" y2="230"/>
+    <line x1="620" y1="190" x2="1160" y2="190"/>
+    <line x1="620" y1="150" x2="1160" y2="150"/>
+    <line x1="620" y1="110" x2="1160" y2="110"/>
+  </g>
+  <g clip-path="url(#rightPanel)">
+    <line x1="620" y1="350" x2="1160" y2="350" stroke="#3A3A3A" stroke-width="1.2"/>
+    <line x1="870" y1="82" x2="870" y2="568" stroke="#3A3A3A" stroke-width="1.2"/>
+  </g>
+
+  <!-- separator -->
+  <line x1="600" y1="80" x2="600" y2="582" stroke="#2E2E2E" stroke-width="1" stroke-dasharray="6 6"/>
+
+  <!-- ================= TITLES ================= -->
+  <text x="310" y="62" text-anchor="middle" font-family="Noto Sans CJK SC" font-size="22" font-weight="bold" fill="#E5E7EB">输入平面 R²</text>
+  <text x="310" y="92" text-anchor="middle" font-family="Noto Sans CJK SC" font-size="18" fill="#9CA3AF">两个方向互相垂直，铺满整个平面</text>
+  <text x="890" y="62" text-anchor="middle" font-family="Noto Sans CJK SC" font-size="22" font-weight="bold" fill="#E5E7EB">输出平面（一条线）</text>
+  <text x="890" y="92" text-anchor="middle" font-family="Noto Sans CJK SC" font-size="18" fill="#9CA3AF">平面还在，但 A 的像只有一条线</text>
+
+  <!-- ================= LEFT: nullspace band + lines ================= -->
+  <g clip-path="url(#leftPanel)">
+    <line x1="66.8" y1="218.4" x2="553.2" y2="461.6" stroke="#9CA3AF" stroke-width="16" opacity="0.10" stroke-linecap="round"/>
+  </g>
+  <!-- row space line, purple -->
+  <line x1="203.6" y1="552.8" x2="416.4" y2="127.2" stroke="#A78BFA" stroke-width="3" stroke-linecap="round"/>
+  <!-- nullspace line, muted -->
+  <line x1="66.8" y1="218.4" x2="553.2" y2="461.6" stroke="#9CA3AF" stroke-width="2.4" stroke-linecap="round" opacity="0.9"/>
+
+  <!-- right-angle mark at origin -->
+  <polyline points="320.7,316.8 342.2,327.6 331.5,349.3" fill="none" stroke="#9CA3AF" stroke-width="1.6" opacity="0.9"/>
+
+  <!-- origin -->
+  <circle cx="310" cy="340" r="4" fill="#E5E7EB"/>
+  <text x="296" y="364" text-anchor="end" font-family="Noto Sans CJK SC" font-size="18" fill="#9CA3AF">O</text>
+
+  <!-- sample vector (1,2) -->
+  <line x1="310" y1="340" x2="348" y2="264" stroke="#A78BFA" stroke-width="2.6" marker-end="url(#arrowPurple)"/>
+  <circle cx="348" cy="264" r="4" fill="#A78BFA"/>
+  <text x="296" y="258" text-anchor="end" font-family="Noto Sans CJK SC" font-size="18" fill="#A78BFA">(1,2)</text>
+
+  <!-- sample vector (2,-1) -->
+  <line x1="310" y1="340" x2="386" y2="378" stroke="#9CA3AF" stroke-width="2.2" marker-end="url(#arrowMuted)"/>
+  <circle cx="386" cy="378" r="3.5" fill="#9CA3AF"/>
+  <text x="398" y="402" font-family="Noto Sans CJK SC" font-size="18" fill="#9CA3AF">(2,-1)</text>
+
+  <!-- left labels -->
+  <text x="388" y="120" text-anchor="end" font-family="Noto Sans CJK SC" font-size="18" fill="#A78BFA">行空间 span(1,2)</text>
+  <text x="388" y="145" text-anchor="end" font-family="Noto Sans CJK SC" font-size="18" fill="#9CA3AF">看得见，方向被保留</text>
+  <text x="545" y="492" text-anchor="end" font-family="Noto Sans CJK SC" font-size="18" fill="#9CA3AF">零空间 span(2,-1)</text>
+  <text x="545" y="517" text-anchor="end" font-family="Noto Sans CJK SC" font-size="18" fill="#9CA3AF">看不见，整体被压到 0</text>
+
+  <!-- ================= RIGHT: column line ================= -->
+  <line x1="762" y1="566" x2="978" y2="134" stroke="#A78BFA" stroke-width="3" stroke-linecap="round"/>
+  <!-- vector A(1,2) -->
+  <line x1="870" y1="350" x2="970" y2="150" stroke="#A78BFA" stroke-width="2.6" marker-end="url(#arrowPurple)"/>
+  <circle cx="970" cy="150" r="4.5" fill="#A78BFA"/>
+  <text x="984" y="143" font-family="Noto Sans CJK SC" font-size="18" fill="#E5E7EB">A(1,2) = (5,10)</text>
+  <text x="984" y="168" font-family="Noto Sans CJK SC" font-size="18" fill="#9CA3AF">= 5·(1,2)，方向不变</text>
+
+  <!-- column space label -->
+  <text x="744" y="180" font-family="Noto Sans CJK SC" font-size="18" fill="#A78BFA">列空间 span(1,2)</text>
+  <text x="744" y="205" font-family="Noto Sans CJK SC" font-size="18" fill="#9CA3AF">像全部落在这条线上</text>
+
+  <!-- one-to-one label -->
+  <text x="984" y="238" font-family="Noto Sans CJK SC" font-size="18" fill="#A78BFA">A 把行空间</text>
+  <text x="984" y="263" font-family="Noto Sans CJK SC" font-size="18" fill="#A78BFA">一对一送到列空间</text>
+
+  <!-- collapse to zero -->
+  <path d="M 936 384 Q 900 378 878 355" fill="none" stroke="#9CA3AF" stroke-width="1.8" stroke-dasharray="6 5" opacity="0.75" marker-end="url(#arrowMuted)"/>
+  <circle cx="870" cy="350" r="4" fill="#E5E7EB"/>
+  <text x="856" y="376" text-anchor="end" font-family="Noto Sans CJK SC" font-size="18" fill="#9CA3AF">0</text>
+  <text x="942" y="412" font-family="Noto Sans CJK SC" font-size="18" fill="#9CA3AF">A(2,-1) = (0,0)</text>
+  <text x="942" y="437" font-family="Noto Sans CJK SC" font-size="18" fill="#9CA3AF">A 把零空间压成 0</text>
+
+  <!-- ================= CAPTION ================= -->
+  <text x="600" y="628" text-anchor="middle" font-family="Noto Sans CJK SC" font-size="20" fill="#E5E7EB">行空间 = 输入里被保留的部分；零空间 = 被压掉的部分；两者正交，合起来铺满输入空间。</text>
+</svg>
