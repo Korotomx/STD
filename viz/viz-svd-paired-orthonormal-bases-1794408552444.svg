@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="650" viewBox="0 0 1100 650">
+  <rect width="1100" height="650" fill="#131312"/>
+
+  <defs>
+    <marker id="acc" markerWidth="11" markerHeight="9" refX="9.5" refY="4.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L11,4.5 L0,9 Z" fill="#A78BFA"/>
+    </marker>
+    <marker id="ink" markerWidth="10" markerHeight="8" refX="8.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L10,4 L0,8 Z" fill="#E5E7EB"/>
+    </marker>
+    <marker id="mut" markerWidth="10" markerHeight="8" refX="8.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L10,4 L0,8 Z" fill="#9CA3AF"/>
+    </marker>
+  </defs>
+
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">
+
+    <!-- main title -->
+    <text x="550" y="54" text-anchor="middle" font-size="25" font-weight="600" fill="#E5E7EB"><tspan fill="#A78BFA">SVD</tspan>：把单位圆映成椭圆，两套正交基配对</text>
+
+    <!-- ============ LEFT PANEL : input plane ============ -->
+    <text x="265" y="126" text-anchor="middle" font-size="20" font-weight="600" fill="#E5E7EB">输入平面</text>
+    <text x="265" y="151" text-anchor="middle" font-size="16" fill="#9CA3AF">V 的列：正交单位基 v<tspan font-size="10.5" dy="3.5">1</tspan><tspan dy="-3.5">, v</tspan><tspan font-size="10.5" dy="3.5">2</tspan></text>
+
+    <!-- axes -->
+    <line x1="120" y1="350" x2="410" y2="350" stroke="#3F3F46" stroke-width="1.1"/>
+    <line x1="265" y1="205" x2="265" y2="480" stroke="#3F3F46" stroke-width="1.1"/>
+    <text x="415" y="342" font-size="14.5" fill="#9CA3AF">x<tspan font-size="9.5" dy="3">1</tspan></text>
+    <text x="273" y="214" font-size="14.5" fill="#9CA3AF">x<tspan font-size="9.5" dy="3">2</tspan></text>
+
+    <!-- unit circle -->
+    <circle cx="265" cy="350" r="120" fill="none" stroke="#9CA3AF" stroke-width="1.6" stroke-opacity="0.85"/>
+    <text x="265" y="503" text-anchor="middle" font-size="15.5" fill="#9CA3AF">单位圆 |x| = 1</text>
+
+    <!-- right-angle mark between v1 and v2 -->
+    <path d="M279.14 335.86 L293.28 350 L279.14 364.14" fill="none" stroke="#9CA3AF" stroke-width="1.2" stroke-opacity="0.8"/>
+
+    <!-- v1 and v2 unit arrows -->
+    <line x1="265" y1="350" x2="349.85" y2="265.15" stroke="#A78BFA" stroke-width="2.6" marker-end="url(#acc)"/>
+    <line x1="265" y1="350" x2="349.85" y2="434.85" stroke="#A78BFA" stroke-width="2.6" marker-end="url(#acc)"/>
+
+    <text x="361" y="260" font-size="17" fill="#E5E7EB">v<tspan font-size="11" dy="4">1</tspan><tspan dy="-4"> = (1, 1)/√2</tspan></text>
+    <text x="361" y="449" font-size="17" fill="#E5E7EB">v<tspan font-size="11" dy="4">2</tspan><tspan dy="-4"> = (1, −1)/√2</tspan></text>
+
+    <!-- ============ RIGHT PANEL : output plane ============ -->
+    <text x="835" y="126" text-anchor="middle" font-size="20" font-weight="600" fill="#E5E7EB">输出平面</text>
+    <text x="835" y="151" text-anchor="middle" font-size="16" fill="#9CA3AF">U 的列：正交单位基 u<tspan font-size="10.5" dy="3.5">1</tspan><tspan dy="-3.5">, u</tspan><tspan font-size="10.5" dy="3.5">2</tspan></text>
+
+    <!-- axes -->
+    <line x1="680" y1="350" x2="990" y2="350" stroke="#3F3F46" stroke-width="1.1"/>
+    <line x1="835" y1="170" x2="835" y2="530" stroke="#3F3F46" stroke-width="1.1"/>
+    <text x="994" y="342" font-size="14.5" fill="#9CA3AF">x<tspan font-size="9.5" dy="3">1</tspan></text>
+    <text x="843" y="181" font-size="14.5" fill="#9CA3AF">x<tspan font-size="9.5" dy="3">2</tspan></text>
+
+    <!-- ellipse: semi-axes proportional to sigma1, sigma2; major axis along u1 -->
+    <ellipse cx="835" cy="350" rx="170" ry="56.667" transform="rotate(-71.565 835 350)" fill="#A78BFA" fill-opacity="0.09" stroke="#A78BFA" stroke-opacity="0.6" stroke-width="1.6"/>
+
+    <!-- right-angle mark between u1 and u2 directions -->
+    <path d="M841.32 331.03 L860.29 337.35 L853.97 356.32" fill="none" stroke="#9CA3AF" stroke-width="1.2" stroke-opacity="0.8"/>
+
+    <!-- sigma1*u1 and sigma2*u2 (semi-axes of the ellipse) -->
+    <line x1="835" y1="350" x2="888.76" y2="188.72" stroke="#A78BFA" stroke-width="2.6" marker-end="url(#acc)"/>
+    <line x1="835" y1="350" x2="888.76" y2="367.92" stroke="#A78BFA" stroke-width="2.6" marker-end="url(#acc)"/>
+
+    <text x="905" y="191" font-size="18" fill="#E5E7EB">σ<tspan font-size="11" dy="4">1</tspan><tspan dy="-4">u</tspan><tspan font-size="11" dy="4">1</tspan></text>
+    <text x="905" y="376" font-size="18" fill="#E5E7EB">σ<tspan font-size="11" dy="4">2</tspan><tspan dy="-4">u</tspan><tspan font-size="11" dy="4">2</tspan></text>
+
+    <!-- notes under right panel -->
+    <text x="835" y="537" text-anchor="middle" font-size="15" fill="#9CA3AF">σ<tspan font-size="9.5" dy="3">1</tspan><tspan dy="-3"> = √45 ≈ 6.71&#160;&#160;&#160;&#160;&#160;&#160;σ</tspan><tspan font-size="9.5" dy="3">2</tspan><tspan dy="-3"> = √5 ≈ 2.24</tspan></text>
+    <text x="835" y="559" text-anchor="middle" font-size="14.5" fill="#9CA3AF">箭头为半轴 σ<tspan font-size="9.5" dy="3">1</tspan><tspan dy="-3">u</tspan><tspan font-size="9.5" dy="3">1</tspan><tspan dy="-3">、σ</tspan><tspan font-size="9.5" dy="3">2</tspan><tspan dy="-3">u</tspan><tspan font-size="9.5" dy="3">2</tspan><tspan dy="-3">；椭圆轴长按 σ</tspan><tspan font-size="9.5" dy="3">1</tspan><tspan dy="-3">:σ</tspan><tspan font-size="9.5" dy="3">2</tspan><tspan dy="-3">&#160;示意</tspan></text>
+
+    <!-- ============ CONNECTORS ============ -->
+    <line x1="492" y1="298" x2="618" y2="298" stroke="#E5E7EB" stroke-width="2" marker-end="url(#ink)"/>
+    <text x="555" y="282" text-anchor="middle" font-size="16" fill="#E5E7EB">A v<tspan font-size="10.5" dy="4">1</tspan><tspan dy="-4"> = σ</tspan><tspan font-size="10.5" dy="4">1</tspan><tspan dy="-4"> u</tspan><tspan font-size="10.5" dy="4">1</tspan></text>
+
+    <line x1="492" y1="386" x2="618" y2="386" stroke="#E5E7EB" stroke-width="2" marker-end="url(#ink)"/>
+    <text x="555" y="370" text-anchor="middle" font-size="16" fill="#E5E7EB">A v<tspan font-size="10.5" dy="4">2</tspan><tspan dy="-4"> = σ</tspan><tspan font-size="10.5" dy="4">2</tspan><tspan dy="-4"> u</tspan><tspan font-size="10.5" dy="4">2</tspan></text>
+
+    <line x1="618" y1="470" x2="492" y2="470" stroke="#9CA3AF" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#mut)"/>
+    <text x="555" y="492" text-anchor="middle" font-size="16" fill="#9CA3AF">A<tspan font-size="10.5" dy="-6">T</tspan><tspan dy="6"> u</tspan><tspan font-size="10.5" dy="4">i</tspan><tspan dy="-4"> = σ</tspan><tspan font-size="10.5" dy="4">i</tspan><tspan dy="-4"> v</tspan><tspan font-size="10.5" dy="4">i</tspan></text>
+
+    <!-- caption -->
+    <text x="550" y="620" text-anchor="middle" font-size="19" fill="#E5E7EB">A = UΣV<tspan font-size="12.5" dy="-6">T</tspan><tspan dy="6">；V 的列是输入基，U 的列是输出基；两套基成对。</tspan></text>
+
+  </g>
+</svg>

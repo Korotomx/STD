@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="650" viewBox="0 0 1200 650">
+  <defs>
+    <marker id="arGray" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="10" refY="4.5" orient="auto">
+      <path d="M0,0 L10,4.5 L0,9 z" fill="#9CA3AF"/>
+    </marker>
+    <marker id="arAxis" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto">
+      <path d="M0,0 L9,4 L0,8 z" fill="#6B7280"/>
+    </marker>
+    <marker id="arPurple" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" refX="11" refY="5" orient="auto">
+      <path d="M0,0 L11,5 L0,10 z" fill="#A78BFA"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1200" height="650" fill="#131312"/>
+
+  <!-- panel divider -->
+  <line x1="600" y1="55" x2="600" y2="575" stroke="#2E2E2E" stroke-width="1" stroke-dasharray="5 7"/>
+
+  <!-- ============ LEFT PANEL : ORTHONORMAL BASIS ============ -->
+  <!-- grid -->
+  <g stroke="#2E2E2E" stroke-width="1">
+    <line x1="97" y1="320" x2="472" y2="320"/>
+    <line x1="97" y1="395" x2="472" y2="395"/>
+    <line x1="97" y1="470" x2="472" y2="470" opacity="0"/>
+    <line x1="97" y1="545" x2="472" y2="545"/>
+    <line x1="135" y1="320" x2="135" y2="545"/>
+    <line x1="210" y1="300" x2="210" y2="552" opacity="0"/>
+    <line x1="285" y1="320" x2="285" y2="545"/>
+    <line x1="360" y1="320" x2="360" y2="545"/>
+    <line x1="435" y1="320" x2="435" y2="545"/>
+  </g>
+
+  <!-- axes -->
+  <line x1="97" y1="470" x2="472" y2="470" stroke="#6B7280" stroke-width="1.6" marker-end="url(#arAxis)"/>
+  <line x1="210" y1="548" x2="210" y2="285" stroke="#6B7280" stroke-width="1.6" marker-end="url(#arAxis)"/>
+
+  <!-- coordinate guides for (2,1) -->
+  <g stroke="#4B5563" stroke-width="1.5" stroke-dasharray="5 5">
+    <line x1="360" y1="395" x2="360" y2="470"/>
+    <line x1="210" y1="395" x2="360" y2="395"/>
+  </g>
+
+  <!-- basis vectors -->
+  <line x1="210" y1="470" x2="285" y2="470" stroke="#9CA3AF" stroke-width="2.6" marker-end="url(#arGray)"/>
+  <line x1="210" y1="470" x2="210" y2="395" stroke="#9CA3AF" stroke-width="2.6" marker-end="url(#arGray)"/>
+
+  <!-- Riesz vector -->
+  <line x1="210" y1="470" x2="360" y2="395" stroke="#A78BFA" stroke-width="3.4" marker-end="url(#arPurple)"/>
+
+  <!-- origin -->
+  <circle cx="210" cy="470" r="3.5" fill="#E5E7EB"/>
+
+  <!-- labels -->
+  <rect x="265" y="476" width="40" height="25" fill="#131312"/>
+  <text x="285" y="496" fill="#9CA3AF" font-size="20" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" text-anchor="middle">e₁</text>
+  <text x="196" y="390" fill="#9CA3AF" font-size="20" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" text-anchor="end">e₂</text>
+
+  <rect x="223" y="345" width="118" height="28" fill="#131312"/>
+  <text x="282" y="366" fill="#A78BFA" font-size="20" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" text-anchor="middle">v<tspan dy="6" font-size="14">f</tspan><tspan dy="-6"> = (2,1)</tspan></text>
+
+  <!-- title block -->
+  <rect x="100" y="56" width="5" height="24" fill="#A78BFA"/>
+  <text x="116" y="77" fill="#E5E7EB" font-size="26" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">正交基</text>
+  <text x="100" y="114" fill="#9CA3AF" font-size="19" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">f(x, y) = 2x + y</text>
+  <text x="100" y="150" fill="#A78BFA" font-size="22" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">行 [2  1]  =  列 [2;1]<tspan dy="-9" font-size="14">T</tspan></text>
+
+  <!-- ============ RIGHT PANEL : OBLIQUE BASIS ============ -->
+  <!-- grid -->
+  <g stroke="#2E2E2E" stroke-width="1">
+    <line x1="610" y1="320" x2="1080" y2="320"/>
+    <line x1="610" y1="395" x2="1080" y2="395"/>
+    <line x1="610" y1="545" x2="1080" y2="545"/>
+    <line x1="625" y1="320" x2="625" y2="545"/>
+    <line x1="700" y1="300" x2="700" y2="552" opacity="0"/>
+    <line x1="775" y1="320" x2="775" y2="545"/>
+    <line x1="850" y1="320" x2="850" y2="545"/>
+    <line x1="925" y1="320" x2="925" y2="545"/>
+    <line x1="1000" y1="320" x2="1000" y2="545"/>
+  </g>
+
+  <!-- axes -->
+  <line x1="610" y1="470" x2="1080" y2="470" stroke="#6B7280" stroke-width="1.6" marker-end="url(#arAxis)"/>
+  <line x1="700" y1="548" x2="700" y2="288" stroke="#6B7280" stroke-width="1.6" marker-end="url(#arAxis)"/>
+
+  <!-- basis vectors b1, b2 -->
+  <line x1="700" y1="470" x2="775" y2="470" stroke="#9CA3AF" stroke-width="2.6" marker-end="url(#arGray)"/>
+  <line x1="700" y1="470" x2="775" y2="395" stroke="#9CA3AF" stroke-width="2.6" marker-end="url(#arGray)"/>
+
+  <!-- dashed parallelogram: b1 + b2 = v_f -->
+  <g stroke="#4B5563" stroke-width="1.7" stroke-dasharray="6 5">
+    <line x1="775" y1="470" x2="850" y2="395"/>
+    <line x1="775" y1="395" x2="850" y2="395"/>
+  </g>
+
+  <!-- SAME Riesz vector, same geometric point (2,1) -->
+  <line x1="700" y1="470" x2="850" y2="395" stroke="#A78BFA" stroke-width="3.4" marker-end="url(#arPurple)"/>
+
+  <circle cx="700" cy="470" r="3.5" fill="#E5E7EB"/>
+
+  <!-- labels -->
+  <rect x="755" y="476" width="40" height="25" fill="#131312"/>
+  <text x="775" y="496" fill="#9CA3AF" font-size="20" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" text-anchor="middle">b₁</text>
+  <text x="766" y="383" fill="#9CA3AF" font-size="20" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" text-anchor="end">b₂</text>
+
+  <rect x="858" y="396" width="42" height="26" fill="#131312"/>
+  <text x="860" y="416" fill="#A78BFA" font-size="20" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">v<tspan dy="6" font-size="14">f</tspan></text>
+
+  <rect x="856" y="428" width="146" height="26" fill="#131312"/>
+  <text x="858" y="448" fill="#9CA3AF" font-size="18" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">v<tspan dy="5" font-size="13">f</tspan><tspan dy="-5"> = b₁ + b₂</tspan></text>
+
+  <!-- title block -->
+  <rect x="630" y="56" width="5" height="24" fill="#A78BFA"/>
+  <text x="646" y="77" fill="#E5E7EB" font-size="26" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">斜基</text>
+  <text x="630" y="114" fill="#9CA3AF" font-size="19" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">f(b₁) = 2,   f(b₂) = 3</text>
+  <text x="630" y="150" fill="#E5E7EB" font-size="21" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">行 (2, 3)</text>
+  <text x="630" y="184" fill="#A78BFA" font-size="21" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">Riesz 坐标 (1,1) = G<tspan dy="-8" font-size="15">-1</tspan><tspan dy="8">(2,3)</tspan><tspan dy="-8" font-size="15">T</tspan></text>
+
+  <!-- bottom caption -->
+  <text x="600" y="618" fill="#E5E7EB" font-size="18" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" text-anchor="middle">泛函本身不变，Riesz 向量本身不变；换基只改坐标。斜基下行坐标 ≠ 列坐标，要过 Gram 矩阵 G<tspan dy="-7" font-size="13">-1</tspan><tspan dy="7">。</tspan></text>
+</svg>

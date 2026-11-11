@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="650" viewBox="0 0 1000 650" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">
+  <defs>
+    <marker id="mInk" viewBox="0 0 12 12" refX="10.5" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M1,1 L11,6 L1,11 Z" fill="#E5E7EB"/>
+    </marker>
+    <marker id="mAcc" viewBox="0 0 12 12" refX="10.5" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M1,1 L11,6 L1,11 Z" fill="#A78BFA"/>
+    </marker>
+    <marker id="mAxis" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M1,1 L9,5 L1,9 Z" fill="#6B7280"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1000" height="650" fill="#131312"/>
+
+  <!-- title -->
+  <text x="500" y="52" text-anchor="middle" font-size="22" font-weight="600" fill="#E5E7EB" letter-spacing="1">伴随（Adjoint）就是拉回（Pullback）</text>
+
+  <!-- blobs: two separate spaces -->
+  <ellipse cx="190" cy="300" rx="155" ry="190" fill="#191918" stroke="#3A3A3C" stroke-width="2"/>
+  <ellipse cx="810" cy="300" rx="155" ry="190" fill="#191918" stroke="#3A3A3C" stroke-width="2"/>
+  <text x="190" y="154" text-anchor="middle" font-size="24" fill="#9CA3AF" letter-spacing="2">V</text>
+  <text x="810" y="154" text-anchor="middle" font-size="24" fill="#9CA3AF" letter-spacing="2">W</text>
+
+  <!-- coordinate system in V -->
+  <line x1="155" y1="385" x2="297" y2="385" stroke="#4B4E56" stroke-width="1.5" marker-end="url(#mAxis)"/>
+  <line x1="155" y1="385" x2="155" y2="223" stroke="#4B4E56" stroke-width="1.5" marker-end="url(#mAxis)"/>
+  <circle cx="155" cy="385" r="3" fill="#9CA3AF"/>
+
+  <!-- coordinate system in W -->
+  <line x1="720" y1="385" x2="877" y2="385" stroke="#4B4E56" stroke-width="1.5" marker-end="url(#mAxis)"/>
+  <line x1="720" y1="385" x2="720" y2="223" stroke="#4B4E56" stroke-width="1.5" marker-end="url(#mAxis)"/>
+  <circle cx="720" cy="385" r="3" fill="#9CA3AF"/>
+
+  <!-- vectors in V: A^T y (accent) drawn first, x (ink) on top -->
+  <line x1="155" y1="385" x2="223" y2="249" stroke="#A78BFA" stroke-width="3" marker-end="url(#mAcc)"/>
+  <line x1="155" y1="385" x2="189" y2="317" stroke="#E5E7EB" stroke-width="3" marker-end="url(#mInk)"/>
+
+  <!-- vectors in W -->
+  <line x1="720" y1="385" x2="832" y2="217" stroke="#E5E7EB" stroke-width="3" marker-end="url(#mInk)"/>
+  <line x1="720" y1="385" x2="748" y2="357" stroke="#A78BFA" stroke-width="3" marker-end="url(#mAcc)"/>
+
+  <!-- vector labels -->
+  <text x="200" y="332" font-size="18" fill="#E5E7EB">x = (1,2)</text>
+  <text x="223" y="227" text-anchor="middle" font-size="18" fill="#A78BFA">Aᵀy = (2,4)</text>
+  <text x="832" y="195" text-anchor="middle" font-size="18" fill="#E5E7EB">Ax = (4,6)</text>
+  <text x="758" y="374" font-size="18" fill="#A78BFA">y = (1,1)</text>
+  <text x="232" y="302" font-size="16" fill="#9CA3AF">本例 Aᵀy = 2x</text>
+
+  <!-- forward map A: V -> W -->
+  <line x1="322" y1="185" x2="678" y2="185" stroke="#E5E7EB" stroke-width="2.5" marker-end="url(#mInk)"/>
+  <text x="500" y="160" text-anchor="middle" font-size="16" fill="#9CA3AF"><tspan font-size="22" font-weight="700" fill="#E5E7EB">A</tspan>  (T: V → W)</text>
+
+  <!-- return map A^T: W -> V -->
+  <line x1="678" y1="415" x2="322" y2="415" stroke="#A78BFA" stroke-width="2.5" marker-end="url(#mAcc)"/>
+  <text x="500" y="448" text-anchor="middle" font-size="16" fill="#9CA3AF"><tspan font-size="22" font-weight="700" fill="#A78BFA">Aᵀ</tspan>  (Tᵀ: W → V)</text>
+
+  <!-- the two computations -->
+  <text x="500" y="288" text-anchor="middle" font-size="20" fill="#E5E7EB">&lt;Ax,y&gt; = (4,6)·(1,1) = <tspan fill="#A78BFA" font-weight="700">10</tspan></text>
+  <text x="500" y="334" text-anchor="middle" font-size="20" fill="#E5E7EB">&lt;x,Aᵀy&gt; = (1,2)·(2,4) = <tspan fill="#A78BFA" font-weight="700">10</tspan></text>
+
+  <!-- caption -->
+  <text x="500" y="580" text-anchor="middle" font-size="20" fill="#9CA3AF">先量 Ax，等于先把 y 拉回 V 再量 x。Tᵀ 的方向必须反过来。</text>
+</svg>

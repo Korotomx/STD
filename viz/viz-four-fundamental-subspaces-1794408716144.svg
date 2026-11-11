@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" width="1200" height="720" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">
+  <defs>
+    <marker id="arrowPurple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#A78BFA"/>
+    </marker>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#60A5FA"/>
+    </marker>
+    <style>
+      .ink { fill: #E5E7EB; }
+      .mut { fill: #9CA3AF; }
+      .acc { fill: #A78BFA; }
+      .blu { fill: #60A5FA; }
+      .panel { fill: #191918; stroke: #2E2E2E; stroke-width: 1.5; }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="1200" height="720" fill="#131312"/>
+
+  <!-- title -->
+  <text x="600" y="44" text-anchor="middle" font-size="22" class="ink">四个基本子空间 = 两对正交补</text>
+
+  <!-- ================= LEFT PANEL: V ================= -->
+  <rect x="40" y="70" width="430" height="494" rx="16" class="panel"/>
+  <text x="66" y="110" font-size="20" class="ink">V = R³<tspan dx="14">dim n = 3</tspan></text>
+
+  <!-- row space line -->
+  <line x1="64" y1="190" x2="446" y2="190" stroke="#A78BFA" stroke-width="5" stroke-linecap="round"/>
+  <text x="66" y="168" font-size="20" class="acc">行空间 R(A)</text>
+  <text x="446" y="168" text-anchor="end" font-size="18" class="mut">dim r = 1</text>
+  <text x="418" y="224" text-anchor="end" font-size="18" class="mut">= span(1,2,3)</text>
+
+  <!-- orthogonal guide + right angle -->
+  <line x1="255" y1="190" x2="255" y2="290" stroke="#9CA3AF" stroke-width="1.2" stroke-dasharray="6 6"/>
+  <path d="M273,190 L273,208 L255,208" fill="none" stroke="#9CA3AF" stroke-width="1.6"/>
+  <text x="283" y="252" font-size="18" class="mut">正交补</text>
+
+  <!-- nullspace region -->
+  <rect x="64" y="290" width="382" height="180" rx="12" fill="#60A5FA" fill-opacity="0.10" stroke="#60A5FA" stroke-opacity="0.45" stroke-width="1.5" stroke-dasharray="7 6"/>
+  <text x="255" y="336" text-anchor="middle" font-size="20" class="ink">零空间 N(A)</text>
+  <text x="255" y="366" text-anchor="middle" font-size="18" class="mut">dim N(A) = n − r = 2</text>
+  <text x="255" y="414" text-anchor="middle" font-size="20" class="ink">N(A)：x + 2y + 3z = 0</text>
+
+  <!-- zero node in V -->
+  <circle cx="420" cy="522" r="13" fill="none" stroke="#9CA3AF" stroke-width="1.6"/>
+  <text x="420" y="529" text-anchor="middle" font-size="18" class="mut">0</text>
+
+  <!-- ================= RIGHT PANEL: W ================= -->
+  <rect x="720" y="70" width="430" height="494" rx="16" class="panel"/>
+  <text x="746" y="110" font-size="20" class="ink">W = R²<tspan dx="14">dim m = 2</tspan></text>
+
+  <!-- column space line -->
+  <line x1="744" y1="300" x2="1126" y2="300" stroke="#A78BFA" stroke-width="5" stroke-linecap="round"/>
+  <text x="746" y="278" font-size="20" class="acc">列空间 C(A)</text>
+  <text x="1126" y="278" text-anchor="end" font-size="18" class="mut">dim r = 1</text>
+  <text x="1126" y="328" text-anchor="end" font-size="18" class="mut">= span(1,2)</text>
+
+  <!-- left nullspace line -->
+  <line x1="935" y1="160" x2="935" y2="460" stroke="#60A5FA" stroke-width="5" stroke-linecap="round"/>
+  <text x="954" y="196" font-size="19" class="ink">左零空间 N(A<tspan dy="-7" font-size="14">T</tspan><tspan dy="7">)</tspan></text>
+  <text x="954" y="224" font-size="18" class="mut">dim m − r = 1</text>
+  <text x="954" y="252" font-size="18" class="mut">= span(2,−1)</text>
+
+  <!-- right angle at O -->
+  <path d="M935,284 L951,284 L951,300" fill="none" stroke="#9CA3AF" stroke-width="1.6"/>
+  <circle cx="935" cy="300" r="4" fill="#E5E7EB"/>
+  <text x="912" y="342" text-anchor="end" font-size="18" class="mut">正交补</text>
+
+  <!-- ================= ARROWS IN THE GAP ================= -->
+
+  <!-- T: row space -> column space (isomorphism) -->
+  <line x1="446" y1="190" x2="738" y2="300" stroke="#A78BFA" stroke-width="2.5" marker-end="url(#arrowPurple)"/>
+  <text x="592" y="194" text-anchor="middle" font-size="18" fill="#E5E7EB">T：行空间 ≅ 列空间</text>
+  <text x="592" y="218" text-anchor="middle" font-size="18" class="mut">同构，rank r = 1</text>
+
+  <!-- T^T: column space -> row space -->
+  <path d="M738,320 C 722,418 500,418 442,200" fill="none" stroke="#A78BFA" stroke-width="2.5" stroke-opacity="0.85" marker-end="url(#arrowPurple)"/>
+  <text x="592" y="440" text-anchor="middle" font-size="18" class="acc">T<tspan dy="-7" font-size="14">T</tspan><tspan dy="7">：送回行空间</tspan></text>
+
+  <!-- T^T: left nullspace -> 0 -->
+  <path d="M935,460 C 860,520 620,536 442,517" fill="none" stroke="#60A5FA" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+  <text x="620" y="480" text-anchor="middle" font-size="18" class="blu">T<tspan dy="-7" font-size="14">T</tspan><tspan dy="7">：杀掉左零空间</tspan></text>
+
+  <!-- ================= CAPTION ================= -->
+  <text x="600" y="636" text-anchor="middle" font-size="19" class="mut">dim N(A) + dim 行空间 = n；dim N(A<tspan dy="-7" font-size="14">T</tspan><tspan dy="7">) + dim 列空间 = m；行秩 = 列秩 = r。</tspan></text>
+</svg>

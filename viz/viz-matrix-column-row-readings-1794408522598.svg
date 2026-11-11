@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700">
+  <defs>
+    <marker id="mInk" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#E5E7EB"/>
+    </marker>
+    <marker id="mPurple" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#A78BFA"/>
+    </marker>
+    <marker id="mLilac" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#C4B5FD"/>
+    </marker>
+    <marker id="mAmber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#FBBF24"/>
+    </marker>
+    <marker id="mMuted" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9CA3AF"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1200" height="700" fill="#131312"/>
+
+  <!-- ================= TOP BAND: columns ================= -->
+  <text x="70" y="62" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="24" font-weight="600" fill="#E5E7EB">列读法：基向量被送到哪里</text>
+
+  <!-- V plane grid -->
+  <g stroke="#2E2E2E" stroke-width="1" stroke-dasharray="4 4">
+    <line x1="268" y1="145" x2="268" y2="330"/>
+    <line x1="190" y1="252" x2="300" y2="252"/>
+  </g>
+  <g stroke="#4B5563" stroke-width="1.5">
+    <line x1="190" y1="330" x2="305" y2="330"/>
+    <line x1="190" y1="330" x2="190" y2="142"/>
+  </g>
+
+  <!-- V vectors -->
+  <line x1="190" y1="330" x2="266" y2="330" stroke="#E5E7EB" stroke-width="2.5" marker-end="url(#mInk)"/>
+  <line x1="190" y1="330" x2="190" y2="252" stroke="#E5E7EB" stroke-width="2.5" marker-end="url(#mInk)"/>
+  <line x1="190" y1="330" x2="266" y2="176" stroke="#FBBF24" stroke-width="3" marker-end="url(#mAmber)"/>
+
+  <text x="258" y="356" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="20" fill="#E5E7EB" text-anchor="middle">e<tspan font-size="14" baseline-shift="sub">1</tspan></text>
+  <text x="176" y="248" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="20" fill="#E5E7EB" text-anchor="end">e<tspan font-size="14" baseline-shift="sub">2</tspan></text>
+  <text x="254" y="168" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="22" fill="#FBBF24" text-anchor="end">x</text>
+  <text x="150" y="195" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="24" fill="#9CA3AF" text-anchor="middle">V</text>
+
+  <!-- mapping arrows (dashed) -->
+  <line x1="274" y1="330" x2="952" y2="330" stroke="#A78BFA" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#mPurple)"/>
+  <path d="M 202,260 C 380,80 760,78 918,238" fill="none" stroke="#C4B5FD" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#mLilac)"/>
+  <path d="M 272,168 C 420,40 830,36 1002,150" fill="none" stroke="#FBBF24" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#mAmber)"/>
+
+  <!-- W plane grid -->
+  <g stroke="#2E2E2E" stroke-width="1" stroke-dasharray="4 4">
+    <line x1="933" y1="128" x2="933" y2="335"/>
+    <line x1="966" y1="128" x2="966" y2="335"/>
+    <line x1="999" y1="128" x2="999" y2="335"/>
+    <line x1="900" y1="297" x2="1038" y2="297"/>
+    <line x1="900" y1="264" x2="1038" y2="264"/>
+    <line x1="900" y1="231" x2="1038" y2="231"/>
+    <line x1="900" y1="198" x2="1038" y2="198"/>
+    <line x1="900" y1="165" x2="1038" y2="165"/>
+  </g>
+  <g stroke="#4B5563" stroke-width="1.5">
+    <line x1="900" y1="330" x2="1042" y2="330"/>
+    <line x1="900" y1="330" x2="900" y2="124"/>
+  </g>
+
+  <!-- W vectors -->
+  <line x1="900" y1="330" x2="963" y2="330" stroke="#A78BFA" stroke-width="3" marker-end="url(#mPurple)"/>
+  <line x1="900" y1="330" x2="933" y2="232" stroke="#C4B5FD" stroke-width="3" marker-end="url(#mLilac)"/>
+  <line x1="900" y1="330" x2="1029" y2="136" stroke="#FBBF24" stroke-width="3.2" marker-end="url(#mAmber)"/>
+
+  <text x="966" y="356" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="20" fill="#A78BFA" text-anchor="middle">Ae<tspan font-size="14" baseline-shift="sub">1</tspan></text>
+  <text x="906" y="200" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="20" fill="#C4B5FD" text-anchor="end">Ae<tspan font-size="14" baseline-shift="sub">2</tspan></text>
+  <text x="1042" y="130" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="22" fill="#FBBF24" text-anchor="start">Ax</text>
+  <text x="1090" y="195" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="24" fill="#9CA3AF" text-anchor="middle">W</text>
+
+  <!-- matrix A -->
+  <text x="526" y="228" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="28" fill="#E5E7EB" text-anchor="end">A =</text>
+  <rect x="558" y="162" width="50" height="106" rx="8" fill="#A78BFA" fill-opacity="0.14"/>
+  <rect x="612" y="162" width="50" height="106" rx="8" fill="#C4B5FD" fill-opacity="0.10"/>
+  <path d="M 556,155 h -14 v 120 h 14" fill="none" stroke="#E5E7EB" stroke-width="2.5"/>
+  <path d="M 664,155 h 14 v 120 h -14" fill="none" stroke="#E5E7EB" stroke-width="2.5"/>
+  <text x="583" y="202" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="34" fill="#A78BFA" text-anchor="middle">2</text>
+  <text x="637" y="202" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="34" fill="#C4B5FD" text-anchor="middle">1</text>
+  <text x="583" y="257" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="34" fill="#A78BFA" text-anchor="middle">0</text>
+  <text x="637" y="257" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="34" fill="#C4B5FD" text-anchor="middle">3</text>
+  <text x="610" y="312" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="22" fill="#A78BFA" text-anchor="middle">列 = 基的像</text>
+
+  <line x1="70" y1="400" x2="1130" y2="400" stroke="#2E2E2E" stroke-width="1"/>
+
+  <!-- ================= BOTTOM BAND: rows ================= -->
+  <text x="70" y="440" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="24" font-weight="600" fill="#E5E7EB">行读法：每个输出坐标怎样从输入读出</text>
+
+  <!-- x vector -->
+  <text x="162" y="578" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="24" fill="#FBBF24" text-anchor="end">x =</text>
+  <path d="M 192,508 h -14 v 116 h 14" fill="none" stroke="#E5E7EB" stroke-width="2.5"/>
+  <path d="M 224,508 h 14 v 116 h -14" fill="none" stroke="#E5E7EB" stroke-width="2.5"/>
+  <text x="208" y="552" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="28" fill="#FBBF24" text-anchor="middle">1</text>
+  <text x="208" y="606" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="28" fill="#FBBF24" text-anchor="middle">2</text>
+  <text x="200" y="662" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="20" fill="#A78BFA" text-anchor="middle">行是 V* 中的测量器</text>
+
+  <!-- arrows to devices -->
+  <line x1="250" y1="566" x2="456" y2="512" stroke="#9CA3AF" stroke-width="1.8" stroke-dasharray="6 5" marker-end="url(#mMuted)"/>
+  <line x1="250" y1="566" x2="456" y2="622" stroke="#9CA3AF" stroke-width="1.8" stroke-dasharray="6 5" marker-end="url(#mMuted)"/>
+
+  <!-- device 1 -->
+  <rect x="470" y="466" width="470" height="84" rx="12" fill="#1A1A19" stroke="#3F3F46" stroke-width="1.5"/>
+  <line x1="790" y1="480" x2="790" y2="536" stroke="#2E2E2E" stroke-width="1"/>
+  <text x="498" y="502" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="22" fill="#E5E7EB">r<tspan font-size="15" baseline-shift="sub">1</tspan><tspan> = ( 2 , 1 )</tspan></text>
+  <text x="498" y="534" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="16" fill="#9CA3AF">2·1 + 1·2 = 4</text>
+  <text x="812" y="518" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="26" fill="#A78BFA">r<tspan font-size="17" baseline-shift="sub">1</tspan><tspan> · x = 4</tspan></text>
+
+  <!-- device 2 -->
+  <rect x="470" y="582" width="470" height="84" rx="12" fill="#1A1A19" stroke="#3F3F46" stroke-width="1.5"/>
+  <line x1="790" y1="596" x2="790" y2="652" stroke="#2E2E2E" stroke-width="1"/>
+  <text x="498" y="618" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="22" fill="#E5E7EB">r<tspan font-size="15" baseline-shift="sub">2</tspan><tspan> = ( 0 , 3 )</tspan></text>
+  <text x="498" y="650" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="16" fill="#9CA3AF">0·1 + 3·2 = 6</text>
+  <text x="812" y="634" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="26" fill="#A78BFA">r<tspan font-size="17" baseline-shift="sub">2</tspan><tspan> · x = 6</tspan></text>
+
+  <text x="600" y="690" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="20" fill="#9CA3AF" text-anchor="middle">同一个矩阵：列住在 W，行住在 V*。</text>
+</svg>
