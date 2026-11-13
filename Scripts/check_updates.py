@@ -34,7 +34,7 @@ TARGETS = [
         "name": "Sight",
         "raw_roots": [ROOT / "Raw"],
         "note_roots": [ROOT / "Sight"],
-        "index_files": [ROOT / "Sight" / "STDY.md"],
+        "index_files": [ROOT / "Sight" / "Overview.md"],
     },
     {
         "name": "ALGO",

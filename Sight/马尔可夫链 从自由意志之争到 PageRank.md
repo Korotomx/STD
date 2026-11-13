@@ -160,7 +160,7 @@ P(X_{n+1}=x\mid X_n)
 
 ## 关联
 
-- [[Math/Linear Algebra/STDY/马尔可夫链|马尔可夫链]]：本篇的数学化处理（转移矩阵、平稳分布、MCMC/PageRank/LLM）。
+- [[Math/trival/STDY/马尔可夫链|马尔可夫链]]：本篇的数学化处理（转移矩阵、平稳分布、MCMC/PageRank/LLM）。
 - [[Sight/LLM Wiki 持久知识库模式]]：另一种“把历史压缩成当前状态”的知识组织方式。
 
 ## 词汇

@@ -103,7 +103,4 @@
 - [[你真的了解矩阵转置吗？转置与对偶是什么关系？]] — 对偶空间、Riesz 表示、转置 vs 伴随、Dirac 记号；用于 [[L33 转置、对偶与空间变换]]。原文几处简化，L33 已按 Axler 修正：无内积时 $V\cong V^*$ 不典范、伴随只在标准正交基下等于共轭转置、斜基下「行向量」不等于 Riesz 向量。
 
 - [[The Fast Fourier Transform (FFT) Most Ingenious Algorithm Ever]] — 与 [[The Fast Fourier Transform (FFT) Most Ingenious Algorithm Ever 1]] 内容相同（重复文件）；用于 [[FFT 深入 · 频谱、蝴蝶与卷积]]
-
-## 延伸专题
-
-- [[Wavelets a mathematical microscope]] — 时频局部化、Morlet 小波、卷积与 scalogram；作为 [[FFT 深入 · 频谱、蝴蝶与卷积]] 的延伸阅读，尚未成篇。
+- Wavelets 的原文已移至 [[Math/trival/Ref/Ref|独立数学专题 Ref]]。

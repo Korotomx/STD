@@ -1,5 +1,11 @@
 > AI / 深度学习入口。几条线并列，进度与今日完成写在各自主干下。
 
+## ALGO（数据结构与算法）
+
+- 进度：A01 LCA、A02 FSM、A03 PNG/QOI 已完成；A04 GCD/LCM、A05 进制转换已从 `Math/trival` 迁入，待按 learn 格式重写
+- 下一步：重写 A04/A05；整理 Ref 里的 Every Data Structure、The Most Ambiguous Concept
+- 笔记：[[ALGO/Overview|ALGO 主页]]
+
 ## MIT 6.S191（主线课程）
 
 - 进度：L1~L6 笔记全部完成（基础 / RNN / CNN / 生成模型 / 强化学习 / 语言模型）；L8「AI for Science」、L9「大规模并行训练」已完成
@@ -24,6 +30,15 @@
 - 进度：对象模型、dict / set、特殊性质、装饰器与上下文管理器
 - 下一步：异常处理、NumPy
 - 笔记：[[Python/STDY/STDY|Python 笔记]]
+
+## VibeCoding（AI 编程）
+
+- 进度：L1 流程与环境、L2 仓库与工具、L3 LLM 的限制
+- 笔记：[[VibeCoding/Overview|VibeCoding 主页]]
+
+## Projects（项目归档）
+
+- 笔记：[[Projects/Overview|Projects 主页]] — NIKKE 自动化、架构决策方法
 
 ## Unlimited（补充 / 零散）
 

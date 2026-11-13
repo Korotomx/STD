@@ -2,8 +2,8 @@
 
 ## 课程材料
 
-- [[Linear Algebra/STDY/STDY|STDY]] — L1~L29 知识点 + 专题笔记 [[马尔可夫链]]、[[线性规划与单纯形法]]
-- [[Linear Algebra/Ref/Ref|Ref · 原始材料索引]] — 18.06 字幕（lecture 1~29）、18.06SC 习题课、3b1b 系列、数学不难、专题视频，按类目列出
+- [[Linear Algebra/STDY/STDY|STDY]] — L1~L31、L33 知识点 + 专题笔记 [[线性规划与单纯形法]]；[[马尔可夫链]]、[[FFT 深入 · 频谱、蝴蝶与卷积]] 已移至 [[trival/Overview|独立数学专题]]
+- [[Linear Algebra/Ref/Ref|Ref · 原始材料索引]] — 18.06 字幕（lecture 1~31）、18.06SC 习题课、3b1b 系列、数学不难、专题视频，按类目列出
 - 当前主线材料：lecture 23 [[23. Differential Equations and exp(At)]] 与习题课 [[Differential Equations and exp (At)]]；lecture 24 [[24. Markov Matrices; Fourier Series]] 与习题课 [[Markov Matrices]]；lecture 25 [[25. Symmetric Matrices and Positive Definiteness]] 与习题课 [[Symmetric Matrices and Positive Definiteness]]；lecture 26 [[26. Complex Matrices; Fast Fourier Transform]] 与习题课 [[Complex Matrices]]；lecture 27 [[27. Positive Definite Matrices and Minima]] 与习题课 [[Positive Definite Matrices and Minima]]；lecture 29 [[29. Singular Value Decomposition]] 与习题课 [[Computing the Singular Value Decomposition]]
 - [[Linear Algebra/Assignments/Assignments|Assignments]] — 题目类内容
 - [[Linear Algebra/Exam|Exam]] — PDF 讲义知识点清单与未覆盖项；[[Linear Algebra/Concentrated|Concentrated]] — 已学定理与性质分类汇编
@@ -55,8 +55,8 @@
 - [[L25 正定矩阵与极小值]] — 四种判别法（能量/特征值/主元/顺序主子式）、配方=消元、碗与马鞍、椭圆主轴、Hessian 与极小值、三对角与参数 $c$ 数例。
 - [[L28 相似矩阵与若尔当形]] — 相似不变量、不可对角化时的 Jordan 形、基向量的「死亡时间」与 $\ker N^k$。
 - [[L29 奇异值分解]] — 从 $A^{\mathsf T}A$ 的谱定理推出 $A=U\Sigma V^{\mathsf T}$、四个基本子空间、低秩近似（Eckart–Young）、伪逆与最小二乘、PCA、五步算例。
-- [[马尔可夫链]] — 链的随机过程视角：无记忆性、转移矩阵=马尔可夫矩阵、平稳分布、MCMC/PageRank/LLM 三个应用；与 L22 互补。
 - [[线性规划与单纯形法]] — LP 三要素、可行域与顶点、单纯形法角到角、凸性保证全局最优、影子价格与对偶。
+- [[马尔可夫链]]、[[FFT 深入 · 频谱、蝴蝶与卷积]] — 已移至 [[trival/Overview|独立数学专题]]；线代侧仍看 L22/L24。
 
 ## 命题速查
 

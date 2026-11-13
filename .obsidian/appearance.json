@@ -2,5 +2,6 @@
   "cssTheme": "Things",
   "enabledCssSnippets": [
     "lesson-log"
-  ]
+  ],
+  "showRibbon": true
 }
