@@ -17,6 +17,7 @@
 
 - 每个科目一个目录：`Overview` 是入口，`STDY` 放学习笔记，`Ref` / `Captures` 放原始材料。
 - 原始材料只读：不移动、不改正文。
+- `Scripts/check_updates.py` 检查各科 Ref/Capture 是否有未处理或过期材料；每天 09:07 自动运行并提醒。
 - 本 README 只描述方向和目标，不记录每日进度。
 
 ## 入口
