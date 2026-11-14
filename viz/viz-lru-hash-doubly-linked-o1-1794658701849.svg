@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="950" viewBox="0 0 1600 950">
+  <rect width="1600" height="950" fill="#131312"/>
+  <defs>
+    <marker id="aGray" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#6B7280"/></marker>
+    <marker id="aGreen" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#34D399"/></marker>
+    <marker id="aRed" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#E5484D"/></marker>
+    <marker id="aPurple" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#A78BFA"/></marker>
+    <marker id="aGrayS" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="2" refY="6" orient="auto"><path d="M12,0 L0,6 L12,12 z" fill="#6B7280"/></marker>
+    <marker id="aGrayE" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#6B7280"/></marker>
+  </defs>
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">
+    <text x="800" y="64" fill="#E5E7EB" font-size="44" font-weight="600" text-anchor="middle">LRU：哈希表定位，双向链表排队</text>
+    <text x="800" y="108" fill="#9CA3AF" font-size="26" text-anchor="middle">容量 = 3　｜　哈希表给出节点指针，双向链表调整顺序——两步都是 O(1)</text>
+    <line x1="60" y1="130" x2="1540" y2="130" stroke="#2E2E2E" stroke-width="1.5"/>
+    <text x="62" y="176" fill="#9CA3AF" font-size="30" font-weight="600">① 操作前</text>
+    <text x="54" y="232" fill="#9CA3AF" font-size="24">哈希表（key → 节点指针）</text>
+    <rect x="54" y="250" width="120" height="44" rx="9" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.2"/>
+    <text x="114.0" y="281" fill="#E5E7EB" font-size="26" text-anchor="middle">key 1 →</text>
+    <rect x="54" y="304" width="120" height="44" rx="9" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.2"/>
+    <text x="114.0" y="335" fill="#E5E7EB" font-size="26" text-anchor="middle">key 2 →</text>
+    <rect x="54" y="358" width="120" height="44" rx="9" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.2"/>
+    <text x="114.0" y="389" fill="#E5E7EB" font-size="26" text-anchor="middle">key 3 →</text>
+    <rect x="196" y="435" width="70" height="70" rx="12" fill="#1E1E2E" stroke="#A78BFA" stroke-width="3"/>
+    <text x="231" y="483" fill="#E5E7EB" font-size="38" font-weight="600" text-anchor="middle">3</text>
+    <rect x="317" y="435" width="70" height="70" rx="12" fill="#1E1E2E" stroke="#A78BFA" stroke-width="3"/>
+    <text x="352" y="483" fill="#E5E7EB" font-size="38" font-weight="600" text-anchor="middle">1</text>
+    <rect x="438" y="435" width="70" height="70" rx="12" fill="#1E1E2E" stroke="#A78BFA" stroke-width="3"/>
+    <text x="473" y="483" fill="#E5E7EB" font-size="38" font-weight="600" text-anchor="middle">2</text>
+    <line x1="271" y1="470" x2="312" y2="470" stroke="#6B7280" stroke-width="3" marker-start="url(#aGrayS)" marker-end="url(#aGrayE)"/>
+    <line x1="392" y1="470" x2="433" y2="470" stroke="#6B7280" stroke-width="3" marker-start="url(#aGrayS)" marker-end="url(#aGrayE)"/>
+    <path d="M178,272 L336,272 Q352,272 352,288 L352,428" fill="none" stroke="#6B7280" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#aGray)"/>
+    <path d="M178,326 L457,326 Q473,326 473,342 L473,428" fill="none" stroke="#6B7280" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#aGray)"/>
+    <path d="M178,380 L215,380 Q231,380 231,396 L231,428" fill="none" stroke="#6B7280" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#aGray)"/>
+    <rect x="52" y="615" width="460" height="130" rx="14" fill="#1A1A20" stroke="#A78BFA" stroke-opacity="0.45" stroke-width="1.6"/>
+    <text x="76" y="655" fill="#E5E7EB" font-size="28" font-weight="600">哈希表存 key → 节点指针</text>
+    <text x="76" y="692" fill="#9CA3AF" font-size="28" font-weight="400">直接跳到节点，O(1) 定位</text>
+    <text x="76" y="729" fill="#9CA3AF" font-size="28" font-weight="400">队首最近使用，队尾最久未使用</text>
+    <text x="580" y="176" fill="#34D399" font-size="30" font-weight="600">② get(1) 命中</text>
+    <text x="572" y="232" fill="#9CA3AF" font-size="24">哈希表（key → 节点指针）</text>
+    <rect x="572" y="250" width="120" height="44" rx="9" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.2"/>
+    <text x="632.0" y="281" fill="#E5E7EB" font-size="26" text-anchor="middle">key 1 →</text>
+    <rect x="572" y="304" width="120" height="44" rx="9" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.2"/>
+    <text x="632.0" y="335" fill="#E5E7EB" font-size="26" text-anchor="middle">key 2 →</text>
+    <rect x="572" y="358" width="120" height="44" rx="9" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.2"/>
+    <text x="632.0" y="389" fill="#E5E7EB" font-size="26" text-anchor="middle">key 3 →</text>
+    <rect x="714" y="435" width="70" height="70" rx="12" fill="#15291F" stroke="#34D399" stroke-width="3"/>
+    <text x="749" y="483" fill="#34D399" font-size="38" font-weight="600" text-anchor="middle">1</text>
+    <rect x="835" y="435" width="70" height="70" rx="12" fill="#1E1E2E" stroke="#A78BFA" stroke-width="3"/>
+    <text x="870" y="483" fill="#E5E7EB" font-size="38" font-weight="600" text-anchor="middle">3</text>
+    <rect x="956" y="435" width="70" height="70" rx="12" fill="#1E1E2E" stroke="#A78BFA" stroke-width="3"/>
+    <text x="991" y="483" fill="#E5E7EB" font-size="38" font-weight="600" text-anchor="middle">2</text>
+    <line x1="789" y1="470" x2="830" y2="470" stroke="#6B7280" stroke-width="3" marker-start="url(#aGrayS)" marker-end="url(#aGrayE)"/>
+    <line x1="910" y1="470" x2="951" y2="470" stroke="#6B7280" stroke-width="3" marker-start="url(#aGrayS)" marker-end="url(#aGrayE)"/>
+    <path d="M696,272 L733,272 Q749,272 749,288 L749,428" fill="none" stroke="#34D399" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#aGreen)"/>
+    <path d="M696,326 L975,326 Q991,326 991,342 L991,428" fill="none" stroke="#6B7280" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#aGray)"/>
+    <path d="M696,380 L854,380 Q870,380 870,396 L870,428" fill="none" stroke="#6B7280" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#aGray)"/>
+    <rect x="570" y="615" width="460" height="130" rx="14" fill="#1A1A20" stroke="#A78BFA" stroke-opacity="0.45" stroke-width="1.6"/>
+    <text x="594" y="655" fill="#E5E7EB" font-size="28" font-weight="600">get 后把节点移到队首</text>
+    <text x="594" y="692" fill="#9CA3AF" font-size="28" font-weight="400">从链表中间摘下 O(1)</text>
+    <text x="594" y="729" fill="#9CA3AF" font-size="28" font-weight="400">插到队首 O(1)</text>
+    <text x="1098" y="176" fill="#A78BFA" font-size="30" font-weight="600">③ put(4)，容量已满</text>
+    <text x="1090" y="212" fill="#9CA3AF" font-size="24">哈希表（key → 节点指针）</text>
+    <rect x="1090" y="232" width="120" height="38" rx="9" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.2"/>
+    <text x="1150.0" y="260" fill="#E5E7EB" font-size="26" text-anchor="middle">key 1 →</text>
+    <rect x="1090" y="278" width="120" height="38" rx="9" fill="#2A191B" stroke="#E5484D" stroke-width="2.2"/>
+    <text x="1150.0" y="306" fill="#9CA3AF" font-size="26" text-anchor="middle">key 2 →</text>
+    <line x1="1098" y1="297" x2="1202" y2="297" stroke="#E5484D" stroke-width="2.6" stroke-linecap="round"/>
+    <rect x="1090" y="324" width="120" height="38" rx="9" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.2"/>
+    <text x="1150.0" y="352" fill="#E5E7EB" font-size="26" text-anchor="middle">key 3 →</text>
+    <rect x="1090" y="370" width="120" height="38" rx="9" fill="#15291F" stroke="#34D399" stroke-width="2.2"/>
+    <text x="1150.0" y="398" fill="#34D399" font-size="26" text-anchor="middle">key 4 →</text>
+    <rect x="1232" y="435" width="70" height="70" rx="12" fill="#15291F" stroke="#34D399" stroke-width="3"/>
+    <text x="1267" y="483" fill="#34D399" font-size="38" font-weight="600" text-anchor="middle">4</text>
+    <rect x="1353" y="435" width="70" height="70" rx="12" fill="#1E1E2E" stroke="#A78BFA" stroke-width="3"/>
+    <text x="1388" y="483" fill="#E5E7EB" font-size="38" font-weight="600" text-anchor="middle">1</text>
+    <rect x="1474" y="435" width="70" height="70" rx="12" fill="#1E1E2E" stroke="#A78BFA" stroke-width="3"/>
+    <text x="1509" y="483" fill="#E5E7EB" font-size="38" font-weight="600" text-anchor="middle">3</text>
+    <line x1="1307" y1="470" x2="1348" y2="470" stroke="#6B7280" stroke-width="3" marker-start="url(#aGrayS)" marker-end="url(#aGrayE)"/>
+    <line x1="1428" y1="470" x2="1469" y2="470" stroke="#6B7280" stroke-width="3" marker-start="url(#aGrayS)" marker-end="url(#aGrayE)"/>
+    <path d="M1214,251 L1372,251 Q1388,251 1388,267 L1388,428" fill="none" stroke="#6B7280" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#aGray)"/>
+    <path d="M1214,343 L1493,343 Q1509,343 1509,359 L1509,428" fill="none" stroke="#6B7280" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#aGray)"/>
+    <path d="M1214,389 L1251,389 Q1267,389 1267,405 L1267,428" fill="none" stroke="#34D399" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#aGreen)"/>
+    <rect x="1088" y="615" width="460" height="130" rx="14" fill="#1A1A20" stroke="#A78BFA" stroke-opacity="0.45" stroke-width="1.6"/>
+    <text x="1112" y="655" fill="#E5E7EB" font-size="28" font-weight="600">put 超容量时删除队尾</text>
+    <text x="1112" y="692" fill="#9CA3AF" font-size="28" font-weight="400">并从哈希表删掉对应 key</text>
+    <line x1="231" y1="509" x2="231" y2="521" stroke="#4B5563" stroke-width="1.6"/>
+    <line x1="473" y1="509" x2="473" y2="521" stroke="#4B5563" stroke-width="1.6"/>
+    <text x="231" y="536" fill="#A78BFA" font-size="26" text-anchor="middle">队首 · MRU</text>
+    <text x="473" y="536" fill="#9CA3AF" font-size="26" text-anchor="middle">队尾 · LRU</text>
+    <path d="M870,512 C854,566 786,572 756,516" fill="none" stroke="#34D399" stroke-width="2.6" stroke-linecap="round" marker-end="url(#aGreen)"/>
+    <text x="812" y="592" fill="#34D399" font-size="26" text-anchor="middle">移到队首</text>
+    <text x="760" y="286" fill="#34D399" font-size="26">命中</text>
+    <path d="M1509,508 L1509,532" fill="none" stroke="#E5484D" stroke-width="2.6" marker-end="url(#aRed)"/>
+    <rect x="1482" y="535" width="54" height="54" rx="11" fill="#2A191B" stroke="#E5484D" stroke-width="2.6" stroke-dasharray="7 5"/>
+    <line x1="1491" y1="544" x2="1527" y2="580" stroke="#E5484D" stroke-width="3.4" stroke-linecap="round"/>
+    <line x1="1527" y1="544" x2="1491" y2="580" stroke="#E5484D" stroke-width="3.4" stroke-linecap="round"/>
+    <rect x="1494" y="542" width="30" height="40" fill="#2A191B"/>
+    <text x="1509" y="574" fill="#E5E7EB" font-size="36" font-weight="600" text-anchor="middle">2</text>
+    <text x="1459" y="570" fill="#E5484D" font-size="26" text-anchor="end">淘汰 LRU</text>
+    <text x="1267" y="534" fill="#34D399" font-size="26" text-anchor="middle">新节点插队首</text>
+    <rect x="60" y="782" width="1480" height="130" rx="14" fill="#1A1A20" stroke="#A78BFA" stroke-opacity="0.5" stroke-width="1.8"/>
+    <rect x="84" y="806" width="5" height="82" rx="2.5" fill="#A78BFA"/>
+    <text x="112" y="830" fill="#A78BFA" font-size="29" font-weight="600">为什么必须是双向链表？</text>
+    <text x="112" y="868" fill="#E5E7EB" font-size="28">哈希表给出节点指针后，要在 O(1) 内把该节点从链表中间摘下——</text>
+    <text x="112" y="902" fill="#E5E7EB" font-size="28">单向链表拿不到前驱，做不到。</text>
+  </g>
+</svg>
