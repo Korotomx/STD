@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">
+  <rect width="1600" height="900" fill="#131312"/>
+
+  <text x="80" y="72" font-size="42" font-weight="600" fill="#E5E7EB">Trie 应用：输入 app，候选只剩 apple / apply</text>
+
+  <!-- 左侧：搜索框 -->
+  <rect x="80" y="150" width="480" height="66" rx="10" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+  <text x="110" y="195" font-size="32" fill="#E5E7EB">app</text>
+  <line x1="170" y1="171" x2="170" y2="200" stroke="#F59E0B" stroke-width="3" stroke-linecap="round"/>
+
+  <text x="82" y="252" font-size="28" fill="#9CA3AF">只列以 app 开头的词</text>
+
+  <!-- 下拉候选 -->
+  <rect x="80" y="268" width="480" height="128" rx="10" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+  <line x1="80" y1="332" x2="560" y2="332" stroke="#2E2E2E" stroke-width="1.5"/>
+  <text x="112" y="311" font-size="30" fill="#34D399">apple</text>
+  <text x="112" y="375" font-size="30" fill="#34D399">apply</text>
+
+  <!-- apt 说明 -->
+  <text x="82" y="442" font-size="28" fill="#9CA3AF">apt 不在候选：分支是 a→p→t</text>
+  <text x="82" y="478" font-size="28" fill="#9CA3AF">不经过 a→p→p，所以不列出</text>
+
+  <!-- 右侧：Trie 边 -->
+  <g stroke-linecap="round">
+    <!-- 高亮路径 root-a-p-p -->
+    <line x1="740" y1="400" x2="840" y2="400" stroke="#F59E0B" stroke-width="4.5"/>
+    <line x1="840" y1="400" x2="940" y2="400" stroke="#F59E0B" stroke-width="4.5"/>
+    <line x1="940" y1="400" x2="1040" y2="400" stroke="#F59E0B" stroke-width="4.5"/>
+
+    <!-- root-b-a-t -->
+    <line x1="740" y1="400" x2="700" y2="620" stroke="#6B7280" stroke-width="2.5"/>
+    <line x1="700" y1="620" x2="800" y2="620" stroke="#6B7280" stroke-width="2.5"/>
+    <line x1="800" y1="620" x2="900" y2="620" stroke="#6B7280" stroke-width="2.5"/>
+
+    <!-- a-p-t -->
+    <line x1="940" y1="400" x2="940" y2="540" stroke="#6B7280" stroke-width="2.5"/>
+
+    <!-- p-l-e / p-l-y -->
+    <line x1="1040" y1="400" x2="1140" y2="310" stroke="#6B7280" stroke-width="2.5"/>
+    <line x1="1140" y1="310" x2="1240" y2="310" stroke="#6B7280" stroke-width="2.5"/>
+    <line x1="1040" y1="400" x2="1140" y2="490" stroke="#6B7280" stroke-width="2.5"/>
+    <line x1="1140" y1="490" x2="1240" y2="490" stroke="#6B7280" stroke-width="2.5"/>
+  </g>
+
+  <!-- 绿色虚线框：候选子树 -->
+  <rect x="1082" y="252" width="266" height="296" rx="12" fill="none" stroke="#34D399" stroke-width="2" stroke-dasharray="8 6"/>
+  <text x="1082" y="238" font-size="28" fill="#34D399">候选都在这个子树里</text>
+
+  <!-- 节点 -->
+  <g fill="#131312" stroke-width="2.5">
+    <circle cx="740" cy="400" r="18" stroke="#E5E7EB"/>
+    <circle cx="840" cy="400" r="18" stroke="#F59E0B" stroke-width="3.5"/>
+    <circle cx="940" cy="400" r="18" stroke="#F59E0B" stroke-width="3.5"/>
+    <circle cx="1040" cy="400" r="18" stroke="#F59E0B" stroke-width="3.5"/>
+    <circle cx="1140" cy="310" r="18" stroke="#E5E7EB"/>
+    <circle cx="1240" cy="310" r="18" stroke="#34D399"/>
+    <circle cx="1140" cy="490" r="18" stroke="#E5E7EB"/>
+    <circle cx="1240" cy="490" r="18" stroke="#34D399"/>
+    <circle cx="940" cy="540" r="18" stroke="#E5E7EB"/>
+    <circle cx="700" cy="620" r="18" stroke="#E5E7EB"/>
+    <circle cx="800" cy="620" r="18" stroke="#E5E7EB"/>
+    <circle cx="900" cy="620" r="18" stroke="#E5E7EB"/>
+  </g>
+
+  <!-- 终结标记 -->
+  <g>
+    <circle cx="1040" cy="400" r="3.5" fill="#F59E0B"/>
+    <circle cx="1240" cy="310" r="3.5" fill="#34D399"/>
+    <circle cx="1240" cy="490" r="3.5" fill="#34D399"/>
+    <circle cx="940" cy="540" r="3.5" fill="#9CA3AF"/>
+    <circle cx="900" cy="620" r="3.5" fill="#9CA3AF"/>
+  </g>
+
+  <!-- 边字符 -->
+  <g font-size="28" fill="#E5E7EB" text-anchor="middle">
+    <text x="790" y="386" fill="#F59E0B">a</text>
+    <text x="890" y="386" fill="#F59E0B">p</text>
+    <text x="990" y="386" fill="#F59E0B">p</text>
+    <text x="1190" y="296">e</text>
+    <text x="1190" y="476">y</text>
+  </g>
+  <text x="708" y="516" font-size="28" fill="#E5E7EB" text-anchor="end">b</text>
+  <text x="750" y="606" font-size="28" fill="#E5E7EB" text-anchor="middle">a</text>
+  <text x="850" y="606" font-size="28" fill="#E5E7EB" text-anchor="middle">t</text>
+  <text x="954" y="474" font-size="28" fill="#E5E7EB">t</text>
+  <text x="1104" y="356" font-size="28" fill="#E5E7EB">l</text>
+  <text x="1104" y="438" font-size="28" fill="#E5E7EB">l</text>
+
+  <!-- 路径标注 -->
+  <line x1="698" y1="345" x2="716" y2="345" stroke="#F59E0B" stroke-width="4.5" stroke-linecap="round"/>
+  <text x="724" y="352" font-size="28" fill="#F59E0B">3 个字符 = 3 步</text>
+
+  <!-- 终结词标注 -->
+  <text x="1040" y="362" font-size="28" fill="#F59E0B" text-anchor="middle">app</text>
+  <text x="1268" y="318" font-size="28" fill="#34D399">apple</text>
+  <text x="1268" y="498" font-size="28" fill="#34D399">apply</text>
+  <text x="966" y="548" font-size="28" fill="#9CA3AF">apt</text>
+  <text x="900" y="666" font-size="28" fill="#9CA3AF" text-anchor="middle">bat</text>
+
+  <!-- 底部分隔线 -->
+  <line x1="80" y1="690" x2="1520" y2="690" stroke="#2E2E2E" stroke-width="1"/>
+
+  <!-- 底部注释 -->
+  <text x="80" y="736" font-size="28" fill="#E5E7EB">补全代价 = 前缀长度 + 输出词数，与词典总词数无关</text>
+  <text x="80" y="782" font-size="28" fill="#E5E7EB">哈希表做前缀查找要扫全部 key；Trie 只走前缀这条路</text>
+  <text x="80" y="828" font-size="28" fill="#9CA3AF">应用：搜索框补全 · 拼写检查 · 词典 · IP 路由</text>
+</svg>

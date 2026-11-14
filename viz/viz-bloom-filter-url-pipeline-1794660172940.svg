@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="960" viewBox="0 0 1600 960" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">
+  <defs>
+    <marker id="arrowGray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6B7280"/>
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#34D399"/>
+    </marker>
+    <marker id="arrowOrange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#F59E0B"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="960" fill="#131312"/>
+
+  <!-- Title -->
+  <text x="800" y="62" text-anchor="middle" font-size="44" font-weight="700" fill="#E5E7EB">布隆过滤器应用：先花几位判断，再决定要不要查大表</text>
+
+  <!-- Step 1: URL input -->
+  <rect x="70" y="138" width="290" height="120" rx="14" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+  <text x="215" y="190" text-anchor="middle" font-size="30" font-weight="600" fill="#E5E7EB">用户访问 URL</text>
+  <text x="215" y="228" text-anchor="middle" font-size="28" fill="#9CA3AF">计算 k 个哈希</text>
+
+  <line x1="372" y1="198" x2="445" y2="198" stroke="#6B7280" stroke-width="3" marker-end="url(#arrowGray)"/>
+
+  <!-- Step 2: Bloom filter -->
+  <rect x="455" y="96" width="560" height="204" rx="16" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+  <text x="735" y="140" text-anchor="middle" font-size="34" font-weight="700" fill="#E5E7EB">布隆过滤器</text>
+  <text x="735" y="176" text-anchor="middle" font-size="28" fill="#9CA3AF">位数组 · 仅几 MB</text>
+
+  <!-- bit cells: 12 cells, highlighted k bits at idx 2,6,9 -->
+  <g text-anchor="middle" font-size="28" font-weight="600">
+    <rect x="510" y="196" width="32" height="44" rx="6" fill="#131312" stroke="#A78BFA" stroke-width="1.5"/>
+    <text x="526" y="228" fill="#E5E7EB">1</text>
+    <rect x="548" y="196" width="32" height="44" rx="6" fill="#131312" stroke="#A78BFA" stroke-width="1.5"/>
+    <text x="564" y="228" fill="#9CA3AF">0</text>
+    <rect x="586" y="196" width="32" height="44" rx="6" fill="#A78BFA" stroke="#A78BFA" stroke-width="1.5"/>
+    <text x="602" y="228" fill="#131312">1</text>
+    <rect x="624" y="196" width="32" height="44" rx="6" fill="#131312" stroke="#A78BFA" stroke-width="1.5"/>
+    <text x="640" y="228" fill="#E5E7EB">1</text>
+    <rect x="662" y="196" width="32" height="44" rx="6" fill="#131312" stroke="#A78BFA" stroke-width="1.5"/>
+    <text x="678" y="228" fill="#9CA3AF">0</text>
+    <rect x="700" y="196" width="32" height="44" rx="6" fill="#131312" stroke="#A78BFA" stroke-width="1.5"/>
+    <text x="716" y="228" fill="#E5E7EB">1</text>
+    <rect x="738" y="196" width="32" height="44" rx="6" fill="#A78BFA" stroke="#A78BFA" stroke-width="1.5"/>
+    <text x="754" y="228" fill="#131312">1</text>
+    <rect x="776" y="196" width="32" height="44" rx="6" fill="#131312" stroke="#A78BFA" stroke-width="1.5"/>
+    <text x="792" y="228" fill="#9CA3AF">0</text>
+    <rect x="814" y="196" width="32" height="44" rx="6" fill="#131312" stroke="#A78BFA" stroke-width="1.5"/>
+    <text x="830" y="228" fill="#E5E7EB">1</text>
+    <rect x="852" y="196" width="32" height="44" rx="6" fill="#A78BFA" stroke="#A78BFA" stroke-width="1.5"/>
+    <text x="868" y="228" fill="#131312">1</text>
+    <rect x="890" y="196" width="32" height="44" rx="6" fill="#131312" stroke="#A78BFA" stroke-width="1.5"/>
+    <text x="906" y="228" fill="#9CA3AF">0</text>
+    <rect x="928" y="196" width="32" height="44" rx="6" fill="#131312" stroke="#A78BFA" stroke-width="1.5"/>
+    <text x="944" y="228" fill="#E5E7EB">1</text>
+  </g>
+  <text x="735" y="280" text-anchor="middle" font-size="28" fill="#9CA3AF">k 个哈希 → k 个位</text>
+
+  <!-- Branch A: any bit 0 -> definitely not (green) -->
+  <polyline points="560,300 560,356 330,356 330,388" fill="none" stroke="#34D399" stroke-width="3" marker-end="url(#arrowGreen)"/>
+  <text x="425" y="340" text-anchor="middle" font-size="28" font-weight="600" fill="#34D399">任意一位 = 0</text>
+
+  <rect x="90" y="388" width="480" height="120" rx="14" fill="#1E1E2E" stroke="#34D399" stroke-width="2.5"/>
+  <text x="330" y="436" text-anchor="middle" font-size="32" font-weight="700" fill="#E5E7EB">一定不在黑名单</text>
+  <text x="330" y="476" text-anchor="middle" font-size="28" fill="#9CA3AF">直接放行 · 不读磁盘</text>
+
+  <!-- Branch B: all bits 1 -> maybe (orange) -->
+  <polyline points="910,300 910,356 1210,356 1210,388" fill="none" stroke="#F59E0B" stroke-width="3" marker-end="url(#arrowOrange)"/>
+  <text x="1060" y="340" text-anchor="middle" font-size="28" font-weight="600" fill="#F59E0B">k 位全为 1</text>
+
+  <rect x="940" y="388" width="540" height="120" rx="14" fill="#1E1E2E" stroke="#F59E0B" stroke-width="2.5"/>
+  <text x="1210" y="436" text-anchor="middle" font-size="32" font-weight="700" fill="#E5E7EB">可能在黑名单</text>
+  <text x="1210" y="476" text-anchor="middle" font-size="28" fill="#9CA3AF">这一次可能是假阳性</text>
+
+  <line x1="1210" y1="508" x2="1210" y2="540" stroke="#6B7280" stroke-width="3" marker-end="url(#arrowGray)"/>
+
+  <rect x="940" y="540" width="540" height="110" rx="14" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+  <text x="1210" y="582" text-anchor="middle" font-size="30" font-weight="600" fill="#E5E7EB">查完整恶意网址库</text>
+  <text x="1210" y="620" text-anchor="middle" font-size="28" fill="#9CA3AF">几十 GB · 磁盘</text>
+
+  <!-- Fork: confirm result -->
+  <line x1="1210" y1="650" x2="1210" y2="670" stroke="#6B7280" stroke-width="3"/>
+  <line x1="1020" y1="670" x2="1380" y2="670" stroke="#6B7280" stroke-width="3"/>
+  <line x1="1020" y1="670" x2="1020" y2="688" stroke="#6B7280" stroke-width="3" marker-end="url(#arrowGray)"/>
+  <line x1="1380" y1="670" x2="1380" y2="688" stroke="#6B7280" stroke-width="3" marker-end="url(#arrowGray)"/>
+
+  <rect x="880" y="688" width="280" height="96" rx="12" fill="#1E1E2E" stroke="#9CA3AF" stroke-width="2"/>
+  <text x="1020" y="746" text-anchor="middle" font-size="30" font-weight="700" fill="#E5E7EB">真在 → 拦截</text>
+
+  <rect x="1215" y="688" width="330" height="96" rx="12" fill="#1E1E2E" stroke="#9CA3AF" stroke-width="2"/>
+  <text x="1380" y="730" text-anchor="middle" font-size="30" font-weight="700" fill="#E5E7EB">不在 → 放行</text>
+  <text x="1380" y="766" text-anchor="middle" font-size="28" fill="#9CA3AF">假阳性，多查一次</text>
+
+  <!-- Notes -->
+  <line x1="90" y1="812" x2="1510" y2="812" stroke="#2E2E2E" stroke-width="1.5"/>
+  <text x="800" y="852" text-anchor="middle" font-size="28" fill="#E5E7EB">假阳性只带来一次多余查询；不会漏掉真正的恶意网址（无假阴性）</text>
+  <text x="800" y="888" text-anchor="middle" font-size="28" fill="#9CA3AF">完整黑名单几十 GB，布隆过滤器几 MB</text>
+  <text x="800" y="924" text-anchor="middle" font-size="28" fill="#9CA3AF">应用：Chrome Safe Browsing · 密码泄露检查 · 拼写检查预筛 · 数据库防穿透</text>
+</svg>

@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <marker id="arw" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,1 L9,5 L0,9 Z" fill="#6B7280"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="900" fill="#131312"/>
+
+  <!-- Title -->
+  <text x="80" y="74" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+        font-size="46" font-weight="700" fill="#E5E7EB">动态数组扩容：容量不够，就申请更大的块</text>
+
+  <!-- ===== Before ===== -->
+  <text x="200" y="158" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+        font-size="30" letter-spacing="2" fill="#A78BFA">扩容前</text>
+
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">
+    <!-- cells -->
+    <rect x="200" y="180" width="100" height="96" rx="10" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+    <rect x="300" y="180" width="100" height="96" rx="10" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+    <rect x="400" y="180" width="100" height="96" rx="10" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+    <rect x="500" y="180" width="100" height="96" rx="10" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+
+    <text x="250" y="240" text-anchor="middle" font-size="34" fill="#E5E7EB">10</text>
+    <text x="350" y="240" text-anchor="middle" font-size="34" fill="#E5E7EB">20</text>
+    <text x="450" y="240" text-anchor="middle" font-size="34" fill="#E5E7EB">30</text>
+    <text x="550" y="240" text-anchor="middle" font-size="34" fill="#E5E7EB">40</text>
+
+    <text x="628" y="240" font-size="28" fill="#9CA3AF">size=4, cap=4</text>
+
+    <!-- trigger callout -->
+    <text x="900" y="222" font-size="36" fill="#A78BFA">push(50)</text>
+    <text x="900" y="264" font-size="26" fill="#9CA3AF">capacity 已满 → 触发扩容</text>
+  </g>
+
+  <!-- ===== Process chain ===== -->
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="30">
+    <text x="493" y="370" text-anchor="middle" fill="#E5E7EB">申请 8 格</text>
+    <text x="706" y="370" text-anchor="middle" fill="#E5E7EB">复制 4 个</text>
+    <text x="908" y="370" text-anchor="middle" fill="#E5E7EB">追加 <tspan fill="#34D399">50</tspan></text>
+    <text x="1109" y="370" text-anchor="middle" fill="#E5E7EB">释放旧块</text>
+  </g>
+  <g stroke="#6B7280" stroke-width="2.5">
+    <line x1="566" y1="360" x2="632" y2="360" marker-end="url(#arw)"/>
+    <line x1="778" y1="360" x2="844" y2="360" marker-end="url(#arw)"/>
+    <line x1="971" y1="360" x2="1037" y2="360" marker-end="url(#arw)"/>
+  </g>
+
+  <!-- ===== After ===== -->
+  <text x="200" y="448" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+        font-size="30" letter-spacing="2" fill="#A78BFA">扩容后</text>
+
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">
+    <rect x="200" y="470" width="100" height="96" rx="10" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+    <rect x="300" y="470" width="100" height="96" rx="10" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+    <rect x="400" y="470" width="100" height="96" rx="10" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+    <rect x="500" y="470" width="100" height="96" rx="10" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+    <rect x="600" y="470" width="100" height="96" rx="10" fill="#34D399" stroke="#34D399" stroke-width="2.5"/>
+    <rect x="700" y="470" width="100" height="96" rx="10" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5" stroke-opacity="0.35"/>
+    <rect x="800" y="470" width="100" height="96" rx="10" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5" stroke-opacity="0.35"/>
+    <rect x="900" y="470" width="100" height="96" rx="10" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5" stroke-opacity="0.35"/>
+
+    <text x="250" y="530" text-anchor="middle" font-size="34" fill="#E5E7EB">10</text>
+    <text x="350" y="530" text-anchor="middle" font-size="34" fill="#E5E7EB">20</text>
+    <text x="450" y="530" text-anchor="middle" font-size="34" fill="#E5E7EB">30</text>
+    <text x="550" y="530" text-anchor="middle" font-size="34" fill="#E5E7EB">40</text>
+    <text x="650" y="530" text-anchor="middle" font-size="34" font-weight="700" fill="#131312">50</text>
+
+    <text x="200" y="600" font-size="28" fill="#9CA3AF">size=5, cap=8</text>
+
+    <!-- old block being freed -->
+    <rect x="1080" y="470" width="100" height="96" rx="10" fill="#16161C" stroke="#4B5563" stroke-width="2"/>
+    <rect x="1180" y="470" width="100" height="96" rx="10" fill="#16161C" stroke="#4B5563" stroke-width="2"/>
+    <rect x="1280" y="470" width="100" height="96" rx="10" fill="#16161C" stroke="#4B5563" stroke-width="2"/>
+    <rect x="1380" y="470" width="100" height="96" rx="10" fill="#16161C" stroke="#4B5563" stroke-width="2"/>
+
+    <text x="1130" y="530" text-anchor="middle" font-size="30" fill="#6B7280">10</text>
+    <text x="1230" y="530" text-anchor="middle" font-size="30" fill="#6B7280">20</text>
+    <text x="1330" y="530" text-anchor="middle" font-size="30" fill="#6B7280">30</text>
+    <text x="1430" y="530" text-anchor="middle" font-size="30" fill="#6B7280">40</text>
+
+    <rect x="1064" y="458" width="432" height="124" rx="14" fill="none"
+          stroke="#E5484D" stroke-width="2.5" stroke-dasharray="9 8"/>
+    <text x="1280" y="444" text-anchor="middle" font-size="26" fill="#E5484D">旧数组：释放</text>
+  </g>
+
+  <!-- ===== Notes ===== -->
+  <rect x="80" y="628" width="1440" height="204" rx="16" fill="#17171F" stroke="#2E2E2E" stroke-width="1.5"/>
+
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="30" fill="#E5E7EB">
+    <circle cx="128" cy="680" r="5" fill="#A78BFA"/>
+    <text x="160" y="690">第 5 次 push 搬 4 个；接下来 4 次 push 都不用搬</text>
+
+    <circle cx="128" cy="738" r="5" fill="#A78BFA"/>
+    <text x="160" y="748">按 1, 2, 4, 8 … 倍增，n 次 push 总搬移 ≤ 2n → <tspan fill="#34D399" font-weight="700">均摊 O(1)</tspan></text>
+
+    <circle cx="128" cy="796" r="5" fill="#A78BFA"/>
+    <text x="160" y="806" fill="#9CA3AF">若每次只加 1 格，总搬移 1+2+…+n = <tspan fill="#E5484D" font-weight="700">O(n²)</tspan></text>
+  </g>
+</svg>
