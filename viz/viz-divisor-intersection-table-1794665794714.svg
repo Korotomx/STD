@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#131312"/>
+
+  <!-- Title -->
+  <text x="800" y="52" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="46" font-weight="bold" fill="#E5E7EB">逐个整数核对：两个交集完全相同</text>
+  <text x="800" y="96" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="27" fill="#9CA3AF">12 = 1×8 + 4　·　逐行比对 d 对 12、8、4 的整除情况</text>
+
+  <!-- Panel -->
+  <rect x="60" y="130" width="1480" height="720" rx="18" fill="#131312" stroke="#A78BFA" stroke-width="2.5"/>
+
+  <!-- Group brackets above header -->
+  <path d="M323 204 V216 H638 V204" fill="none" stroke="#A78BFA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="311" y="216" text-anchor="end" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="26" font-weight="bold" fill="#A78BFA">(12,8)</text>
+
+  <path d="M498 170 V182 H813 V170" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="825" y="182" text-anchor="start" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="26" font-weight="bold" fill="#F59E0B">(8,4)</text>
+
+  <!-- Header band -->
+  <rect x="76" y="218" width="1448" height="40" rx="8" fill="#1E1E2E"/>
+
+  <!-- Header text -->
+  <text x="155" y="246" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="28" font-weight="bold" fill="#9CA3AF">d</text>
+  <text x="395" y="246" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="28" fill="#E5E7EB">整除 12？</text>
+  <text x="570" y="246" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="28" fill="#E5E7EB">整除 8？</text>
+  <text x="745" y="246" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="28" fill="#E5E7EB">整除 4？</text>
+  <text x="1085" y="246" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="27" fill="#A78BFA">(12,8) 都对？</text>
+  <text x="1330" y="246" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="27" fill="#F59E0B">(8,4) 都对？</text>
+
+  <!-- Header underline -->
+  <line x1="76" y1="258" x2="1524" y2="258" stroke="#A78BFA" stroke-width="2"/>
+
+  <!-- Zebra row bands -->
+  <rect x="76" y="258" width="1448" height="56" rx="8" fill="#1E1E2E"/>
+  <rect x="76" y="370" width="1448" height="56" rx="8" fill="#1E1E2E"/>
+  <rect x="76" y="482" width="1448" height="56" rx="8" fill="#1E1E2E"/>
+  <rect x="76" y="594" width="1448" height="56" rx="8" fill="#1E1E2E"/>
+
+  <!-- Column divider between divisibility and conclusions -->
+  <line x1="920" y1="258" x2="920" y2="706" stroke="#2E2E2E" stroke-width="1.5" stroke-dasharray="6 6"/>
+
+  <!-- Row d=1 -->
+  <text x="155" y="297" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="32" font-weight="bold" fill="#E5E7EB">1</text>
+  <path d="M384 287 L392 295 L406 276" fill="none" stroke="#34D399" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M559 287 L567 295 L581 276" fill="none" stroke="#34D399" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M734 287 L742 295 L756 276" fill="none" stroke="#34D399" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="1085" y="296" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="30" fill="#34D399">是</text>
+  <text x="1330" y="296" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="30" fill="#34D399">是</text>
+
+  <!-- Row d=2 -->
+  <text x="155" y="353" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="32" font-weight="bold" fill="#E5E7EB">2</text>
+  <path d="M384 343 L392 351 L406 332" fill="none" stroke="#34D399" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M559 343 L567 351 L581 332" fill="none" stroke="#34D399" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M734 343 L742 351 L756 332" fill="none" stroke="#34D399" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="1085" y="352" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="30" fill="#34D399">是</text>
+  <text x="1330" y="352" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="30" fill="#34D399">是</text>
+
+  <!-- Row d=3 -->
+  <text x="155" y="409" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="32" font-weight="bold" fill="#E5E7EB">3</text>
+  <path d="M384 399 L392 407 L406 388" fill="none" stroke="#34D399" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M561 390 L579 408 M561 408 L579 390" fill="none" stroke="#E5484D" stroke-width="5" stroke-linecap="round"/>
+  <path d="M736 390 L754 408 M736 408 L754 390" fill="none" stroke="#E5484D" stroke-width="5" stroke-linecap="round"/>
+  <text x="1085" y="408" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="30" fill="#E5484D">否</text>
+  <text x="1330" y="408" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="30" fill="#E5484D">否</text>
+
+  <!-- Row d=4 -->
+  <text x="155" y="465" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="32" font-weight="bold" fill="#E5E7EB">4</text>
+  <path d="M384 455 L392 463 L406 444" fill="none" stroke="#34D399" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M559 455 L567 463 L581 444" fill="none" stroke="#34D399" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M734 455 L742 463 L756 444" fill="none" stroke="#34D399" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="1085" y="464" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="30" fill="#34D399">是</text>
+  <text x="1330" y="464" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="30" fill="#34D399">是</text>
+
+  <!-- Row d=5 -->
+  <text x="155" y="521" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="32" font-weight="bold" fill="#E5E7EB">5</text>
+  <path d="M386 502 L404 520 M386 520 L404 502" fill="none" stroke="#E5484D" stroke-width="5" stroke-linecap="round"/>
+  <path d="M561 502 L579 520 M561 520 L579 502" fill="none" stroke="#E5484D" stroke-width="5" stroke-linecap="round"/>
+  <path d="M736 502 L754 520 M736 520 L754 502" fill="none" stroke="#E5484D" stroke-width="5" stroke-linecap="round"/>
+  <text x="1085" y="520" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="30" fill="#E5484D">否</text>
+  <text x="1330" y="520" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="30" fill="#E5484D">否</text>
+
+  <!-- Row d=6 -->
+  <text x="155" y="577" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="32" font-weight="bold" fill="#E5E7EB">6</text>
+  <path d="M384 567 L392 575 L406 556" fill="none" stroke="#34D399" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M561 558 L579 576 M561 576 L579 558" fill="none" stroke="#E5484D" stroke-width="5" stroke-linecap="round"/>
+  <path d="M736 558 L754 576 M736 576 L754 558" fill="none" stroke="#E5484D" stroke-width="5" stroke-linecap="round"/>
+  <text x="1085" y="576" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="30" fill="#E5484D">否</text>
+  <text x="1330" y="576" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="30" fill="#E5484D">否</text>
+
+  <!-- Row d=8 -->
+  <text x="155" y="633" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="32" font-weight="bold" fill="#E5E7EB">8</text>
+  <path d="M386 614 L404 632 M386 632 L404 614" fill="none" stroke="#E5484D" stroke-width="5" stroke-linecap="round"/>
+  <path d="M559 623 L567 631 L581 612" fill="none" stroke="#34D399" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M734 623 L742 631 L756 612" fill="none" stroke="#34D399" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="1085" y="632" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="30" fill="#E5484D">否</text>
+  <text x="1330" y="632" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="30" fill="#E5484D">否</text>
+
+  <!-- Row d=12 -->
+  <text x="155" y="689" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="32" font-weight="bold" fill="#E5E7EB">12</text>
+  <path d="M384 679 L392 687 L406 668" fill="none" stroke="#34D399" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M561 670 L579 688 M561 688 L579 670" fill="none" stroke="#E5484D" stroke-width="5" stroke-linecap="round"/>
+  <path d="M736 670 L754 688 M736 688 L754 670" fill="none" stroke="#E5484D" stroke-width="5" stroke-linecap="round"/>
+  <text x="1085" y="688" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="30" fill="#E5484D">否</text>
+  <text x="1330" y="688" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="30" fill="#E5484D">否</text>
+
+  <!-- Bottom separator -->
+  <line x1="90" y1="730" x2="1510" y2="730" stroke="#2E2E2E" stroke-width="1.5" stroke-dasharray="6 6"/>
+
+  <!-- Conclusion -->
+  <text x="800" y="796" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="34" fill="#E5E7EB">每一行两边结论都一致 → 两个交集逐个相同，最大者自然相同 <tspan fill="#A78BFA" font-weight="bold">= 4</tspan></text>
+</svg>
