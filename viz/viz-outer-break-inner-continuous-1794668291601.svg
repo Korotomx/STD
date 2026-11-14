@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <marker id="ax" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#9CA3AF"/>
+    </marker>
+    <marker id="ap" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#A78BFA"/>
+    </marker>
+    <linearGradient id="hi" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F59E0B" stop-opacity="0"/>
+      <stop offset="1" stop-color="#F59E0B" stop-opacity="0.17"/>
+    </linearGradient>
+    <linearGradient id="hm" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#000000"/>
+      <stop offset="0.14" stop-color="#FFFFFF"/>
+      <stop offset="0.86" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#000000"/>
+    </linearGradient>
+    <mask id="p4m">
+      <rect x="36" y="444" width="472" height="278" fill="url(#hm)"/>
+    </mask>
+    <clipPath id="p4clip">
+      <rect x="36" y="444" width="472" height="318" rx="16"/>
+    </clipPath>
+  </defs>
+
+  <rect x="0" y="0" width="1600" height="900" fill="#131312"/>
+
+  <!-- ===== row captions ===== -->
+  <text x="36" y="52" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="32" font-weight="700" fill="#E5484D">跨过 → 间断</text>
+  <text x="252" y="50" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="26" fill="#9CA3AF">内层 g 跨过断点，外层 f 的断点被看见</text>
+
+  <text x="36" y="426" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="32" font-weight="700" fill="#34D399">不跨 → 连续</text>
+  <text x="252" y="424" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="26" fill="#9CA3AF">内层 g 只在断点一侧取值</text>
+
+  <!-- ===== panels ===== -->
+  <g fill="#1E1E2E" stroke="#A78BFA" stroke-width="1.5" stroke-opacity="0.65">
+    <rect x="36" y="68" width="472" height="318" rx="16"/>
+    <rect x="564" y="68" width="472" height="318" rx="16"/>
+    <rect x="1092" y="68" width="472" height="318" rx="16"/>
+    <rect x="36" y="444" width="472" height="318" rx="16"/>
+    <rect x="564" y="444" width="472" height="318" rx="16"/>
+    <rect x="1092" y="444" width="472" height="318" rx="16"/>
+  </g>
+
+  <!-- ===== panel 1: g(x)=x-1 ===== -->
+  <text x="272" y="114" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="36" font-weight="600" fill="#E5E7EB">内层 g(x) = x − 1</text>
+  <line x1="92" y1="249" x2="456" y2="249" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#ax)"/>
+  <text x="462" y="257" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="26" fill="#9CA3AF">x</text>
+  <line x1="98.9" y1="360" x2="445.1" y2="138" stroke="#34D399" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="272" cy="249" r="5.5" fill="#34D399"/>
+  <text x="272" y="277" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="26" fill="#E5E7EB">x<tspan dy="6" font-size="19">0</tspan><tspan dy="-6">=1</tspan></text>
+  <circle cx="202.8" cy="293.4" r="5" fill="#F59E0B"/>
+  <circle cx="341.2" cy="204.6" r="5" fill="#F59E0B"/>
+  <text x="221" y="322" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="27" fill="#F59E0B">g&lt;0</text>
+  <text x="323" y="176" text-anchor="end" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="27" fill="#F59E0B">g&gt;0</text>
+
+  <!-- ===== panel 2: f(u)=sign(u) ===== -->
+  <text x="800" y="114" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="36" font-weight="600" fill="#E5E7EB">外层 f(u) = sign(u)</text>
+  <line x1="620" y1="249" x2="982" y2="249" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#ax)"/>
+  <text x="988" y="257" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="26" fill="#9CA3AF">u</text>
+  <line x1="800" y1="150" x2="800" y2="348" stroke="#E5484D" stroke-width="2" stroke-dasharray="6 5"/>
+  <line x1="640" y1="328.29" x2="800" y2="328.29" stroke="#34D399" stroke-width="3" stroke-linecap="round"/>
+  <line x1="800" y1="169.71" x2="960" y2="169.71" stroke="#34D399" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="800" cy="328.29" r="5.5" fill="#1E1E2E" stroke="#F59E0B" stroke-width="2.5"/>
+  <circle cx="800" cy="169.71" r="5.5" fill="#1E1E2E" stroke="#F59E0B" stroke-width="2.5"/>
+  <circle cx="800" cy="249" r="5.5" fill="#F59E0B"/>
+  <rect x="762" y="258" width="76" height="28" fill="#1E1E2E"/>
+  <text x="800" y="280" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="26" fill="#E5484D">u<tspan dy="6" font-size="19">s</tspan><tspan dy="-6">=0</tspan></text>
+  <text x="972" y="177" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="26" fill="#9CA3AF">1</text>
+  <text x="972" y="336" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="26" fill="#9CA3AF">−1</text>
+
+  <!-- ===== panel 3: h(x)=sign(x-1) ===== -->
+  <text x="1328" y="114" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="36" font-weight="600" fill="#E5E7EB">复合 h(x) = sign(x − 1)</text>
+  <line x1="1148" y1="249" x2="1510" y2="249" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#ax)"/>
+  <text x="1516" y="257" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="26" fill="#9CA3AF">x</text>
+  <line x1="1328" y1="150" x2="1328" y2="348" stroke="#E5484D" stroke-width="2" stroke-dasharray="6 5"/>
+  <line x1="1174" y1="328.29" x2="1328" y2="328.29" stroke="#34D399" stroke-width="3" stroke-linecap="round"/>
+  <line x1="1328" y1="169.71" x2="1482" y2="169.71" stroke="#34D399" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="1328" cy="328.29" r="5.5" fill="#1E1E2E" stroke="#F59E0B" stroke-width="2.5"/>
+  <circle cx="1328" cy="169.71" r="5.5" fill="#1E1E2E" stroke="#F59E0B" stroke-width="2.5"/>
+  <circle cx="1328" cy="249" r="5.5" fill="#F59E0B"/>
+  <rect x="1290" y="258" width="76" height="28" fill="#1E1E2E"/>
+  <text x="1328" y="280" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="26" fill="#E5484D">x=1</text>
+  <text x="1490" y="177" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="26" fill="#9CA3AF">1</text>
+  <text x="1490" y="336" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="26" fill="#9CA3AF">−1</text>
+
+  <!-- ===== panel 4: g(x)=x^2 ===== -->
+  <text x="272" y="490" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="36" font-weight="600" fill="#E5E7EB">内层 g(x) = x²</text>
+  <line x1="92" y1="722.125" x2="456" y2="722.125" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#ax)"/>
+  <text x="462" y="730" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="26" fill="#9CA3AF">x</text>
+  <rect x="36" y="444" width="472" height="278" fill="url(#hi)" clip-path="url(#p4clip)" mask="url(#p4m)"/>
+  <line x1="272" y1="722" x2="272" y2="532" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#ax)"/>
+  <text x="282" y="544" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="26" fill="#9CA3AF">u</text>
+  <path d="M 92 544.5 Q 272 899.75 452 544.5" fill="none" stroke="#34D399" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="272" cy="722.125" r="5.5" fill="#34D399"/>
+  <text x="272" y="752" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="26" fill="#E5E7EB">x<tspan dy="6" font-size="19">0</tspan><tspan dy="-6">=0</tspan></text>
+  <text x="252" y="560" text-anchor="end" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="27" fill="#F59E0B">g 的值在</text>
+  <text x="252" y="594" text-anchor="end" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="27" fill="#F59E0B">u ≥ 0 一侧</text>
+
+  <!-- ===== panel 5: f(u) = 1 / -1 ===== -->
+  <text x="800" y="490" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="36" font-weight="600" fill="#E5E7EB">外层 f(u)：u ≥ 0 取 1</text>
+  <line x1="620" y1="625" x2="982" y2="625" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#ax)"/>
+  <text x="988" y="633" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="26" fill="#9CA3AF">u</text>
+  <line x1="800" y1="522" x2="800" y2="724" stroke="#E5484D" stroke-width="2" stroke-dasharray="6 5"/>
+  <line x1="640" y1="704.29" x2="800" y2="704.29" stroke="#34D399" stroke-width="3" stroke-linecap="round"/>
+  <line x1="800" y1="545.71" x2="960" y2="545.71" stroke="#34D399" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="800" cy="704.29" r="5.5" fill="#1E1E2E" stroke="#F59E0B" stroke-width="2.5"/>
+  <circle cx="800" cy="545.71" r="5.5" fill="#F59E0B"/>
+  <text x="812" y="600" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="26" fill="#E5484D">断点 u=0</text>
+  <text x="972" y="553" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="26" fill="#9CA3AF">1</text>
+  <text x="972" y="712" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="26" fill="#9CA3AF">−1</text>
+
+  <!-- ===== panel 6: h(x) = 1 ===== -->
+  <text x="1328" y="490" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="36" font-weight="600" fill="#E5E7EB">复合 h(x) ≡ 1</text>
+  <line x1="1148" y1="625" x2="1510" y2="625" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#ax)"/>
+  <text x="1516" y="633" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="26" fill="#9CA3AF">x</text>
+  <line x1="1170" y1="545.71" x2="1480" y2="545.71" stroke="#34D399" stroke-width="3.5" stroke-linecap="round"/>
+  <text x="1488" y="553" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="26" fill="#9CA3AF">1</text>
+  <text x="1330" y="604" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="28" font-weight="600" fill="#34D399">恒为 1，连续</text>
+
+  <!-- ===== row arrows ===== -->
+  <line x1="512" y1="227" x2="560" y2="227" stroke="#A78BFA" stroke-width="3" marker-end="url(#ap)"/>
+  <text x="536" y="205" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="28" font-weight="600" fill="#A78BFA">g</text>
+  <line x1="1040" y1="227" x2="1088" y2="227" stroke="#A78BFA" stroke-width="3" marker-end="url(#ap)"/>
+  <text x="1064" y="205" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="28" font-weight="600" fill="#A78BFA">f</text>
+
+  <line x1="512" y1="603" x2="560" y2="603" stroke="#A78BFA" stroke-width="3" marker-end="url(#ap)"/>
+  <text x="536" y="581" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="28" font-weight="600" fill="#A78BFA">g</text>
+  <line x1="1040" y1="603" x2="1088" y2="603" stroke="#A78BFA" stroke-width="3" marker-end="url(#ap)"/>
+  <text x="1064" y="581" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="28" font-weight="600" fill="#A78BFA">f</text>
+
+  <!-- ===== summary ===== -->
+  <text x="800" y="824" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="27" fill="#E5E7EB">内层把 u 送到断点两侧 → 断点被看见 → <tspan fill="#E5484D" font-weight="700">复合断</tspan>；内层只在一侧 → 断点被绕过 → <tspan fill="#34D399" font-weight="700">复合连</tspan></text>
+</svg>

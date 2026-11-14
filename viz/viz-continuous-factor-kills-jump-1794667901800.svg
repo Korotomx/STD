@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <marker id="axisArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9CA3AF"/>
+    </marker>
+    <marker id="flowArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#A78BFA"/>
+    </marker>
+  </defs>
+
+  <!-- background -->
+  <rect x="0" y="0" width="1600" height="900" fill="#131312"/>
+
+  <!-- ================= panels ================= -->
+  <rect x="36" y="44" width="460" height="616" rx="16" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+  <rect x="570" y="44" width="460" height="616" rx="16" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+  <rect x="1104" y="44" width="460" height="616" rx="16" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+
+  <!-- ================= panel titles ================= -->
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" fill="#E5E7EB" text-anchor="middle">
+    <text x="266" y="102" font-size="40" font-weight="700">g = sign(x)</text>
+    <text x="266" y="150" font-size="40" font-weight="500">在 0 处间断（跳跃）</text>
+
+    <text x="800" y="102" font-size="40" font-weight="700">f = x</text>
+    <text x="800" y="150" font-size="40" font-weight="500">连续，且 f(0) = 0</text>
+
+    <text x="1334" y="102" font-size="40" font-weight="700">f·g = |x|</text>
+    <text x="1334" y="150" font-size="40" font-weight="500">在 0 处连续</text>
+  </g>
+
+  <!-- ================= panel 1: sign(x) ================= -->
+  <g>
+    <!-- axes -->
+    <line x1="81" y1="395" x2="451" y2="395" stroke="#9CA3AF" stroke-width="2.2" marker-end="url(#axisArrow)"/>
+    <line x1="266" y1="580" x2="266" y2="210" stroke="#9CA3AF" stroke-width="2.2" marker-end="url(#axisArrow)"/>
+    <!-- discontinuity guide at x = 0 -->
+    <line x1="266" y1="300" x2="266" y2="490" stroke="#E5484D" stroke-width="2.6" stroke-dasharray="8 7"/>
+    <!-- sign graph: y = -1 (x<0), y = +1 (x>0) -->
+    <line x1="88" y1="490" x2="266" y2="490" stroke="#34D399" stroke-width="3.5"/>
+    <line x1="266" y1="300" x2="444" y2="300" stroke="#34D399" stroke-width="3.5"/>
+    <!-- open points at (0,-1) and (0,1) -->
+    <circle cx="266" cy="300" r="7.5" fill="#1E1E2E" stroke="#F59E0B" stroke-width="2.6"/>
+    <circle cx="266" cy="490" r="7.5" fill="#1E1E2E" stroke="#F59E0B" stroke-width="2.6"/>
+    <!-- solid value g(0)=0 -->
+    <circle cx="266" cy="395" r="6.5" fill="#F59E0B"/>
+    <!-- axis labels -->
+    <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="28" fill="#E5E7EB">
+      <text x="459" y="382">x</text>
+      <text x="278" y="224">y</text>
+      <text x="252" y="427" text-anchor="end">O</text>
+      <text x="280" y="288" fill="#9CA3AF">1</text>
+      <text x="252" y="524" text-anchor="end" fill="#9CA3AF">−1</text>
+    </g>
+  </g>
+
+  <!-- ================= panel 2: f(x) = x ================= -->
+  <g>
+    <line x1="615" y1="395" x2="985" y2="395" stroke="#9CA3AF" stroke-width="2.2" marker-end="url(#axisArrow)"/>
+    <line x1="800" y1="580" x2="800" y2="210" stroke="#9CA3AF" stroke-width="2.2" marker-end="url(#axisArrow)"/>
+    <!-- line y = x -->
+    <line x1="628" y1="567" x2="972" y2="223" stroke="#34D399" stroke-width="3.5"/>
+    <circle cx="800" cy="395" r="5" fill="#34D399"/>
+    <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="28" fill="#E5E7EB">
+      <text x="993" y="382">x</text>
+      <text x="812" y="224">y</text>
+      <text x="814" y="427" text-anchor="start">O</text>
+    </g>
+  </g>
+
+  <!-- ================= panel 3: |x| ================= -->
+  <g>
+    <line x1="1149" y1="395" x2="1519" y2="395" stroke="#9CA3AF" stroke-width="2.2" marker-end="url(#axisArrow)"/>
+    <line x1="1334" y1="580" x2="1334" y2="210" stroke="#9CA3AF" stroke-width="2.2" marker-end="url(#axisArrow)"/>
+    <!-- V shape of |x| -->
+    <polyline points="1162,223 1334,395 1506,223" fill="none" stroke="#34D399" stroke-width="3.5" stroke-linejoin="round"/>
+    <circle cx="1334" cy="395" r="5" fill="#34D399"/>
+    <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="28" fill="#E5E7EB">
+      <text x="1527" y="382">x</text>
+      <text x="1346" y="224">y</text>
+      <text x="1320" y="427" text-anchor="end">O</text>
+    </g>
+  </g>
+
+  <!-- ================= connectors ================= -->
+  <g>
+    <line x1="504" y1="395" x2="558" y2="395" stroke="#A78BFA" stroke-width="2.6" marker-end="url(#flowArrow)"/>
+    <line x1="1038" y1="395" x2="1092" y2="395" stroke="#A78BFA" stroke-width="2.6" marker-end="url(#flowArrow)"/>
+    <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="44" font-weight="700" fill="#A78BFA" text-anchor="middle">
+      <text x="531" y="374">×</text>
+      <text x="1065" y="374">×</text>
+    </g>
+  </g>
+
+  <!-- ================= takeaway ================= -->
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">
+    <text x="800" y="740" font-size="32" font-weight="600" fill="#E5E7EB" text-anchor="middle">连续因子在断点处取 0，把跳跃的差距按 0 倍压缩 —— <tspan fill="#A78BFA">间断被抹平</tspan></text>
+    <text x="800" y="806" font-size="28" fill="#9CA3AF" text-anchor="middle">若换成 f = x + 2（在 0 处取 2），乘积仍是跳跃，间断保留</text>
+  </g>
+</svg>

@@ -22,4 +22,4 @@
 
 ## 入口
 
-[[Math/Overview|数学]] · [[Artificial_Intelligence/Overview|AI]] · [[ROS2/Overview|ROS 2]] · [[English/Overview|英语]] · [[Writing/Overview|技术写作]]
+[[Math/Overview|数学]] · [[Artificial_Intelligence/Overview|AI]] · [[ROS2/Overview|ROS 2]] · [[English/Overview|英语]] · [[Writing/Overview|技术写作]] · [[Research/Overview|研究]]
