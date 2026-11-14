@@ -176,8 +176,11 @@ $$
 a=\prod_p p^{\alpha_p},\qquad b=\prod_p p^{\beta_p}.
 $$
 
-- $\gcd$ 在每个素数上取「公共部分」，即指数 $\min(\alpha_p,\beta_p)$；
-- $\operatorname{lcm}$ 在每个素数上取「并集」，即指数 $\max(\alpha_p,\beta_p)$。
+> [!important] 本质就两句话
+> - $\gcd$ 在每个素数上取「公共部分」——指数 $\min(\alpha_p,\beta_p)$；
+> - $\operatorname{lcm}$ 在每个素数上取「并集」——指数 $\max(\alpha_p,\beta_p)$。
+>
+> $\gcd$ 与 $\operatorname{lcm}$ 的其余性质，基本都是这两句的推论。
 
 而 $\min+\max=\alpha_p+\beta_p$，所以逐素数相乘恰好还原 $ab$：
 
@@ -185,7 +188,18 @@ $$
 \gcd(a,b)\cdot\operatorname{lcm}(a,b)=|ab|.
 $$
 
+例：$12=2^2\times3^1$，$18=2^1\times3^2$。素数 $2$ 上 $\min=1,\max=2$；素数 $3$ 上 $\min=1,\max=2$。于是 $\gcd=2^1\cdot3^1=6$，$\operatorname{lcm}=2^2\cdot3^2=36$，而 $6\times36=216=12\times18$。
+
 ![[viz-gcd-lcm-exponent-min-max-1794664892774.svg|700]]
+
+> [!question] 为什么 $\gcd(a,b)\times\operatorname{lcm}(a,b)=|ab|$？
+> - 因为 gcd 与 lcm 都整除 $ab$
+> - 因为 $ab$ 是 gcd 的倍数，所以两者乘起来相等
+> - 因为每个素数上 $\min(\alpha,\beta)+\max(\alpha,\beta)=\alpha+\beta$
+> - 我不知道
+
+> [!success] ✓ 正确
+> 对，就是逐素数把指数补齐：$\gcd$ 拿小的那份，$\operatorname{lcm}$ 拿大的那份，两份合起来正好是原来两个指数之和。负数带上符号只是多一个 $|ab|$ 的绝对值。
 
 ### 4.2 先除后乘，防溢出
 
@@ -259,9 +273,18 @@ long long lcm(long long a, long long b) {
 - **极端值**：`-LLONG_MIN` 会溢出，这种边界交给 `std::gcd` 更稳。
 - 函数无状态，可加 `constexpr`，让编译器在编译期算常量。
 
+> [!question] 手写 gcd 循环跑 `gcd(-12, 18)` 时会怎样？
+> - 最后返回 -6，因为 `a` 一直是负数
+> - 余数的绝对值仍严格下降，最后返回 6
+> - 会在两个负数之间无限循环
+> - 我不知道
+
+> [!success] ✓ 正确
+> 对。C++ 的 `%` 截断向零：`-12 % 18 = -12`，下一步 `18 % -12 = 6`，再下一步 `-12 % 6 = 0`。符号确实交替，但绝对值每一步都严格变小，循环照常终止，最后靠 `a < 0 ? -a : a` 统一成非负。
+
 ### 5.3 多个数
 
-利用结合律折叠，初值取单位元：
+利用结合律折叠，初值取单位元。$\gcd$ 的单位元是 $0$（$\gcd(0,x)=|x|$），$\operatorname{lcm}$ 的单位元是 $1$（$\operatorname{lcm}(1,x)=|x|$）；结合律保证从左到右折与分成两半折结果相同，从单位元开始就像求和从 $0$ 开始，不会污染结果：
 
 ```cpp
 long long g = 0;                       // gcd 的单位元
