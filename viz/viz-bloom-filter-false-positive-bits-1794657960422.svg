@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="950" viewBox="0 0 1600 950">
+  <rect width="1600" height="950" fill="#131312"/>
+
+  <defs>
+    <marker id="aOrange" markerUnits="userSpaceOnUse" markerWidth="16" markerHeight="16" refX="14" refY="8" orient="auto">
+      <path d="M0,0 L16,8 L0,16 z" fill="#F59E0B"/>
+    </marker>
+    <marker id="aRed" markerUnits="userSpaceOnUse" markerWidth="16" markerHeight="16" refX="14" refY="8" orient="auto">
+      <path d="M0,0 L16,8 L0,16 z" fill="#E5484D"/>
+    </marker>
+    <marker id="aGreen" markerUnits="userSpaceOnUse" markerWidth="16" markerHeight="16" refX="14" refY="8" orient="auto">
+      <path d="M0,0 L16,8 L0,16 z" fill="#34D399"/>
+    </marker>
+  </defs>
+
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">
+
+    <!-- ========== header ========== -->
+    <text x="800" y="68" fill="#E5E7EB" font-size="42" font-weight="600" text-anchor="middle">布隆过滤器：说不在一定对，说在可能是假阳性</text>
+    <text x="800" y="110" fill="#9CA3AF" font-size="27" text-anchor="middle">位数组共 10 位（下标 0–9），k = 2 个哈希函数 h1、h2；此前只插入过 cat</text>
+    <line x1="80" y1="132" x2="1520" y2="132" stroke="#2E2E2E" stroke-width="1.5"/>
+
+    <!-- ========== lane 1 : insert cat ========== -->
+    <text x="105" y="173" fill="#F59E0B" font-size="25" font-weight="600">① 插入 cat</text>
+    <rect x="105" y="193" width="125" height="64" rx="14" fill="#1E1E2E" stroke="#F59E0B" stroke-width="2.5"/>
+    <text x="167" y="237" fill="#E5E7EB" font-size="36" font-weight="600" text-anchor="middle">cat</text>
+
+    <text x="253" y="222" fill="#E5E7EB" font-size="28">h1(cat) = 2</text>
+    <rect x="414" y="198" width="64" height="30" rx="8" fill="#F59E0B" fill-opacity="0.13" stroke="#F59E0B" stroke-width="1.6"/>
+    <text x="446" y="219" fill="#F59E0B" font-size="23" font-weight="600" text-anchor="middle">置 1</text>
+
+    <text x="253" y="262" fill="#E5E7EB" font-size="28">h2(cat) = 7</text>
+    <rect x="414" y="238" width="64" height="30" rx="8" fill="#F59E0B" fill-opacity="0.13" stroke="#F59E0B" stroke-width="1.6"/>
+    <text x="446" y="259" fill="#F59E0B" font-size="23" font-weight="600" text-anchor="middle">置 1</text>
+
+    <!-- ========== lane 2 : query dog ========== -->
+    <text x="105" y="308" fill="#9CA3AF" font-size="25" font-weight="600">② 查询 dog</text>
+    <rect x="105" y="328" width="125" height="64" rx="14" fill="#1E1E2E" stroke="#E5484D" stroke-width="2.5"/>
+    <text x="167" y="372" fill="#E5E7EB" font-size="36" font-weight="600" text-anchor="middle">dog</text>
+
+    <text x="253" y="357" fill="#E5E7EB" font-size="28">h1(dog) = 2</text>
+    <rect x="414" y="333" width="64" height="30" rx="8" fill="#1E1E2E" stroke="#6B7280" stroke-width="1.6"/>
+    <text x="446" y="354" fill="#E5E7EB" font-size="23" font-weight="600" text-anchor="middle">= 1</text>
+
+    <text x="253" y="397" fill="#E5E7EB" font-size="28">h2(dog) = 5</text>
+    <rect x="414" y="373" width="64" height="30" rx="8" fill="#E5484D" fill-opacity="0.13" stroke="#E5484D" stroke-width="1.6"/>
+    <text x="446" y="394" fill="#E5484D" font-size="23" font-weight="600" text-anchor="middle">= 0</text>
+
+    <!-- ========== lane 3 : query fox ========== -->
+    <text x="105" y="443" fill="#9CA3AF" font-size="25" font-weight="600">③ 查询 fox（从未插入）</text>
+    <rect x="105" y="463" width="125" height="64" rx="14" fill="#1E1E2E" stroke="#34D399" stroke-width="2.5"/>
+    <text x="167" y="507" fill="#E5E7EB" font-size="36" font-weight="600" text-anchor="middle">fox</text>
+
+    <text x="253" y="492" fill="#E5E7EB" font-size="28">h1(fox) = 2</text>
+    <rect x="414" y="468" width="64" height="30" rx="8" fill="#34D399" fill-opacity="0.12" stroke="#34D399" stroke-width="1.6"/>
+    <text x="446" y="489" fill="#34D399" font-size="23" font-weight="600" text-anchor="middle">= 1</text>
+
+    <text x="253" y="532" fill="#E5E7EB" font-size="28">h2(fox) = 7</text>
+    <rect x="414" y="508" width="64" height="30" rx="8" fill="#34D399" fill-opacity="0.12" stroke="#34D399" stroke-width="1.6"/>
+    <text x="446" y="529" fill="#34D399" font-size="23" font-weight="600" text-anchor="middle">= 1</text>
+
+    <!-- ========== leader curves to exact bits ========== -->
+    <!-- cat: bit2 (x=500), bit7 (x=1060) -->
+    <path d="M485,213 C540,320 500,480 500,616" fill="none" stroke="#F59E0B" stroke-width="2.6" stroke-linecap="round" marker-end="url(#aOrange)"/>
+    <path d="M485,253 C630,360 1060,430 1060,616" fill="none" stroke="#F59E0B" stroke-width="2.6" stroke-linecap="round" marker-end="url(#aOrange)"/>
+    <!-- dog: bit2 (x=522), bit5 (x=856) -->
+    <path d="M485,348 C535,440 522,520 522,616" fill="none" stroke="#E5484D" stroke-width="2.6" stroke-linecap="round" marker-end="url(#aRed)"/>
+    <path d="M485,388 C700,470 856,470 856,616" fill="none" stroke="#E5484D" stroke-width="2.6" stroke-linecap="round" marker-end="url(#aRed)"/>
+    <!-- fox: bit2 (x=544), bit7 (x=1095) -->
+    <path d="M485,483 C545,545 544,565 544,616" fill="none" stroke="#34D399" stroke-width="2.6" stroke-linecap="round" marker-end="url(#aGreen)"/>
+    <path d="M485,523 C800,580 1095,540 1095,616" fill="none" stroke="#34D399" stroke-width="2.6" stroke-linecap="round" marker-end="url(#aGreen)"/>
+
+    <!-- ========== conclusion / note boxes ========== -->
+    <rect x="1150" y="178" width="370" height="86" rx="14" fill="#F59E0B" fill-opacity="0.06" stroke="#F59E0B" stroke-width="2"/>
+    <text x="1178" y="214" fill="#F59E0B" font-size="28" font-weight="600">插入只置 1，不置 0</text>
+    <text x="1178" y="247" fill="#9CA3AF" font-size="24">把位 2、位 7 由 0 改为 1</text>
+
+    <rect x="1150" y="315" width="370" height="100" rx="14" fill="#E5484D" fill-opacity="0.07" stroke="#E5484D" stroke-width="2.5"/>
+    <text x="1178" y="354" fill="#E5484D" font-size="28" font-weight="600">有一个 0 → 一定不在</text>
+    <text x="1178" y="392" fill="#9CA3AF" font-size="24">h2(dog) = 5，位 5 当前是 0</text>
+
+    <rect x="1150" y="450" width="370" height="105" rx="14" fill="#34D399" fill-opacity="0.07" stroke="#34D399" stroke-width="2.5"/>
+    <text x="1178" y="489" fill="#34D399" font-size="28" font-weight="600">全为 1 → 可能在</text>
+    <text x="1178" y="527" fill="#9CA3AF" font-size="24">但 fox 从未插入 → 假阳性</text>
+
+    <!-- ========== bit array ========== -->
+    <text x="155" y="662" fill="#E5E7EB" font-size="28" font-weight="600" text-anchor="middle">位数组</text>
+    <text x="155" y="696" fill="#9CA3AF" font-size="24" text-anchor="middle">10 位</text>
+
+    <g>
+      <rect x="246" y="620" width="100" height="100" rx="10" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+      <rect x="358" y="620" width="100" height="100" rx="10" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+      <rect x="470" y="620" width="100" height="100" rx="10" fill="#F59E0B" fill-opacity="0.20" stroke="#F59E0B" stroke-width="3.5"/>
+      <rect x="582" y="620" width="100" height="100" rx="10" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+      <rect x="694" y="620" width="100" height="100" rx="10" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+      <rect x="806" y="620" width="100" height="100" rx="10" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+      <rect x="918" y="620" width="100" height="100" rx="10" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+      <rect x="1030" y="620" width="100" height="100" rx="10" fill="#F59E0B" fill-opacity="0.20" stroke="#F59E0B" stroke-width="3.5"/>
+      <rect x="1142" y="620" width="100" height="100" rx="10" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+      <rect x="1254" y="620" width="100" height="100" rx="10" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+    </g>
+
+    <g font-size="42" font-weight="600" text-anchor="middle">
+      <text x="296" y="687" fill="#E5E7EB">0</text>
+      <text x="408" y="687" fill="#E5E7EB">0</text>
+      <text x="520" y="687" fill="#F59E0B">1</text>
+      <text x="632" y="687" fill="#E5E7EB">0</text>
+      <text x="744" y="687" fill="#E5E7EB">0</text>
+      <text x="856" y="687" fill="#E5E7EB">0</text>
+      <text x="968" y="687" fill="#E5E7EB">0</text>
+      <text x="1080" y="687" fill="#F59E0B">1</text>
+      <text x="1192" y="687" fill="#E5E7EB">0</text>
+      <text x="1304" y="687" fill="#E5E7EB">0</text>
+    </g>
+
+    <g font-size="27" text-anchor="middle">
+      <text x="296" y="754" fill="#9CA3AF">0</text>
+      <text x="408" y="754" fill="#9CA3AF">1</text>
+      <text x="520" y="754" fill="#F59E0B" font-weight="600">2</text>
+      <text x="632" y="754" fill="#9CA3AF">3</text>
+      <text x="744" y="754" fill="#9CA3AF">4</text>
+      <text x="856" y="754" fill="#9CA3AF">5</text>
+      <text x="968" y="754" fill="#9CA3AF">6</text>
+      <text x="1080" y="754" fill="#F59E0B" font-weight="600">7</text>
+      <text x="1192" y="754" fill="#9CA3AF">8</text>
+      <text x="1304" y="754" fill="#9CA3AF">9</text>
+    </g>
+
+    <!-- ========== bottom notes ========== -->
+    <rect x="150" y="790" width="610" height="100" rx="14" fill="#1A1A20" stroke="#F59E0B" stroke-opacity="0.55" stroke-width="1.8"/>
+    <text x="180" y="828" fill="#F59E0B" font-size="28" font-weight="600">插入：只把位置 1，从不置 0</text>
+    <text x="180" y="866" fill="#9CA3AF" font-size="25">所以已插入的元素永远不会被误判为不在</text>
+
+    <rect x="840" y="790" width="610" height="100" rx="14" fill="#1A1A20" stroke="#34D399" stroke-opacity="0.55" stroke-width="1.8"/>
+    <text x="870" y="828" fill="#34D399" font-size="28" font-weight="600">全 1：可能是不同元素撞出来的</text>
+    <text x="870" y="866" fill="#9CA3AF" font-size="25">所以可能把没插入的元素误判为在（假阳性）</text>
+
+    <text x="800" y="928" fill="#6B7280" font-size="24" text-anchor="middle">判定规则：任一位为 0 → 一定不在；全部为 1 → 可能在（未必真的在）</text>
+
+  </g>
+</svg>
