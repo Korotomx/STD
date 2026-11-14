@@ -1,0 +1,198 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <marker id="ag" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9CA3AF"/>
+    </marker>
+    <marker id="agg" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#34D399"/>
+    </marker>
+    <marker id="ao" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#F59E0B"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1600" height="900" fill="#131312"/>
+
+  <!-- Title -->
+  <text x="800" y="60" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="44" fill="#E5E7EB" text-anchor="middle">同一个 ALU：三种内部设计，外部行为相同</text>
+
+  <!-- Unified interface band -->
+  <text x="80" y="140" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="28" fill="#E5E7EB">统一输入：A、B 数据，op[1:0] 操作码</text>
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="26">
+    <rect x="730" y="112" width="110" height="46" rx="8" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <text x="785" y="144" fill="#E5E7EB" text-anchor="middle">00 加</text>
+    <rect x="855" y="112" width="110" height="46" rx="8" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <text x="910" y="144" fill="#E5E7EB" text-anchor="middle">01 减</text>
+    <rect x="980" y="112" width="110" height="46" rx="8" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <text x="1035" y="144" fill="#E5E7EB" text-anchor="middle">10 与</text>
+    <rect x="1105" y="112" width="110" height="46" rx="8" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <text x="1160" y="144" fill="#E5E7EB" text-anchor="middle">11 或</text>
+    <text x="1235" y="144" fill="#34D399">本例 op=00 → 加法</text>
+  </g>
+
+  <!-- ================= Panel 1 ================= -->
+  <g transform="translate(40,0)" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">
+    <rect x="0" y="210" width="400" height="470" rx="16" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+    <text x="200" y="190" font-size="32" fill="#A78BFA" text-anchor="middle">① 广播 + 选输出</text>
+
+    <!-- decoder -->
+    <rect x="225" y="232" width="130" height="46" rx="8" fill="#262138" stroke="#A78BFA" stroke-width="2"/>
+    <text x="290" y="264" font-size="28" fill="#E5E7EB" text-anchor="middle">解码器</text>
+    <line x1="0" y1="250" x2="221" y2="250" stroke="#9CA3AF" stroke-width="2" marker-end="url(#ag)"/>
+    <text x="20" y="243" font-size="26" fill="#9CA3AF">op</text>
+
+    <!-- A,B bus broadcast -->
+    <line x1="0" y1="585" x2="70" y2="585" stroke="#9CA3AF" stroke-width="2"/>
+    <line x1="0" y1="630" x2="70" y2="630" stroke="#9CA3AF" stroke-width="2"/>
+    <text x="20" y="578" font-size="26" fill="#9CA3AF">A</text>
+    <text x="20" y="623" font-size="26" fill="#9CA3AF">B</text>
+    <line x1="70" y1="630" x2="70" y2="335" stroke="#9CA3AF" stroke-width="2"/>
+    <line x1="70" y1="335" x2="166" y2="335" stroke="#9CA3AF" stroke-width="2" marker-end="url(#ag)"/>
+    <line x1="70" y1="395" x2="166" y2="395" stroke="#9CA3AF" stroke-width="2" marker-end="url(#ag)"/>
+    <line x1="70" y1="455" x2="166" y2="455" stroke="#9CA3AF" stroke-width="2" marker-end="url(#ag)"/>
+    <line x1="70" y1="515" x2="166" y2="515" stroke="#9CA3AF" stroke-width="2" marker-end="url(#ag)"/>
+
+    <!-- units -->
+    <rect x="170" y="313" width="120" height="44" rx="8" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <text x="230" y="345" font-size="28" fill="#E5E7EB" text-anchor="middle">加法器</text>
+    <rect x="170" y="373" width="120" height="44" rx="8" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <text x="230" y="405" font-size="28" fill="#E5E7EB" text-anchor="middle">减法器</text>
+    <rect x="170" y="433" width="120" height="44" rx="8" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <text x="230" y="465" font-size="28" fill="#E5E7EB" text-anchor="middle">与门</text>
+    <rect x="170" y="493" width="120" height="44" rx="8" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <text x="230" y="525" font-size="28" fill="#E5E7EB" text-anchor="middle">或门</text>
+
+    <!-- all four results into mux -->
+    <line x1="290" y1="335" x2="301" y2="335" stroke="#34D399" stroke-width="2.5" marker-end="url(#agg)"/>
+    <line x1="290" y1="395" x2="301" y2="395" stroke="#9CA3AF" stroke-width="2" marker-end="url(#ag)"/>
+    <line x1="290" y1="455" x2="301" y2="455" stroke="#9CA3AF" stroke-width="2" marker-end="url(#ag)"/>
+    <line x1="290" y1="515" x2="301" y2="515" stroke="#9CA3AF" stroke-width="2" marker-end="url(#ag)"/>
+
+    <polygon points="305,313 305,537 340,500 340,350" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <text transform="translate(323,425) rotate(-90)" font-size="22" fill="#9CA3AF" text-anchor="middle">MUX</text>
+
+    <!-- decoder -> mux control -->
+    <path d="M290,278 L290,300 L305,300 L305,312" fill="none" stroke="#F59E0B" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#ao)"/>
+
+    <!-- mux output -->
+    <line x1="340" y1="420" x2="397" y2="420" stroke="#34D399" stroke-width="2.5" marker-end="url(#agg)"/>
+    <text x="349" y="412" font-size="24" fill="#9CA3AF">输出</text>
+  </g>
+
+  <!-- ================= Panel 2 ================= -->
+  <g transform="translate(485,0)" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">
+    <rect x="0" y="210" width="400" height="470" rx="16" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+    <text x="200" y="190" font-size="32" fill="#A78BFA" text-anchor="middle">② 选输入</text>
+
+    <rect x="225" y="232" width="130" height="46" rx="8" fill="#262138" stroke="#A78BFA" stroke-width="2"/>
+    <text x="290" y="264" font-size="28" fill="#E5E7EB" text-anchor="middle">解码器</text>
+    <line x1="0" y1="250" x2="221" y2="250" stroke="#9CA3AF" stroke-width="2" marker-end="url(#ag)"/>
+    <text x="20" y="243" font-size="26" fill="#9CA3AF">op</text>
+
+    <!-- A,B into router -->
+    <line x1="0" y1="585" x2="70" y2="585" stroke="#9CA3AF" stroke-width="2"/>
+    <line x1="0" y1="630" x2="70" y2="630" stroke="#9CA3AF" stroke-width="2"/>
+    <text x="20" y="578" font-size="26" fill="#9CA3AF">A</text>
+    <text x="20" y="623" font-size="26" fill="#9CA3AF">B</text>
+    <line x1="70" y1="630" x2="70" y2="380" stroke="#9CA3AF" stroke-width="2"/>
+    <line x1="70" y1="380" x2="106" y2="380" stroke="#9CA3AF" stroke-width="2" marker-end="url(#ag)"/>
+
+    <rect x="110" y="330" width="42" height="170" rx="8" fill="#262138" stroke="#A78BFA" stroke-width="2"/>
+    <text x="131" y="407" font-size="24" fill="#E5E7EB" text-anchor="middle">路</text>
+    <text x="131" y="439" font-size="24" fill="#E5E7EB" text-anchor="middle">由</text>
+
+    <!-- decoder -> router control -->
+    <path d="M290,278 L290,300 L131,300 L131,328" fill="none" stroke="#F59E0B" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#ao)"/>
+
+    <!-- routed data: only adder -->
+    <line x1="152" y1="335" x2="166" y2="335" stroke="#34D399" stroke-width="2.5" marker-end="url(#agg)"/>
+
+    <!-- units: only adder active -->
+    <rect x="170" y="313" width="120" height="44" rx="8" fill="#1E1E2E" stroke="#34D399" stroke-width="2.5"/>
+    <text x="230" y="345" font-size="28" fill="#E5E7EB" text-anchor="middle">加法器</text>
+    <rect x="170" y="373" width="120" height="44" rx="8" fill="#191921" stroke="#4B5563" stroke-width="2"/>
+    <text x="230" y="405" font-size="28" fill="#6B7280" text-anchor="middle">减法器</text>
+    <rect x="170" y="433" width="120" height="44" rx="8" fill="#191921" stroke="#4B5563" stroke-width="2"/>
+    <text x="230" y="465" font-size="28" fill="#6B7280" text-anchor="middle">与门</text>
+    <rect x="170" y="493" width="120" height="44" rx="8" fill="#191921" stroke="#4B5563" stroke-width="2"/>
+    <text x="230" y="525" font-size="28" fill="#6B7280" text-anchor="middle">或门</text>
+
+    <!-- selected result to output pin -->
+    <path d="M290,335 L340,335 L340,420 L397,420" fill="none" stroke="#34D399" stroke-width="2.5" marker-end="url(#agg)"/>
+    <text x="349" y="412" font-size="24" fill="#9CA3AF">输出</text>
+    <text x="112" y="552" font-size="22" fill="#34D399" text-anchor="middle">只通 1 路</text>
+  </g>
+
+  <!-- ================= Panel 3 ================= -->
+  <g transform="translate(930,0)" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">
+    <rect x="0" y="210" width="400" height="470" rx="16" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+    <text x="200" y="190" font-size="32" fill="#A78BFA" text-anchor="middle">③ 使能单元</text>
+
+    <rect x="225" y="232" width="130" height="46" rx="8" fill="#262138" stroke="#A78BFA" stroke-width="2"/>
+    <text x="290" y="264" font-size="28" fill="#E5E7EB" text-anchor="middle">解码器</text>
+    <line x1="0" y1="250" x2="221" y2="250" stroke="#9CA3AF" stroke-width="2" marker-end="url(#ag)"/>
+    <text x="20" y="243" font-size="26" fill="#9CA3AF">op</text>
+
+    <!-- A,B to ALL units -->
+    <line x1="0" y1="585" x2="70" y2="585" stroke="#9CA3AF" stroke-width="2"/>
+    <line x1="0" y1="630" x2="70" y2="630" stroke="#9CA3AF" stroke-width="2"/>
+    <text x="20" y="578" font-size="26" fill="#9CA3AF">A</text>
+    <text x="20" y="623" font-size="26" fill="#9CA3AF">B</text>
+    <line x1="70" y1="630" x2="70" y2="335" stroke="#9CA3AF" stroke-width="2"/>
+    <line x1="70" y1="335" x2="166" y2="335" stroke="#9CA3AF" stroke-width="2" marker-end="url(#ag)"/>
+    <line x1="70" y1="395" x2="166" y2="395" stroke="#9CA3AF" stroke-width="2" marker-end="url(#ag)"/>
+    <line x1="70" y1="455" x2="166" y2="455" stroke="#9CA3AF" stroke-width="2" marker-end="url(#ag)"/>
+    <line x1="70" y1="515" x2="166" y2="515" stroke="#9CA3AF" stroke-width="2" marker-end="url(#ag)"/>
+
+    <!-- units all powered but only one enabled -->
+    <rect x="170" y="313" width="120" height="44" rx="8" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <text x="230" y="345" font-size="28" fill="#E5E7EB" text-anchor="middle">加法器</text>
+    <rect x="170" y="373" width="120" height="44" rx="8" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <text x="230" y="405" font-size="28" fill="#E5E7EB" text-anchor="middle">减法器</text>
+    <rect x="170" y="433" width="120" height="44" rx="8" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <text x="230" y="465" font-size="28" fill="#E5E7EB" text-anchor="middle">与门</text>
+    <rect x="170" y="493" width="120" height="44" rx="8" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <text x="230" y="525" font-size="28" fill="#E5E7EB" text-anchor="middle">或门</text>
+
+    <!-- EN distribution -->
+    <path d="M340,278 L340,300 L315,300 L315,520" fill="none" stroke="#F59E0B" stroke-width="2" stroke-dasharray="5 4"/>
+    <line x1="315" y1="345" x2="291" y2="345" stroke="#34D399" stroke-width="2.5" marker-end="url(#agg)"/>
+    <line x1="315" y1="405" x2="291" y2="405" stroke="#F59E0B" stroke-width="1.8" stroke-dasharray="4 3" marker-end="url(#ao)"/>
+    <line x1="315" y1="465" x2="291" y2="465" stroke="#F59E0B" stroke-width="1.8" stroke-dasharray="4 3" marker-end="url(#ao)"/>
+    <line x1="315" y1="525" x2="291" y2="525" stroke="#F59E0B" stroke-width="1.8" stroke-dasharray="4 3" marker-end="url(#ao)"/>
+    <text x="320" y="545" font-size="20" fill="#F59E0B">EN</text>
+
+    <!-- tri-state output bus -->
+    <path d="M290,325 L345,325 L345,420 L397,420" fill="none" stroke="#34D399" stroke-width="2.5" marker-end="url(#agg)"/>
+    <text x="350" y="412" font-size="24" fill="#9CA3AF">输出</text>
+    <line x1="290" y1="385" x2="306" y2="385" stroke="#6B7280" stroke-width="2"/>
+    <circle cx="308" cy="385" r="4.5" fill="none" stroke="#6B7280" stroke-width="1.8"/>
+    <line x1="290" y1="445" x2="306" y2="445" stroke="#6B7280" stroke-width="2"/>
+    <circle cx="308" cy="445" r="4.5" fill="none" stroke="#6B7280" stroke-width="1.8"/>
+    <line x1="290" y1="505" x2="306" y2="505" stroke="#6B7280" stroke-width="2"/>
+    <circle cx="308" cy="505" r="4.5" fill="none" stroke="#6B7280" stroke-width="1.8"/>
+    <text x="150" y="570" font-size="20" fill="#9CA3AF">未选中单元输出高阻</text>
+  </g>
+
+  <!-- equals between panels -->
+  <text x="462" y="462" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="52" fill="#A78BFA" text-anchor="middle">=</text>
+  <text x="907" y="462" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="52" fill="#A78BFA" text-anchor="middle">=</text>
+
+  <!-- right-side conclusion -->
+  <line x1="1332" y1="465" x2="1372" y2="465" stroke="#34D399" stroke-width="2.5" marker-end="url(#agg)"/>
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">
+    <text x="1382" y="445" font-size="30" fill="#34D399">外部行为</text>
+    <text x="1382" y="483" font-size="30" fill="#34D399">相同</text>
+    <text x="1382" y="521" font-size="28" fill="#34D399">→ 同一 ISA</text>
+  </g>
+
+  <!-- bottom labels -->
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="28" fill="#9CA3AF" text-anchor="middle">
+    <text x="240" y="716">内部结构不同</text>
+    <text x="685" y="716">内部结构不同</text>
+    <text x="1130" y="716">内部结构不同</text>
+  </g>
+
+  <!-- bottom sentence -->
+  <text x="800" y="820" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="30" fill="#E5E7EB" text-anchor="middle">微架构可以完全不同，只要对同样的输入产生同样的输出，就是<tspan fill="#34D399">兼容实现</tspan></text>
+</svg>

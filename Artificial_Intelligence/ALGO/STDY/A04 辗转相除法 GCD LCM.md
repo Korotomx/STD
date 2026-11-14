@@ -1,33 +1,56 @@
-最大公因数（gcd）与最小公倍数（lcm）是整数世界里的「取交集 / 取并集」：分解成素因子后，gcd 每个指数取 min，lcm 取 max。辗转相除法不用分解质因数，只靠带余除法就能把 gcd 降到 $O(\log \min(a,b))$，再由 $ab=\gcd\cdot\operatorname{lcm}$ 得到 lcm。C++17 起 `<numeric>` 直接提供 `std::gcd` / `std::lcm`。
+# A04 辗转相除法 GCD LCM
 
-## 定义与基本性质
+> [!info] 学习目标
+> 从「会列举小数字」推进到「能解释并实现 $O(\log\min(a,b))$ 的辗转相除法」；面试能讲清恒等式为什么成立、为什么快、lcm 怎么防溢出。
+
+## 1. 问题：因数太多，列举不可行
 
 对不全为零的整数 $a,b$：
 
-- $\gcd(a,b)$：同时整除 $a,b$ 的最大正整数。
-- $\operatorname{lcm}(a,b)$：同时被 $a,b$ 整除的最小正整数。
-- 若 $\gcd(a,b)=1$，称 $a,b$ **互素**（coprime）。
+- $\gcd(a,b)$：同时整除 $a,b$ 的**最大**正整数；
+- $\operatorname{lcm}(a,b)$：同时被 $a,b$ 整除的**最小**正整数；
+- 若 $\gcd(a,b)=1$，称 $a,b$ **互素**。
 
-三条常用性质：
-
-$$
-\gcd(a,0)=|a|,\qquad \gcd(a,b)=\gcd(|a|,|b|),\qquad \gcd(a,b)\cdot\operatorname{lcm}(a,b)=|ab|.
-$$
-
-最后一条来自素因子分解。设
+$12$ 和 $18$ 可以脑内列举，得到 $6$ 和 $36$。但 $1071$ 和 $462$ 的因数各有十几个，逐个试除很笨。A05 已经有一个工具：带余除法
 
 $$
-a=\prod_p p^{\alpha_p},\qquad b=\prod_p p^{\beta_p},
+a=qb+r,\qquad 0\le r<b.
 $$
 
-则
+问题变成：能不能把 $(a,b)$ 换成一对其余数，而 gcd 不变？
+
+## 2. 关键恒等式
+
+设 $a=qb+r$，则
 
 $$
-\gcd(a,b)=\prod_p p^{\min(\alpha_p,\beta_p)},\qquad
-\operatorname{lcm}(a,b)=\prod_p p^{\max(\alpha_p,\beta_p)}.
+\boxed{\gcd(a,b)=\gcd(b,r)}
 $$
 
-因为 $\min+\max=\alpha+\beta$，两边指数相加正好还原 $ab$。
+**证明**：设 $d$ 同时整除 $a,b$。因为 $r=a-qb$，所以 $d\mid r$——$d$ 也整除 $b,r$。
+
+反过来，设 $d$ 同时整除 $b,r$。因为 $a=qb+r$，所以 $d\mid a$——$d$ 也整除 $a,b$。
+
+于是两边的公约数**集合完全相同**：
+
+$$
+\{d:d\mid a,\ d\mid b\}=\{d:d\mid b,\ d\mid r\}.
+$$
+
+集合相同，最大元素当然相同。
+
+两点注意：
+
+- 这不是近似，也不是「gcd 差不多」，而是两个集合逐元素相等；
+- 证明里没用到商 $q$ 的具体值，只用到 $r=a\bmod b$。
+
+例：$1071=2\times462+147$，所以 $\gcd(1071,462)=\gcd(462,147)$。问题规模从 $(1071,462)$ 缩到 $(462,147)$。
+
+> [!question] $\gcd(a,b)=\gcd(b,a\bmod b)$ 成立的根本理由是什么？
+> - 因为余数 $r$ 一定比 $b$ 小
+> - 因为 gcd 对两个参数的顺序是对称的
+> - 两边的公约数集合完全相同
+> - 我不知道
 
 **多个数**可以折叠：$\gcd(a,b,c)=\gcd(\gcd(a,b),c)$，lcm 同理。
 

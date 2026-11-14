@@ -11,7 +11,7 @@
 ## 原始材料待处理
 
 - [x] ALGO：`Every Data Structure Simply Explained in 25 Minutes!` → 已整理为 [[A06 常用数据结构全景]]（2026-11-14）
-- [ ] ALGO：`The Most Ambiguous Concept in Computer Science`
+- [x] ALGO：`The Most Ambiguous Concept in Computer Science` → 已整理为 [[A07 计算机架构：ISA 与微架构]]（2026-11-14）
 - [ ] Calculus：连续与间断概念题
 - [ ] Calculus：Stolz 定理
 - [ ] Calculus：夹逼定理
