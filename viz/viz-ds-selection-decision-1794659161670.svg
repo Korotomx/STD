@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+  <rect width="1600" height="1000" fill="#131312"/>
+  <defs>
+    <marker id="aGray" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 z" fill="#6B7280"/>
+    </marker>
+  </defs>
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">
+
+    <text x="800" y="62" fill="#E5E7EB" font-size="44" font-weight="600" text-anchor="middle">选型决策：先问最主要操作，再选结构</text>
+    <text x="800" y="106" fill="#9CA3AF" font-size="26" text-anchor="middle">每种需求给出首选结构，括号内是主要操作的代价</text>
+    <line x1="54" y1="132" x2="1562" y2="132" stroke="#2E2E2E" stroke-width="1.5"/>
+
+    <!-- 根卡片 -->
+    <rect x="54" y="452" width="290" height="180" rx="16" fill="#1E1E2E" stroke="#F59E0B" stroke-width="3"/>
+    <text x="199" y="528" fill="#E5E7EB" font-size="26" font-weight="600" text-anchor="middle">你要解决什么问题？</text>
+    <text x="199" y="572" fill="#9CA3AF" font-size="26" text-anchor="middle">先问最主要操作</text>
+
+    <!-- 分支箭头 -->
+    <path d="M199,450 V178 Q199,166 211,166 H1255 Q1267,166 1267,178 V236" fill="none" stroke="#6B7280" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#aGray)"/>
+    <path d="M199,204 H647 Q659,204 659,216 V236" fill="none" stroke="#6B7280" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#aGray)"/>
+
+    <!-- ===== 左列 ===== -->
+    <!-- 1 哈希表 -->
+    <rect x="364" y="244" width="590" height="108" rx="12" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <rect x="378" y="264" width="5" height="68" rx="2.5" fill="#A78BFA"/>
+    <text x="394" y="285" fill="#E5E7EB" font-size="26">按完整 key 取值 / 更新</text>
+    <text x="394" y="327" fill="#9CA3AF" font-size="26"><tspan fill="#E5E7EB" font-weight="600">→ 哈希表</tspan>（平均 O(1)）</text>
+
+    <!-- 2 平衡 BST -->
+    <rect x="364" y="366" width="590" height="108" rx="12" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <rect x="378" y="386" width="5" height="68" rx="2.5" fill="#F59E0B"/>
+    <text x="394" y="407" fill="#E5E7EB" font-size="26">需要有序、范围查询、前驱后继</text>
+    <text x="394" y="449" fill="#9CA3AF" font-size="26"><tspan fill="#E5E7EB" font-weight="600">→ 平衡 BST</tspan>（O(log n)）</text>
+
+    <!-- 3 堆 -->
+    <rect x="364" y="488" width="590" height="108" rx="12" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <rect x="378" y="508" width="5" height="68" rx="2.5" fill="#E5484D"/>
+    <text x="394" y="529" fill="#E5E7EB" font-size="26">只关心当前最大 / 最小</text>
+    <text x="394" y="571" fill="#9CA3AF" font-size="26"><tspan fill="#E5E7EB" font-weight="600">→ 堆</tspan>（O(log n)）</text>
+
+    <!-- 4 Trie -->
+    <rect x="364" y="610" width="590" height="108" rx="12" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <rect x="378" y="630" width="5" height="68" rx="2.5" fill="#60A5FA"/>
+    <text x="394" y="651" fill="#E5E7EB" font-size="26">按前缀补全、查词典</text>
+    <text x="394" y="693" fill="#9CA3AF" font-size="26"><tspan fill="#E5E7EB" font-weight="600">→ Trie</tspan>（O(前缀长度)）</text>
+
+    <!-- 5 布隆过滤器 -->
+    <rect x="364" y="732" width="590" height="108" rx="12" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <rect x="378" y="752" width="5" height="68" rx="2.5" fill="#34D399"/>
+    <text x="394" y="773" fill="#E5E7EB" font-size="26">判断「在不在」，允许假阳性、省内存</text>
+    <text x="394" y="815" fill="#9CA3AF" font-size="26"><tspan fill="#E5E7EB" font-weight="600">→ 布隆过滤器</tspan>（O(k)）</text>
+
+    <!-- ===== 右列 ===== -->
+    <!-- 6 并查集 -->
+    <rect x="972" y="244" width="590" height="108" rx="12" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <rect x="986" y="264" width="5" height="68" rx="2.5" fill="#60A5FA"/>
+    <text x="1002" y="285" fill="#E5E7EB" font-size="26">动态合并分组、判断是否同组</text>
+    <text x="1002" y="327" fill="#9CA3AF" font-size="26"><tspan fill="#E5E7EB" font-weight="600">→ 并查集</tspan>（均摊 ≈ O(1)）</text>
+
+    <!-- 7 LRU -->
+    <rect x="972" y="366" width="590" height="108" rx="12" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <rect x="986" y="386" width="5" height="68" rx="2.5" fill="#34D399"/>
+    <text x="1002" y="407" fill="#E5E7EB" font-size="26">缓存满了要淘汰最久未使用</text>
+    <text x="1002" y="449" fill="#9CA3AF" font-size="26"><tspan fill="#E5E7EB" font-weight="600">→ LRU</tspan>（哈希表 + 双向链表，O(1)）</text>
+
+    <!-- 8 图 -->
+    <rect x="972" y="488" width="590" height="108" rx="12" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <rect x="986" y="508" width="5" height="68" rx="2.5" fill="#A78BFA"/>
+    <text x="1002" y="529" fill="#E5E7EB" font-size="26">任意连接、路径、连通性</text>
+    <text x="1002" y="571" fill="#9CA3AF" font-size="26"><tspan fill="#E5E7EB" font-weight="600">→ 图</tspan>（邻接表 O(V+E)，矩阵 O(V²)）</text>
+
+    <!-- 9 栈 / 队列 -->
+    <rect x="972" y="610" width="590" height="108" rx="12" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <rect x="986" y="630" width="5" height="68" rx="2.5" fill="#F59E0B"/>
+    <text x="1002" y="651" fill="#E5E7EB" font-size="26">只在两端进出</text>
+    <text x="1002" y="693" fill="#9CA3AF" font-size="26"><tspan fill="#E5E7EB" font-weight="600">→ 栈（后进先出）/ 队列（先进先出）</tspan>（O(1)）</text>
+
+    <!-- 10 数组 / 链表 -->
+    <rect x="972" y="732" width="590" height="108" rx="12" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <rect x="986" y="752" width="5" height="68" rx="2.5" fill="#E5484D"/>
+    <text x="1002" y="773" fill="#E5E7EB" font-size="26">按下标随机访问 / 频繁中间插删</text>
+    <text x="1002" y="815" fill="#9CA3AF" font-size="26"><tspan fill="#E5E7EB" font-weight="600">→ 数组（O(1) 访问）/ 链表（O(1) 插删）</tspan></text>
+
+    <!-- 底部注释 -->
+    <rect x="54" y="872" width="1508" height="92" rx="14" fill="#1A1A20" stroke="#A78BFA" stroke-opacity="0.5" stroke-width="1.8"/>
+    <rect x="78" y="890" width="5" height="56" rx="2.5" fill="#A78BFA"/>
+    <text x="104" y="928" fill="#E5E7EB" font-size="27">没有万能结构：先问操作，再选结构；同一问题常组合多种 —— <tspan fill="#A78BFA" font-weight="600">LRU = 哈希表 + 双向链表</tspan>。</text>
+
+  </g>
+</svg>

@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#131312"/>
+  <defs>
+    <marker id="aGray" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#6B7280"/></marker>
+    <marker id="aGreen" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11" refY="6.5" orient="auto"><path d="M0,0 L13,6.5 L0,13 z" fill="#34D399"/></marker>
+  </defs>
+
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">
+    <text x="800" y="62" fill="#E5E7EB" font-size="44" font-weight="600" text-anchor="middle">前驱、后继与链表删除</text>
+    <text x="800" y="104" fill="#9CA3AF" font-size="26" text-anchor="middle">从中间删除 B：单向链表 O(n)　｜　双向链表 O(1)</text>
+    <line x1="50" y1="128" x2="1550" y2="128" stroke="#2E2E2E" stroke-width="1.5"/>
+
+    <!-- ============ 左：单向链表 ============ -->
+    <text x="60" y="172" font-size="32" font-weight="600" fill="#E5E7EB"><tspan fill="#9CA3AF">①</tspan> 单向链表</text>
+    <text x="60" y="204" font-size="24" fill="#9CA3AF">只有 next 指针，只能往后走</text>
+
+    <!-- 链箭头（先画，被框和节点压住一点） -->
+    <line x1="138" y1="378" x2="186" y2="378" stroke="#6B7280" stroke-width="2.6" marker-end="url(#aGray)"/>
+    <line x1="278" y1="378" x2="356" y2="378" stroke="#6B7280" stroke-width="2.6" marker-end="url(#aGray)"/>
+    <line x1="448" y1="378" x2="526" y2="378" stroke="#6B7280" stroke-width="2.6" marker-end="url(#aGray)"/>
+    <line x1="618" y1="378" x2="672" y2="378" stroke="#6B7280" stroke-width="2.6" marker-end="url(#aGray)"/>
+
+    <!-- 高亮框：红虚线待删除 + 橙色圈住 B -->
+    <rect x="340" y="316" width="124" height="124" rx="20" fill="none" stroke="#E5484D" stroke-width="2.5" stroke-dasharray="9 6"/>
+    <rect x="352" y="328" width="100" height="100" rx="14" fill="none" stroke="#F59E0B" stroke-width="2.5"/>
+
+    <!-- 节点 -->
+    <text x="60" y="388" fill="#A78BFA" font-size="30" font-weight="600">head</text>
+    <rect x="190" y="336" width="84" height="84" rx="14" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+    <text x="232" y="391" fill="#E5E7EB" font-size="40" font-weight="600" text-anchor="middle">A</text>
+    <rect x="360" y="336" width="84" height="84" rx="14" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+    <line x1="369" y1="345" x2="435" y2="411" stroke="#E5484D" stroke-width="3.6" stroke-linecap="round"/>
+    <line x1="435" y1="345" x2="369" y2="411" stroke="#E5484D" stroke-width="3.6" stroke-linecap="round"/>
+    <text x="402" y="391" fill="#E5E7EB" font-size="40" font-weight="600" text-anchor="middle" stroke="#1E1E2E" stroke-width="10" stroke-linejoin="round" paint-order="stroke">B</text>
+    <rect x="530" y="336" width="84" height="84" rx="14" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+    <text x="572" y="391" fill="#E5E7EB" font-size="40" font-weight="600" text-anchor="middle">C</text>
+    <rect x="676" y="336" width="84" height="84" rx="14" fill="none" stroke="#6B7280" stroke-width="2" stroke-dasharray="7 6"/>
+    <text x="718" y="390" fill="#9CA3AF" font-size="28" text-anchor="middle">空</text>
+
+    <!-- B 的标注 -->
+    <text x="402" y="296" fill="#F59E0B" font-size="30" font-weight="600" text-anchor="middle">站在 B 上</text>
+    <text x="402" y="476" fill="#E5484D" font-size="28" font-weight="600" text-anchor="middle">待删除 B</text>
+    <text x="56" y="534" fill="#9CA3AF" font-size="28">B 只知道下一个是 C（后继）；</text>
+    <text x="56" y="570" fill="#9CA3AF" font-size="28">它没有指回 A 的箭头。</text>
+    <text x="56" y="614" fill="#F59E0B" font-size="28">要删 B，必须让 A 的 next 改成 C——</text>
+    <text x="56" y="650" fill="#F59E0B" font-size="28">但站在 B 上找不到 A，只能从 head 重新走一遍 → O(n)</text>
+
+    <!-- 分隔 -->
+    <line x1="786" y1="148" x2="786" y2="656" stroke="#2E2E2E" stroke-width="1.5" stroke-dasharray="6 8"/>
+
+    <!-- ============ 右：双向链表 ============ -->
+    <text x="804" y="172" font-size="32" font-weight="600" fill="#E5E7EB"><tspan fill="#A78BFA">②</tspan> 双向链表</text>
+    <text x="804" y="204" font-size="24" fill="#9CA3AF">next 和 prev 成对出现</text>
+
+    <!-- 成对箭头：上排 next（向右），下排 prev（向左） -->
+    <line x1="880" y1="362" x2="910" y2="362" stroke="#6B7280" stroke-width="2.6" marker-end="url(#aGray)"/>
+    <line x1="910" y1="394" x2="880" y2="394" stroke="#6B7280" stroke-width="2.6" marker-end="url(#aGray)"/>
+    <line x1="1002" y1="362" x2="1136" y2="362" stroke="#6B7280" stroke-width="2.6" marker-end="url(#aGray)"/>
+    <line x1="1136" y1="394" x2="1002" y2="394" stroke="#6B7280" stroke-width="2.6" marker-end="url(#aGray)"/>
+    <line x1="1228" y1="362" x2="1362" y2="362" stroke="#6B7280" stroke-width="2.6" marker-end="url(#aGray)"/>
+    <line x1="1362" y1="394" x2="1228" y2="394" stroke="#6B7280" stroke-width="2.6" marker-end="url(#aGray)"/>
+    <line x1="1454" y1="362" x2="1480" y2="362" stroke="#6B7280" stroke-width="2.6" marker-end="url(#aGray)"/>
+    <line x1="1480" y1="394" x2="1454" y2="394" stroke="#6B7280" stroke-width="2.6" marker-end="url(#aGray)"/>
+
+    <!-- 待删除的红虚线框 -->
+    <rect x="1130" y="326" width="104" height="104" rx="14" fill="none" stroke="#E5484D" stroke-width="2.5" stroke-dasharray="9 6"/>
+
+    <!-- 节点 -->
+    <rect x="804" y="336" width="72" height="84" rx="14" fill="#1A1A20" stroke="#A78BFA" stroke-width="2" stroke-dasharray="7 5"/>
+    <text x="840" y="386" fill="#A78BFA" font-size="26" font-weight="600" text-anchor="middle">head</text>
+    <rect x="914" y="336" width="84" height="84" rx="14" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+    <text x="956" y="391" fill="#E5E7EB" font-size="40" font-weight="600" text-anchor="middle">A</text>
+    <rect x="1140" y="336" width="84" height="84" rx="14" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+    <line x1="1149" y1="345" x2="1215" y2="411" stroke="#E5484D" stroke-width="3.6" stroke-linecap="round"/>
+    <line x1="1215" y1="345" x2="1149" y2="411" stroke="#E5484D" stroke-width="3.6" stroke-linecap="round"/>
+    <text x="1182" y="391" fill="#E5E7EB" font-size="40" font-weight="600" text-anchor="middle" stroke="#1E1E2E" stroke-width="10" stroke-linejoin="round" paint-order="stroke">B</text>
+    <rect x="1366" y="336" width="84" height="84" rx="14" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+    <text x="1408" y="391" fill="#E5E7EB" font-size="40" font-weight="600" text-anchor="middle">C</text>
+    <rect x="1484" y="336" width="68" height="84" rx="14" fill="none" stroke="#6B7280" stroke-width="2" stroke-dasharray="7 6"/>
+    <text x="1518" y="390" fill="#9CA3AF" font-size="28" text-anchor="middle">空</text>
+
+    <!-- B 的两条指针标注 -->
+    <text x="1300" y="344" fill="#F59E0B" font-size="28" font-weight="600" text-anchor="middle">next→C</text>
+    <text x="1064" y="424" fill="#F59E0B" font-size="28" font-weight="600" text-anchor="middle">prev→A</text>
+
+    <!-- 绿色两步修改：越过 B 的两条弧 -->
+    <path d="M956,336 C956,262 1408,262 1408,336" fill="none" stroke="#34D399" stroke-width="3" stroke-linecap="round" marker-end="url(#aGreen)"/>
+    <path d="M1408,420 C1408,472 956,472 956,420" fill="none" stroke="#34D399" stroke-width="3" stroke-linecap="round" marker-end="url(#aGreen)"/>
+    <text x="1182" y="252" fill="#34D399" font-size="30" font-weight="600" text-anchor="middle">① A.next = C</text>
+    <text x="1182" y="492" fill="#34D399" font-size="30" font-weight="600" text-anchor="middle">② C.prev = A</text>
+
+    <!-- 右侧说明 -->
+    <text x="812" y="534" fill="#E5E7EB" font-size="28">B 的 prev 就是前驱 A，next 就是后继 C。</text>
+    <text x="812" y="582" fill="#34D399" font-size="28" font-weight="600">两步指针修改，不需要从头找 → O(1)。</text>
+
+    <!-- ============ 底部定义条 ============ -->
+    <rect x="50" y="676" width="1500" height="192" rx="16" fill="#1A1A20" stroke="#A78BFA" stroke-opacity="0.5" stroke-width="1.8"/>
+    <rect x="76" y="698" width="6" height="42" rx="3" fill="#A78BFA"/>
+    <text x="100" y="732" fill="#E5E7EB" font-size="30">前驱 predecessor：排在当前节点前面的那个节点</text>
+    <rect x="76" y="752" width="6" height="42" rx="3" fill="#F59E0B"/>
+    <text x="100" y="786" fill="#E5E7EB" font-size="30">后继 successor：排在当前节点后面的那个节点</text>
+    <text x="100" y="836" fill="#9CA3AF" font-size="28">例：在 A → B → C 中，B 的前驱是 A，后继是 C。</text>
+  </g>
+</svg>
