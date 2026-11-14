@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6B7280"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1600" height="900" fill="#131312"/>
+
+  <!-- Title -->
+  <text x="200" y="92" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="46" font-weight="600" fill="#E5E7EB">辗转相除：用余数替换较大数</text>
+
+  <!-- Step 1 -->
+  <rect x="200" y="150" width="620" height="96" rx="16" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+  <text x="510" y="210" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="36" fill="#E5E7EB">1071  =  2 × 462 <tspan fill="#F59E0B">+ 147</tspan></text>
+
+  <!-- arrow 1 -->
+  <line x1="510" y1="254" x2="510" y2="316" stroke="#6B7280" stroke-width="2.5" marker-end="url(#ah)"/>
+  <text x="545" y="290" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="28" fill="#9CA3AF">(a,b) ← (b,r)</text>
+
+  <!-- Step 2 -->
+  <rect x="200" y="326" width="620" height="96" rx="16" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+  <text x="510" y="386" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="36" fill="#E5E7EB">462  =  3 × 147 <tspan fill="#F59E0B">+ 21</tspan></text>
+
+  <!-- arrow 2 -->
+  <line x1="510" y1="430" x2="510" y2="492" stroke="#6B7280" stroke-width="2.5" marker-end="url(#ah)"/>
+  <text x="545" y="466" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="28" fill="#9CA3AF">(a,b) ← (b,r)</text>
+
+  <!-- Step 3 -->
+  <rect x="200" y="502" width="620" height="96" rx="16" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+  <text x="510" y="562" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="36" fill="#E5E7EB">147  =  7 × 21 <tspan fill="#F59E0B">+ 0</tspan></text>
+
+  <!-- arrow 3 to result -->
+  <line x1="510" y1="606" x2="510" y2="664" stroke="#6B7280" stroke-width="2.5" marker-end="url(#ah)"/>
+
+  <!-- Result -->
+  <rect x="200" y="674" width="620" height="120" rx="16" fill="#1E1E2E" stroke="#34D399" stroke-width="2.5"/>
+  <text x="510" y="736" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="42" font-weight="600" fill="#34D399">gcd  =  21</text>
+  <text x="510" y="774" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="28" fill="#9CA3AF">最后一个非零余数</text>
+
+  <!-- Right side: next pair -->
+  <rect x="880" y="170" width="400" height="56" rx="28" fill="#1E1E2E" stroke="#6B7280" stroke-width="1.5"/>
+  <text x="1080" y="207" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="28" fill="#E5E7EB">下一对 (462, 147)</text>
+
+  <rect x="880" y="346" width="400" height="56" rx="28" fill="#1E1E2E" stroke="#6B7280" stroke-width="1.5"/>
+  <text x="1080" y="383" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="28" fill="#E5E7EB">下一对 (147, 21)</text>
+
+  <rect x="880" y="522" width="400" height="56" rx="28" fill="#1E1E2E" stroke="#E5484D" stroke-width="1.5"/>
+  <text x="1080" y="559" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="28" fill="#E5484D">余数为 0，停</text>
+
+  <!-- Note -->
+  <text x="880" y="728" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="28" fill="#9CA3AF">每一步都是带余除法；</text>
+  <text x="880" y="770" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="28" fill="#9CA3AF">余数严格变小，所以一定停。</text>
+</svg>

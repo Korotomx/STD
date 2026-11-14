@@ -11,40 +11,75 @@
 - $\operatorname{lcm}(a,b)$：同时被 $a,b$ 整除的**最小**正整数；
 - 若 $\gcd(a,b)=1$，称 $a,b$ **互素**。
 
-$12$ 和 $18$ 可以脑内列举，得到 $6$ 和 $36$。但 $1071$ 和 $462$ 的因数各有十几个，逐个试除很笨。A05 已经有一个工具：带余除法
+$12$ 和 $18$ 可以脑内列举：公约数 $1,2,3,6$，得到 $\gcd=6$；公倍数 $36,72,\dots$，得到 $\operatorname{lcm}=36$。但 $1071$ 与 $462$ 的因数各有十几个，逐个试除很笨。
+
+A05 已经有一个工具：带余除法
 
 $$
 a=qb+r,\qquad 0\le r<b.
 $$
 
-问题变成：能不能把 $(a,b)$ 换成一对其余数，而 gcd 不变？
+问题变成：能不能把 $(a,b)$ 换成一对其余数，而 $\gcd$ 不变？
 
-## 2. 关键恒等式
+## 2. 关键恒等式：换一对数，公约数集合不变
 
-设 $a=qb+r$，则
+设 $r=a\bmod b$，即 $a=qb+r$。要证
 
 $$
 \boxed{\gcd(a,b)=\gcd(b,r)}
 $$
 
-**证明**：设 $d$ 同时整除 $a,b$。因为 $r=a-qb$，所以 $d\mid r$——$d$ 也整除 $b,r$。
+**整个证明只需要一句话：如果 $d$ 整除 $a$ 和 $b$，那么 $d$ 也整除 $a-qb=r$。**
 
-反过来，设 $d$ 同时整除 $b,r$。因为 $a=qb+r$，所以 $d\mid a$——$d$ 也整除 $a,b$。
+为什么？$a$ 是 $d$ 的整数倍，$b$ 也是 $d$ 的整数倍；两个整数倍相减，结果还是 $d$ 的整数倍。而 $a-qb$ 正好是余数 $r$。
 
-于是两边的公约数**集合完全相同**：
+于是两个方向都通：
+
+- 若 $d$ 同时整除 $a,b$，由上面这句话，$d$ 也整除 $r$，所以 $d$ 同时整除 $b,r$；
+- 若 $d$ 同时整除 $b,r$，则 $d$ 整除 $qb+r=a$，所以 $d$ 同时整除 $a,b$。
+
+也就是说，**两组数的公约数逐个相同**：
 
 $$
 \{d:d\mid a,\ d\mid b\}=\{d:d\mid b,\ d\mid r\}.
 $$
 
-集合相同，最大元素当然相同。
+集合相同，最大元素当然相同，恒等式成立。
 
-两点注意：
+### 2.1 具体例子：$12$ 和 $8$
 
-- 这不是近似，也不是「gcd 差不多」，而是两个集合逐元素相等；
-- 证明里没用到商 $q$ 的具体值，只用到 $r=a\bmod b$。
+$$
+12=1\times8+4.
+$$
 
-例：$1071=2\times462+147$，所以 $\gcd(1071,462)=\gcd(462,147)$。问题规模从 $(1071,462)$ 缩到 $(462,147)$。
+- $12$ 与 $8$ 的公约数：$1,2,4$；
+- $8$ 与 $4$ 的公约数：$1,2,4$。
+
+集合一模一样，所以 $\gcd(12,8)=\gcd(8,4)=4$。
+
+拿几个 $d$ 逐个检验：
+
+- $d=2$：$12=2\times6$，$8=2\times4$，而 $4=12-8=2(6-4)$——整除关系确实传到了余数上，所以 $2$ 在两边都在；
+- $d=3$：$3\mid12$ 但 $3\nmid8$，所以 $3$ 不在左边的集合；又 $3\nmid4$，也不在右边的集合。两边同时排除，仍然一致；
+- $d=4$：$4\mid12$，$4\mid8$，$4\mid4$——两边都在。
+
+没有任何一个 $d$ 只出现在一边。
+
+### 2.2 再看 $1071$ 和 $462$
+
+$$
+1071=2\times462+147,
+$$
+
+所以 $\gcd(1071,462)=\gcd(462,147)$。问题规模从 $(1071,462)$ 缩到 $(462,147)$，而答案没变。这一步可以反复做。
+
+![[viz-gcd-common-divisors-venn-1794664987986.svg|700]]
+
+### 2.3 三个容易卡住的点
+
+- **不是「gcd 差不多」，而是两个集合完全相等。** 集合相等是逐元素比较，不是数值接近。
+- **最大公约数相同，不代表 $a$ 和 $r$ 一样。** $1071\ne147$，但它们与 $b=462$ 的公约数恰好是同一批。
+- **证明没用到商 $q$ 是多少。** 只用到「$r$ 是 $a$ 减去若干个 $b$」这个事实。
 
 > [!question] $\gcd(a,b)=\gcd(b,a\bmod b)$ 成立的根本理由是什么？
 > - 因为余数 $r$ 一定比 $b$ 小
@@ -52,40 +87,38 @@ $$
 > - 两边的公约数集合完全相同
 > - 我不知道
 
-**多个数**可以折叠：$\gcd(a,b,c)=\gcd(\gcd(a,b),c)$，lcm 同理。
+> [!question] 没看懂（第一次讲解时）
+> 原讲解直接从集合等式出发，跳过了「为什么整除关系会传给余数」这一步。现在拆成两步看：
+>
+> 1. **传下去**：$d\mid a$ 且 $d\mid b$ $\Rightarrow$ $d\mid(a-qb)=r$。两个 $d$ 的倍数相减，还是 $d$ 的倍数。
+> 2. **传回来**：$d\mid b$ 且 $d\mid r$ $\Rightarrow$ $d\mid(qb+r)=a$。同理。
+>
+> 两条合起来，上一对的公约数和下一对的公约数逐个相同，所以最大值相同。用 $12$ 与 $8$ 的例子逐个 $d$ 检验一遍，比抽象符号直观。
 
-## 辗转相除法
+## 3. 算法：反复替换，直到余数为零
 
-核心恒等式：
+恒等式是一台「换数机器」：$(a,b)\mapsto(b,\ a\bmod b)$，答案不变。反复开动机器，直到余数为零：
 
 $$
-\boxed{\gcd(a,b)=\gcd(b,\ a\bmod b)}
-$$
-
-于是反复用余数替换前一个数，直到余数为 0：
-
-$$
-\gcd(1071,462):
-\quad
 \begin{aligned}
-1071&=2\cdot 462+147\\
-462&=3\cdot 147+21\\
-147&=7\cdot 21+0
+1071&=2\times462+147 &&\Rightarrow (462,\ 147)\\
+462&=3\times147+21 &&\Rightarrow (147,\ 21)\\
+147&=7\times21+0 &&\Rightarrow \text{停，答案为 }21
 \end{aligned}
-\quad\Longrightarrow\quad \gcd=21.
 $$
 
-**为什么成立**：设 $a=qb+r$。若 $d\mid a$ 且 $d\mid b$，则 $d\mid(a-qb)=r$；反过来若 $d\mid b$ 且 $d\mid r$，则 $d\mid(qb+r)=a$。两边**公约数集合完全相同**，最大者自然相同：
+![[viz-euclidean-algorithm-1071-462-1794664987168.svg|700]]
 
-$$
-\{d:d\mid a,\ d\mid b\}=\{d:d\mid b,\ d\mid r\}.
-$$
+**为什么最后那个数就是答案**：终止时 $r=0$，恒等式给出 $\gcd(b,0)=b$——任何数都整除 $0$，最大公约数就是 $b$ 本身。所以「最后一个非零余数」$=21$。
 
-**为什么终止**：$0\le r<|b|$，第二个参数严格变小，非负整数不可能无限下降。
+**为什么一定停**：$0\le r<b$，第二个参数每一步严格变小；非负整数不可能无限下降。
 
-**复杂度**：拉梅定理（Lamé）给出步数不超过较小数十进制位数的 5 倍，即 $O(\log\min(a,b))$。最坏情况是相邻的斐波那契数，每步余数只缩小一点点。
+**为什么快**：每两步至少让较小的数减半。设 $a\ge b$：
 
-算法流程：
+- 若 $r\le b/2$，下一步较小数就是 $r$，已经减半；
+- 若 $r>b/2$，则商 $q=1$，下一步余数是 $b-r<b/2$，两步内照样减半。
+
+所以步数是 $O(\log\min(a,b))$。精确结论是拉梅定理（Lamé）：步数不超过较小数十进制位数的 $5$ 倍。最坏情况是相邻的斐波那契数——每步商都是 $1$，余数只缩小一点点。
 
 ```mermaid
 %%{init: {'theme':'base','themeCSS':'.nodeLabel{color:#E5E7EB!important;fill:#E5E7EB!important}.edgeLabel p{background-color:#131312!important}.edgeLabel{color:#E5E7EB!important}svg{background:transparent!important}','themeVariables':{'primaryColor':'#1E1E2E','primaryTextColor':'#E5E7EB','primaryBorderColor':'#A78BFA','secondaryColor':'#1E1E2E','tertiaryColor':'#1E1E2E','lineColor':'#9CA3AF','textColor':'#E5E7EB','mainBkg':'#1E1E2E','nodeBorder':'#A78BFA','clusterBkg':'#131312','clusterBorder':'#3A3A4A','edgeLabelBackground':'#131312','actorBkg':'#1E1E2E','actorBorder':'#A78BFA','actorTextColor':'#E5E7EB','actorLineColor':'#9CA3AF','signalColor':'#9CA3AF','signalTextColor':'#E5E7EB','labelBoxBkgColor':'#1E1E2E','labelBoxBorderColor':'#A78BFA','labelTextColor':'#E5E7EB','loopTextColor':'#E5E7EB','noteBkgColor':'#1E1E2E','noteBorderColor':'#A78BFA','noteTextColor':'#E5E7EB','stateBkg':'#1E1E2E','stateBorder':'#A78BFA','stateTextColor':'#E5E7EB','transitionColor':'#9CA3AF','transitionLabelColor':'#E5E7EB','fontFamily':'Noto Sans CJK SC, sans-serif','fontSize':'16px'}}}%%
@@ -98,27 +131,48 @@ classDef default fill:#1E1E2E,stroke:#A78BFA,stroke-width:1.5px,color:#E5E7EB
 linkStyle default stroke:#9CA3AF
 ```
 
-## 最小公倍数
+多个数可以折叠：$\gcd(a,b,c)=\gcd(\gcd(a,b),c)$，$\operatorname{lcm}$ 同理。
 
-由 $\gcd(a,b)\cdot\operatorname{lcm}(a,b)=|ab|$ 直接得到
+## 4. 最小公倍数
 
-$$
-\operatorname{lcm}(a,b)=\frac{|ab|}{\gcd(a,b)}.
-$$
+### 4.1 从素因子看为什么 $\gcd\cdot\operatorname{lcm}=|ab|$
 
-计算时**先除后乘**，避免中间乘积溢出：
+把两个数分解成素数幂：
 
 $$
-\operatorname{lcm}(a,b)=\left|\frac{a}{\gcd(a,b)}\cdot b\right|.
+a=\prod_p p^{\alpha_p},\qquad b=\prod_p p^{\beta_p}.
 $$
 
-因为 $a/\gcd(a,b)$ 是整数，先除不丢精度。例：$\operatorname{lcm}(1071,462)=1071/21\cdot462=51\cdot462=23562$。
+- $\gcd$ 在每个素数上取「公共部分」，即指数 $\min(\alpha_p,\beta_p)$；
+- $\operatorname{lcm}$ 在每个素数上取「并集」，即指数 $\max(\alpha_p,\beta_p)$。
 
-## C++ 程序设计
+而 $\min+\max=\alpha_p+\beta_p$，所以逐素数相乘恰好还原 $ab$：
 
-### 官方最短路径：`std::gcd` / `std::lcm`
+$$
+\gcd(a,b)\cdot\operatorname{lcm}(a,b)=|ab|.
+$$
 
-C++17 起在 `<numeric>` 中，参数为整数类型，结果为非负：
+![[viz-gcd-lcm-exponent-min-max-1794664892774.svg|700]]
+
+### 4.2 先除后乘，防溢出
+
+$$
+\operatorname{lcm}(a,b)=\frac{|ab|}{\gcd(a,b)}=\left|\frac{a}{\gcd(a,b)}\cdot b\right|.
+$$
+
+因为 $a/\gcd(a,b)$ 是整数，先除不丢精度，而中间结果从 $|ab|$ 降到了原来的 $1/\gcd$。例：
+
+$$
+\operatorname{lcm}(1071,462)=\frac{1071}{21}\times462=51\times462=23562.
+$$
+
+若直接算 $1071\times462$ 或许还放得下，但换成 $10^9$ 量级的两个数，乘积就超出 `long long` 了。
+
+## 5. C++：函数库里有，就用现成的
+
+### 5.1 官方最短路径：`std::gcd` / `std::lcm`
+
+C++17 起在 `<numeric>` 中：
 
 ```cpp
 #include <iostream>
@@ -131,21 +185,15 @@ int main() {
 }
 ```
 
-编译需要 C++17：
+要点：
 
-```bash
-g++ -std=c++17 gcd_demo.cpp -o gcd_demo
-```
+- 需要 `-std=c++17` 或更新的标准；
+- 结果保证非负，`std::gcd(0, 0) = 0`；
+- `std::lcm` 的结果若无法用该类型表示，行为未定义——传 `long long` 并留意量级。
 
-`std::gcd(0, 0)` 与 `std::lcm(0, 0)` 都返回 0；`std::lcm` 若结果无法用该类型表示，行为未定义。
-
-### 手写迭代版
-
-需要自己实现（老标准、嵌入式、或要加扩展功能）时，带余除法版最短：
+### 5.2 需要手写时：六行循环
 
 ```cpp
-#include <cstdlib>   // std::abs(long long)
-
 long long gcd(long long a, long long b) {
     while (b != 0) {
         long long r = a % b;
@@ -156,44 +204,20 @@ long long gcd(long long a, long long b) {
 }
 
 long long lcm(long long a, long long b) {
-    return a == 0 || b == 0 ? 0 : std::abs(a / gcd(a, b) * b);
+    if (a == 0 || b == 0) return 0;
+    long long t = a / gcd(a, b) * b;   // 先除后乘
+    return t < 0 ? -t : t;
 }
 ```
 
 要点：
 
-- **负数**：C++ 的 `%` 结果符号随被除数，但绝对值仍严格下降，循环照样收敛；最后统一取绝对值。`std::gcd` 则直接保证非负。
-- **零**：`gcd(a, 0) = |a|`，`lcm(a, 0) = 0`。
-- **溢出**：`lcm` 必须先除以 gcd 再乘；`a * b` 在 `long long` 上很容易越界。
-- **类型**：竞赛/工程默认 `long long`；只处理非负整数时可用 `unsigned long long`。
-- 函数无状态，可写成 `constexpr`，让编译器在编译期算常量。
+- **负数**：C++ 的 `%` 结果符号随被除数，但绝对值仍严格变小，循环照样收敛；最后统一取绝对值。
+- **零**：`gcd(a, 0) = |a|`，`lcm(a, 0) = 0`，要单独判断，否则 `lcm` 会除以 $0$。
+- **极端值**：`-LLONG_MIN` 会溢出，这种边界交给 `std::gcd` 更稳。
+- 函数无状态，可加 `constexpr`，让编译器在编译期算常量。
 
-### 扩展欧几里得
-
-不只求 $g=\gcd(a,b)$，还求**贝祖系数** $x,y$ 使
-
-$$
-ax+by=g.
-$$
-
-```cpp
-long long exgcd(long long a, long long b, long long& x, long long& y) {
-    if (b == 0) {
-        x = 1;
-        y = 0;
-        return a;
-    }
-    long long x1, y1;
-    long long g = exgcd(b, a % b, x1, y1);
-    x = y1;
-    y = x1 - (a / b) * y1;
-    return g;
-}
-```
-
-推导就是把 $b x_1+(a\bmod b)y_1=g$ 中的 $a\bmod b=a-(a/b)b$ 整理回 $a$、$b$ 的系数。它是求**模逆元**（$ax\equiv1\pmod m$）、解一次同余方程和中国剩余定理的工具。
-
-### 多个数的 gcd / lcm
+### 5.3 多个数
 
 利用结合律折叠，初值取单位元：
 
@@ -205,23 +229,31 @@ long long l = 1;                       // lcm 的单位元
 for (long long x : v) l = std::lcm(l, x);
 ```
 
-`std::gcd(0, x) = |x|`，所以从 0 开始折叠不会污染结果。
+`std::gcd(0, x) = |x|`，所以从 $0$ 开始折叠不会污染结果。
 
-## 直观理解
+### 5.4 选读：扩展欧几里得
 
-- **几何版**：$\gcd(a,b)$ 是用同样大小正方形铺满 $a\times b$ 矩形时，正方形的最大边长。辗转相除法就是不断从矩形上切掉最大的正方形：$1071\times462$ 先切 2 个 $462\times462$，剩 $147\times462$；再切 3 个 $147\times147$，剩 $147\times21$；最后正好 7 个 $21\times21$ 铺满。切的次数就是模运算的次数。
-- **数轴版**：lcm 是两列等间距刻度第一次重合的位置；gcd 是能同时整除两段长度的最大刻度。
-- **素因子版**：gcd 取每个素因子的「公共部分」，lcm 取「并集」，两者指数互补，所以乘积等于 $|ab|$。
+普通算法只给 $g=\gcd(a,b)$；扩展版还能同时求出**贝祖系数** $x,y$，使
 
-## 拓展延伸
+$$
+ax+by=g.
+$$
 
-- **更相减损术**：$\gcd(a,b)=\gcd(a-b,b)$，只减不除；大数相差悬殊时很慢，是辗转相除法的前身。
-- **二进制 GCD（Stein 算法）**：只用移位、减法，避免昂贵的整数除法，适合嵌入式；位复杂度 $O(\log^2 n)$。
-- **`std::gcd` 的限制**：C++17 要求参数是整数类型（不能是 `bool`），返回 `std::common_type_t`；C++17 的 `std::lcm` 同样在 `<numeric>`。
-- **模逆元**：当 $\gcd(a,m)=1$ 时，扩展欧几里得给出的 $x$ 就是 $a^{-1}\bmod m$，这是 RSA 与很多数论算法的零件。
-- **复杂度直觉**：每两步至少让较小数减半，所以是 $O(\log\min(a,b))$；比试除法 $O(\sqrt{\min(a,b)})$ 快一个数量级。
+做法是把每步带余除法里的余数不断代回去整理，最后得到 $a,b$ 的系数。它不改变复杂度，仍是 $O(\log\min(a,b))$。用途很集中：求**模逆元**（$ax\equiv1\pmod m$）、解一次同余方程、中国剩余定理、RSA。日常工程用到时再查模板即可，这里不展开。
 
-## 术语
+## 6. 直观理解
+
+- **几何版**：$\gcd(a,b)$ 是用同样大小的正方形铺满 $a\times b$ 矩形时，正方形的最大边长。辗转相除法就是不断从矩形上切掉最大的正方形：$1071\times462$ 先切 $2$ 个 $462\times462$，剩 $147\times462$；再切 $3$ 个 $147\times147$，剩 $147\times21$；最后正好 $7$ 个 $21\times21$ 铺满。切的次数就是取模的次数。
+- **数轴版**：$\operatorname{lcm}$ 是两列等间距刻度第一次重合的位置；$\gcd$ 是能同时整除两段长度的最大刻度。
+- **素因子版**：见 4.1——$\gcd$ 取指数最小值，$\operatorname{lcm}$ 取最大值，两者互补。
+
+## 7. 拓展延伸
+
+- **更相减损术**：$\gcd(a,b)=\gcd(a-b,b)$，只减不除，是辗转相除法在中国古代的对应版本；大数相差悬殊时很慢。
+- **二进制 GCD（Stein 算法）**：只用移位和减法，避免昂贵的整数除法，适合嵌入式；位复杂度 $O(\log^2 n)$。
+- **时间复杂度对照**：辗转相除法 $O(\log\min(a,b))$，试除法 $O(\sqrt{\min(a,b)})$，输入 $10^{18}$ 时差了好几个数量级。
+
+## 8. 术语
 
 | 英文 | 中文 | 含义 |
 | ---- | ---- | ---- |
@@ -234,7 +266,8 @@ for (long long x : v) l = std::lcm(l, x);
 | coprime | 互素 | $\gcd(a,b)=1$ |
 | Bézout coefficients | 贝祖系数 | $ax+by=\gcd(a,b)$ 中的 $x,y$ |
 | extended Euclidean algorithm | 扩展欧几里得 | 同时求 gcd 与贝祖系数 |
+| Lamé's theorem | 拉梅定理 | 步数不超过较小数位数的 5 倍 |
 
-## 总结
+## 9. 总结
 
-$\gcd$ 靠恒等式 $\gcd(a,b)=\gcd(b,a\bmod b)$ 迭代到零，复杂度 $O(\log\min(a,b))$；$\operatorname{lcm}$ 由 $|ab|/\gcd$ 得到，计算时先除后乘防溢出。C++ 中优先用 `<numeric>` 的 `std::gcd` / `std::lcm`，需要贝祖系数或模逆元时再手写扩展欧几里得。
+$\gcd$ 靠恒等式 $\gcd(a,b)=\gcd(b,a\bmod b)$ 迭代到零：两边公约数集合逐个相同，所以最大值相同。每两步较小数至少减半，因此是 $O(\log\min(a,b))$。$\operatorname{lcm}$ 由 $|ab|/\gcd$ 得到，计算时先除后乘防溢出。C++ 中优先用 `<numeric>` 的 `std::gcd` / `std::lcm`，需要自己写时就是六行循环。

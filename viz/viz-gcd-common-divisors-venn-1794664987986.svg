@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#131312"/>
+
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">
+
+    <!-- Title -->
+    <text x="800" y="74" text-anchor="middle" font-size="50" fill="#E5E7EB" font-weight="500" letter-spacing="0.5">gcd(<tspan font-style="italic">a</tspan>, <tspan font-style="italic">b</tspan>) = gcd(<tspan font-style="italic">b</tspan>, <tspan font-style="italic">a</tspan> mod <tspan font-style="italic">b</tspan>)</text>
+
+    <!-- Title-style annotation above the equals -->
+    <text x="800" y="152" text-anchor="middle" font-size="31" fill="#E5E7EB" font-weight="500">公约数集合完全相同<tspan fill="#A78BFA" font-weight="700" font-size="34" dx="16">→</tspan><tspan fill="#34D399" dx="16">最大公约数相同</tspan></text>
+
+    <!-- ===================== Left group: gcd(1071, 462) ===================== -->
+    <ellipse cx="310" cy="430" rx="195" ry="230" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+    <ellipse cx="490" cy="430" rx="195" ry="230" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+
+    <!-- intersection lens -->
+    <path d="M 400 225.96 A 195 230 0 0 1 400 634.04 A 195 230 0 0 1 400 225.96 Z"
+          fill="#34D399" fill-opacity="0.22" stroke="#34D399" stroke-width="2.5" stroke-linejoin="round"/>
+
+    <!-- set labels -->
+    <text x="205" y="418" text-anchor="middle" font-size="34" fill="#E5E7EB" font-weight="600">1071</text>
+    <text x="205" y="466" text-anchor="middle" font-size="28" fill="#9CA3AF">的因数</text>
+    <text x="595" y="418" text-anchor="middle" font-size="34" fill="#E5E7EB" font-weight="600">462</text>
+    <text x="595" y="466" text-anchor="middle" font-size="28" fill="#9CA3AF">的因数</text>
+
+    <!-- intersection contents -->
+    <text x="400" y="412" text-anchor="middle" font-size="32" fill="#34D399" font-weight="600">1, 3, 7, 21</text>
+    <text x="400" y="532" text-anchor="middle" font-size="30" fill="#34D399" font-weight="500">最大 = 21</text>
+
+    <!-- ===================== Equals ===================== -->
+    <text x="800" y="430" text-anchor="middle" dominant-baseline="central" font-size="110" fill="#A78BFA" font-weight="400">=</text>
+
+    <!-- ===================== Right group: gcd(462, 147) ===================== -->
+    <ellipse cx="1110" cy="430" rx="195" ry="230" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+    <ellipse cx="1290" cy="430" rx="195" ry="230" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+
+    <!-- intersection lens -->
+    <path d="M 1200 225.96 A 195 230 0 0 1 1200 634.04 A 195 230 0 0 1 1200 225.96 Z"
+          fill="#34D399" fill-opacity="0.22" stroke="#34D399" stroke-width="2.5" stroke-linejoin="round"/>
+
+    <!-- set labels -->
+    <text x="1005" y="418" text-anchor="middle" font-size="34" fill="#E5E7EB" font-weight="600">462</text>
+    <text x="1005" y="466" text-anchor="middle" font-size="28" fill="#9CA3AF">的因数</text>
+    <text x="1395" y="418" text-anchor="middle" font-size="34" fill="#E5E7EB" font-weight="600">147</text>
+    <text x="1395" y="466" text-anchor="middle" font-size="28" fill="#9CA3AF">的因数</text>
+
+    <!-- intersection contents -->
+    <text x="1200" y="412" text-anchor="middle" font-size="32" fill="#34D399" font-weight="600">1, 3, 7, 21</text>
+    <text x="1200" y="532" text-anchor="middle" font-size="30" fill="#34D399" font-weight="500">最大 = 21</text>
+
+    <!-- ===================== Example + derivation ===================== -->
+    <text x="800" y="718" text-anchor="middle" font-size="28" fill="#9CA3AF">1071 = 2 × 462 + 147　（<tspan fill="#E5E7EB">q = 2，r = 147</tspan>）</text>
+
+    <text x="800" y="792" text-anchor="middle" font-size="29"><tspan fill="#9CA3AF">d | a 且 d | b</tspan><tspan fill="#A78BFA" font-weight="600" dx="16">⇒</tspan><tspan fill="#E5E7EB" dx="16">d | (a − qb) = r</tspan><tspan fill="#9CA3AF">；反过来也成立</tspan></text>
+
+  </g>
+</svg>
