@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+  <rect width="1600" height="1000" fill="#131312"/>
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">
+  <text x="72" y="80" fill="#E5E7EB" font-size="44" font-weight="600">BFS 队列的 6 步<tspan fill="#9CA3AF" font-weight="400" font-size="34">（邻接表）</tspan></text>
+  <text x="74" y="118" fill="#9CA3AF" font-size="21">无向图：A 连 B、C；B 连 D；C 连 E；D 连 E；E 连 F，从 A 出发</text>
+  <text x="74" y="146" fill="#9CA3AF" font-size="21">队列左端为队首，每步取队首出队并扫它的邻接表</text>
+  <rect x="1138" y="84" width="26" height="26" rx="6" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+  <text x="1172" y="105" fill="#9CA3AF" font-size="19">已在队列</text>
+  <rect x="1264" y="84" width="26" height="26" rx="6" fill="#0F2A20" stroke="#34D399" stroke-width="2"/>
+  <text x="1298" y="105" fill="#9CA3AF" font-size="19">本步新入队</text>
+  <rect x="1422" y="84" width="26" height="26" rx="6" fill="#1B1B21" stroke="#3F3F46" stroke-width="1.5"/>
+  <text x="1444" y="105" fill="#8A919D" font-size="17" text-anchor="middle">E</text>
+  <line x1="1427" y1="97" x2="1443" y2="97" stroke="#8A919D" stroke-width="2"/>
+  <text x="1456" y="105" fill="#9CA3AF" font-size="19">已访问 · 跳过</text>
+  <rect x="48" y="166" width="480" height="300" rx="16" fill="#16161D" stroke="#2E2E2E" stroke-width="1.5"/>
+  <text x="72" y="214" fill="#E5E7EB" font-size="27" font-weight="600">第 1 步<tspan fill="#6B7280" font-weight="400">  ·  出队 </tspan><tspan fill="#A78BFA" font-weight="700">A</tspan></text>
+  <line x1="72" y1="234" x2="504" y2="234" stroke="#262630" stroke-width="1"/>
+  <text x="72" y="294" fill="#9CA3AF" font-size="21">看 <tspan fill="#E5E7EB" font-weight="600">A</tspan> 的邻接表</text>
+  <rect x="388" y="258" width="50" height="50" rx="9" fill="#0F2A20" stroke="#34D399" stroke-width="2.5"/>
+  <text x="413" y="292" fill="#34D399" font-size="27" font-weight="600" text-anchor="middle">B</text>
+  <rect x="450" y="258" width="50" height="50" rx="9" fill="#0F2A20" stroke="#34D399" stroke-width="2.5"/>
+  <text x="475" y="292" fill="#34D399" font-size="27" font-weight="600" text-anchor="middle">C</text>
+  <rect x="176" y="353" width="320" height="78" rx="14" fill="#101017" stroke="#2E2E2E" stroke-width="1.5" stroke-dasharray="7 6"/>
+  <text x="488" y="399" fill="#6B7280" font-size="18" text-anchor="end">队列</text>
+  <rect x="188" y="360" width="64" height="64" rx="10" fill="#0F2A20" stroke="#34D399" stroke-width="2.5"/>
+  <text x="220" y="403" fill="#34D399" font-size="30" font-weight="600" text-anchor="middle">B</text>
+  <rect x="266" y="360" width="64" height="64" rx="10" fill="#0F2A20" stroke="#34D399" stroke-width="2.5"/>
+  <text x="298" y="403" fill="#34D399" font-size="30" font-weight="600" text-anchor="middle">C</text>
+  <text x="112" y="354" fill="#9CA3AF" font-size="17" text-anchor="middle">出队</text>
+  <rect x="84" y="364" width="56" height="56" rx="10" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+  <text x="112" y="401" fill="#A78BFA" font-size="28" font-weight="600" text-anchor="middle">A</text>
+  <line x1="172" y1="392" x2="152" y2="392" stroke="#A78BFA" stroke-width="2.5"/>
+  <polygon points="144,392 157,385 157,399" fill="#A78BFA"/>
+  <rect x="560" y="166" width="480" height="300" rx="16" fill="#16161D" stroke="#2E2E2E" stroke-width="1.5"/>
+  <text x="584" y="214" fill="#E5E7EB" font-size="27" font-weight="600">第 2 步<tspan fill="#6B7280" font-weight="400">  ·  出队 </tspan><tspan fill="#A78BFA" font-weight="700">B</tspan></text>
+  <line x1="584" y1="234" x2="1016" y2="234" stroke="#262630" stroke-width="1"/>
+  <text x="584" y="294" fill="#9CA3AF" font-size="21">看 <tspan fill="#E5E7EB" font-weight="600">B</tspan> 的邻接表</text>
+  <rect x="900" y="258" width="50" height="50" rx="9" fill="#1B1B21" stroke="#3F3F46" stroke-width="1.5"/>
+  <text x="925" y="292" fill="#8A919D" font-size="27" font-weight="600" text-anchor="middle">A</text>
+  <line x1="913" y1="283" x2="937" y2="283" stroke="#8A919D" stroke-width="2"/>
+  <rect x="962" y="258" width="50" height="50" rx="9" fill="#0F2A20" stroke="#34D399" stroke-width="2.5"/>
+  <text x="987" y="292" fill="#34D399" font-size="27" font-weight="600" text-anchor="middle">D</text>
+  <text x="925" y="332" fill="#7C8490" font-size="19" text-anchor="middle">已访问</text>
+  <rect x="688" y="353" width="320" height="78" rx="14" fill="#101017" stroke="#2E2E2E" stroke-width="1.5" stroke-dasharray="7 6"/>
+  <text x="1000" y="399" fill="#6B7280" font-size="18" text-anchor="end">队列</text>
+  <rect x="700" y="360" width="64" height="64" rx="10" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+  <text x="732" y="403" fill="#E5E7EB" font-size="30" font-weight="600" text-anchor="middle">C</text>
+  <rect x="778" y="360" width="64" height="64" rx="10" fill="#0F2A20" stroke="#34D399" stroke-width="2.5"/>
+  <text x="810" y="403" fill="#34D399" font-size="30" font-weight="600" text-anchor="middle">D</text>
+  <text x="624" y="354" fill="#9CA3AF" font-size="17" text-anchor="middle">出队</text>
+  <rect x="596" y="364" width="56" height="56" rx="10" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+  <text x="624" y="401" fill="#A78BFA" font-size="28" font-weight="600" text-anchor="middle">B</text>
+  <line x1="684" y1="392" x2="664" y2="392" stroke="#A78BFA" stroke-width="2.5"/>
+  <polygon points="656,392 669,385 669,399" fill="#A78BFA"/>
+  <rect x="1072" y="166" width="480" height="300" rx="16" fill="#16161D" stroke="#2E2E2E" stroke-width="1.5"/>
+  <text x="1096" y="214" fill="#E5E7EB" font-size="27" font-weight="600">第 3 步<tspan fill="#6B7280" font-weight="400">  ·  出队 </tspan><tspan fill="#A78BFA" font-weight="700">C</tspan></text>
+  <line x1="1096" y1="234" x2="1528" y2="234" stroke="#262630" stroke-width="1"/>
+  <text x="1096" y="294" fill="#9CA3AF" font-size="21">看 <tspan fill="#E5E7EB" font-weight="600">C</tspan> 的邻接表</text>
+  <rect x="1412" y="258" width="50" height="50" rx="9" fill="#1B1B21" stroke="#3F3F46" stroke-width="1.5"/>
+  <text x="1437" y="292" fill="#8A919D" font-size="27" font-weight="600" text-anchor="middle">A</text>
+  <line x1="1425" y1="283" x2="1449" y2="283" stroke="#8A919D" stroke-width="2"/>
+  <rect x="1474" y="258" width="50" height="50" rx="9" fill="#0F2A20" stroke="#34D399" stroke-width="2.5"/>
+  <text x="1499" y="292" fill="#34D399" font-size="27" font-weight="600" text-anchor="middle">E</text>
+  <text x="1437" y="332" fill="#7C8490" font-size="19" text-anchor="middle">已访问</text>
+  <rect x="1200" y="353" width="320" height="78" rx="14" fill="#101017" stroke="#2E2E2E" stroke-width="1.5" stroke-dasharray="7 6"/>
+  <text x="1512" y="399" fill="#6B7280" font-size="18" text-anchor="end">队列</text>
+  <rect x="1212" y="360" width="64" height="64" rx="10" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+  <text x="1244" y="403" fill="#E5E7EB" font-size="30" font-weight="600" text-anchor="middle">D</text>
+  <rect x="1290" y="360" width="64" height="64" rx="10" fill="#0F2A20" stroke="#34D399" stroke-width="2.5"/>
+  <text x="1322" y="403" fill="#34D399" font-size="30" font-weight="600" text-anchor="middle">E</text>
+  <text x="1136" y="354" fill="#9CA3AF" font-size="17" text-anchor="middle">出队</text>
+  <rect x="1108" y="364" width="56" height="56" rx="10" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+  <text x="1136" y="401" fill="#A78BFA" font-size="28" font-weight="600" text-anchor="middle">C</text>
+  <line x1="1196" y1="392" x2="1176" y2="392" stroke="#A78BFA" stroke-width="2.5"/>
+  <polygon points="1168,392 1181,385 1181,399" fill="#A78BFA"/>
+  <rect x="48" y="496" width="480" height="300" rx="16" fill="#16161D" stroke="#2E2E2E" stroke-width="1.5"/>
+  <text x="72" y="544" fill="#E5E7EB" font-size="27" font-weight="600">第 4 步<tspan fill="#6B7280" font-weight="400">  ·  出队 </tspan><tspan fill="#A78BFA" font-weight="700">D</tspan></text>
+  <line x1="72" y1="564" x2="504" y2="564" stroke="#262630" stroke-width="1"/>
+  <text x="72" y="624" fill="#9CA3AF" font-size="21">看 <tspan fill="#E5E7EB" font-weight="600">D</tspan> 的邻接表</text>
+  <rect x="388" y="588" width="50" height="50" rx="9" fill="#1B1B21" stroke="#3F3F46" stroke-width="1.5"/>
+  <text x="413" y="622" fill="#8A919D" font-size="27" font-weight="600" text-anchor="middle">B</text>
+  <line x1="401" y1="613" x2="425" y2="613" stroke="#8A919D" stroke-width="2"/>
+  <rect x="450" y="588" width="50" height="50" rx="9" fill="#1B1B21" stroke="#3F3F46" stroke-width="1.5"/>
+  <text x="475" y="622" fill="#8A919D" font-size="27" font-weight="600" text-anchor="middle">E</text>
+  <line x1="463" y1="613" x2="487" y2="613" stroke="#8A919D" stroke-width="2"/>
+  <text x="444" y="662" fill="#7C8490" font-size="19" text-anchor="middle">已访问</text>
+  <rect x="176" y="683" width="320" height="78" rx="14" fill="#101017" stroke="#2E2E2E" stroke-width="1.5" stroke-dasharray="7 6"/>
+  <text x="488" y="729" fill="#6B7280" font-size="18" text-anchor="end">队列</text>
+  <rect x="188" y="690" width="64" height="64" rx="10" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+  <text x="220" y="733" fill="#E5E7EB" font-size="30" font-weight="600" text-anchor="middle">E</text>
+  <text x="112" y="684" fill="#9CA3AF" font-size="17" text-anchor="middle">出队</text>
+  <rect x="84" y="694" width="56" height="56" rx="10" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+  <text x="112" y="731" fill="#A78BFA" font-size="28" font-weight="600" text-anchor="middle">D</text>
+  <line x1="172" y1="722" x2="152" y2="722" stroke="#A78BFA" stroke-width="2.5"/>
+  <polygon points="144,722 157,715 157,729" fill="#A78BFA"/>
+  <rect x="560" y="496" width="480" height="300" rx="16" fill="#16161D" stroke="#2E2E2E" stroke-width="1.5"/>
+  <text x="584" y="544" fill="#E5E7EB" font-size="27" font-weight="600">第 5 步<tspan fill="#6B7280" font-weight="400">  ·  出队 </tspan><tspan fill="#A78BFA" font-weight="700">E</tspan></text>
+  <line x1="584" y1="564" x2="1016" y2="564" stroke="#262630" stroke-width="1"/>
+  <text x="584" y="624" fill="#9CA3AF" font-size="21">看 <tspan fill="#E5E7EB" font-weight="600">E</tspan> 的邻接表</text>
+  <rect x="838" y="588" width="50" height="50" rx="9" fill="#1B1B21" stroke="#3F3F46" stroke-width="1.5"/>
+  <text x="863" y="622" fill="#8A919D" font-size="27" font-weight="600" text-anchor="middle">C</text>
+  <line x1="851" y1="613" x2="875" y2="613" stroke="#8A919D" stroke-width="2"/>
+  <rect x="900" y="588" width="50" height="50" rx="9" fill="#1B1B21" stroke="#3F3F46" stroke-width="1.5"/>
+  <text x="925" y="622" fill="#8A919D" font-size="27" font-weight="600" text-anchor="middle">D</text>
+  <line x1="913" y1="613" x2="937" y2="613" stroke="#8A919D" stroke-width="2"/>
+  <rect x="962" y="588" width="50" height="50" rx="9" fill="#0F2A20" stroke="#34D399" stroke-width="2.5"/>
+  <text x="987" y="622" fill="#34D399" font-size="27" font-weight="600" text-anchor="middle">F</text>
+  <text x="894" y="662" fill="#7C8490" font-size="19" text-anchor="middle">已访问</text>
+  <rect x="688" y="683" width="320" height="78" rx="14" fill="#101017" stroke="#2E2E2E" stroke-width="1.5" stroke-dasharray="7 6"/>
+  <text x="1000" y="729" fill="#6B7280" font-size="18" text-anchor="end">队列</text>
+  <rect x="700" y="690" width="64" height="64" rx="10" fill="#0F2A20" stroke="#34D399" stroke-width="2.5"/>
+  <text x="732" y="733" fill="#34D399" font-size="30" font-weight="600" text-anchor="middle">F</text>
+  <text x="624" y="684" fill="#9CA3AF" font-size="17" text-anchor="middle">出队</text>
+  <rect x="596" y="694" width="56" height="56" rx="10" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+  <text x="624" y="731" fill="#A78BFA" font-size="28" font-weight="600" text-anchor="middle">E</text>
+  <line x1="684" y1="722" x2="664" y2="722" stroke="#A78BFA" stroke-width="2.5"/>
+  <polygon points="656,722 669,715 669,729" fill="#A78BFA"/>
+  <rect x="1072" y="496" width="480" height="300" rx="16" fill="#16161D" stroke="#2E2E2E" stroke-width="1.5"/>
+  <text x="1096" y="544" fill="#E5E7EB" font-size="27" font-weight="600">第 6 步<tspan fill="#6B7280" font-weight="400">  ·  出队 </tspan><tspan fill="#A78BFA" font-weight="700">F</tspan></text>
+  <line x1="1096" y1="564" x2="1528" y2="564" stroke="#262630" stroke-width="1"/>
+  <text x="1096" y="624" fill="#9CA3AF" font-size="21">看 <tspan fill="#E5E7EB" font-weight="600">F</tspan> 的邻接表</text>
+  <rect x="1474" y="588" width="50" height="50" rx="9" fill="#1B1B21" stroke="#3F3F46" stroke-width="1.5"/>
+  <text x="1499" y="622" fill="#8A919D" font-size="27" font-weight="600" text-anchor="middle">E</text>
+  <line x1="1487" y1="613" x2="1511" y2="613" stroke="#8A919D" stroke-width="2"/>
+  <text x="1499" y="662" fill="#7C8490" font-size="19" text-anchor="middle">已访问</text>
+  <rect x="1200" y="683" width="320" height="78" rx="14" fill="#101017" stroke="#2E2E2E" stroke-width="1.5" stroke-dasharray="7 6"/>
+  <text x="1360" y="729" fill="#9CA3AF" font-size="20" text-anchor="middle">队列空 · 遍历结束</text>
+  <text x="1136" y="684" fill="#9CA3AF" font-size="17" text-anchor="middle">出队</text>
+  <rect x="1108" y="694" width="56" height="56" rx="10" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+  <text x="1136" y="731" fill="#A78BFA" font-size="28" font-weight="600" text-anchor="middle">F</text>
+  <line x1="1196" y1="722" x2="1176" y2="722" stroke="#A78BFA" stroke-width="2.5"/>
+  <polygon points="1168,722 1181,715 1181,729" fill="#A78BFA"/>
+  <rect x="140" y="844" width="380" height="80" rx="14" fill="#16161D" stroke="#2E2E2E" stroke-width="1.5"/>
+  <text x="330" y="894" fill="#E5E7EB" font-size="26" text-anchor="middle">出队 V <tspan fill="#6B7280"> = </tspan><tspan fill="#A78BFA" font-weight="700">6</tspan> 次</text>
+  <text x="565" y="896" fill="#9CA3AF" font-size="36" text-anchor="middle" font-weight="300">+</text>
+  <rect x="610" y="844" width="380" height="80" rx="14" fill="#16161D" stroke="#2E2E2E" stroke-width="1.5"/>
+  <text x="800" y="894" fill="#E5E7EB" font-size="26" text-anchor="middle">扫邻接记录 2E <tspan fill="#6B7280"> = </tspan><tspan fill="#A78BFA" font-weight="700">12</tspan> 条</text>
+  <text x="1035" y="894" fill="#9CA3AF" font-size="36" text-anchor="middle" font-weight="300">=</text>
+  <rect x="1080" y="844" width="380" height="80" rx="14" fill="#1A1626" stroke="#A78BFA" stroke-width="2"/>
+  <text x="1270" y="894" fill="#E5E7EB" font-size="26" text-anchor="middle">18 步 <tspan fill="#9CA3AF">→</tspan> <tspan fill="#A78BFA" font-weight="700" font-size="29">O(V+E)</tspan></text>
+  <text x="800" y="958" fill="#6B7280" font-size="19" text-anchor="middle">V = 6 个顶点，E = 6 条边；每条无向边在邻接表里出现两次，故扫 2E = 12 条记录</text>
+  </g>
+</svg>

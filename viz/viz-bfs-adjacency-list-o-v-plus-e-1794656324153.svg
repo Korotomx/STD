@@ -1,0 +1,177 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1050" viewBox="0 0 1600 1050">
+  <rect width="1600" height="1050" fill="#131312"/>
+
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="5" refY="5"
+            markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6B7280"/>
+    </marker>
+  </defs>
+
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">
+
+    <!-- title -->
+    <text x="800" y="84" fill="#E5E7EB" font-size="44" font-weight="600" text-anchor="middle">BFS 与邻接表：为什么是 O(V+E)</text>
+    <line x1="120" y1="112" x2="1480" y2="112" stroke="#2E2E2E" stroke-width="1.5"/>
+
+    <!-- LEFT: graph, layered -->
+    <text x="90" y="160" fill="#9CA3AF" font-size="27" font-weight="500">无向图 G（BFS 分层）</text>
+
+    <!-- dashed layer guides -->
+    <g stroke="#2E2E2E" stroke-width="1.2" stroke-dasharray="7 9" opacity="0.85">
+      <line x1="215" y1="205" x2="750" y2="205"/>
+      <line x1="215" y1="365" x2="750" y2="365"/>
+      <line x1="215" y1="525" x2="750" y2="525"/>
+      <line x1="215" y1="685" x2="750" y2="685"/>
+    </g>
+
+    <!-- layer labels -->
+    <g fill="#9CA3AF" font-size="26" font-weight="400">
+      <text x="90" y="214">第 0 层</text>
+      <text x="90" y="374">第 1 层</text>
+      <text x="90" y="534">第 2 层</text>
+      <text x="90" y="694">第 3 层</text>
+    </g>
+
+    <!-- edges (undirected, no arrowheads) -->
+    <g stroke="#6B7280" stroke-width="2.6" fill="none" stroke-linecap="round">
+      <line x1="455" y1="205" x2="300" y2="365"/>
+      <line x1="455" y1="205" x2="610" y2="365"/>
+      <line x1="300" y1="365" x2="300" y2="525"/>
+      <line x1="610" y1="365" x2="610" y2="525"/>
+      <line x1="335" y1="525" x2="575" y2="525"/>
+      <line x1="610" y1="525" x2="610" y2="685"/>
+    </g>
+
+    <!-- vertices -->
+    <g fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.6">
+      <circle cx="300" cy="365" r="35"/>
+      <circle cx="610" cy="365" r="35"/>
+      <circle cx="300" cy="525" r="35"/>
+      <circle cx="610" cy="525" r="35"/>
+      <circle cx="610" cy="685" r="35"/>
+    </g>
+    <g fill="#E5E7EB" font-size="34" font-weight="500" text-anchor="middle">
+      <text x="300" y="377">B</text>
+      <text x="610" y="377">C</text>
+      <text x="300" y="537">D</text>
+      <text x="610" y="537">E</text>
+      <text x="610" y="697">F</text>
+    </g>
+
+    <!-- start vertex A -->
+    <circle cx="455" cy="205" r="35" fill="#1E1E2E" stroke="#F59E0B" stroke-width="3.4"/>
+    <circle cx="455" cy="205" r="44" fill="none" stroke="#F59E0B" stroke-width="1.6" opacity="0.45"/>
+    <text x="455" y="217" fill="#F59E0B" font-size="34" font-weight="600" text-anchor="middle">A</text>
+
+    <!-- BFS visit order badges -->
+    <g fill="#131312" stroke="#6B7280" stroke-width="1.6">
+      <circle cx="503" cy="169" r="18"/>
+      <circle cx="240" cy="365" r="18"/>
+      <circle cx="670" cy="365" r="18"/>
+      <circle cx="240" cy="525" r="18"/>
+      <circle cx="670" cy="525" r="18"/>
+      <circle cx="670" cy="685" r="18"/>
+    </g>
+    <g fill="#D1D5DB" font-size="22" font-weight="500" text-anchor="middle">
+      <text x="503" y="177">1</text>
+      <text x="240" y="373">2</text>
+      <text x="670" y="373">3</text>
+      <text x="240" y="533">4</text>
+      <text x="670" y="533">5</text>
+      <text x="670" y="693">6</text>
+    </g>
+
+    <text x="420" y="772" fill="#9CA3AF" font-size="24" text-anchor="middle">BFS 按层推进：层号 = 到起点 A 的最短距离</text>
+
+    <!-- divider -->
+    <line x1="790" y1="150" x2="790" y2="790" stroke="#2E2E2E" stroke-width="1.4" stroke-dasharray="8 10"/>
+
+    <!-- RIGHT: adjacency list -->
+    <text x="1196" y="172" fill="#9CA3AF" font-size="27" font-weight="500" text-anchor="middle">邻接表</text>
+
+    <!-- row A -->
+    <circle cx="1000" cy="232" r="30" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.6"/>
+    <text x="1000" y="242" fill="#E5E7EB" font-size="30" font-weight="500" text-anchor="middle">A</text>
+    <line x1="1036" y1="232" x2="1092" y2="232" stroke="#6B7280" stroke-width="2.2" marker-end="url(#ar)"/>
+    <rect x="1100" y="205" width="62" height="54" rx="10" fill="#2B2116" stroke="#F59E0B" stroke-width="2.8"/>
+    <text x="1131" y="241" fill="#F59E0B" font-size="26" font-weight="600" text-anchor="middle">B</text>
+    <line x1="1168" y1="232" x2="1222" y2="232" stroke="#6B7280" stroke-width="2.2" marker-end="url(#ar)"/>
+    <rect x="1230" y="205" width="62" height="54" rx="10" fill="#1E1E2E" stroke="#6B7280" stroke-width="2.2"/>
+    <text x="1261" y="241" fill="#E5E7EB" font-size="26" text-anchor="middle">C</text>
+
+    <!-- row B, record A highlighted -->
+    <circle cx="1000" cy="304" r="30" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.6"/>
+    <text x="1000" y="314" fill="#E5E7EB" font-size="30" font-weight="500" text-anchor="middle">B</text>
+    <line x1="1036" y1="304" x2="1092" y2="304" stroke="#6B7280" stroke-width="2.2" marker-end="url(#ar)"/>
+    <rect x="1100" y="277" width="62" height="54" rx="10" fill="#2B2116" stroke="#F59E0B" stroke-width="2.8"/>
+    <text x="1131" y="313" fill="#F59E0B" font-size="26" font-weight="600" text-anchor="middle">A</text>
+    <line x1="1168" y1="304" x2="1222" y2="304" stroke="#6B7280" stroke-width="2.2" marker-end="url(#ar)"/>
+    <rect x="1230" y="277" width="62" height="54" rx="10" fill="#1E1E2E" stroke="#6B7280" stroke-width="2.2"/>
+    <text x="1261" y="313" fill="#E5E7EB" font-size="26" text-anchor="middle">D</text>
+
+    <!-- row C -->
+    <circle cx="1000" cy="376" r="30" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.6"/>
+    <text x="1000" y="386" fill="#E5E7EB" font-size="30" font-weight="500" text-anchor="middle">C</text>
+    <line x1="1036" y1="376" x2="1092" y2="376" stroke="#6B7280" stroke-width="2.2" marker-end="url(#ar)"/>
+    <rect x="1100" y="349" width="62" height="54" rx="10" fill="#1E1E2E" stroke="#6B7280" stroke-width="2.2"/>
+    <text x="1131" y="385" fill="#E5E7EB" font-size="26" text-anchor="middle">A</text>
+    <line x1="1168" y1="376" x2="1222" y2="376" stroke="#6B7280" stroke-width="2.2" marker-end="url(#ar)"/>
+    <rect x="1230" y="349" width="62" height="54" rx="10" fill="#1E1E2E" stroke="#6B7280" stroke-width="2.2"/>
+    <text x="1261" y="385" fill="#E5E7EB" font-size="26" text-anchor="middle">E</text>
+
+    <!-- row D -->
+    <circle cx="1000" cy="448" r="30" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.6"/>
+    <text x="1000" y="458" fill="#E5E7EB" font-size="30" font-weight="500" text-anchor="middle">D</text>
+    <line x1="1036" y1="448" x2="1092" y2="448" stroke="#6B7280" stroke-width="2.2" marker-end="url(#ar)"/>
+    <rect x="1100" y="421" width="62" height="54" rx="10" fill="#1E1E2E" stroke="#6B7280" stroke-width="2.2"/>
+    <text x="1131" y="457" fill="#E5E7EB" font-size="26" text-anchor="middle">B</text>
+    <line x1="1168" y1="448" x2="1222" y2="448" stroke="#6B7280" stroke-width="2.2" marker-end="url(#ar)"/>
+    <rect x="1230" y="421" width="62" height="54" rx="10" fill="#1E1E2E" stroke="#6B7280" stroke-width="2.2"/>
+    <text x="1261" y="457" fill="#E5E7EB" font-size="26" text-anchor="middle">E</text>
+
+    <!-- row E -->
+    <circle cx="1000" cy="520" r="30" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.6"/>
+    <text x="1000" y="530" fill="#E5E7EB" font-size="30" font-weight="500" text-anchor="middle">E</text>
+    <line x1="1036" y1="520" x2="1092" y2="520" stroke="#6B7280" stroke-width="2.2" marker-end="url(#ar)"/>
+    <rect x="1100" y="493" width="62" height="54" rx="10" fill="#1E1E2E" stroke="#6B7280" stroke-width="2.2"/>
+    <text x="1131" y="529" fill="#E5E7EB" font-size="26" text-anchor="middle">C</text>
+    <line x1="1168" y1="520" x2="1222" y2="520" stroke="#6B7280" stroke-width="2.2" marker-end="url(#ar)"/>
+    <rect x="1230" y="493" width="62" height="54" rx="10" fill="#1E1E2E" stroke="#6B7280" stroke-width="2.2"/>
+    <text x="1261" y="529" fill="#E5E7EB" font-size="26" text-anchor="middle">D</text>
+    <line x1="1298" y1="520" x2="1352" y2="520" stroke="#6B7280" stroke-width="2.2" marker-end="url(#ar)"/>
+    <rect x="1360" y="493" width="62" height="54" rx="10" fill="#1E1E2E" stroke="#6B7280" stroke-width="2.2"/>
+    <text x="1391" y="529" fill="#E5E7EB" font-size="26" text-anchor="middle">F</text>
+
+    <!-- row F -->
+    <circle cx="1000" cy="592" r="30" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.6"/>
+    <text x="1000" y="602" fill="#E5E7EB" font-size="30" font-weight="500" text-anchor="middle">F</text>
+    <line x1="1036" y1="592" x2="1092" y2="592" stroke="#6B7280" stroke-width="2.2" marker-end="url(#ar)"/>
+    <rect x="1100" y="565" width="62" height="54" rx="10" fill="#1E1E2E" stroke="#6B7280" stroke-width="2.2"/>
+    <text x="1131" y="601" fill="#E5E7EB" font-size="26" text-anchor="middle">E</text>
+
+    <!-- annotation: why 2E -->
+    <rect x="880" y="642" width="600" height="132" rx="14" fill="#1E1A14" stroke="#F59E0B" stroke-width="1.6"/>
+    <rect x="880" y="642" width="6" height="132" rx="3" fill="#F59E0B"/>
+    <text x="912" y="690" fill="#F59E0B" font-size="26" font-weight="600">同一条边 (A,B)：在两端各存一次</text>
+    <text x="912" y="732" fill="#9CA3AF" font-size="24">→ 每条边 2 条记录，共 2E = 12 条邻接记录</text>
+
+    <!-- BOTTOM: counting cards -->
+    <g>
+      <rect x="100" y="810" width="420" height="165" rx="14" fill="#1A1A20" stroke="#34343C" stroke-width="1.6"/>
+      <text x="310" y="870" fill="#9CA3AF" font-size="26" text-anchor="middle">每个顶点出队一次</text>
+      <text x="310" y="940" fill="#E5E7EB" font-size="42" font-weight="600" text-anchor="middle">V = 6</text>
+
+      <rect x="590" y="810" width="420" height="165" rx="14" fill="#1A1A20" stroke="#34343C" stroke-width="1.6"/>
+      <text x="800" y="870" fill="#9CA3AF" font-size="26" text-anchor="middle">每条邻接记录扫一次</text>
+      <text x="800" y="940" fill="#E5E7EB" font-size="42" font-weight="600" text-anchor="middle">2E = 12</text>
+
+      <rect x="1080" y="810" width="420" height="165" rx="14" fill="#1A1A20" stroke="#34D399" stroke-width="2"/>
+      <text x="1290" y="870" fill="#9CA3AF" font-size="26" text-anchor="middle">合计 → O(V+E)</text>
+      <text x="1290" y="940" fill="#34D399" font-size="42" font-weight="600" text-anchor="middle">6 + 12 = 18 步</text>
+    </g>
+    <text x="555" y="905" fill="#6B7280" font-size="38" text-anchor="middle">+</text>
+    <text x="1045" y="905" fill="#6B7280" font-size="38" text-anchor="middle">=</text>
+
+  </g>
+</svg>
