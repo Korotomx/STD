@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900"
+     font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5"
+            markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#6B7280"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="900" fill="#131312"/>
+
+  <!-- title -->
+  <text x="100" y="108" font-size="52" font-weight="700" fill="#E5E7EB">除基取余：每次剥掉最低位</text>
+
+  <!-- remainder column header -->
+  <text x="915" y="215" font-size="30" fill="#F59E0B" text-anchor="middle">余数 = 当前最低位</text>
+
+  <!-- ============ row 1: 1071 / 16 = 66 r 15 ============ -->
+  <text x="330" y="315" font-size="42" fill="#E5E7EB" text-anchor="end">1071</text>
+  <text x="365" y="314" font-size="36" fill="#9CA3AF">÷ 16 =</text>
+  <rect x="500" y="255" width="180" height="90" rx="10"
+        fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+  <text x="590" y="316" font-size="44" font-weight="700" fill="#E5E7EB" text-anchor="middle">66</text>
+  <rect x="785" y="255" width="260" height="90" rx="10"
+        fill="#1E1E2E" stroke="#F59E0B" stroke-width="2.5"/>
+  <text x="915" y="315" font-size="34" fill="#F59E0B" text-anchor="middle">余 15 → F</text>
+
+  <!-- ============ row 2: 66 / 16 = 4 r 2 ============ -->
+  <text x="330" y="455" font-size="42" fill="#E5E7EB" text-anchor="end">66</text>
+  <text x="365" y="454" font-size="36" fill="#9CA3AF">÷ 16 =</text>
+  <rect x="500" y="395" width="180" height="90" rx="10"
+        fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+  <text x="590" y="456" font-size="44" font-weight="700" fill="#E5E7EB" text-anchor="middle">4</text>
+  <rect x="785" y="395" width="260" height="90" rx="10"
+        fill="#1E1E2E" stroke="#F59E0B" stroke-width="2.5"/>
+  <text x="915" y="455" font-size="34" fill="#F59E0B" text-anchor="middle">余 2</text>
+
+  <!-- ============ row 3: 4 / 16 = 0 r 4 ============ -->
+  <text x="330" y="595" font-size="42" fill="#E5E7EB" text-anchor="end">4</text>
+  <text x="365" y="594" font-size="36" fill="#9CA3AF">÷ 16 =</text>
+  <rect x="500" y="535" width="180" height="90" rx="10"
+        fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+  <text x="590" y="596" font-size="44" font-weight="700" fill="#E5E7EB" text-anchor="middle">0</text>
+  <rect x="785" y="535" width="260" height="90" rx="10"
+        fill="#1E1E2E" stroke="#F59E0B" stroke-width="2.5"/>
+  <text x="915" y="595" font-size="34" fill="#F59E0B" text-anchor="middle">余 4</text>
+
+  <!-- ============ bottom-up arrow ============ -->
+  <line x1="1115" y1="612" x2="1115" y2="268" stroke="#6B7280" stroke-width="3"
+        stroke-linecap="round" marker-end="url(#arrow)"/>
+
+  <!-- digits gathered along the arrow, bottom -> top -->
+  <text x="1160" y="594" font-size="38" fill="#F59E0B">4</text>
+  <text x="1160" y="454" font-size="38" fill="#F59E0B">2</text>
+  <text x="1160" y="314" font-size="38" fill="#F59E0B">F</text>
+
+  <!-- assembled result -->
+  <rect x="1215" y="205" width="250" height="125" rx="12"
+        fill="#1E1E2E" stroke="#34D399" stroke-width="3"/>
+  <text x="1340" y="292" font-size="66" font-weight="700" fill="#34D399" text-anchor="middle">42F</text>
+  <text x="1340" y="377" font-size="28" fill="#9CA3AF" text-anchor="middle">倒序读 = 高位到低位</text>
+
+  <!-- footer -->
+  <line x1="100" y1="712" x2="1500" y2="712" stroke="#2E2E2E" stroke-width="1.5"/>
+  <text x="100" y="800" font-size="30" fill="#9CA3AF">商为 0 时停；每一步都是带余除法 <tspan fill="#E5E7EB">n = bq + r</tspan> 的一次应用</text>
+</svg>

@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#6B7280"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1600" height="900" fill="#131312"/>
+
+  <!-- Title -->
+  <text x="800" y="92" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+        font-size="56" font-weight="700" fill="#E5E7EB"><tspan fill="#A78BFA">Horner</tspan>：读一位，乘基，加新位</text>
+
+  <!-- Top hex characters -->
+  <text x="660" y="215" text-anchor="end" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+        font-size="32" fill="#9CA3AF">十六进制</text>
+
+  <rect x="685" y="150" width="110" height="110" rx="14" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+  <text x="740" y="227" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+        font-size="64" font-weight="700" fill="#E5E7EB">4</text>
+
+  <rect x="815" y="150" width="110" height="110" rx="14" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+  <text x="870" y="227" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+        font-size="64" font-weight="700" fill="#E5E7EB">2</text>
+
+  <rect x="945" y="150" width="110" height="110" rx="14" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+  <text x="1000" y="227" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+        font-size="64" font-weight="700" fill="#F59E0B">F</text>
+
+  <!-- Side note -->
+  <rect x="1160" y="150" width="380" height="110" rx="12" fill="none" stroke="#6B7280" stroke-width="1.75" stroke-dasharray="6 5"/>
+  <text x="1350" y="199" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+        font-size="28" fill="#E5E7EB">不需要预先算 16 的幂，</text>
+  <text x="1350" y="239" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+        font-size="28" fill="#E5E7EB">也不需要知道总长度</text>
+
+  <!-- Step 1 -->
+  <rect x="60" y="360" width="360" height="160" rx="16" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+  <text x="240" y="402" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+        font-size="28" fill="#9CA3AF">第 1 步</text>
+  <text x="240" y="472" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+        font-size="28" font-weight="500" fill="#E5E7EB">acc = 4</text>
+
+  <!-- Arrow 1 -->
+  <line x1="420" y1="440" x2="620" y2="440" stroke="#6B7280" stroke-width="3" marker-end="url(#arw)"/>
+  <text x="520" y="408" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+        font-size="28" fill="#F59E0B">×16 + 下一位</text>
+
+  <!-- Step 2 -->
+  <rect x="620" y="360" width="360" height="160" rx="16" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+  <text x="800" y="402" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+        font-size="28" fill="#9CA3AF">第 2 步</text>
+  <text x="800" y="472" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+        font-size="28" font-weight="500" fill="#E5E7EB">acc = 4×16 + 2 = 66</text>
+
+  <!-- Arrow 2 -->
+  <line x1="980" y1="440" x2="1180" y2="440" stroke="#6B7280" stroke-width="3" marker-end="url(#arw)"/>
+  <text x="1080" y="408" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+        font-size="28" fill="#F59E0B">×16 + 下一位</text>
+
+  <!-- Step 3 -->
+  <rect x="1180" y="360" width="360" height="160" rx="16" fill="#1E1E2E" stroke="#34D399" stroke-width="3"/>
+  <text x="1360" y="402" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+        font-size="28" fill="#9CA3AF">第 3 步</text>
+  <text x="1360" y="472" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+        font-size="28" font-weight="500" fill="#E5E7EB">acc = 66×16 + <tspan fill="#F59E0B">15</tspan> = <tspan fill="#34D399" font-weight="700">1071</tspan></text>
+
+  <!-- Divider -->
+  <line x1="160" y1="650" x2="1440" y2="650" stroke="#2E2E2E" stroke-width="1" stroke-dasharray="6 6"/>
+
+  <!-- Bottom insight -->
+  <text x="800" y="745" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+        font-size="32" fill="#E5E7EB">Horner 与除基取余互逆：<tspan fill="#9CA3AF">一个从高位堆，一个从低位剥</tspan></text>
+</svg>

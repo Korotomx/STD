@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect x="0" y="0" width="1600" height="900" fill="#131312"/>
+
+  <!-- Title -->
+  <text x="800" y="82" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+        font-size="46" font-weight="700" fill="#E5E7EB">按位分组：三位一组变八进制，四位一组变十六进制</text>
+
+  <!-- Top label -->
+  <text x="456" y="128" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+        font-size="26" fill="#9CA3AF">原二进制数 10000101111（11 位）</text>
+
+  <!-- Padding annotation -->
+  <text x="428" y="190" text-anchor="end" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+        font-size="26" fill="#9CA3AF">整数部分最左补零</text>
+  <path d="M 437 182 H 453" stroke="#6B7280" stroke-width="2" fill="none"/>
+
+  <!-- ================= Top binary row (12 bits, padded) ================= -->
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="32" text-anchor="middle">
+    <!-- padded bit 0 -->
+    <rect x="456" y="150" width="50" height="58" rx="6" fill="#1E1E2E" stroke="#9CA3AF" stroke-width="2" stroke-dasharray="6 5"/>
+    <text x="481" y="189" fill="#9CA3AF">0</text>
+    <rect x="514" y="150" width="50" height="58" rx="6" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <text x="539" y="189" fill="#E5E7EB">1</text>
+    <rect x="572" y="150" width="50" height="58" rx="6" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <text x="597" y="189" fill="#E5E7EB">0</text>
+    <rect x="630" y="150" width="50" height="58" rx="6" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <text x="655" y="189" fill="#E5E7EB">0</text>
+    <rect x="688" y="150" width="50" height="58" rx="6" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <text x="713" y="189" fill="#E5E7EB">0</text>
+    <rect x="746" y="150" width="50" height="58" rx="6" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <text x="771" y="189" fill="#E5E7EB">0</text>
+    <rect x="804" y="150" width="50" height="58" rx="6" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <text x="829" y="189" fill="#E5E7EB">1</text>
+    <rect x="862" y="150" width="50" height="58" rx="6" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <text x="887" y="189" fill="#E5E7EB">0</text>
+    <rect x="920" y="150" width="50" height="58" rx="6" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <text x="945" y="189" fill="#E5E7EB">1</text>
+    <rect x="978" y="150" width="50" height="58" rx="6" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <text x="1003" y="189" fill="#E5E7EB">1</text>
+    <rect x="1036" y="150" width="50" height="58" rx="6" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <text x="1061" y="189" fill="#E5E7EB">1</text>
+    <rect x="1094" y="150" width="50" height="58" rx="6" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <text x="1119" y="189" fill="#E5E7EB">1</text>
+  </g>
+
+  <!-- ================= Octal branch: groups of 3 ================= -->
+  <g stroke="#34D399" stroke-width="2.5" fill="none">
+    <path d="M 456 216 V 228 H 622 V 216"/>
+    <path d="M 630 216 V 228 H 796 V 216"/>
+    <path d="M 804 216 V 228 H 970 V 216"/>
+    <path d="M 978 216 V 228 H 1144 V 216"/>
+  </g>
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="46" font-weight="700"
+     fill="#34D399" text-anchor="middle">
+    <text x="539" y="298">2</text>
+    <text x="713" y="298">0</text>
+    <text x="887" y="298">5</text>
+    <text x="1061" y="298">7</text>
+  </g>
+  <text x="150" y="298" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+        font-size="30" fill="#34D399">八进制（3 位一组）</text>
+  <rect x="1185" y="262" width="250" height="72" rx="10" fill="#1E1E2E" stroke="#34D399" stroke-width="2.5"/>
+  <text x="1310" y="312" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+        font-size="44" font-weight="700" fill="#34D399">2057<tspan font-size="26" dy="8">8</tspan></text>
+
+  <!-- divider -->
+  <path d="M 300 690 H 1300" stroke="#2E2E2E" stroke-width="1.5"/>
+
+  <!-- ================= Hexadecimal branch: groups of 4 ================= -->
+  <text x="150" y="568" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+        font-size="30" fill="#F59E0B">十六进制（4 位一组）</text>
+  <text x="456" y="400" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+        font-size="24" fill="#9CA3AF">同一串 12 位 · 改按 4 位分组</text>
+
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="32" text-anchor="middle">
+    <rect x="456" y="420" width="50" height="58" rx="6" fill="#1E1E2E" stroke="#9CA3AF" stroke-width="2" stroke-dasharray="6 5"/>
+    <text x="481" y="459" fill="#9CA3AF">0</text>
+    <rect x="514" y="420" width="50" height="58" rx="6" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <text x="539" y="459" fill="#E5E7EB">1</text>
+    <rect x="572" y="420" width="50" height="58" rx="6" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <text x="597" y="459" fill="#E5E7EB">0</text>
+    <rect x="630" y="420" width="50" height="58" rx="6" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <text x="655" y="459" fill="#E5E7EB">0</text>
+    <rect x="688" y="420" width="50" height="58" rx="6" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <text x="713" y="459" fill="#E5E7EB">0</text>
+    <rect x="746" y="420" width="50" height="58" rx="6" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <text x="771" y="459" fill="#E5E7EB">0</text>
+    <rect x="804" y="420" width="50" height="58" rx="6" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <text x="829" y="459" fill="#E5E7EB">1</text>
+    <rect x="862" y="420" width="50" height="58" rx="6" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <text x="887" y="459" fill="#E5E7EB">0</text>
+    <rect x="920" y="420" width="50" height="58" rx="6" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <text x="945" y="459" fill="#E5E7EB">1</text>
+    <rect x="978" y="420" width="50" height="58" rx="6" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <text x="1003" y="459" fill="#E5E7EB">1</text>
+    <rect x="1036" y="420" width="50" height="58" rx="6" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <text x="1061" y="459" fill="#E5E7EB">1</text>
+    <rect x="1094" y="420" width="50" height="58" rx="6" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <text x="1119" y="459" fill="#E5E7EB">1</text>
+  </g>
+
+  <g stroke="#F59E0B" stroke-width="2.5" fill="none">
+    <path d="M 456 486 V 498 H 680 V 486"/>
+    <path d="M 688 486 V 498 H 912 V 486"/>
+    <path d="M 920 486 V 498 H 1144 V 486"/>
+  </g>
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="46" font-weight="700"
+     fill="#F59E0B" text-anchor="middle">
+    <text x="568" y="568">4</text>
+    <text x="800" y="568">2</text>
+    <text x="1032" y="568">F</text>
+  </g>
+  <rect x="1185" y="532" width="250" height="72" rx="10" fill="#1E1E2E" stroke="#F59E0B" stroke-width="2.5"/>
+  <text x="1310" y="582" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+        font-size="44" font-weight="700" fill="#F59E0B">42F<tspan font-size="26" dy="8">16</tspan></text>
+
+  <!-- ================= Bottom note ================= -->
+  <text x="800" y="770" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+        font-size="28" fill="#9CA3AF">只有 B = b<tspan font-size="18" dy="-12">k</tspan><tspan dy="12"> 才能直接分组；八进制 ↔ 十六进制要先经二进制</tspan></text>
+</svg>
