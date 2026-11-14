@@ -1,5 +1,3 @@
-# A07 计算机架构：ISA 与微架构
-
 > 材料：[[The Most Ambiguous Concept in Computer Science]]（视频转录）
 
 > [!info] 学习目标

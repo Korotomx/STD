@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="10" refX="10" refY="5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L12,5 L0,10 Z" fill="#6B7280"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1600" height="900" fill="#131312"/>
+
+  <!-- 标题 -->
+  <text x="80" y="64" font-family="Noto Sans CJK SC, sans-serif" font-size="44" font-weight="700" fill="#E5E7EB">复合函数 f(g(x)) 的连续性：两个不同的点</text>
+
+  <!-- 顶部两行提示 -->
+  <circle cx="88" cy="120" r="6" fill="#34D399"/>
+  <text x="108" y="131" font-family="Noto Sans CJK SC, sans-serif" font-size="30" fill="#34D399">内层连续性：看 g 在 x0 处</text>
+
+  <circle cx="88" cy="177" r="6" fill="#F59E0B"/>
+  <text x="108" y="188" font-family="Noto Sans CJK SC, sans-serif" font-size="30" fill="#F59E0B">外层连续性：看 f 在 u0 = g(x0) 处</text>
+
+  <!-- ===== 输入 x 轴 ===== -->
+  <line x1="90" y1="470" x2="322" y2="470" stroke="#9CA3AF" stroke-width="2"/>
+  <text x="90" y="432" font-family="Noto Sans CJK SC, sans-serif" font-size="28" fill="#9CA3AF">输入 x</text>
+  <circle cx="210" cy="470" r="9" fill="#34D399"/>
+  <text x="210" y="517" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="30" font-weight="700" fill="#34D399">x0</text>
+
+  <!-- x0 -> g -->
+  <line x1="222" y1="470" x2="388" y2="470" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="303" y="448" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="32" font-weight="700" fill="#A78BFA">g</text>
+
+  <!-- g 框 -->
+  <rect x="400" y="390" width="160" height="160" rx="18" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+  <text x="480" y="484" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="40" font-weight="700" fill="#E5E7EB">内层 g</text>
+
+  <!-- ===== 中间 u 轴 ===== -->
+  <line x1="610" y1="470" x2="872" y2="470" stroke="#9CA3AF" stroke-width="2"/>
+  <text x="610" y="432" font-family="Noto Sans CJK SC, sans-serif" font-size="28" fill="#9CA3AF">中间变量 u</text>
+
+  <!-- 灰色 x0 刻度（错误的比较点） -->
+  <line x1="670" y1="453" x2="670" y2="487" stroke="#6B7280" stroke-width="3"/>
+  <circle cx="670" cy="470" r="20" fill="none" stroke="#E5484D" stroke-width="2" stroke-dasharray="5 4"/>
+  <line x1="657" y1="457" x2="683" y2="483" stroke="#E5484D" stroke-width="2.5"/>
+  <text x="670" y="517" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="28" fill="#9CA3AF">x0</text>
+  <text x="670" y="559" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="24" font-weight="700" fill="#E5484D">不要在这里看</text>
+
+  <!-- u0 点 -->
+  <circle cx="790" cy="470" r="9" fill="#F59E0B"/>
+  <text x="790" y="517" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="30" font-weight="700" fill="#F59E0B">u0 = g(x0)</text>
+
+  <!-- u0 -> f -->
+  <line x1="802" y1="470" x2="938" y2="470" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="870" y="448" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="32" font-weight="700" fill="#A78BFA">f</text>
+
+  <!-- f 框 -->
+  <rect x="950" y="390" width="160" height="160" rx="18" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.5"/>
+  <text x="1030" y="484" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="40" font-weight="700" fill="#E5E7EB">外层 f</text>
+
+  <!-- f -> y 轴 -->
+  <line x1="1110" y1="470" x2="1278" y2="470" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- ===== 输出 y 轴 ===== -->
+  <line x1="1300" y1="620" x2="1300" y2="335" stroke="#9CA3AF" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="1300" y="305" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif" font-size="28" fill="#9CA3AF">输出 y</text>
+  <circle cx="1300" cy="470" r="9" fill="#34D399"/>
+  <text x="1322" y="480" font-family="Noto Sans CJK SC, sans-serif" font-size="30" font-weight="700" fill="#34D399">h(x0) = f(u0)</text>
+
+  <!-- ===== 底部例子 ===== -->
+  <rect x="70" y="680" width="940" height="140" rx="14" fill="#1E1E2E" stroke="#2E2E2E" stroke-width="1.5"/>
+  <text x="100" y="727" font-family="Noto Sans CJK SC, sans-serif" font-size="28" fill="#E5E7EB">g(x) = x + 1,  x0 = 0  <tspan fill="#A78BFA">⇒</tspan>  u0 = 1</text>
+  <text x="100" y="781" font-family="Noto Sans CJK SC, sans-serif" font-size="28" fill="#E5E7EB">f(u) = 1/(u−1) 在 u = 1 处间断  <tspan fill="#A78BFA">⇒</tspan>  h(x) = 1/x 在 x = 0 处间断</text>
+
+  <!-- 结论 -->
+  <rect x="1040" y="680" width="510" height="140" rx="14" fill="#1E1E2E" stroke="#A78BFA" stroke-width="1.5"/>
+  <text x="1070" y="720" font-family="Noto Sans CJK SC, sans-serif" font-size="24" font-weight="700" fill="#A78BFA">结论</text>
+  <text x="1070" y="757" font-family="Noto Sans CJK SC, sans-serif" font-size="27" fill="#E5E7EB">两个点是不同坐标轴上的点，</text>
+  <text x="1070" y="795" font-family="Noto Sans CJK SC, sans-serif" font-size="27" fill="#E5E7EB">别把外层也拿到 x0 去看</text>
+</svg>
