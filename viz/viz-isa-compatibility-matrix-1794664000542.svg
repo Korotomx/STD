@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <marker id="arr" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 z" fill="#6B7280"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="900" fill="#131312"/>
+
+  <!-- 标题 -->
+  <text x="800" y="68" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+        font-size="46" font-weight="700" fill="#E5E7EB">兼容性看 ISA，不看内部设计</text>
+
+  <!-- 左侧竖排标注 -->
+  <text font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="28" font-weight="500" fill="#E5E7EB" text-anchor="middle">
+    <tspan x="76" y="232">同</tspan>
+    <tspan x="76" dy="31">一</tspan>
+    <tspan x="76" dy="41">I</tspan>
+    <tspan x="76" dy="31">S</tspan>
+    <tspan x="76" dy="31">A</tspan>
+    <tspan x="76" dy="41">的</tspan>
+    <tspan x="76" dy="31">不</tspan>
+    <tspan x="76" dy="31">同</tspan>
+    <tspan x="76" dy="31">微</tspan>
+    <tspan x="76" dy="31">架</tspan>
+    <tspan x="76" dy="31">构</tspan>
+    <tspan x="76" dy="31" fill="#9CA3AF">=</tspan>
+    <tspan x="76" dy="31" fill="#34D399">兼</tspan>
+    <tspan x="76" dy="31" fill="#34D399">容</tspan>
+  </text>
+  <text font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="28" font-weight="500" fill="#E5E7EB" text-anchor="middle">
+    <tspan x="142" y="232">不</tspan>
+    <tspan x="142" dy="31">同</tspan>
+    <tspan x="142" dy="41">I</tspan>
+    <tspan x="142" dy="31">S</tspan>
+    <tspan x="142" dy="31">A</tspan>
+    <tspan x="142" dy="41" fill="#9CA3AF">=</tspan>
+    <tspan x="142" dy="31" fill="#E5484D">不</tspan>
+    <tspan x="142" dy="31" fill="#E5484D">兼</tspan>
+    <tspan x="142" dy="31" fill="#E5484D">容</tspan>
+  </text>
+
+  <!-- 列标题 -->
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" text-anchor="middle">
+    <rect x="445" y="110" width="290" height="105" rx="12" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <text x="590" y="158" font-size="30" font-weight="600" fill="#E5E7EB">Intel Core</text>
+    <text x="590" y="196" font-size="28" fill="#9CA3AF">（x86-64）</text>
+
+    <rect x="750" y="110" width="290" height="105" rx="12" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <text x="895" y="158" font-size="30" font-weight="600" fill="#E5E7EB">AMD Ryzen</text>
+    <text x="895" y="196" font-size="28" fill="#9CA3AF">（x86-64）</text>
+
+    <rect x="1055" y="110" width="290" height="105" rx="12" fill="#1E1E2E" stroke="#A78BFA" stroke-width="2"/>
+    <text x="1200" y="158" font-size="30" font-weight="600" fill="#E5E7EB">Apple M 系列</text>
+    <text x="1200" y="196" font-size="28" fill="#9CA3AF">（ARM）</text>
+  </g>
+
+  <!-- 单元格 -->
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" text-anchor="middle">
+    <rect x="445" y="230" width="290" height="130" rx="12" fill="#1E1E2E" stroke="#3A3A4A" stroke-width="1.5"/>
+    <rect x="750" y="230" width="290" height="130" rx="12" fill="#1E1E2E" stroke="#3A3A4A" stroke-width="1.5"/>
+    <rect x="1055" y="230" width="290" height="130" rx="12" fill="#1E1E2E" stroke="#3A3A4A" stroke-width="1.5"/>
+
+    <rect x="445" y="375" width="290" height="130" rx="12" fill="#1E1E2E" stroke="#3A3A4A" stroke-width="1.5"/>
+    <rect x="750" y="375" width="290" height="130" rx="12" fill="#1E1E2E" stroke="#3A3A4A" stroke-width="1.5"/>
+    <rect x="1055" y="375" width="290" height="130" rx="12" fill="#1E1E2E" stroke="#3A3A4A" stroke-width="1.5"/>
+
+    <!-- 第 1 行：x86-64 程序 -->
+    <text x="590" y="314" font-size="58" font-weight="700" fill="#34D399">✓</text>
+    <text x="895" y="314" font-size="58" font-weight="700" fill="#34D399">✓</text>
+    <text x="1200" y="312" font-size="54" font-weight="700" fill="#E5484D">✗</text>
+
+    <!-- 第 2 行：ARM 程序 -->
+    <text x="590" y="459" font-size="54" font-weight="700" fill="#E5484D">✗</text>
+    <text x="895" y="459" font-size="54" font-weight="700" fill="#E5484D">✗</text>
+    <text x="1200" y="459" font-size="58" font-weight="700" fill="#34D399">✓</text>
+  </g>
+
+  <!-- 行标题 -->
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" text-anchor="end" font-size="32" font-weight="600" fill="#E5E7EB">
+    <text x="360" y="306">x86-64 程序</text>
+    <text x="360" y="451">ARM 程序</text>
+  </g>
+
+  <!-- Rosetta 2 转译层 -->
+  <rect x="1040" y="540" width="320" height="100" rx="12" fill="#1E1E2E" stroke="#F59E0B" stroke-width="2.5" stroke-dasharray="9 6"/>
+  <text x="1200" y="601" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+        font-size="32" font-weight="600" fill="#F59E0B">Rosetta 2 转译层</text>
+
+  <!-- 箭头 1：x86-64 程序 → Rosetta 2 -->
+  <path d="M 368 295 H 383 Q 395 295 395 307 V 578 Q 395 590 407 590 H 1034"
+        fill="none" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr)"/>
+  <!-- 箭头 2：Rosetta 2 → Apple M 单元格 -->
+  <path d="M 1362 590 H 1453 Q 1465 590 1465 578 V 307 Q 1465 295 1453 295 H 1349"
+        fill="none" stroke="#6B7280" stroke-width="2.5" marker-end="url(#arr)"/>
+  <text x="690" y="566" text-anchor="middle" font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif"
+        font-size="30" fill="#F59E0B">运行时翻译，不是原生执行</text>
+
+  <!-- 底部两行 -->
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif" font-size="30" text-anchor="middle">
+    <text x="800" y="782" fill="#E5E7EB"><tspan fill="#A78BFA" font-weight="600">x86-64：</tspan>一份机器码跑 Intel/AMD 各家微架构</text>
+    <text x="800" y="834" fill="#E5E7EB"><tspan fill="#A78BFA" font-weight="600">ARM：</tspan>另一套 ISA，必须重新编译；Rosetta 2 只是兼容层</text>
+  </g>
+</svg>
