@@ -1,6 +1,6 @@
 # 待办
 
-更新时间：2026-11-13
+更新时间：2026-11-14
 
 ## 立刻可做
 
@@ -10,7 +10,7 @@
 
 ## 原始材料待处理
 
-- [ ] ALGO：`Every Data Structure Simply Explained in 25 Minutes!`
+- [x] ALGO：`Every Data Structure Simply Explained in 25 Minutes!` → 已整理为 [[A06 常用数据结构全景]]（2026-11-14）
 - [ ] ALGO：`The Most Ambiguous Concept in Computer Science`
 - [ ] Calculus：连续与间断概念题
 - [ ] Calculus：Stolz 定理

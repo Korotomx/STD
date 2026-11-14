@@ -7,8 +7,8 @@ ALGO 笔记索引。原始材料在 [[ALGO/Ref/Ref|Ref]]，只读；每篇笔记
 - [[A03 PNG 无损压缩与 QOI]] — 霍夫曼、游程、LZ77、Filtering、Deflate 两道工序，以及 QOI 用更简单规则换速度的取舍。
 - [[A04 辗转相除法 GCD LCM]] — 带余除法恒等式、复杂度 $O(\log\min(a,b))$、`std::gcd`/`std::lcm`、防溢出与扩展欧几里得。
 - [[A05 进制转换与数位分解]] — 位置记数法、除基取余、Horner 还原、`std::to_chars`/`std::from_chars`、补码与任意进制。
+- [[A06 常用数据结构全景]] — 数组/动态数组、链表、栈/队列/双端队列、哈希表、BST、堆（含 $O(n)$ 建堆）、图、Trie、并查集、布隆过滤器、LRU 缓存与选型决策；按「内存布局 → 操作代价 → 适用边界」组织。
 
 ## 待整理材料
 
-- [[Every Data Structure Simply Explained in 25 Minutes!]] — 常见数据结构速览，尚未成篇。
 - [[The Most Ambiguous Concept in Computer Science]] — 概念辨析，尚未成篇。
