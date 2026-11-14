@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="950" viewBox="0 0 1600 950">
+  <rect width="1600" height="950" fill="#131312"/>
+
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">
+
+    <!-- title -->
+    <text x="800" y="78" fill="#E5E7EB" font-size="44" font-weight="600" text-anchor="middle">Trie：共享前缀的字符树</text>
+    <line x1="120" y1="110" x2="1480" y2="110" stroke="#2E2E2E" stroke-width="1.5"/>
+
+    <!-- dashed completion-subtree box -->
+    <rect x="235" y="628" width="375" height="234" rx="18"
+          fill="#A78BFA" fill-opacity="0.05"
+          stroke="#A78BFA" stroke-width="2" stroke-dasharray="9 8" opacity="0.8"/>
+
+    <!-- plain edges -->
+    <g stroke="#6B7280" stroke-width="2.6" stroke-linecap="round">
+      <line x1="600" y1="160" x2="900" y2="290"/>
+      <line x1="900" y1="290" x2="900" y2="420"/>
+      <line x1="900" y1="420" x2="900" y2="545"/>
+      <line x1="380" y1="420" x2="560" y2="545"/>
+      <line x1="380" y1="545" x2="380" y2="670"/>
+      <line x1="380" y1="670" x2="300" y2="795"/>
+      <line x1="380" y1="670" x2="465" y2="795"/>
+    </g>
+
+    <!-- highlighted path root -> a -> p -> p -->
+    <g stroke="#F59E0B" stroke-width="4.5" stroke-linecap="round">
+      <line x1="600" y1="160" x2="380" y2="290"/>
+      <line x1="380" y1="290" x2="380" y2="420"/>
+      <line x1="380" y1="420" x2="380" y2="545"/>
+    </g>
+
+    <!-- normal nodes -->
+    <g fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.6">
+      <circle cx="900" cy="290" r="27"/>
+      <circle cx="900" cy="420" r="27"/>
+      <circle cx="560" cy="545" r="27"/>
+      <circle cx="900" cy="545" r="27"/>
+      <circle cx="380" cy="670" r="27"/>
+      <circle cx="300" cy="795" r="27"/>
+      <circle cx="465" cy="795" r="27"/>
+    </g>
+
+    <!-- path nodes -->
+    <g fill="#1E1E2E" stroke="#F59E0B" stroke-width="3.4">
+      <circle cx="600" cy="160" r="27"/>
+      <circle cx="380" cy="290" r="27"/>
+      <circle cx="380" cy="420" r="27"/>
+      <circle cx="380" cy="545" r="27"/>
+    </g>
+
+    <!-- terminal markers -->
+    <g fill="#34D399">
+      <circle cx="380" cy="545" r="9"/>
+      <circle cx="560" cy="545" r="9"/>
+      <circle cx="900" cy="545" r="9"/>
+      <circle cx="300" cy="795" r="9"/>
+      <circle cx="465" cy="795" r="9"/>
+    </g>
+
+    <!-- edge labels -->
+    <g fill="#9CA3AF" font-size="30" font-weight="500">
+      <text x="485" y="262" text-anchor="middle">a</text>
+      <text x="740" y="249" text-anchor="middle">b</text>
+      <text x="354" y="362" text-anchor="end">p</text>
+      <text x="354" y="489" text-anchor="end">p</text>
+      <text x="484" y="462" text-anchor="middle">t</text>
+      <text x="354" y="611" text-anchor="end">l</text>
+      <text x="315" y="716" text-anchor="middle">e</text>
+      <text x="442" y="719" text-anchor="middle">y</text>
+      <text x="874" y="356" text-anchor="end">a</text>
+      <text x="874" y="489" text-anchor="end">t</text>
+    </g>
+
+    <!-- root label -->
+    <text x="600" y="234" fill="#9CA3AF" font-size="22" text-anchor="middle">根（空字符串）</text>
+
+    <!-- terminal word labels -->
+    <g fill="#34D399" font-size="28" font-weight="600">
+      <text x="424" y="554">app</text>
+      <text x="604" y="554">apt</text>
+      <text x="944" y="554">bat</text>
+      <text x="344" y="804">apple</text>
+      <text x="509" y="804">apply</text>
+    </g>
+
+    <!-- note: app node meaning -->
+    <g fill="#E5E7EB" font-size="28">
+      <text x="95" y="520">到此为止的路径</text>
+      <text x="95" y="556">拼出 <tspan fill="#34D399" font-weight="600">app</tspan></text>
+    </g>
+    <line x1="298" y1="544" x2="340" y2="544" stroke="#6B7280" stroke-width="1.6"/>
+
+    <!-- note: input app, 3 chars = 3 steps -->
+    <text x="430" y="352" fill="#F59E0B" font-size="30" font-weight="600">输入 app：3 个字符 = 3 步</text>
+
+    <!-- completion-subtree caption -->
+    <line x1="614" y1="700" x2="644" y2="700" stroke="#6B7280" stroke-width="1.6"/>
+    <text x="652" y="710" fill="#E5E7EB" font-size="28" font-weight="600">app 的所有补全：apple、apply</text>
+    <text x="652" y="750" fill="#9CA3AF" font-size="27">DFS 这棵子树即可，不用扫全部单词</text>
+
+    <!-- comparison card -->
+    <rect x="1040" y="290" width="500" height="350" rx="16" fill="#1A1A20" stroke="#34343C" stroke-width="1.6"/>
+    <text x="1068" y="338" fill="#9CA3AF" font-size="24" font-weight="500">前缀查找：两种结构</text>
+
+    <rect x="1068" y="366" width="5" height="26" rx="2.5" fill="#9CA3AF"/>
+    <text x="1086" y="388" fill="#9CA3AF" font-size="30" font-weight="600">哈希表</text>
+    <text x="1068" y="430" fill="#9CA3AF" font-size="28">精确查找快</text>
+    <text x="1068" y="468" fill="#9CA3AF" font-size="28">前缀查找要逐个 key 检查</text>
+
+    <line x1="1068" y1="500" x2="1512" y2="500" stroke="#2E2E2E" stroke-width="1.2"/>
+
+    <rect x="1068" y="526" width="5" height="26" rx="2.5" fill="#A78BFA"/>
+    <text x="1086" y="548" fill="#A78BFA" font-size="30" font-weight="600">Trie</text>
+    <text x="1068" y="592" fill="#A78BFA" font-size="28">前缀查找只走前缀长度步</text>
+
+    <!-- bottom caption -->
+    <text x="800" y="912" fill="#6B7280" font-size="24" text-anchor="middle">节点数 ≈ 所有单词字符总数（共享前缀只存一份）</text>
+
+  </g>
+</svg>

@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <marker id="ag" viewBox="0 0 12 12" refX="11.2" refY="6" markerWidth="13" markerHeight="13" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L12,6 L0,12 z" fill="#6B7280"/>
+    </marker>
+    <marker id="ao" viewBox="0 0 12 12" refX="11.2" refY="6" markerWidth="13" markerHeight="13" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L12,6 L0,12 z" fill="#F59E0B"/>
+    </marker>
+    <marker id="an" viewBox="0 0 12 12" refX="11.2" refY="6" markerWidth="13" markerHeight="13" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L12,6 L0,12 z" fill="#34D399"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="900" fill="#131312"/>
+
+  <g font-family="Noto Sans CJK SC, Noto Sans CJK JP, sans-serif">
+
+    <!-- title -->
+    <text x="800" y="70" fill="#E5E7EB" font-size="44" font-weight="600" text-anchor="middle">并查集：find 找根，路径压缩把路缩短</text>
+    <line x1="120" y1="102" x2="1480" y2="102" stroke="#2E2E2E" stroke-width="1.5"/>
+
+    <!-- half headings -->
+    <text x="400" y="158" fill="#E5E7EB" font-size="36" font-weight="600" text-anchor="middle">压缩前</text>
+    <rect x="350" y="170" width="100" height="4" rx="2" fill="#F59E0B" opacity="0.85"/>
+    <text x="1200" y="158" fill="#E5E7EB" font-size="36" font-weight="600" text-anchor="middle">压缩后</text>
+    <rect x="1150" y="170" width="100" height="4" rx="2" fill="#34D399" opacity="0.85"/>
+
+    <!-- half divider -->
+    <line x1="800" y1="122" x2="800" y2="600" stroke="#2E2E2E" stroke-width="1.5" stroke-dasharray="8 8"/>
+
+    <!-- ================= LEFT: before compression ================= -->
+
+    <!-- edge 2 -> 1 (not on find path) -->
+    <line x1="277.4" y1="309.9" x2="371.0" y2="241.3" stroke="#6B7280" stroke-width="2.6" stroke-linecap="round" marker-end="url(#ag)"/>
+
+    <!-- find(5) path: 5 -> 4 -> 3 -> 1 -->
+    <g stroke="#F59E0B" stroke-width="4.2" stroke-linecap="round">
+      <line x1="550" y1="516" x2="550" y2="472" marker-end="url(#ao)"/>
+      <line x1="550" y1="406" x2="550" y2="362" marker-end="url(#ao)"/>
+      <line x1="522.6" y1="309.9" x2="429.0" y2="241.3" marker-end="url(#ao)"/>
+    </g>
+
+    <!-- left nodes -->
+    <g fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.6">
+      <circle cx="250" cy="330" r="30"/>
+    </g>
+    <g fill="#1E1E2E" stroke="#F59E0B" stroke-width="3.2">
+      <circle cx="400" cy="220" r="34"/>
+      <circle cx="550" cy="330" r="30"/>
+      <circle cx="550" cy="440" r="30"/>
+      <circle cx="550" cy="550" r="30"/>
+    </g>
+
+    <!-- left node labels -->
+    <g fill="#E5E7EB" font-size="30" font-weight="600" text-anchor="middle">
+      <text x="400" y="230" font-size="32">1</text>
+      <text x="250" y="340">2</text>
+      <text x="550" y="340">3</text>
+      <text x="550" y="450">4</text>
+      <text x="550" y="560">5</text>
+    </g>
+    <text x="454" y="210" fill="#9CA3AF" font-size="21">根</text>
+
+    <!-- left notes -->
+    <text x="400" y="615" fill="#F59E0B" font-size="29" font-weight="600" text-anchor="middle">find(5)：沿父指针走 3 步到根 1</text>
+    <text x="400" y="651" fill="#E5E7EB" font-size="26" text-anchor="middle">路径：5 → 4 → 3 → 1</text>
+
+    <!-- left parent array -->
+    <text x="168" y="690" fill="#9CA3AF" font-size="23">parent 数组</text>
+    <g fill="#1A1A20" stroke="#34343C" stroke-width="1.6">
+      <rect x="168" y="706" width="80" height="60" rx="10"/>
+      <rect x="264" y="706" width="80" height="60" rx="10"/>
+      <rect x="360" y="706" width="80" height="60" rx="10"/>
+    </g>
+    <rect x="456" y="706" width="80" height="60" rx="10" fill="#F59E0B" fill-opacity="0.07" stroke="#F59E0B" stroke-width="1.8"/>
+    <rect x="552" y="706" width="80" height="60" rx="10" fill="#F59E0B" fill-opacity="0.07" stroke="#F59E0B" stroke-width="1.8"/>
+    <g fill="#E5E7EB" font-size="30" font-weight="600" text-anchor="middle">
+      <text x="208" y="745">1</text>
+      <text x="304" y="745">1</text>
+      <text x="400" y="745">1</text>
+      <text x="496" y="745">3</text>
+      <text x="592" y="745">4</text>
+    </g>
+    <g fill="#9CA3AF" font-size="24" text-anchor="middle">
+      <text x="208" y="794">1</text>
+      <text x="304" y="794">2</text>
+      <text x="400" y="794">3</text>
+      <text x="496" y="794">4</text>
+      <text x="592" y="794">5</text>
+    </g>
+
+    <!-- ================= RIGHT: after compression ================= -->
+
+    <!-- unchanged edges 2 -> 1, 3 -> 1 -->
+    <g stroke="#6B7280" stroke-width="2.6" stroke-linecap="round">
+      <line x1="1034.6" y1="313.3" x2="1168.6" y2="237.7" marker-end="url(#ag)"/>
+      <line x1="1152.3" y1="300.7" x2="1181.7" y2="251.0" marker-end="url(#ag)"/>
+    </g>
+
+    <!-- new pointers 4 -> 1, 5 -> 1 (green dashed) -->
+    <g stroke="#34D399" stroke-width="3" stroke-linecap="round" stroke-dasharray="9 7">
+      <line x1="1247.7" y1="300.7" x2="1218.3" y2="251.0" marker-end="url(#an)"/>
+      <line x1="1365.4" y1="313.3" x2="1231.4" y2="237.7" marker-end="url(#an)"/>
+    </g>
+
+    <!-- right nodes -->
+    <g fill="#1E1E2E" stroke="#A78BFA" stroke-width="2.6">
+      <circle cx="1200" cy="220" r="34"/>
+      <circle cx="1005" cy="330" r="30"/>
+      <circle cx="1135" cy="330" r="30"/>
+      <circle cx="1265" cy="330" r="30"/>
+      <circle cx="1395" cy="330" r="30"/>
+    </g>
+
+    <!-- right node labels -->
+    <g fill="#E5E7EB" font-size="30" font-weight="600" text-anchor="middle">
+      <text x="1200" y="230" font-size="32">1</text>
+      <text x="1005" y="340">2</text>
+      <text x="1135" y="340">3</text>
+      <text x="1265" y="340">4</text>
+      <text x="1395" y="340">5</text>
+    </g>
+    <text x="1254" y="210" fill="#9CA3AF" font-size="21">根</text>
+
+    <!-- right notes -->
+    <text x="1200" y="470" fill="#E5E7EB" font-size="27" text-anchor="middle">路径压缩：把 5→4→3 这条路径上的</text>
+    <text x="1200" y="506" fill="#E5E7EB" font-size="27" text-anchor="middle">每个节点直接挂到根 1</text>
+    <rect x="1002" y="556" width="396" height="50" rx="25" fill="#34D399" fill-opacity="0.08" stroke="#34D399" stroke-width="1.6"/>
+    <text x="1200" y="588" fill="#34D399" font-size="27" font-weight="600" text-anchor="middle">下一次 find(5) 只需 1 步</text>
+
+    <!-- right parent array -->
+    <text x="968" y="690" fill="#9CA3AF" font-size="23">parent 数组</text>
+    <g fill="#1A1A20" stroke="#34343C" stroke-width="1.6">
+      <rect x="968" y="706" width="80" height="60" rx="10"/>
+      <rect x="1064" y="706" width="80" height="60" rx="10"/>
+      <rect x="1160" y="706" width="80" height="60" rx="10"/>
+    </g>
+    <rect x="1256" y="706" width="80" height="60" rx="10" fill="#34D399" fill-opacity="0.08" stroke="#34D399" stroke-width="1.8"/>
+    <rect x="1352" y="706" width="80" height="60" rx="10" fill="#34D399" fill-opacity="0.08" stroke="#34D399" stroke-width="1.8"/>
+    <g fill="#E5E7EB" font-size="30" font-weight="600" text-anchor="middle">
+      <text x="1008" y="745">1</text>
+      <text x="1104" y="745">1</text>
+      <text x="1200" y="745">1</text>
+    </g>
+    <g fill="#34D399" font-size="30" font-weight="600" text-anchor="middle">
+      <text x="1296" y="745">1</text>
+      <text x="1392" y="745">1</text>
+    </g>
+    <g fill="#9CA3AF" font-size="24" text-anchor="middle">
+      <text x="1008" y="794">1</text>
+      <text x="1104" y="794">2</text>
+      <text x="1200" y="794">3</text>
+      <text x="1296" y="794">4</text>
+      <text x="1392" y="794">5</text>
+    </g>
+
+    <!-- legend -->
+    <line x1="576" y1="819" x2="620" y2="819" stroke="#F59E0B" stroke-width="4" marker-end="url(#ao)"/>
+    <text x="630" y="827" fill="#9CA3AF" font-size="21">find 走过的路径</text>
+    <line x1="838" y1="819" x2="882" y2="819" stroke="#34D399" stroke-width="3" stroke-dasharray="9 7" marker-end="url(#an)"/>
+    <text x="892" y="827" fill="#9CA3AF" font-size="21">压缩后的新指针</text>
+
+    <!-- bottom caption -->
+    <text x="800" y="864" fill="#9CA3AF" font-size="24" text-anchor="middle">配合按大小/按秩合并，均摊每次操作 O(α(n))，实际可当作 O(1)</text>
+
+  </g>
+</svg>
